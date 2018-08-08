@@ -1,0 +1,11 @@
+static_analysis: 
+    image:
+        sarkintore/pmdexecutor:latest
+    before_script:
+        - wget https://sopra.cs.tu-dortmund.de/wiki/_export/code/infos/tutorials/cleancode/pmd?codeblock=0 --output-document=$HOME/pmd_ruleset_sopra.xml
+    script:
+        - $HOME/pmd-bin-6.3.0/bin/run.sh pmd -d ./ -f text -R $HOME/pmd_ruleset_sopra.xml -version 1.8 -language java > pmd_result.txt || true
+    artifacts:
+        name: "reports_${CI_PROJECT_NAME}"
+        paths:
+            - pmd_result.txt
