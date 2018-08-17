@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ListView?>
@@ -37,6 +38,9 @@
                <content>
                   <ListView />
                </content>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
             </TitledPane>
             <TitledPane animated="false" collapsible="false" text="Ausgewähltes Team">
                <content>

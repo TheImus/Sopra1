@@ -11,7 +11,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <GridPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
@@ -43,10 +42,10 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Eventname" translateX="-5.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                  <Label text="Datum" translateX="-5.0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                  <Label text="Ort" translateX="-5.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                  <Label text="Anmeldeschluss" translateX="-5.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                  <Label text="Eventname" textFill="GREY" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                  <Label text="Datum" textFill="GREY" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                  <Label text="Ort" textFill="GREY" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                  <Label text="Anmeldeschluss" textFill="GREY" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
                   <Label text="Startzeiten" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                      <font>
                         <Font size="18.0" />
@@ -55,9 +54,9 @@
                         <Insets bottom="5.0" top="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Vorspeise" translateX="-5.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
-                  <Label text="Hauptspeise" translateX="-5.0" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-                  <Label text="Dessert" translateX="-5.0" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+                  <Label text="Vorspeise" textFill="GREY" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+                  <Label text="Hauptspeise" textFill="GREY" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                  <Label text="Dessert" textFill="GREY" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
                   <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
