@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -72,7 +73,7 @@
                </children>
             </HBox>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox prefWidth="200.0" promptText="Gang" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <ButtonBar maxHeight="55.0" minHeight="55.0" prefHeight="55.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
