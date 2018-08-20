@@ -16,14 +16,14 @@
   <rowConstraints>
       <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="1.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="298.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="325.0" minHeight="10.0" prefHeight="228.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="256.0" minHeight="0.0" prefHeight="9.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="256.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="325.0" minHeight="10.0" prefHeight="252.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="256.0" minHeight="0.0" prefHeight="25.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="256.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="256.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="256.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Teilnehmerliste" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label graphicTextGap="6.0" text="Teilnehmerliste" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <ListView prefHeight="213.0" prefWidth="573.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Button mnemonicParsing="false" text="Teilnehmerdaten exportieren" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Button mnemonicParsing="false" text="Änderungen exportieren" GridPane.columnIndex="1" GridPane.rowIndex="5" />
