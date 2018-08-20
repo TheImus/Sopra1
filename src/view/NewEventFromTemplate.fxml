@@ -51,7 +51,7 @@
                   <Label text="Anmeldeschluss" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                   <Label prefHeight="21.0" prefWidth="117.0" text="Startzeiten" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="16.0" />
                      </font>
                      <GridPane.margin>
                         <Insets bottom="5.0" top="15.0" />
@@ -61,10 +61,12 @@
                   <Label text="Hauptspeise" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
                   <Label text="Dessert" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
                   <TextField GridPane.columnIndex="1" />
+                  <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <children>
-                        <TextField />
+                        <TextField promptText="16:00" />
                         <Label minHeight="-Infinity" minWidth="-Infinity" text="Uhr">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -74,7 +76,7 @@
                   </HBox>
                   <HBox layoutX="210.0" layoutY="160.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
-                        <TextField />
+                        <TextField promptText="18:00" />
                         <Label minHeight="-Infinity" minWidth="-Infinity" text="Uhr">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -84,7 +86,7 @@
                   </HBox>
                   <HBox layoutX="210.0" layoutY="190.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <children>
-                        <TextField />
+                        <TextField promptText="20:00" />
                         <Label minHeight="-Infinity" minWidth="-Infinity" text="Uhr">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -92,8 +94,6 @@
                         </Label>
                      </children>
                   </HBox>
-                  <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </top>
@@ -102,7 +102,7 @@
                <top>
                   <Label text="Eventbeschreibung" BorderPane.alignment="TOP_LEFT">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="16.0" />
                      </font>
                      <BorderPane.margin>
                         <Insets bottom="5.0" top="15.0" />
@@ -118,7 +118,7 @@
       <ButtonBar prefHeight="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <buttons>
             <Button cancelButton="true" mnemonicParsing="false" text="Verwerfen" />
-          <Button defaultButton="true" mnemonicParsing="false" text="Weiter" />
+          <Button defaultButton="true" mnemonicParsing="false" text="Erstellen" />
         </buttons>
       </ButtonBar>
    </children>
