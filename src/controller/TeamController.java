@@ -20,7 +20,7 @@ public class TeamController {
 
 	}
 
-	public List getTeamMembers(Team team) {
+	public List<Participant> getTeamMembers(Team team) {
 		return null;
 	}
 
@@ -28,7 +28,7 @@ public class TeamController {
 		return null;
 	}
 
-	public List getTeams() {
+	public List<Team> getTeams() {
 		return null;
 	}
 
@@ -36,7 +36,7 @@ public class TeamController {
 
 	}
 
-	public void setTeams(List teamList) {
+	public void setTeams(List<Team> teamList) {
 
 	}
 

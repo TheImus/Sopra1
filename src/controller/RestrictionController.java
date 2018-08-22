@@ -11,15 +11,15 @@ public class RestrictionController {
 
 	}
 
-	public List getEventRestrictions() {
+	public List<Restriction> getEventRestrictions() {
 		return null;
 	}
 
-	public void setParticipantRestrictions(List participantRestrictions) {
+	public void setParticipantRestrictions(List<Restriction> participantRestrictions) {
 
 	}
 
-	public List getParticipantRestrictions() {
+	public List<Restriction> getParticipantRestrictions() {
 		return null;
 	}
 

@@ -2,20 +2,23 @@ package controller;
 
 import java.util.List;
 import java.util.Map;
+import model.Group;
+import model.Team;
+import model.Person;
 
 public class ScheduleController {
 
 	private WalkingDinnerController walkingDinnerController;
 
-	public List generateGroups() {
+	public List<Group> generateGroups() {
 		return null;
 	}
 
-	public List generateTeams() {
+	public List<Team> generateTeams() {
 		return null;
 	}
 
-	public Map generateKnowingRelations() {
+	public Map<Person, List<Person>> generateKnowingRelations() {
 		return null;
 	}
 

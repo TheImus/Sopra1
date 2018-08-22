@@ -1,15 +1,15 @@
 package model;
 
-import java.util.Collection;
+import java.util.List;
 
 public class Schedule {
 
-	private Collection<Group> main;
+	private List<Group> main;
 
 	private Group group;
 
-	private Collection<Group> dessert;
+	private List<Group> dessert;
 
-	private Collection<Group> starter;
+	private List<Group> starter;
 
 }

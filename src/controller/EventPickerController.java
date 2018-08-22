@@ -7,11 +7,11 @@ public class EventPickerController {
 
 	private WalkingDinnerController walkingDinnerController;
 
-	public List getAllEvents() {
+	public List<Event> getAllEvents() {
 		return null;
 	}
 
-	public List searchEventName(String name) {
+	public List<Event> searchEventName(String name) {
 		return null;
 	}
 

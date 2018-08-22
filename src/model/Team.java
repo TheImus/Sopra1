@@ -1,15 +1,14 @@
 package model;
 
-import java.util.Collection;
 import java.util.List;
 
 public class Team {
 
 	private Participant host;
 
-	private Collection<Participant> members;
+	private List<Participant> members;
 
-	public List getParticipants() {
+	public List<Participant> getParticipants() {
 		return null;
 	}
 

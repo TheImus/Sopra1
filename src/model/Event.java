@@ -1,7 +1,6 @@
 package model;
 
 import java.util.Date;
-import java.util.Collection;
 import java.util.List;
 
 public class Event {
@@ -18,17 +17,17 @@ public class Event {
 
 	private Date registrationDeadline;
 
-	private Collection<Participant> participants;
+	private List<Participant> participants;
 
-	private Collection<Restriction> restriction;
+	private List<Restriction> restriction;
 
 	private Schedule schedule;
 
-	private Collection<Participant> invited;
+	private List<Participant> invited;
 
 	private Participant currentParticipant;
 
-	public List getChangedParticipants() {
+	public List<Participant> getChangedParticipants() {
 		return null;
 	}
 
@@ -36,7 +35,7 @@ public class Event {
 
 	}
 
-	public void addNewKnowingPersons(List toList, Participant knownBy) {
+	public void addNewKnowingPersons(List<Participant> toList, Participant knownBy) {
 
 	}
 

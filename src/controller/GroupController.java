@@ -21,7 +21,7 @@ public class GroupController {
 
 	}
 
-	public List getGuestTeams(Group group) {
+	public List<Team> getGuestTeams(Group group) {
 		return null;
 	}
 
@@ -37,7 +37,7 @@ public class GroupController {
 
 	}
 
-	public List getGroups() {
+	public List<Group> getGroups() {
 		return null;
 	}
 
@@ -45,7 +45,7 @@ public class GroupController {
 
 	}
 
-	public void setGroups(List groupList) {
+	public void setGroups(List<Group> groupList) {
 
 	}
 

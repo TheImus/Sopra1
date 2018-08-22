@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import model.Participant;
 
 public class ExportController {
 
@@ -9,7 +10,7 @@ public class ExportController {
 	/**
 	 *  
 	 */
-	public void exportParticipantData(List participant, String fileName) {
+	public void exportParticipantData(List<Participant> participant, String fileName) {
 
 	}
 

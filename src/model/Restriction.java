@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Collection;
+import java.util.List;
 
 public class Restriction {
 
@@ -8,7 +8,7 @@ public class Restriction {
 
 	private boolean permanent;
 
-	private Collection<Participant> participant;
+	private List<Participant> participant;
 
 	public void removeParticipant(Participant participant) {
 

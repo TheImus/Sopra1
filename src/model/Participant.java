@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Collection;
 import java.util.List;
 
 public class Participant {
@@ -9,7 +8,7 @@ public class Participant {
 
 	private boolean changedSinceExport;
 
-	private Collection<Restriction> restriction;
+	private List<Restriction> restriction;
 
 	private Person person;
 
@@ -17,7 +16,7 @@ public class Participant {
 
 	private Course courseWish;
 
-	public static void setChanged(List participants, boolean value) {
+	public static void setChanged(List<Participant> participants, boolean value) {
 
 	}
 

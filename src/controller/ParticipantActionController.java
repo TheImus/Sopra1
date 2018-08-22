@@ -2,12 +2,13 @@ package controller;
 
 import java.util.List;
 import model.Participant;
+import model.Person;
 
 public class ParticipantActionController {
 
 	private WalkingDinnerController walkingDinnerController;
 
-	public List getPossibleActions() {
+	public List<ParticipantAction> getPossibleActions() {
 		return null;
 	}
 
@@ -23,7 +24,7 @@ public class ParticipantActionController {
 		return null;
 	}
 
-	public List searchPerson(String name) {
+	public List<Person> searchPerson(String name) {
 		return null;
 	}
 
