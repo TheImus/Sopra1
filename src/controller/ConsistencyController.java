@@ -10,6 +10,14 @@ public class ConsistencyController {
 
 	private WalkingDinnerController walkingDinnerController;
 
+	public WalkingDinnerController getWalkingDinnerController() {
+		return walkingDinnerController;
+	}
+
+	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 	public List<String> getWarnings(Team team) {
 		return null;
 	}

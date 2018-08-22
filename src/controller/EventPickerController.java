@@ -23,4 +23,12 @@ public class EventPickerController {
 		return null;
 	}
 
+	public WalkingDinnerController getWalkingDinnerController() {
+		return walkingDinnerController;
+	}
+
+	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 }

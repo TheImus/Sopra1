@@ -18,4 +18,28 @@ public class Restriction {
 
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isPermanent() {
+		return permanent;
+	}
+
+	public void setPermanent(boolean permanent) {
+		this.permanent = permanent;
+	}
+
+	public List<Participant> getParticipant() {
+		return participant;
+	}
+
+	public void setParticipant(List<Participant> participant) {
+		this.participant = participant;
+	}
+
 }

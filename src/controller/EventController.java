@@ -35,4 +35,12 @@ public class EventController {
 
 	}
 
+	public WalkingDinnerController getWalkingDinnerController() {
+		return walkingDinnerController;
+	}
+
+	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 }

@@ -33,4 +33,12 @@ public class InvitationController {
 
 	}
 
+	public WalkingDinnerController getWalkingDinnerController() {
+		return walkingDinnerController;
+	}
+
+	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 }

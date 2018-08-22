@@ -16,4 +16,20 @@ public class Group {
 		return null;
 	}
 
+	public Team getHostTeam() {
+		return hostTeam;
+	}
+
+	public void setHostTeam(Team hostTeam) {
+		this.hostTeam = hostTeam;
+	}
+
+	public List<Team> getGuest() {
+		return guest;
+	}
+
+	public void setGuest(List<Team> guest) {
+		this.guest = guest;
+	}
+
 }

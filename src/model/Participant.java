@@ -31,4 +31,52 @@ public class Participant {
 
 	}
 
+	public String getSpecialNeeds() {
+		return specialNeeds;
+	}
+
+	public void setSpecialNeeds(String specialNeeds) {
+		this.specialNeeds = specialNeeds;
+	}
+
+	public boolean isChangedSinceExport() {
+		return changedSinceExport;
+	}
+
+	public void setChangedSinceExport(boolean changedSinceExport) {
+		this.changedSinceExport = changedSinceExport;
+	}
+
+	public List<Restriction> getRestriction() {
+		return restriction;
+	}
+
+	public void setRestriction(List<Restriction> restriction) {
+		this.restriction = restriction;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Course getCourseWish() {
+		return courseWish;
+	}
+
+	public void setCourseWish(Course courseWish) {
+		this.courseWish = courseWish;
+	}
+
 }

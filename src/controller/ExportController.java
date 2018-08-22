@@ -18,4 +18,12 @@ public class ExportController {
 
 	}
 
+	public WalkingDinnerController getWalkingDinnerController() {
+		return walkingDinnerController;
+	}
+
+	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 }
