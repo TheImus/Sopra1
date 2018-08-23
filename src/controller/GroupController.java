@@ -8,7 +8,7 @@ import model.Course;
 /**
  * Controller for functions to manage groups
  * 
- * @author sopr028 // Thilo
+ * @author sopr028 /// Thilo
  *
  */
 public class GroupController {
