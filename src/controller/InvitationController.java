@@ -9,10 +9,21 @@ public class InvitationController {
 
 	private WalkingDinnerController walkingDinnerController;
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Map<Event, List<Participant>> getUninvitedParticipants() {
 		return null;
 	}
 
+	/**
+	 * Generate a comma seperated List of the newest E-Mail Addresses of the 
+	 * participants in the mailList
+	 * 
+	 * @param mailList 
+	 * @return
+	 */
 	public String getEmailList(List<Participant> mailList) {
 		return null;
 	}

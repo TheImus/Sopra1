@@ -1,6 +1,7 @@
 package controller;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import model.Course;
 
 public class EventController {
@@ -11,7 +12,7 @@ public class EventController {
 
 	}
 
-	public void setEventDate(Date date) {
+	public void setEventDate(LocalDate date) {
 
 	}
 
@@ -19,7 +20,7 @@ public class EventController {
 
 	}
 
-	public void setCourseTime(Course course, String time) {
+	public void setCourseTime(Course course, LocalTime time) {
 
 	}
 
@@ -27,7 +28,7 @@ public class EventController {
 
 	}
 
-	public void setDeadline(Date deadline) {
+	public void setDeadline(LocalDate deadline) {
 
 	}
 

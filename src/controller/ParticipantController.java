@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.Date;
+import java.time.LocalDate;
 import model.Address;
 import model.Course;
 
@@ -18,7 +18,7 @@ public class ParticipantController {
 	/**
 	 *  
 	 */
-	public void setBirthDate(Date date) {
+	public void setBirthDate(LocalDate date) {
 
 	}
 
