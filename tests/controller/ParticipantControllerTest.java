@@ -8,7 +8,7 @@ public class ParticipantControllerTest {
 
 	@Test
 	public void testSetName() {
-		fail("Not yet implemented");
+		fail("Not yet implemented.");
 	}
 
 	@Test

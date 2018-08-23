@@ -8,7 +8,7 @@ public class WalkingDinnerControllerTest {
 
 	@Test
 	public void testSaveModel() {
-		fail("Not yet implemented");
+		fail("Not yet implemented.");
 	}
 
 	@Test
