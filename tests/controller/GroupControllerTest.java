@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class GroupControllerTest {
-
+//
 	@Test
 	public void testCreateNewGroup() {
 		fail("Not yet implemented");
