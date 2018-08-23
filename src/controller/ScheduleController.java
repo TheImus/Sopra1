@@ -21,7 +21,7 @@ public class ScheduleController {
 	}
 
 	/**
-	 * DO WE REALLY NEED THIS??!!
+	 * DO WE REALLY NEED THIS??!!!
 	 * @return Returns a valid Group-Schedule for all Teams
 	 */
 	public List<Group> generateGroups() {
@@ -29,7 +29,7 @@ public class ScheduleController {
 	}
 
 	/**
-	 * DO WE REALLY NEED THIS?!!!
+	 * DO WE REALLY NEED THIS??!!!
 	 * @return Returns a valid Team-Schedule for all Participants
 	 */
 	public List<Team> generateTeams() {
