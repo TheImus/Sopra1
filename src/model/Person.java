@@ -1,35 +1,25 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Person {
 
-	private String familyName;
-
-	private String firstName;
+	private String name;
 
 	private String mailAddress;
 
-	private Date birthDate;
+	private LocalDate birthDate;
 
 	private String phoneNumber;
 
 	private Participant participant;
 
-	public String getFamilyName() {
-		return familyName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFamilyName(String familyName) {
-		this.familyName = familyName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getMailAddress() {
@@ -40,11 +30,11 @@ public class Person {
 		this.mailAddress = mailAddress;
 	}
 
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 
