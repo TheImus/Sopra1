@@ -11,11 +11,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.Event;
+
 /**
  * @author Fabian Kemper
  *
  */
 public class InvitationControllerTest {
+	private WalkingDinnerController walkingDinnerController;
+	private InvitationController invitationController;
+	private EventPickerController evtPicker;
 
 	/**
 	 * @throws java.lang.Exception
@@ -33,9 +38,20 @@ public class InvitationControllerTest {
 
 	/**
 	 * @throws java.lang.Exception
+	 * 
+	 * Create a test environment before every test
 	 */
 	@Before
 	public void setUp() throws Exception {
+		walkingDinnerController = new WalkingDinnerController();
+		invitationController = walkingDinnerController.getInvitationController();
+		evtPicker = walkingDinnerController.getEventPickerController();
+		
+		Event evt1 = walkingDinnerController.getEventPickerController().newEvent();
+		Event evt2 = walkingDinnerController.getEventPickerController().newEvent();
+		
+		//evtPicker.modifyEvent(evt1);
+		
 	}
 
 	/**
