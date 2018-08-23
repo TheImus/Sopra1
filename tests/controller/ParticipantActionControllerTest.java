@@ -47,6 +47,10 @@ public class ParticipantActionControllerTest {
 
 	/**
 	 * Test method for {@link controller.ParticipantActionController#getPossibleActions()}.
+	 * test whether the actionlist of the participant contains the right actions.
+	 * if the participant is in the participantlist of the event, the actionlist of the participant contains unregister and update_participant;
+	 * if the participant is in the invitedlist but not in participantlist, the actionlist of the participant contains register and  update_participant;
+	 * if the participant is not in the invitedlist,the actionlist of the participant contains register.
 	 */
 	@Test
 	public void testGetPossibleActions() {
@@ -55,6 +59,7 @@ public class ParticipantActionControllerTest {
 
 	/**
 	 * Test method for {@link controller.ParticipantActionController#register(model.Participant)}.
+	 * test whether the register in the participantlist and invitedlist in the event.
 	 */
 	@Test
 	public void testRegister() {
@@ -63,6 +68,7 @@ public class ParticipantActionControllerTest {
 
 	/**
 	 * Test method for {@link controller.ParticipantActionController#unregister(model.Participant)}.
+	 * test whether the participant is removed from the participantlist in the event
 	 */
 	@Test
 	public void testUnregister() {
@@ -71,6 +77,7 @@ public class ParticipantActionControllerTest {
 
 	/**
 	 * Test method for {@link controller.ParticipantActionController#registerNewPerson()}.
+	 * test whether the created participant is null or not and whether the participant has the right information, which is from the new person
 	 */
 	@Test
 	public void testRegisterNewPerson() {
@@ -79,6 +86,7 @@ public class ParticipantActionControllerTest {
 
 	/**
 	 * Test method for {@link controller.ParticipantActionController#searchPerson(java.lang.String)}.
+	 * test whether poeple in the returned list has the same name as the input
 	 */
 	@Test
 	public void testSearchPerson() {
@@ -87,6 +95,7 @@ public class ParticipantActionControllerTest {
 
 	/**
 	 * Test method for {@link controller.ParticipantActionController#getWalkingDinnerController()}.
+	 * test whether the WalkingDinnerController is null or not
 	 */
 	@Test
 	public void testGetWalkingDinnerController() {
@@ -95,6 +104,7 @@ public class ParticipantActionControllerTest {
 
 	/**
 	 * Test method for {@link controller.ParticipantActionController#setWalkingDinnerController(controller.WalkingDinnerController)}.
+	 * test whether the attribute WalkingDinnerController is null or not
 	 */
 	@Test
 	public void testSetWalkingDinnerController() {
