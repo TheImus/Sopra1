@@ -4,9 +4,7 @@ import java.time.LocalDate;
 
 public class Person {
 
-	private String familyName;
-
-	private String firstName;
+	private String name;
 
 	private String mailAddress;
 
@@ -16,20 +14,12 @@ public class Person {
 
 	private Participant participant;
 
-	public String getFamilyName() {
-		return familyName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFamilyName(String familyName) {
-		this.familyName = familyName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getMailAddress() {
