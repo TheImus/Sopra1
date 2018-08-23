@@ -5,7 +5,7 @@ import model.Address;
 import model.Course;
 
 /**
- * controller which manages the informations about the Participants
+ * controller which manages the informations about the Participants.
  * is used to create or adjust a participant 
  * 
  * @author sopr027 alias Nico 
