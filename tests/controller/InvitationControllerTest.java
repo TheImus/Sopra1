@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * @author sopr025
+ * @author Fabian Kemper
  *
  */
 public class InvitationControllerTest {
@@ -55,6 +55,8 @@ public class InvitationControllerTest {
 
 	/**
 	 * Test method for {@link controller.InvitationController#getWalkingDinnerController()}.
+	 * 
+	 * Return the central walking dinner controller
 	 */
 	@Test
 	public void testGetWalkingDinnerController() {
@@ -63,6 +65,10 @@ public class InvitationControllerTest {
 
 	/**
 	 * Test method for {@link controller.InvitationController#getUninvitedParticipants()}.
+	 * 
+	 * No person of invited list should be in the result of get uninvited participants
+	 * 
+	 * check what the method does if currentEvent returns null
 	 */
 	@Test
 	public void testGetUninvitedParticipants() {
@@ -71,6 +77,9 @@ public class InvitationControllerTest {
 
 	/**
 	 * Test method for {@link controller.InvitationController#getEmailList(java.util.List)}.
+	 * 
+	 * Check if the Mailing list is correclty formatted (no semicolon at the end)
+	 * Check if empy list
 	 */
 	@Test
 	public void testGetEmailList() {
@@ -79,6 +88,8 @@ public class InvitationControllerTest {
 
 	/**
 	 * Test method for {@link controller.InvitationController#invite(java.util.List)}.
+	 * 
+	 * Invite a participant
 	 */
 	@Test
 	public void testInvite() {
@@ -87,6 +98,9 @@ public class InvitationControllerTest {
 
 	/**
 	 * Test method for {@link controller.InvitationController#uninvite(java.util.List)}.
+	 * 
+	 * Uninvite should do nothing, if a participant  
+	 * Uninvite should do nothing, if a participant is registered for this event
 	 */
 	@Test
 	public void testUninvite() {
@@ -95,6 +109,10 @@ public class InvitationControllerTest {
 
 	/**
 	 * Test method for {@link controller.InvitationController#getAdressList(java.util.List)}.
+	 * 
+	 * Test am empty list 
+	 * Test currentEvent is null
+	 * Test correct formatted (all 4 lines should be an empty line)
 	 */
 	@Test
 	public void testGetAdressList() {
@@ -103,6 +121,9 @@ public class InvitationControllerTest {
 
 	/**
 	 * Test method for {@link controller.InvitationController#exportPDF(java.lang.String)}.
+	 * 
+	 * Test for an empty invited list
+	 * Test for currentEvent is null
 	 */
 	@Test
 	public void testExportPDF() {

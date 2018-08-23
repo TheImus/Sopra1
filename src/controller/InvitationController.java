@@ -31,15 +31,15 @@ public class InvitationController {
 	 * Generate a Map of all Participants that participated in a past event
 	 * which are not invited in the current event. 
 	 * 
-	 * It maps the past events to a list of past participants which have a person
-	 * who is not invited in the current event
+	 * It maps the past events to a list of past participants of this event
+	 * if the person is not invited in the current event.
 	 * 
 	 * @precondition 
 	 *  	All participants of the participants list must be in the invited list!
 	 * 
 	 * @return Map of past events and their participants, 
-	 * 	but without participants hat have persons in the current event.
-	 *  The list of events is ordered by date
+	 * 	but without the persons of the current event.
+	 *  The list of events is ordered by date.
 	 */
 	public Map<Event, List<Participant>> getUninvitedParticipants() {
 		Map<Event, List<Participant>> result = new HashMap<Event, List<Participant>>(); 
@@ -78,7 +78,7 @@ public class InvitationController {
 	 * participants in the mailList
 	 * 
 	 * For example:
-	 * 		Hans Müller<hans.mueller@gmx.de>;Jochen Schweitzer <info@jochenschweitzer.com> ...
+	 * 		"Hans Müller"<hans.mueller@gmx.de>;"Jochen Schweitzer"<info@jochenschweitzer.com>" ...
 	 * 
 	 * @param mailList 
 	 * 		Participants for the E-Mail List
