@@ -4,7 +4,11 @@ import java.util.List;
 import model.Restriction;
 
 public class RestrictionController {
-
+	
+	/**
+	 * @author sopr023
+	 */
+	
 	private WalkingDinnerController walkingDinnerController;
 
 	/**

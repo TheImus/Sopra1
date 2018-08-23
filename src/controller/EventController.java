@@ -6,6 +6,10 @@ import model.Course;
 import model.Event;
 
 public class EventController {
+	
+	/**
+	 * @author sopr023
+	 */
 
 	private WalkingDinnerController walkingDinnerController;
 	

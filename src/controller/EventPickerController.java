@@ -4,6 +4,10 @@ import java.util.List;
 import model.Event;
 
 public class EventPickerController {
+	
+	/**
+	 * @author sopr023
+	 */
 
 	private WalkingDinnerController walkingDinnerController;
 	
