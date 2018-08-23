@@ -16,8 +16,12 @@ import org.junit.Test;
  *
  */
 public class GroupControllerTest {
+	
+	private GroupController groupController;
+	private WalkingDinnerController wdc;
 
 	/**
+	 * create the test case
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
@@ -36,6 +40,9 @@ public class GroupControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		groupController = new GroupController();
+		wdc = new WalkingDinnerController();
+		
 	}
 
 	/**
@@ -143,7 +150,10 @@ public class GroupControllerTest {
 	 */
 	@Test
 	public void testSetWalkingDinnerController() {
-		fail("Not yet implemented");
+		groupController.setWalkingDinnerController(wdc);
+		assertNotNull(groupController.getWalkingDinnerController());
+		assertEquals(groupController.getWalkingDinnerController(), wdc);
+		//fail("Not yet implemented");
 	}
 
 }
