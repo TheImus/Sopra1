@@ -4,6 +4,10 @@ import java.util.List;
 import model.Event;
 
 public class EventPickerController {
+	
+	/**
+	 * @author sopr023
+	 */
 
 	private WalkingDinnerController walkingDinnerController;
 	
@@ -58,7 +62,7 @@ public class EventPickerController {
 	}
 	
 	/**
-	 * Set the walkingDinnerController.
+	 * Set the walkingDinnerController
 	 * @param walkingDinnerController The walkingDinnerController to access everything.
 	 */
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
