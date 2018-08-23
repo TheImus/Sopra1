@@ -50,16 +50,16 @@ public class EventPickerController {
 	}
 
 	/**
-	 * Return the walkingDinnerController for access.
-	 * @return walkingDinnerController The walkingDinnerController for accessing everything.
+	 * Return the walkingDinnerController.
+	 * @return walkingDinnerController The walkingDinnerController to access everything.
 	 */
 	public WalkingDinnerController getWalkingDinnerController() {
 		return walkingDinnerController;
 	}
-
+	
 	/**
-	 * Set the walkingDinnerController for access.
-	 * @param walkingDinnerController The walkingDinnerController for accessing everything.
+	 * Set the walkingDinnerController.
+	 * @param walkingDinnerController The walkingDinnerController to access everything.
 	 */
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
