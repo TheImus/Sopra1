@@ -30,7 +30,7 @@ public class ParticipantActionController {
 	}
 
 	/**
-	 * This method delete the participant from the participantlist of the event, then add the participant into the invitedlist of the event.
+	 * This method delete the participant from the participantlist of the event.
 	 * 
 	 * @param participant the participant, who wants to quite the current event.
 	 */
