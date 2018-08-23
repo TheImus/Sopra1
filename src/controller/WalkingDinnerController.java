@@ -4,7 +4,7 @@ import controller.ErrorAUI;
 import model.WalkingDinner;
 
 /**
- * Central Controller of WalkingDinner.
+ * Central Controller of WalkingDinner
  * All Controllers are accessible via this controller
  * @author sopr027 alias Nico
  *
