@@ -13,7 +13,8 @@ public class TeamController {
 
 	private WalkingDinnerController walkingDinnerController;
 
-	/**this method creates a new Team with only one member. The member is given by the parameter participant. This methods 
+	/**this method creates a new Team with only one member. The member is given by the parameter participant. <br> 
+	 * Afterward this team is added to Team-list in Event.
 	 * @param participant The only member of the new team, which is created in the method
 	 * @return the new created Team 
 	 */
@@ -38,14 +39,8 @@ public class TeamController {
 	}
 
 
-	/** creates a list with all teams in the current event
-	 * @return list with all teams in the current event
-	 */
-	public List<Team> getTeams() {
-		return null;
-	}
 
-	/** removes all participants from the given teams and deletes the team afterwards
+	/** removes all participants from the given teams and deletes the team afterwards from list in Event
 	 * @param team The team that is deleted
 	 */
 	public void removeTeam(Team team) {
