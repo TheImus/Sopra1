@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Person {
 
@@ -10,7 +10,7 @@ public class Person {
 
 	private String mailAddress;
 
-	private Date birthDate;
+	private LocalDate birthDate;
 
 	private String phoneNumber;
 
@@ -40,11 +40,11 @@ public class Person {
 		this.mailAddress = mailAddress;
 	}
 
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 

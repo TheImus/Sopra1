@@ -1,21 +1,22 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class Event {
 
-	private Date date;
+	private LocalDate date;
 
 	private String name;
 
 	private String city;
 
-	private Date[] courseTimes;
+	private LocalTime[] courseTimes;
 
 	private String eventDescription;
 
-	private Date registrationDeadline;
+	private LocalDate registrationDeadline;
 
 	private List<Participant> participants;
 
@@ -51,11 +52,11 @@ public class Event {
 		return null;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -75,11 +76,11 @@ public class Event {
 		this.city = city;
 	}
 
-	public Date[] getCourseTimes() {
+	public LocalTime[] getCourseTimes() {
 		return courseTimes;
 	}
 
-	public void setCourseTimes(Date[] courseTimes) {
+	public void setCourseTimes(LocalTime[] courseTimes) {
 		this.courseTimes = courseTimes;
 	}
 
@@ -91,11 +92,11 @@ public class Event {
 		this.eventDescription = eventDescription;
 	}
 
-	public Date getRegistrationDeadline() {
+	public LocalDate getRegistrationDeadline() {
 		return registrationDeadline;
 	}
 
-	public void setRegistrationDeadline(Date registrationDeadline) {
+	public void setRegistrationDeadline(LocalDate registrationDeadline) {
 		this.registrationDeadline = registrationDeadline;
 	}
 

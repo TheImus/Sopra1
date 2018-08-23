@@ -1,6 +1,7 @@
 package controller;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import model.Course;
 import model.Event;
 
@@ -29,7 +30,7 @@ public class EventController {
 	 * Set the day of the Event.
 	 * @param date Day of the Event
 	 */
-	public void setEventDate(Date date) {
+	public void setEventDate(LocalDate date) {
 
 	}
 
@@ -46,7 +47,7 @@ public class EventController {
 	 * @param course The course that will be specified
 	 * @param time The time of the specified course
 	 */
-	public void setCourseTime(Course course, String time) {
+	public void setCourseTime(Course course, LocalTime time) {
 
 	}
 
@@ -62,7 +63,7 @@ public class EventController {
 	 * Set the registration deadline of the Event.
 	 * @param deadline The registation deadline of the Event.
 	 */
-	public void setDeadline(Date deadline) {
+	public void setDeadline(LocalDate deadline) {
 
 	}
 
