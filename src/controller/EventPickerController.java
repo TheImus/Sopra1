@@ -62,7 +62,7 @@ public class EventPickerController {
 	}
 	
 	/**
-	 * Set the walkingDinnerController.
+	 * Set the walkingDinnerController
 	 * @param walkingDinnerController The walkingDinnerController to access everything.
 	 */
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
