@@ -204,7 +204,7 @@ private Team team1;
 	 * 				2)Team has one member
 	 * 				3)Team has two members
 	 * 				4)Team has three members
-	 * check if team is not in the Teamlist in Event anymore
+	 * check if team is not in the Teamlist in Event and in no List in Schedule anymore
 	 */
 	@Test
 	public void testRemoveTeam() {
