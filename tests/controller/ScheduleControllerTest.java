@@ -54,6 +54,9 @@ public class ScheduleControllerTest {
 	}
 
 	/**
+	 * !!!!!!!
+	 * This method has to be DICUSSED
+	 * !!!!!!!
 	 * Test method for {@link controller.ScheduleController#generateGroups()}.
 	 */
 	@Test
@@ -62,6 +65,10 @@ public class ScheduleControllerTest {
 	}
 
 	/**
+	 * Tests, whether the size of the returned list is a multiple of 3,
+	 * if each Team in the list has size 2 or 3, if there are not more than 5 Teams 
+	 * with 3 members and if the amount of vegetarians > 0, then there should be no
+	 * team with a vegan and a meat eating person.
 	 * Test method for {@link controller.ScheduleController#generateTeams()}.
 	 */
 	@Test
@@ -70,6 +77,7 @@ public class ScheduleControllerTest {
 	}
 
 	/**
+	 * Tests, if the returned Map has a knowing relation for each known person
 	 * Test method for {@link controller.ScheduleController#generateKnowingRelations()}.
 	 */
 	@Test

@@ -46,6 +46,7 @@ public class RestrictionControllerTest {
 	}
 
 	/**
+	 * Tests, whether after calling this method the amount of Restrictions has increased
 	 * Test method for {@link controller.RestrictionController#addNewRestriction(java.lang.String)}.
 	 */
 	@Test
@@ -54,6 +55,8 @@ public class RestrictionControllerTest {
 	}
 
 	/**
+	 * The size of the returned List should be >= 3 and has to contain
+	 * vegan, vegetarian and noAlcohol
 	 * Test method for {@link controller.RestrictionController#getEventRestrictions()}.
 	 */
 	@Test
@@ -62,6 +65,10 @@ public class RestrictionControllerTest {
 	}
 
 	/**
+	 * After calling the method Participant.getRestrictions should be equal
+	 * to the List given to the method as a parameter.
+	 * Also the Participant has to be in each Restriction.getParticipants List
+	 * for each restriction in the parameter List, but in no Restriction else.
 	 * Test method for {@link controller.RestrictionController#setParticipantRestrictions(java.util.List)}.
 	 */
 	@Test

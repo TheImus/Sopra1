@@ -21,7 +21,9 @@ public class ScheduleController {
 	}
 
 	/**
-	 * DO WE REALLY NEED THIS??!!!
+	 * !!!!!!!!!!!!!!!!!
+	 * We have to DISCUSS this Method
+	 * !!!!!!!!!!!!!
 	 * @return Returns a valid Group-Schedule for all Teams
 	 */
 	public List<Group> generateGroups() {
@@ -29,7 +31,8 @@ public class ScheduleController {
 	}
 
 	/**
-	 * DO WE REALLY NEED THIS??!!!
+	 * This method implements the first step of the scheduling-algorithm and
+	 * generates a List of valid Teams of 2-3 members from all participants
 	 * @return Returns a valid Team-Schedule for all Participants
 	 */
 	public List<Team> generateTeams() {
