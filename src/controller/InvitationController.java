@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import model.Address;
 import model.Event;
 import model.Participant;
 import model.Person;
@@ -42,18 +44,16 @@ public class InvitationController {
 	 *  The list of events is ordered by date.
 	 */
 	public Map<Event, List<Participant>> getUninvitedParticipants() {
-		Map<Event, List<Participant>> result = new HashMap<Event, List<Participant>>(); 
-			
-		// list of persons of the current event
-		List<Person> invitedPersons = new ArrayList<Person>();
+		Map<Event, List<Participant>> result = new HashMap<Event, List<Participant>>();
 		
 		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
 		Event currentEvent = wd.getCurrentEvent();
 		
-		// generate a list of persons who are participating
-		for ( Participant participant : currentEvent.getInvited() ) {
-			invitedPersons.add(participant.getPerson());
-		}
+		if (currentEvent == null) {
+			throw new NullPointerException();
+		} 
+		
+		List<Person> invitedPersons = getInvitedPersons();
 		
 		for ( Event event : wd.getEvents() ) {
 			// skip current event to save a little time
@@ -97,17 +97,42 @@ public class InvitationController {
 	 * 
 	 * @param participantList List of participants from past events
 	 */
+	/// TODO: Klären, wann genau jetzt ein neuer Participant erstellt werden soll!
 	public void invite(List<Participant> participantList) {
-
+		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
+		Event currentEvent = wd.getCurrentEvent();
+		List<Person> invitedPersons = getInvitedPersons();
+		
+		// if person is not in invitedPersons list, add the person now
+		for (Participant participant : participantList) {
+			if (!invitedPersons.contains(participant.getPerson())) {
+				currentEvent.getInvited().add(participant);
+			}
+		}
 	}
 
 	/**
 	 * Removes participants from the invited list
+	 * Can not remove a participant, who is registered for this event!
 	 * 
 	 * @param participantList list of participants to remove 
 	 */
 	public void uninvite(List<Participant> participantList) {
-
+		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
+		Event currentEvent = wd.getCurrentEvent();
+		// Error: no event selected
+		if (currentEvent == null) {
+			throw new NullPointerException();
+		}
+		
+		List<Participant> participants = currentEvent.getParticipants(); 
+		
+		for (Participant participant : participantList) {
+			// delete if participant is not registered in this event
+			if (!participants.contains(participant)) {
+				currentEvent.getInvited().remove(participant);
+			}
+		}
 	}
 
 	/**
@@ -126,7 +151,22 @@ public class InvitationController {
 	 * @return Line separated list of addresses
 	 */
 	public String getAdressList(List<Participant> participantList) {
-		return null;
+		String result = "";
+		
+		for (int i = 0; i < participantList.size(); i++) {
+			Participant participant = participantList.get(i);
+			Address address = participant.getAddress();
+			
+			result += participant.getPerson().getName() + System.lineSeparator();
+			result += address.getStreet() + System.lineSeparator();
+			result += address.getZipCode()  + " " + address.getCity();
+			
+			// add two new lines, if not the last entry of this list
+			if (i != (participantList.size() - 1)) {
+				result += System.lineSeparator() + System.lineSeparator();
+			}
+		}
+		return result;
 	}
 
 	
@@ -138,7 +178,28 @@ public class InvitationController {
 	 * @param fileName filename of the pdf document
 	 */
 	public void exportPDF(String fileName) {
-
+		
 	}
 
+	
+	/**
+	 * Helper method, generate a list of invited persons from current event
+	 * 
+	 * @return a list of all persons which belongs to the invited participants of the current event
+	 */
+	private List<Person> getInvitedPersons() {
+		// list of persons of the current event
+		List<Person> invitedPersons = new ArrayList<Person>();
+		
+		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
+		Event currentEvent = wd.getCurrentEvent();
+		
+		// generate a list of persons who are participating
+		for ( Participant participant : currentEvent.getInvited() ) {
+			invitedPersons.add(participant.getPerson());
+		}
+		
+		return invitedPersons;
+	}
+	
 }
