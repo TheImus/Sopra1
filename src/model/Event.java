@@ -27,6 +27,8 @@ public class Event {
 	private List<Participant> invited;
 
 	private Participant currentParticipant;
+	
+	private List<Team> allTeams;
 
 	public List<Participant> getChangedParticipants() {
 		return null;
@@ -139,6 +141,9 @@ public class Event {
 	public void setCurrentParticipant(Participant currentParticipant) {
 		this.currentParticipant = currentParticipant;
 	}
+	
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -169,6 +174,14 @@ public class Event {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public List<Team> getAllTeams() {
+		return allTeams;
+	}
+
+	public void setAllTeams(List<Team> teams) {
+		this.allTeams = teams;
 	}
 
 }
