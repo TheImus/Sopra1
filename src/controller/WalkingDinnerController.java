@@ -95,7 +95,7 @@ public class WalkingDinnerController {
 	 * @param error the errors which were found
 	 */
 	public void showError(String error) {
-		
+
 	}
 
 	/**

@@ -23,7 +23,7 @@ public class ParticipantController {
 	 * @param name the participant's name 
 	 */
 	public void setName(String name) {
-
+		walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant().getPerson().setName(name);
 	}
 
 
@@ -32,7 +32,7 @@ public class ParticipantController {
 	 * @param date the participant's birth date
 	 */
 	public void setBirthDate(LocalDate date) {
-
+		walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant().getPerson().setBirthDate(date);
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class ParticipantController {
 	 * @param address the participant's address
 	 */
 	public void setAddress(Address address) {
-
+		walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant().setAddress(address);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class ParticipantController {
 	 * @param mail the participant's mail address
 	 */
 	public void setMail(String mail) {
-
+		walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant().getPerson().setMailAddress(mail);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class ParticipantController {
 	 * @param number the participant's phone number
 	 */
 	public void setPhoneNumber(String number) {
-
+		walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant().getPerson().setPhoneNumber(number);
 	}
 
 	/**
@@ -64,15 +64,15 @@ public class ParticipantController {
 	 * @param wishes the participant's wishes for the dinner
 	 */
 	public void setWishes(String wishes) {
-
-	}
+		walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant().setSpecialNeeds(wishes);
+	}	
 
 	/**
 	 * this method sets the course preferences of a participant
 	 * @param course the course the participant would like to cook
 	 */
 	public void setCoursePreference(Course course) {
-
+		walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant().setCourseWish(course);
 	}
 	
 	/**
