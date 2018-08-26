@@ -1,6 +1,16 @@
 package controller;
 
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -180,7 +190,23 @@ public class InvitationController {
 	 * @param fileName filename of the pdf document
 	 */
 	public void exportPDF(String fileName) {
+		String tmpDir = System.getProperty("user.home") + "/tmp/walkingdinner/";
+		exportTexFile(tmpDir);
+		exportEventDataToTex(tmpDir);
+		exportInvitedParticipants(tmpDir);
 		
+		try {
+			runPDFLatex(tmpDir);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		// copy PDF to destination
 	}
 
 	
@@ -203,5 +229,120 @@ public class InvitationController {
 		
 		return invitedPersons;
 	}
+	
+	
+	
+	/**
+	 * Exports the main tex file for invitations
+	 */
+	private void exportTexFile(String tmpDirectory) {
+		// generate a latex document
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(tmpDirectory + "invitation.tex", "UTF-8");
+			writer.println("\\documentclass[fontsize=12pt,version=last,parskip=full]{scrlttr2}");
+			writer.println("\\usepackage[utf8]{inputenc}\\usepackage[ngerman]{babel}\\usepackage{datatool}");
+			writer.println("\\LoadLetterOption{DIN}\\LoadLetterOption{invitationoptions}");
+			writer.println("\\DTLsetseparator{;}\\DTLloaddb[noheader,keys={name,street,zip,place}]{adressen}{addresses.csv}");
+			writer.println("\\begin{document}\\DTLforeach{adressen}{\\Name=name,\\Str=street,\\ZIP=zip,\\Place=place}%");
+			writer.println("{\\begin{letter}{\\Name \\\\ \\Str \\\\ \\ZIP~\\Place}");
+			writer.println("\\opening{Sehr geehrte Damen und Herren,}\\input{invitation.txt}\\end{letter}}\\end{document}");
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Exports the general data for the event to invitationoptions.lco
+	 */
+	private void exportEventDataToTex(String tmpDirectory) {
+		PrintWriter writer;
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		try {
+			writer = new PrintWriter(tmpDirectory + "invitationoptions.lco", "UTF-8");
+			writer.println("\\setkomavar{subject}{"+ currentEvent.getName() + "}");
+			writer.println("\\setkomavar{place}{" + currentEvent.getCity() + "Stadt}");
+			writer.println("\\setkomavar{date}{\\today}");
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Exports the invited persons to addresses.csv in the tmpDirectory
+	 * Format for csv:
+	 * Name;Street;
+	 * 
+	 * @param tmpDirectory
+	 */
+	private void exportInvitedParticipants(String tmpDirectory) {
+		PrintWriter writer;
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		String csvSeparator = ";";
+		
+		try {
+			writer = new PrintWriter(tmpDirectory + "addresses.csv", "UTF-8");
+			for (Participant participant : currentEvent.getInvited()) {
+				// prepare line for csv file
+				String line = "";
+				line += participant.getPerson().getName() + csvSeparator;
+				line += participant.getAddress().getStreet() + csvSeparator;
+				line += participant.getAddress().getZipCode() + csvSeparator;
+				line += participant.getAddress().getCity();
+				
+				writer.println(line);
+			}
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	private void runPDFLatex(String tmpDirectory) throws IOException, InterruptedException {
+		// === execute pdflatex === 
+		boolean isWindows = System.getProperty("os.name")
+				  .toLowerCase().startsWith("windows");
+		
+		// via ProcessBuilder
+		ProcessBuilder builder = new ProcessBuilder();
+		if (isWindows) {
+			builder.command("cmd.exe", "/c", "dir");
+		} else {
+			builder.command("sh", "-c", "ls");
+		}
+		
+		builder.directory(new File(System.getProperty("user.home")));
+		Process process = builder.start();
+		StreamWorker streamWorker = 
+				new StreamWorker(process.getInputStream(), System.out::println);
+		Executors.newSingleThreadExecutor().submit(streamWorker);
+		int exitCode = process.waitFor();
+		assert exitCode == 0;
+	}
+	
+	
+	// inner class for shell execution
+	private static class StreamWorker implements Runnable {
+		private InputStream inputStream;
+		private Consumer<String> consumer;
+		
+		public StreamWorker(InputStream inputStream, Consumer<String> consumer) {
+			this.inputStream = inputStream;
+			this.consumer = consumer;
+		}
+		
+		@Override
+		public void run() {
+			new BufferedReader (new InputStreamReader(inputStream)).lines()
+				.forEach(consumer);
+		}
+	}
+
 	
 }

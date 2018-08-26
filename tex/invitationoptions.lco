@@ -1,2 +1,3 @@
 \setkomavar{subject}{Titel der Veranstaltung}
 \setkomavar{place}{Stadt}
+\setkomavar{date}{\today}
