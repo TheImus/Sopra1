@@ -21,7 +21,7 @@ import model.Participant;
 import controller.ParticipantController;
 
 /**
- * @author sopr027 alias Nico
+ * @author sopr027 alias Nico.
  *
  */
 public class ParticipantControllerTest {
