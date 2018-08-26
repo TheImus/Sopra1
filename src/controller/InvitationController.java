@@ -106,7 +106,9 @@ public class InvitationController {
 		// if person is not in invitedPersons list, add the person now
 		for (Participant participant : participantList) {
 			if (!invitedPersons.contains(participant.getPerson())) {
-				currentEvent.getInvited().add(participant);
+				// create new participant for this event 
+				//Participant newParticipant = new Participant(participant);
+				currentEvent.getInvited().add(participant); // new participant
 			}
 		}
 	}

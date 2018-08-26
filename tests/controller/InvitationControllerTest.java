@@ -18,8 +18,8 @@ import model.Event;
  *
  */
 public class InvitationControllerTest {
-	private WalkingDinnerController walkingDinnerController;
-	private InvitationController invitationController;
+	private WalkingDinnerController wdCtrl;
+	private InvitationController invCtrl;
 	private EventPickerController evtPicker;
 
 	/**
@@ -43,14 +43,18 @@ public class InvitationControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		walkingDinnerController = new WalkingDinnerController();
-		invitationController = walkingDinnerController.getInvitationController();
-		evtPicker = walkingDinnerController.getEventPickerController();
+		wdCtrl     = new WalkingDinnerController();
+		invCtrl    = wdCtrl.getInvitationController();
+		evtPicker  = wdCtrl.getEventPickerController();
 		
-		Event evt1 = walkingDinnerController.getEventPickerController().newEvent();
-		Event evt2 = walkingDinnerController.getEventPickerController().newEvent();
+		Event evt1 = wdCtrl.getEventPickerController().newEvent();
+		Event evt2 = wdCtrl.getEventPickerController().newEvent();
+		Event evt3 = wdCtrl.getEventPickerController().newEvent();
 		
-		//evtPicker.modifyEvent(evt1);
+		// Select first test event for manipulation
+		evtPicker.modifyEvent(evt1);
+		
+		// create a few participants for events
 		
 	}
 
@@ -143,6 +147,7 @@ public class InvitationControllerTest {
 	 */
 	@Test
 	public void testExportPDF() {
+		invCtrl.exportPDF("~/tmp/test.pdf");
 		fail("Not yet implemented");
 	}
 
