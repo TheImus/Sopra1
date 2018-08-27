@@ -48,7 +48,7 @@ public class GroupControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		dataFactory = new TestDataFactory();
+		
 		wdc = new WalkingDinnerController();
 		WalkingDinner walkingDinner = new WalkingDinner();
 		Event currentEvent = new Event();
@@ -57,6 +57,9 @@ public class GroupControllerTest {
 		walkingDinner.setCurrentEvent(currentEvent);
 		groupController = new GroupController(wdc);
 		wdc.setGroupController(groupController);
+		
+		dataFactory = new TestDataFactory();
+		//testGroupController = dataFactory
 	}
 
 	/**
@@ -89,7 +92,9 @@ public class GroupControllerTest {
 	public void testCreateNewGroup(){
 		//testGroupController
 		
-		//Group testgroup = groupController.createNewGroup();
+		Team team = new Team();
+		testGroupController.createNewGroup(team);
+		
 	}
 
 	/**
