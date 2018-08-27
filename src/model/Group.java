@@ -18,14 +18,18 @@ public class Group {
 		List<Team> allTeams = getTeams();
 		List<Participant> participantList = new ArrayList<Participant>();
 		for(Team t: allTeams){
-			t.getMembers();
+			participantList.addAll(t.getMembers());
 		}
-		return null;
+		return participantList;
 	}
 
 	public List<Team> getTeams() {
-		List<Team> allTeams = guest;
-		allTeams.add(hostTeam);
+		List<Team> allTeams = new ArrayList<Team>(); 
+		if(hostTeam != null)
+			allTeams.add(hostTeam);
+		
+		allTeams = guest;
+		
 		
 		return allTeams;
 	}

@@ -16,7 +16,16 @@ public class Team {
 	}
 
 	public List<Participant> getParticipants() {
-		return null;
+		List<Participant> list = new ArrayList<>();
+		for(Participant p:members)
+		{
+			list.add(p);
+		}
+		if(host!=null)
+		{
+			list.add(host);
+		}		
+		return list;
 	}
 
 	public Participant getHost() {

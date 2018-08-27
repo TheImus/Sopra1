@@ -5,8 +5,10 @@ import model.Schedule;
 import model.Team;
 import model.WalkingDinner;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.Course;
+import model.Event;
 
 /**
  * Controller for functions to manage groups
@@ -20,7 +22,7 @@ public class GroupController {
 	 * reference to central controller for exchange between other controller
 	 */
 	private WalkingDinnerController walkingDinnerController;
-	private Course currentCourse; 
+	//private Course currentCourse; 
 
 	
 	public GroupController(WalkingDinnerController walkingDinnerController) {
@@ -37,6 +39,10 @@ public class GroupController {
 		Group group = new Group();
 		if(team != null)
 			group.setHostTeam(team);
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		List<Group> groupListToAdd = currentEvent.getSchedule().getGroup(getCourse());
+		groupListToAdd.add(group);
+		currentEvent.getSchedule().setGroup(getCourse(), groupListToAdd);
 		return group;
 	}
 
@@ -47,9 +53,10 @@ public class GroupController {
 	 */
 	public void addTeamToGroup(Team team, Group group) {
 		List<Team> newTeamList = group.getTeams();
-		newTeamList.add(team);
-		group.setGuest(newTeamList);
-
+		if(team != null){
+			newTeamList.add(team);
+			group.setGuest(newTeamList);
+		}
 	}
 
 	/**
@@ -87,6 +94,8 @@ public class GroupController {
 	 * @return {@link Course} 
 	 */
 	public Course getCourse() {
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		Course currentCourse = currentEvent.getSchedule().getCurrentCourse();
 		return currentCourse;
 	}
 
@@ -95,7 +104,8 @@ public class GroupController {
 	 * @param course
 	 */
 	public void setCourse(Course course) {
-		this.currentCourse = course;
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		currentEvent.getSchedule().setCurrentCourse(course);
 	}
 
 	/**
@@ -104,20 +114,19 @@ public class GroupController {
 	 */
 	public List<Group> getGroups() {
 		WalkingDinner wd = walkingDinnerController.getWalkingDinner();	
-		return wd.getCurrentEvent().getSchedule().getGroup(currentCourse);
+		return wd.getCurrentEvent().getSchedule().getGroup(getCourse());
 	}
 	//
 	/**
-	 * delete Group from current event {@see WalkingDinnerController}
+	 * delete Group from current event {@see WalkingDinnerController} if this Group was not found nothing happens
 	 * @param group Group to remove
-	 * @throws IllegalArgumentException if group is not in current event
 	 */
-	public void removeGroup(Group group) throws IllegalArgumentException{
-		List<Group> allGroups = getAllGroups();
+	public void removeGroup(Group group){
+		List<Group> allGroups = new ArrayList<Group>();
+		allGroups = getAllGroups();
 		if(allGroups.contains(group))
 			allGroups.remove(group);
-		else
-			throw new IllegalArgumentException("This Group doesn't exist");
+		
 	}
 	
 	
@@ -126,7 +135,12 @@ public class GroupController {
 	 * @return {@link Group}
 	 */
 	public List<Group> getAllGroups(){
-		Schedule schedule = walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule();
+		
+		
+		WalkingDinner event= getWalkingDinnerController().getWalkingDinner();
+		if(event == null)
+			System.out.println("Thilo");
+		Schedule schedule = getWalkingDinnerController().getWalkingDinner().getCurrentEvent().getSchedule();
 		List<Group> allGroups = schedule.getGroup(Course.STARTER);
 		allGroups.addAll(schedule.getGroup(Course.MAIN));
 		allGroups.addAll(schedule.getGroup(Course.DESSERT));

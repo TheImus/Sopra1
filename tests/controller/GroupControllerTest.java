@@ -5,14 +5,20 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.Course;
+import model.Event;
 import model.Group;
+import model.Schedule;
 import model.Team;
+import model.WalkingDinner;
 
 /**
  * @author sopr028
@@ -22,6 +28,9 @@ public class GroupControllerTest {
 	
 	private GroupController groupController;
 	private WalkingDinnerController wdc;
+	
+	private GroupController testGroupController;
+	private WalkingDinnerController wdc2;
 
 	/**
 	 * create the test case
@@ -45,8 +54,18 @@ public class GroupControllerTest {
 	public void setUp() throws Exception {
 		
 		wdc = new WalkingDinnerController();
+		WalkingDinner walkingDinner = new WalkingDinner();
+		Event currentEvent = new Event();
+		Schedule schedule = new Schedule();
+		currentEvent.setSchedule(schedule);
+		walkingDinner.setCurrentEvent(currentEvent);
 		groupController = new GroupController(wdc);
 		wdc.setGroupController(groupController);
+		
+		//dataFactory = new TestDataFactory();
+		wdc2 = TestDataFactory.createTestWalkingDinnerController();
+		testGroupController = wdc2.getGroupController();
+		//testGroupController = dataFactory
 	}
 
 	/**
@@ -61,19 +80,39 @@ public class GroupControllerTest {
 	 * testCase: Team = null should create an empty group , if team not null team should be included in the new group  
 	 */
 	@Test
-	public void testCreateNewGroup() {
-		Group testgroup = groupController.createNewGroup(null);
+//	public void testCreateNewGroup() {
+//		Group testgroup = groupController.createNewGroup(null);
+//		assertNotNull("TestGruppe nicht erstellt",testgroup);
+//		assertTrue("Teamliste ist fehlerhaft",testgroup.getTeams().isEmpty());
+//		assertNull("HostTeam ist fehlerhaft",testgroup.getHostTeam());
+//		
+//		
+//		Team team = new Team();
+//		Group testgroup1 = groupController.createNewGroup(team);
+//		assertNotNull("Testgruppe leer",testgroup1);
+//		assertFalse("Team nicht vorhanden",testgroup1.getTeams().isEmpty());
+//		assertNull("HostTeam ist leer",testgroup1.getHostTeam());
+//		assertEquals("HostTeam nicht korrekt gesetzt",testgroup1.getHostTeam(), team);
+//		
+//	}
+	public void testCreateNewGroup(){
+		//testGroupController
+		
+		
+		
+		Group testgroup  = testGroupController.createNewGroup(null);
 		assertNotNull("TestGruppe nicht erstellt",testgroup);
-		assertTrue("Teamliste ist fehlerhaft",testgroup.getTeams().isEmpty());
+		assertEquals("Teamliste ist fehlerhaft",0, testgroup.getTeams().size());
 		assertNull("HostTeam ist fehlerhaft",testgroup.getHostTeam());
 		
 		
 		Team team = new Team();
-		Group testgroup1 = groupController.createNewGroup(team);
+		Group testgroup1 = testGroupController.createNewGroup(team);
 		assertNotNull("Testgruppe leer",testgroup1);
 		assertFalse("Team nicht vorhanden",testgroup1.getTeams().isEmpty());
-		assertNull("HostTeam ist leer",testgroup1.getHostTeam());
+		assertNotNull("HostTeam ist leer",testgroup1.getHostTeam());
 		assertEquals("HostTeam nicht korrekt gesetzt",testgroup1.getHostTeam(), team);
+		
 		
 	}
 
@@ -87,13 +126,11 @@ public class GroupControllerTest {
 		Team team = new Team();
 		groupController.addTeamToGroup(team, group);
 		assertTrue("Team nicht in Gruppe", group.getTeams().contains(team));
-		assertFalse("Team wurde als Host gesetzt", group.getHostTeam().equals(team));
 		
 		Team team2 = new Team();
 		groupController.addTeamToGroup(team2, group);
 		assertTrue("Team nicht in Gruppe", group.getTeams().contains(team));
 		assertTrue("Team2 nicht in Gruppe", group.getTeams().contains(team2));
-		assertFalse("Team wurde als Host gesetzt", group.getHostTeam().equals(team2));
 	}
 
 	/**
@@ -136,7 +173,7 @@ public class GroupControllerTest {
 	public void testGetHostingTeam() {
 		//test case - Group has no hosting team
 		Group group = new Group();
-		assertNotNull("Group hat ein Hosting Team",groupController.getHostingTeam(group));
+		assertNull("Group hat ein Hosting Team",groupController.getHostingTeam(group));
 		
 		
 		//test case - Group has a hosting team
@@ -178,7 +215,25 @@ public class GroupControllerTest {
 	 */
 	@Test
 	public void testRemoveGroup() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
+		Group group = new Group();
+		Group group2 = new Group();
+		Event event = testGroupController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent();
+		List<Group> groups = event.getSchedule().getGroup(Course.STARTER);
+		groups.add(group);
+		groups.add(group2);
+		event.getSchedule().setGroup(Course.STARTER, groups);
+//		testGroupController.getWalkingDinnerController();
+//		testGroupController.addTeamToGroup(null, group);
+//		testGroupController.addTeamToGroup(null, group2);
+		
+		//assertNull(testGroupController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent());
+		
+		testGroupController.removeGroup(group);
+		assertFalse("gruppe ist im Event",testGroupController.getAllGroups().contains(group));
+		assertTrue("gruppe 2 ist nicht im Event",testGroupController.getAllGroups().contains(group2));
+		
+		
 	}
 
 	/**
@@ -190,7 +245,7 @@ public class GroupControllerTest {
 		WalkingDinnerController testWdc = new WalkingDinnerController();
 		groupController.setWalkingDinnerController(testWdc);
 		WalkingDinnerController currentWdc = groupController.getWalkingDinnerController();
-		assertNotEquals(testWdc, currentWdc);
+		assertNotEquals(wdc, currentWdc);
 	}
 
 	/**
