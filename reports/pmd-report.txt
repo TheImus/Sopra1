@@ -1,0 +1,1325 @@
+src/application/Main.java:10:	Avoid short class names like Main
+src/application/Main.java:10:	headerCommentRequirement Required
+src/application/Main.java:12:	Parameter 'primaryStage' is not assigned and could be declared final
+src/application/Main.java:12:	publicMethodCommentRequirement Required
+src/application/Main.java:14:	Local variable 'root' could be declared final
+src/application/Main.java:14:	Potential violation of Law of Demeter (method chain calls)
+src/application/Main.java:14:	Potential violation of Law of Demeter (method chain calls)
+src/application/Main.java:15:	Local variable 'scene' could be declared final
+src/application/Main.java:16:	Potential violation of Law of Demeter (method chain calls)
+src/application/Main.java:16:	Potential violation of Law of Demeter (method chain calls)
+src/application/Main.java:16:	Potential violation of Law of Demeter (method chain calls)
+src/application/Main.java:16:	Potential violation of Law of Demeter (method chain calls)
+src/application/Main.java:16:	Potential violation of Law of Demeter (method chain calls)
+src/application/Main.java:19:	Avoid catching generic exceptions such as NullPointerException, RuntimeException, Exception in try-catch block
+src/application/Main.java:20:	Avoid printStackTrace(); use a logger call instead.
+src/application/Main.java:24:	Parameter 'args' is not assigned and could be declared final
+src/application/Main.java:24:	publicMethodCommentRequirement Required
+src/controller/ConsistencyController.java:1:	Possible God class (WMC=57, ATFD=33, TCC=0.0)
+src/controller/ConsistencyController.java:17:	The class 'ConsistencyController' has a Cyclomatic Complexity of 5 (Highest = 16).
+src/controller/ConsistencyController.java:17:	The class 'ConsistencyController' has a Modified Cyclomatic Complexity of 5 (Highest = 16).
+src/controller/ConsistencyController.java:17:	The class 'ConsistencyController' has a Standard Cyclomatic Complexity of 5 (Highest = 16).
+src/controller/ConsistencyController.java:17:	headerCommentRequirement Required
+src/controller/ConsistencyController.java:20:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ConsistencyController.java:20:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/controller/ConsistencyController.java:20:	Private field 'walkingDinnerController' could be made final; it is only initialized in the declaration or constructor.
+src/controller/ConsistencyController.java:20:	fieldCommentRequirement Required
+src/controller/ConsistencyController.java:28:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ConsistencyController.java:28:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/ConsistencyController.java:46:	Parameter 'team' is not assigned and could be declared final
+src/controller/ConsistencyController.java:46:	The method 'getWarnings' has a Cyclomatic Complexity of 16.
+src/controller/ConsistencyController.java:46:	The method 'getWarnings' has a Modified Cyclomatic Complexity of 16.
+src/controller/ConsistencyController.java:46:	The method 'getWarnings' has a Standard Cyclomatic Complexity of 16.
+src/controller/ConsistencyController.java:46:	The method getWarnings() has an NPath complexity of 3840
+src/controller/ConsistencyController.java:48:	Avoid variables with short names like wd
+src/controller/ConsistencyController.java:48:	Local variable 'wd' could be declared final
+src/controller/ConsistencyController.java:49:	Local variable 'event' could be declared final
+src/controller/ConsistencyController.java:49:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:50:	Local variable 'allTeams' could be declared final
+src/controller/ConsistencyController.java:50:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:51:	Local variable 'warnings' could be declared final
+src/controller/ConsistencyController.java:53:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:57:	Avoid using Literals in Conditional Statements
+src/controller/ConsistencyController.java:57:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:61:	Avoid using Literals in Conditional Statements
+src/controller/ConsistencyController.java:61:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:65:	Avoid using equals() to compare against null
+src/controller/ConsistencyController.java:65:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:69:	Comment is too large: Line too long
+src/controller/ConsistencyController.java:69:	Local variable 'members' could be declared final
+src/controller/ConsistencyController.java:70:	Local variable 'membersAsPerson' could be declared final
+src/controller/ConsistencyController.java:72:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:73:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:73:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:73:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:78:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:84:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:85:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:85:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:85:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:85:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:85:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:85:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:86:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:86:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:93:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:93:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:94:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:95:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:98:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:99:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:99:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:100:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:101:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:101:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:101:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:101:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:102:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:102:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:102:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:102:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:115:	Found 'UR'-anomaly for variable 'team' (lines '115'-'123').
+src/controller/ConsistencyController.java:117:	Avoid variables with short names like wd
+src/controller/ConsistencyController.java:117:	Local variable 'wd' could be declared final
+src/controller/ConsistencyController.java:118:	Local variable 'event' could be declared final
+src/controller/ConsistencyController.java:118:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:119:	Avoid excessively long variable names like allTeamsWithWarnings
+src/controller/ConsistencyController.java:119:	Local variable 'allTeamsWithWarnings' could be declared final
+src/controller/ConsistencyController.java:121:	Local variable 'team' could be declared final
+src/controller/ConsistencyController.java:121:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:123:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:136:	Parameter 'group' is not assigned and could be declared final
+src/controller/ConsistencyController.java:136:	The method getWarnings() has an NPath complexity of 256
+src/controller/ConsistencyController.java:138:	Local variable 'warnings' could be declared final
+src/controller/ConsistencyController.java:139:	Avoid excessively long variable names like allParticipantsInGroup
+src/controller/ConsistencyController.java:139:	Local variable 'allParticipantsInGroup' could be declared final
+src/controller/ConsistencyController.java:140:	Local variable 'allPersonsInGroup' could be declared final
+src/controller/ConsistencyController.java:142:	Avoid using Literals in Conditional Statements
+src/controller/ConsistencyController.java:142:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:146:	Avoid using Literals in Conditional Statements
+src/controller/ConsistencyController.java:146:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:150:	Avoid using equals() to compare against null
+src/controller/ConsistencyController.java:150:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:154:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:158:	Avoid using Literals in Conditional Statements
+src/controller/ConsistencyController.java:158:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:163:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:164:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:164:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:164:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:164:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:168:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:168:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:174:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:175:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:179:	Comment is too large: Line too long
+src/controller/ConsistencyController.java:180:	Comment is too large: Line too long
+src/controller/ConsistencyController.java:181:	Comment is too large: Line too long
+src/controller/ConsistencyController.java:190:	Found 'UR'-anomaly for variable 'group' (lines '190'-'198').
+src/controller/ConsistencyController.java:192:	Local variable 'groupController' could be declared final
+src/controller/ConsistencyController.java:194:	Avoid excessively long variable names like allGroupsWithWarnings
+src/controller/ConsistencyController.java:194:	Local variable 'allGroupsWithWarnings' could be declared final
+src/controller/ConsistencyController.java:196:	Local variable 'group' could be declared final
+src/controller/ConsistencyController.java:196:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:198:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:208:	Comment is too large: Line too long
+src/controller/ConsistencyController.java:213:	Found 'UR'-anomaly for variable 'compareRestriction' (lines '213'-'225').
+src/controller/ConsistencyController.java:213:	Found 'UR'-anomaly for variable 'others' (lines '213'-'221').
+src/controller/ConsistencyController.java:213:	Found 'UR'-anomaly for variable 'part' (lines '213'-'218').
+src/controller/ConsistencyController.java:213:	Parameter 'participants' is not assigned and could be declared final
+src/controller/ConsistencyController.java:215:	Avoid excessively long variable names like notMatchingRestrictions
+src/controller/ConsistencyController.java:215:	Local variable 'notMatchingRestrictions' could be declared final
+src/controller/ConsistencyController.java:217:	Local variable 'part' could be declared final
+src/controller/ConsistencyController.java:218:	Found 'DU'-anomaly for variable 'rest' (lines '218'-'234').
+src/controller/ConsistencyController.java:218:	Local variable 'rest' could be declared final
+src/controller/ConsistencyController.java:220:	Local variable 'others' could be declared final
+src/controller/ConsistencyController.java:221:	Found 'DD'-anomaly for variable 'restOfOthers' (lines '221'-'221').
+src/controller/ConsistencyController.java:221:	Found 'DU'-anomaly for variable 'restOfOthers' (lines '221'-'234').
+src/controller/ConsistencyController.java:221:	Local variable 'restOfOthers' could be declared final
+src/controller/ConsistencyController.java:224:	Avoid excessively long variable names like compareRestriction
+src/controller/ConsistencyController.java:224:	Local variable 'compareRestriction' could be declared final
+src/controller/ConsistencyController.java:225:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:241:	Parameter 'person' is not assigned and could be declared final
+src/controller/ConsistencyController.java:243:	Local variable 'schedule' could be declared final
+src/controller/ConsistencyController.java:244:	Found 'DU'-anomaly for variable 'knownPersons' (lines '244'-'257').
+src/controller/ConsistencyController.java:244:	Local variable 'knownPersons' could be declared final
+src/controller/ConsistencyController.java:244:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:245:	Local variable 'warnings' could be declared final
+src/controller/ConsistencyController.java:248:	Found 'DD'-anomaly for variable 'knowingList' (lines '248'-'248').
+src/controller/ConsistencyController.java:248:	Found 'DU'-anomaly for variable 'knowingList' (lines '248'-'257').
+src/controller/ConsistencyController.java:248:	Local variable 'knowingList' could be declared final
+src/controller/ConsistencyController.java:248:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:250:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:259:	Parameter 'group' is not assigned and could be declared final
+src/controller/ConsistencyController.java:261:	Local variable 'warnings' could be declared final
+src/controller/ConsistencyController.java:262:	Avoid variables with short names like gc
+src/controller/ConsistencyController.java:262:	Local variable 'gc' could be declared final
+src/controller/ConsistencyController.java:263:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:269:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:269:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:270:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:270:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:270:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:271:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:272:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:272:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:272:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:272:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:272:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:272:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:273:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:273:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:273:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:273:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:273:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:273:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:273:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:282:	Parameter 'group' is not assigned and could be declared final
+src/controller/ConsistencyController.java:284:	Local variable 'warnings' could be declared final
+src/controller/ConsistencyController.java:285:	Avoid variables with short names like gc
+src/controller/ConsistencyController.java:285:	Local variable 'gc' could be declared final
+src/controller/ConsistencyController.java:286:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:293:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:293:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:294:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:294:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:294:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:295:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:296:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:296:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:296:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:296:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:296:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:296:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:297:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:297:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:297:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:297:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:297:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:297:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:297:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:306:	Parameter 'group' is not assigned and could be declared final
+src/controller/ConsistencyController.java:308:	Local variable 'warnings' could be declared final
+src/controller/ConsistencyController.java:309:	Avoid variables with short names like gc
+src/controller/ConsistencyController.java:309:	Local variable 'gc' could be declared final
+src/controller/ConsistencyController.java:310:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:316:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:316:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:317:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:317:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:317:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:318:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:319:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:319:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:319:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:319:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:319:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:319:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ConsistencyController.java:320:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:320:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:320:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:320:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:320:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:320:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ConsistencyController.java:320:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ErrorAUI.java:3:	headerCommentRequirement Required
+src/controller/ErrorAUI.java:5:	Avoid modifiers which are implied by the context
+src/controller/ErrorAUI.java:5:	publicMethodCommentRequirement Required
+src/controller/EventController.java:8:	headerCommentRequirement Required
+src/controller/EventController.java:14:	Avoid excessively long variable names like walkingDinnerController
+src/controller/EventController.java:20:	Avoid excessively long variable names like walkingDinnerController
+src/controller/EventController.java:20:	Avoid unused constructor parameters such as 'walkingDinnerController'.
+src/controller/EventController.java:20:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/EventController.java:29:	Document empty method body
+src/controller/EventController.java:29:	Parameter 'name' is not assigned and could be declared final
+src/controller/EventController.java:37:	Document empty method body
+src/controller/EventController.java:37:	Parameter 'date' is not assigned and could be declared final
+src/controller/EventController.java:45:	Document empty method body
+src/controller/EventController.java:45:	Parameter 'city' is not assigned and could be declared final
+src/controller/EventController.java:54:	Document empty method body
+src/controller/EventController.java:54:	Parameter 'course' is not assigned and could be declared final
+src/controller/EventController.java:54:	Parameter 'time' is not assigned and could be declared final
+src/controller/EventController.java:62:	Document empty method body
+src/controller/EventController.java:62:	Parameter 'description' is not assigned and could be declared final
+src/controller/EventController.java:70:	Document empty method body
+src/controller/EventController.java:70:	Parameter 'deadline' is not assigned and could be declared final
+src/controller/EventController.java:78:	Document empty method body
+src/controller/EventController.java:78:	Parameter 'event' is not assigned and could be declared final
+src/controller/EventController.java:84:	Comment is too large: Line too long
+src/controller/EventController.java:92:	Comment is too large: Line too long
+src/controller/EventController.java:94:	Avoid excessively long variable names like walkingDinnerController
+src/controller/EventController.java:94:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/EventPickerController.java:6:	headerCommentRequirement Required
+src/controller/EventPickerController.java:12:	Avoid excessively long variable names like walkingDinnerController
+src/controller/EventPickerController.java:18:	Avoid excessively long variable names like walkingDinnerController
+src/controller/EventPickerController.java:18:	Avoid unused constructor parameters such as 'walkingDinnerController'.
+src/controller/EventPickerController.java:18:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/EventPickerController.java:34:	Comment is too large: Line too long
+src/controller/EventPickerController.java:36:	Parameter 'name' is not assigned and could be declared final
+src/controller/EventPickerController.java:41:	Comment is too large: Line too long
+src/controller/EventPickerController.java:49:	Comment is too large: Line too long
+src/controller/EventPickerController.java:52:	Document empty method body
+src/controller/EventPickerController.java:52:	Parameter 'event' is not assigned and could be declared final
+src/controller/EventPickerController.java:58:	Comment is too large: Line too long
+src/controller/EventPickerController.java:66:	Comment is too large: Line too long
+src/controller/EventPickerController.java:68:	Avoid excessively long variable names like walkingDinnerController
+src/controller/EventPickerController.java:68:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/ExportController.java:6:	Each class should declare at least one constructor
+src/controller/ExportController.java:6:	headerCommentRequirement Required
+src/controller/ExportController.java:8:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ExportController.java:8:	fieldCommentRequirement Required
+src/controller/ExportController.java:13:	Comment is too large: Line too long
+src/controller/ExportController.java:17:	Document empty method body
+src/controller/ExportController.java:17:	Parameter 'fileName' is not assigned and could be declared final
+src/controller/ExportController.java:17:	Parameter 'participant' is not assigned and could be declared final
+src/controller/ExportController.java:25:	Document empty method body
+src/controller/ExportController.java:25:	Parameter 'fileName' is not assigned and could be declared final
+src/controller/ExportController.java:30:	Comment is too large: Line too long
+src/controller/ExportController.java:41:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ExportController.java:41:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/GroupController.java:16:	Each class should declare at least one constructor
+src/controller/GroupController.java:21:	Avoid excessively long variable names like walkingDinnerController
+src/controller/GroupController.java:22:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/controller/GroupController.java:22:	fieldCommentRequirement Required
+src/controller/GroupController.java:29:	Parameter 'team' is not assigned and could be declared final
+src/controller/GroupController.java:30:	Local variable 'group' could be declared final
+src/controller/GroupController.java:40:	Parameter 'group' is not assigned and could be declared final
+src/controller/GroupController.java:40:	Parameter 'team' is not assigned and could be declared final
+src/controller/GroupController.java:41:	Local variable 'newTeamList' could be declared final
+src/controller/GroupController.java:42:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:52:	Parameter 'group' is not assigned and could be declared final
+src/controller/GroupController.java:52:	Parameter 'team' is not assigned and could be declared final
+src/controller/GroupController.java:53:	Local variable 'workingList' could be declared final
+src/controller/GroupController.java:54:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:55:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:65:	Parameter 'group' is not assigned and could be declared final
+src/controller/GroupController.java:73:	Parameter 'group' is not assigned and could be declared final
+src/controller/GroupController.java:89:	Parameter 'course' is not assigned and could be declared final
+src/controller/GroupController.java:98:	Avoid variables with short names like wd
+src/controller/GroupController.java:98:	Local variable 'wd' could be declared final
+src/controller/GroupController.java:99:	Potential violation of Law of Demeter (method chain calls)
+src/controller/GroupController.java:99:	Potential violation of Law of Demeter (method chain calls)
+src/controller/GroupController.java:99:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:107:	Parameter 'group' is not assigned and could be declared final
+src/controller/GroupController.java:108:	Local variable 'allGroups' could be declared final
+src/controller/GroupController.java:109:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:110:	Avoid using if...else statements without curly braces
+src/controller/GroupController.java:110:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:112:	Avoid using if...else statements without curly braces
+src/controller/GroupController.java:115:	publicMethodCommentRequirement Required
+src/controller/GroupController.java:116:	Local variable 'schedule' could be declared final
+src/controller/GroupController.java:116:	Potential violation of Law of Demeter (method chain calls)
+src/controller/GroupController.java:116:	Potential violation of Law of Demeter (method chain calls)
+src/controller/GroupController.java:117:	Local variable 'allGroups' could be declared final
+src/controller/GroupController.java:117:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:118:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:118:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:119:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:119:	Potential violation of Law of Demeter (object not created locally)
+src/controller/GroupController.java:135:	Avoid excessively long variable names like walkingDinnerController
+src/controller/GroupController.java:135:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/InvitationController.java:24:	headerCommentRequirement Required
+src/controller/InvitationController.java:26:	Avoid excessively long variable names like walkingDinnerController
+src/controller/InvitationController.java:26:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/controller/InvitationController.java:26:	Private field 'walkingDinnerController' could be made final; it is only initialized in the declaration or constructor.
+src/controller/InvitationController.java:26:	fieldCommentRequirement Required
+src/controller/InvitationController.java:34:	Avoid excessively long variable names like walkingDinnerController
+src/controller/InvitationController.java:34:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/InvitationController.java:38:	publicMethodCommentRequirement Required
+src/controller/InvitationController.java:42:	Comment is too large: Too many lines
+src/controller/InvitationController.java:56:	Found 'UR'-anomaly for variable 'event' (lines '56'-'70').
+src/controller/InvitationController.java:56:	Found 'UR'-anomaly for variable 'participant' (lines '56'-'75').
+src/controller/InvitationController.java:57:	Avoid declaring a variable if it is unreferenced before a possible exit point.
+src/controller/InvitationController.java:57:	Found 'DU'-anomaly for variable 'result' (lines '57'-'84').
+src/controller/InvitationController.java:57:	If you run in Java5 or newer and have concurrent access, you should use the ConcurrentHashMap implementation
+src/controller/InvitationController.java:57:	Local variable 'result' could be declared final
+src/controller/InvitationController.java:59:	Avoid variables with short names like wd
+src/controller/InvitationController.java:59:	Local variable 'wd' could be declared final
+src/controller/InvitationController.java:60:	Local variable 'currentEvent' could be declared final
+src/controller/InvitationController.java:60:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:63:	Avoid throwing null pointer exceptions.
+src/controller/InvitationController.java:66:	Found 'DU'-anomaly for variable 'invitedPersons' (lines '66'-'84').
+src/controller/InvitationController.java:66:	Local variable 'invitedPersons' could be declared final
+src/controller/InvitationController.java:68:	Local variable 'event' could be declared final
+src/controller/InvitationController.java:68:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:71:	Avoid instantiating new objects inside loops
+src/controller/InvitationController.java:71:	Local variable 'eventParticipants' could be declared final
+src/controller/InvitationController.java:72:	Local variable 'participant' could be declared final
+src/controller/InvitationController.java:75:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:86:	Comment is too large: Too many lines
+src/controller/InvitationController.java:91:	Comment is too large: Line too long
+src/controller/InvitationController.java:97:	Found 'UR'-anomaly for variable 'participant' (lines '97'-'102').
+src/controller/InvitationController.java:97:	Parameter 'mailList' is not assigned and could be declared final
+src/controller/InvitationController.java:99:	Avoid using final local variables, turn them into fields
+src/controller/InvitationController.java:99:	Found 'DU'-anomaly for variable 'separator' (lines '99'-'112').
+src/controller/InvitationController.java:101:	Local variable 'participant' could be declared final
+src/controller/InvitationController.java:102:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:102:	Prefer StringBuffer over += for concatenating strings
+src/controller/InvitationController.java:103:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:103:	Prefer StringBuffer over += for concatenating strings
+src/controller/InvitationController.java:107:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:108:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:108:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:114:	Comment is too large: Too many lines
+src/controller/InvitationController.java:121:	Comment is too large: Line too long
+src/controller/InvitationController.java:126:	Found 'UR'-anomaly for variable 'participant' (lines '126'-'139').
+src/controller/InvitationController.java:126:	Parameter 'participantList' is not assigned and could be declared final
+src/controller/InvitationController.java:127:	Avoid declaring a variable if it is unreferenced before a possible exit point.
+src/controller/InvitationController.java:127:	Found 'DU'-anomaly for variable 'partCtrl' (lines '127'-'145').
+src/controller/InvitationController.java:127:	Local variable 'partCtrl' could be declared final
+src/controller/InvitationController.java:128:	Avoid variables with short names like wd
+src/controller/InvitationController.java:128:	Local variable 'wd' could be declared final
+src/controller/InvitationController.java:129:	Local variable 'currentEvent' could be declared final
+src/controller/InvitationController.java:129:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:132:	Avoid throwing null pointer exceptions.
+src/controller/InvitationController.java:135:	Found 'DU'-anomaly for variable 'invitedPersons' (lines '135'-'145').
+src/controller/InvitationController.java:135:	Local variable 'invitedPersons' could be declared final
+src/controller/InvitationController.java:138:	Local variable 'participant' could be declared final
+src/controller/InvitationController.java:139:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:141:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:142:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:142:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:153:	Found 'UR'-anomaly for variable 'participant' (lines '153'-'165').
+src/controller/InvitationController.java:153:	Parameter 'participantList' is not assigned and could be declared final
+src/controller/InvitationController.java:154:	Avoid variables with short names like wd
+src/controller/InvitationController.java:154:	Local variable 'wd' could be declared final
+src/controller/InvitationController.java:155:	Local variable 'currentEvent' could be declared final
+src/controller/InvitationController.java:155:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:158:	Avoid throwing null pointer exceptions.
+src/controller/InvitationController.java:161:	Found 'DU'-anomaly for variable 'participants' (lines '161'-'169').
+src/controller/InvitationController.java:161:	Local variable 'participants' could be declared final
+src/controller/InvitationController.java:161:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:163:	Local variable 'participant' could be declared final
+src/controller/InvitationController.java:165:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:166:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:166:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:171:	Comment is too large: Too many lines
+src/controller/InvitationController.java:183:	Comment is too large: Line too long
+src/controller/InvitationController.java:186:	Parameter 'participantList' is not assigned and could be declared final
+src/controller/InvitationController.java:190:	Local variable 'participant' could be declared final
+src/controller/InvitationController.java:191:	Local variable 'address' could be declared final
+src/controller/InvitationController.java:191:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:193:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:193:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:193:	Prefer StringBuffer over += for concatenating strings
+src/controller/InvitationController.java:194:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:194:	Prefer StringBuffer over += for concatenating strings
+src/controller/InvitationController.java:195:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:195:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:195:	Prefer StringBuffer over += for concatenating strings
+src/controller/InvitationController.java:198:	Useless parentheses.
+src/controller/InvitationController.java:199:	Prefer StringBuffer over += for concatenating strings
+src/controller/InvitationController.java:213:	Parameter 'fileName' is not assigned and could be declared final
+src/controller/InvitationController.java:214:	Local variable 'tmpDir' could be declared final
+src/controller/InvitationController.java:223:	Avoid printStackTrace(); use a logger call instead.
+src/controller/InvitationController.java:226:	Avoid printStackTrace(); use a logger call instead.
+src/controller/InvitationController.java:237:	Comment is too large: Line too long
+src/controller/InvitationController.java:239:	Found 'UR'-anomaly for variable 'participant' (lines '239'-'248').
+src/controller/InvitationController.java:241:	Local variable 'invitedPersons' could be declared final
+src/controller/InvitationController.java:243:	Avoid variables with short names like wd
+src/controller/InvitationController.java:243:	Local variable 'wd' could be declared final
+src/controller/InvitationController.java:244:	Local variable 'currentEvent' could be declared final
+src/controller/InvitationController.java:244:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:247:	Local variable 'participant' could be declared final
+src/controller/InvitationController.java:247:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:259:	Parameter 'tmpDirectory' is not assigned and could be declared final
+src/controller/InvitationController.java:274:	Avoid printStackTrace(); use a logger call instead.
+src/controller/InvitationController.java:281:	Parameter 'tmpDirectory' is not assigned and could be declared final
+src/controller/InvitationController.java:283:	Local variable 'currentEvent' could be declared final
+src/controller/InvitationController.java:283:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:286:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:287:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:292:	Avoid printStackTrace(); use a logger call instead.
+src/controller/InvitationController.java:303:	Found 'UR'-anomaly for variable 'participant' (lines '303'-'313').
+src/controller/InvitationController.java:303:	Parameter 'tmpDirectory' is not assigned and could be declared final
+src/controller/InvitationController.java:305:	Local variable 'currentEvent' could be declared final
+src/controller/InvitationController.java:305:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:306:	Found 'DU'-anomaly for variable 'csvSeparator' (lines '306'-'325').
+src/controller/InvitationController.java:306:	Local variable 'csvSeparator' could be declared final
+src/controller/InvitationController.java:310:	Local variable 'participant' could be declared final
+src/controller/InvitationController.java:310:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:313:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:313:	Prefer StringBuffer over += for concatenating strings
+src/controller/InvitationController.java:314:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:314:	Prefer StringBuffer over += for concatenating strings
+src/controller/InvitationController.java:315:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:315:	Prefer StringBuffer over += for concatenating strings
+src/controller/InvitationController.java:316:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:316:	Prefer StringBuffer over += for concatenating strings
+src/controller/InvitationController.java:323:	Avoid printStackTrace(); use a logger call instead.
+src/controller/InvitationController.java:328:	Avoid unused method parameters such as 'tmpDirectory'.
+src/controller/InvitationController.java:328:	Found 'UR'-anomaly for variable 'exitCode' (lines '328'-'328').
+src/controller/InvitationController.java:328:	Parameter 'tmpDirectory' is not assigned and could be declared final
+src/controller/InvitationController.java:330:	Local variable 'isWindows' could be declared final
+src/controller/InvitationController.java:330:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:330:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:330:	When doing a String.toLowerCase()/toUpperCase() call, use a Locale
+src/controller/InvitationController.java:334:	Local variable 'builder' could be declared final
+src/controller/InvitationController.java:342:	Local variable 'process' could be declared final
+src/controller/InvitationController.java:343:	Local variable 'streamWorker' could be declared final
+src/controller/InvitationController.java:344:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:345:	Potential violation of Law of Demeter (method chain calls)
+src/controller/InvitationController.java:346:	Found 'DU'-anomaly for variable 'exitCode' (lines '346'-'348').
+src/controller/InvitationController.java:346:	Local variable 'exitCode' could be declared final
+src/controller/InvitationController.java:346:	Potential violation of Law of Demeter (object not created locally)
+src/controller/InvitationController.java:352:	To be compliant to J2EE, a webapp should not use any thread.
+src/controller/InvitationController.java:352:	headerCommentRequirement Required
+src/controller/InvitationController.java:353:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/controller/InvitationController.java:353:	Private field 'inputStream' could be made final; it is only initialized in the declaration or constructor.
+src/controller/InvitationController.java:353:	fieldCommentRequirement Required
+src/controller/InvitationController.java:354:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/controller/InvitationController.java:354:	Private field 'consumer' could be made final; it is only initialized in the declaration or constructor.
+src/controller/InvitationController.java:354:	fieldCommentRequirement Required
+src/controller/InvitationController.java:356:	Parameter 'consumer' is not assigned and could be declared final
+src/controller/InvitationController.java:356:	Parameter 'inputStream' is not assigned and could be declared final
+src/controller/InvitationController.java:356:	publicMethodCommentRequirement Required
+src/controller/InvitationController.java:362:	publicMethodCommentRequirement Required
+src/controller/ParticipantAction.java:3:	enumCommentRequirement Required
+src/controller/ParticipantActionController.java:7:	Each class should declare at least one constructor
+src/controller/ParticipantActionController.java:7:	headerCommentRequirement Required
+src/controller/ParticipantActionController.java:9:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ParticipantActionController.java:9:	fieldCommentRequirement Required
+src/controller/ParticipantActionController.java:12:	Comment is too large: Line too long
+src/controller/ParticipantActionController.java:13:	Comment is too large: Line too long
+src/controller/ParticipantActionController.java:14:	Comment is too large: Line too long
+src/controller/ParticipantActionController.java:24:	Comment is too large: Line too long
+src/controller/ParticipantActionController.java:28:	Document empty method body
+src/controller/ParticipantActionController.java:28:	Parameter 'participant' is not assigned and could be declared final
+src/controller/ParticipantActionController.java:37:	Document empty method body
+src/controller/ParticipantActionController.java:37:	Parameter 'participant' is not assigned and could be declared final
+src/controller/ParticipantActionController.java:42:	Comment is too large: Line too long
+src/controller/ParticipantActionController.java:43:	Comment is too large: Line too long
+src/controller/ParticipantActionController.java:45:	Comment is too large: Line too long
+src/controller/ParticipantActionController.java:52:	Comment is too large: Line too long
+src/controller/ParticipantActionController.java:55:	Comment is too large: Line too long
+src/controller/ParticipantActionController.java:57:	Parameter 'name' is not assigned and could be declared final
+src/controller/ParticipantActionController.java:61:	publicMethodCommentRequirement Required
+src/controller/ParticipantActionController.java:65:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ParticipantActionController.java:65:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/ParticipantActionController.java:65:	publicMethodCommentRequirement Required
+src/controller/ParticipantController.java:15:	Each class should declare at least one constructor
+src/controller/ParticipantController.java:18:	Comment is too large: Line too long
+src/controller/ParticipantController.java:21:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ParticipantController.java:27:	Parameter 'name' is not assigned and could be declared final
+src/controller/ParticipantController.java:28:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:28:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:28:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:28:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:36:	Parameter 'date' is not assigned and could be declared final
+src/controller/ParticipantController.java:37:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:37:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:37:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:37:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:44:	Parameter 'address' is not assigned and could be declared final
+src/controller/ParticipantController.java:45:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:45:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:45:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:52:	Parameter 'mail' is not assigned and could be declared final
+src/controller/ParticipantController.java:53:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:53:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:53:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:53:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:60:	Parameter 'number' is not assigned and could be declared final
+src/controller/ParticipantController.java:61:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:61:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:61:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:61:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:68:	Parameter 'wishes' is not assigned and could be declared final
+src/controller/ParticipantController.java:69:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:69:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:69:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:76:	Parameter 'course' is not assigned and could be declared final
+src/controller/ParticipantController.java:77:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:77:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:77:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:92:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ParticipantController.java:92:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/ParticipantController.java:96:	Found 'UR'-anomaly for variable 'part' (lines '96'-'100').
+src/controller/ParticipantController.java:96:	Parameter 'participant' is not assigned and could be declared final
+src/controller/ParticipantController.java:96:	publicMethodCommentRequirement Required
+src/controller/ParticipantController.java:97:	Local variable 'currentEvent' could be declared final
+src/controller/ParticipantController.java:97:	Potential violation of Law of Demeter (method chain calls)
+src/controller/ParticipantController.java:99:	Local variable 'part' could be declared final
+src/controller/ParticipantController.java:99:	Potential violation of Law of Demeter (object not created locally)
+src/controller/ParticipantController.java:101:	A method should have only one exit point, and that should be the last statement in the method
+src/controller/RestrictionController.java:6:	Each class should declare at least one constructor
+src/controller/RestrictionController.java:6:	headerCommentRequirement Required
+src/controller/RestrictionController.java:12:	Avoid excessively long variable names like walkingDinnerController
+src/controller/RestrictionController.java:18:	Document empty method body
+src/controller/RestrictionController.java:18:	Parameter 'restriction' is not assigned and could be declared final
+src/controller/RestrictionController.java:34:	Avoid excessively long variable names like participantRestrictions
+src/controller/RestrictionController.java:34:	Document empty method body
+src/controller/RestrictionController.java:34:	Parameter 'participantRestrictions' is not assigned and could be declared final
+src/controller/RestrictionController.java:40:	Comment is too large: Line too long
+src/controller/RestrictionController.java:51:	Document empty method body
+src/controller/RestrictionController.java:51:	Parameter 'name' is not assigned and could be declared final
+src/controller/RestrictionController.java:51:	Parameter 'restriction' is not assigned and could be declared final
+src/controller/RestrictionController.java:57:	Comment is too large: Line too long
+src/controller/RestrictionController.java:65:	Comment is too large: Line too long
+src/controller/RestrictionController.java:67:	Avoid excessively long variable names like walkingDinnerController
+src/controller/RestrictionController.java:67:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/SampleLogicController.java:3:	Each class should declare at least one constructor
+src/controller/SampleLogicController.java:3:	headerCommentRequirement Required
+src/controller/ScheduleController.java:9:	headerCommentRequirement Required
+src/controller/ScheduleController.java:11:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ScheduleController.java:11:	fieldCommentRequirement Required
+src/controller/ScheduleController.java:17:	Comment is too large: Line too long
+src/controller/ScheduleController.java:19:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ScheduleController.java:19:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/ScheduleController.java:45:	Comment is too large: Line too long
+src/controller/ScheduleController.java:59:	Comment is too large: Line too long
+src/controller/ScheduleController.java:60:	Comment is too large: Line too long
+src/controller/ScheduleController.java:61:	Comment is too large: Line too long
+src/controller/ScheduleController.java:63:	Avoid excessively long variable names like walkingDinnerController
+src/controller/ScheduleController.java:63:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/TeamController.java:18:	Each class should declare at least one constructor
+src/controller/TeamController.java:18:	headerCommentRequirement Required
+src/controller/TeamController.java:20:	Avoid excessively long variable names like walkingDinnerController
+src/controller/TeamController.java:20:	fieldCommentRequirement Required
+src/controller/TeamController.java:22:	Comment is too large: Too many lines
+src/controller/TeamController.java:32:	Parameter 'participant' is not assigned and could be declared final
+src/controller/TeamController.java:33:	Local variable 'newTeam' could be declared final
+src/controller/TeamController.java:35:	Local variable 'walkingDinner' could be declared final
+src/controller/TeamController.java:36:	Local variable 'currentEvent' could be declared final
+src/controller/TeamController.java:36:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:37:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:41:	Comment is too large: Too many lines
+src/controller/TeamController.java:50:	Parameter 'participant' is not assigned and could be declared final
+src/controller/TeamController.java:50:	Parameter 'team' is not assigned and could be declared final
+src/controller/TeamController.java:54:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:58:	Local variable 'list' could be declared final
+src/controller/TeamController.java:59:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:72:	Parameter 'participant' is not assigned and could be declared final
+src/controller/TeamController.java:72:	Parameter 'team' is not assigned and could be declared final
+src/controller/TeamController.java:73:	Avoid empty if statements
+src/controller/TeamController.java:73:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:77:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:77:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:80:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:81:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:81:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:82:	Local variable 'list' could be declared final
+src/controller/TeamController.java:83:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:88:	Local variable 'list' could be declared final
+src/controller/TeamController.java:89:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:102:	Found 'UR'-anomaly for variable 'c' (lines '102'-'110').
+src/controller/TeamController.java:102:	Found 'UR'-anomaly for variable 'g' (lines '102'-'113').
+src/controller/TeamController.java:102:	Parameter 'team' is not assigned and could be declared final
+src/controller/TeamController.java:103:	Local variable 'currentEvent' could be declared final
+src/controller/TeamController.java:103:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:104:	Local variable 'list' could be declared final
+src/controller/TeamController.java:104:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:105:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:106:	Found 'DU'-anomaly for variable 'currentSchedule' (lines '106'-'132').
+src/controller/TeamController.java:106:	Local variable 'currentSchedule' could be declared final
+src/controller/TeamController.java:106:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:107:	Local variable 'courses' could be declared final
+src/controller/TeamController.java:108:	Local variable 'c' could be declared final
+src/controller/TeamController.java:110:	Local variable 'groupList' could be declared final
+src/controller/TeamController.java:110:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:111:	Local variable 'g' could be declared final
+src/controller/TeamController.java:113:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:115:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:117:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:117:	Potential violation of Law of Demeter (method chain calls)
+src/controller/TeamController.java:118:	Local variable 'tList' could be declared final
+src/controller/TeamController.java:119:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:124:	Local variable 'tList' could be declared final
+src/controller/TeamController.java:125:	Potential violation of Law of Demeter (object not created locally)
+src/controller/TeamController.java:148:	Avoid excessively long variable names like walkingDinnerController
+src/controller/TeamController.java:148:	Parameter 'walkingDinnerController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:3:	No need to import a type that lives in the same package
+src/controller/WalkingDinnerController.java:12:	Each class should declare at least one constructor
+src/controller/WalkingDinnerController.java:22:	Avoid excessively long variable names like scheduleController
+src/controller/WalkingDinnerController.java:42:	Avoid excessively long variable names like participantActionController
+src/controller/WalkingDinnerController.java:47:	Avoid excessively long variable names like consistencyController
+src/controller/WalkingDinnerController.java:52:	Avoid excessively long variable names like participantController
+src/controller/WalkingDinnerController.java:57:	Avoid excessively long variable names like restrictionController
+src/controller/WalkingDinnerController.java:62:	Avoid excessively long variable names like invitationController
+src/controller/WalkingDinnerController.java:72:	Avoid excessively long variable names like eventPickerController
+src/controller/WalkingDinnerController.java:82:	Document empty method body
+src/controller/WalkingDinnerController.java:87:	Comment is too large: Line too long
+src/controller/WalkingDinnerController.java:89:	Document empty method body
+src/controller/WalkingDinnerController.java:97:	Document empty method body
+src/controller/WalkingDinnerController.java:97:	Parameter 'error' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:113:	Parameter 'walkingDinner' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:129:	Avoid excessively long variable names like scheduleController
+src/controller/WalkingDinnerController.java:129:	Parameter 'scheduleController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:145:	Parameter 'exportController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:161:	Parameter 'teamController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:177:	Parameter 'groupController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:193:	Avoid excessively long variable names like participantActionController
+src/controller/WalkingDinnerController.java:193:	Parameter 'participantActionController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:209:	Avoid excessively long variable names like consistencyController
+src/controller/WalkingDinnerController.java:209:	Parameter 'consistencyController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:225:	Avoid excessively long variable names like participantController
+src/controller/WalkingDinnerController.java:225:	Parameter 'participantController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:241:	Avoid excessively long variable names like restrictionController
+src/controller/WalkingDinnerController.java:241:	Parameter 'restrictionController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:257:	Avoid excessively long variable names like invitationController
+src/controller/WalkingDinnerController.java:257:	Parameter 'invitationController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:273:	Parameter 'eventController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:289:	Avoid excessively long variable names like eventPickerController
+src/controller/WalkingDinnerController.java:289:	Parameter 'eventPickerController' is not assigned and could be declared final
+src/controller/WalkingDinnerController.java:305:	Parameter 'errorAUI' is not assigned and could be declared final
+src/model/Address.java:3:	Each class should declare at least one constructor
+src/model/Address.java:3:	headerCommentRequirement Required
+src/model/Address.java:5:	fieldCommentRequirement Required
+src/model/Address.java:7:	fieldCommentRequirement Required
+src/model/Address.java:9:	fieldCommentRequirement Required
+src/model/Address.java:11:	fieldCommentRequirement Required
+src/model/Address.java:13:	publicMethodCommentRequirement Required
+src/model/Address.java:17:	Parameter 'street' is not assigned and could be declared final
+src/model/Address.java:17:	publicMethodCommentRequirement Required
+src/model/Address.java:26:	Object clone() should be implemented with super.clone()
+src/model/Address.java:26:	clone() method should be implemented only if implementing Cloneable interface
+src/model/Address.java:26:	clone() method should throw CloneNotSupportedException
+src/model/Address.java:27:	Local variable 'result' could be declared final
+src/model/Address.java:36:	publicMethodCommentRequirement Required
+src/model/Address.java:40:	Parameter 'city' is not assigned and could be declared final
+src/model/Address.java:40:	publicMethodCommentRequirement Required
+src/model/Address.java:44:	publicMethodCommentRequirement Required
+src/model/Address.java:48:	Parameter 'zipCode' is not assigned and could be declared final
+src/model/Address.java:48:	publicMethodCommentRequirement Required
+src/model/Address.java:52:	publicMethodCommentRequirement Required
+src/model/Address.java:56:	Parameter 'addressAdditional' is not assigned and could be declared final
+src/model/Address.java:56:	publicMethodCommentRequirement Required
+src/model/Course.java:3:	enumCommentRequirement Required
+src/model/Event.java:7:	Each class should declare at least one constructor
+src/model/Event.java:7:	The class 'Event' has a Cyclomatic Complexity of 1 (Highest = 10).
+src/model/Event.java:7:	The class 'Event' has a Modified Cyclomatic Complexity of 1 (Highest = 10).
+src/model/Event.java:7:	The class 'Event' has a Standard Cyclomatic Complexity of 1 (Highest = 10).
+src/model/Event.java:7:	headerCommentRequirement Required
+src/model/Event.java:9:	fieldCommentRequirement Required
+src/model/Event.java:11:	fieldCommentRequirement Required
+src/model/Event.java:13:	fieldCommentRequirement Required
+src/model/Event.java:15:	fieldCommentRequirement Required
+src/model/Event.java:17:	fieldCommentRequirement Required
+src/model/Event.java:19:	Avoid excessively long variable names like registrationDeadline
+src/model/Event.java:19:	fieldCommentRequirement Required
+src/model/Event.java:21:	fieldCommentRequirement Required
+src/model/Event.java:23:	fieldCommentRequirement Required
+src/model/Event.java:25:	fieldCommentRequirement Required
+src/model/Event.java:27:	fieldCommentRequirement Required
+src/model/Event.java:29:	Avoid excessively long variable names like currentParticipant
+src/model/Event.java:29:	fieldCommentRequirement Required
+src/model/Event.java:31:	fieldCommentRequirement Required
+src/model/Event.java:33:	publicMethodCommentRequirement Required
+src/model/Event.java:37:	Document empty method body
+src/model/Event.java:37:	publicMethodCommentRequirement Required
+src/model/Event.java:41:	Document empty method body
+src/model/Event.java:41:	Parameter 'knownBy' is not assigned and could be declared final
+src/model/Event.java:41:	Parameter 'toList' is not assigned and could be declared final
+src/model/Event.java:41:	publicMethodCommentRequirement Required
+src/model/Event.java:45:	Parameter 'course' is not assigned and could be declared final
+src/model/Event.java:45:	Parameter 'participant' is not assigned and could be declared final
+src/model/Event.java:45:	publicMethodCommentRequirement Required
+src/model/Event.java:49:	Parameter 'person' is not assigned and could be declared final
+src/model/Event.java:49:	publicMethodCommentRequirement Required
+src/model/Event.java:53:	Parameter 'participant' is not assigned and could be declared final
+src/model/Event.java:53:	publicMethodCommentRequirement Required
+src/model/Event.java:57:	publicMethodCommentRequirement Required
+src/model/Event.java:61:	Parameter 'date' is not assigned and could be declared final
+src/model/Event.java:61:	publicMethodCommentRequirement Required
+src/model/Event.java:65:	publicMethodCommentRequirement Required
+src/model/Event.java:69:	Parameter 'name' is not assigned and could be declared final
+src/model/Event.java:69:	publicMethodCommentRequirement Required
+src/model/Event.java:73:	publicMethodCommentRequirement Required
+src/model/Event.java:77:	Parameter 'city' is not assigned and could be declared final
+src/model/Event.java:77:	publicMethodCommentRequirement Required
+src/model/Event.java:81:	publicMethodCommentRequirement Required
+src/model/Event.java:82:	Returning 'courseTimes' may expose an internal array.
+src/model/Event.java:85:	Consider using varargs for methods or constructors which take an array the last parameter.
+src/model/Event.java:85:	Parameter 'courseTimes' is not assigned and could be declared final
+src/model/Event.java:85:	The user-supplied array 'courseTimes' is stored directly.
+src/model/Event.java:85:	publicMethodCommentRequirement Required
+src/model/Event.java:89:	publicMethodCommentRequirement Required
+src/model/Event.java:93:	Parameter 'eventDescription' is not assigned and could be declared final
+src/model/Event.java:93:	publicMethodCommentRequirement Required
+src/model/Event.java:97:	publicMethodCommentRequirement Required
+src/model/Event.java:101:	Avoid excessively long variable names like registrationDeadline
+src/model/Event.java:101:	Parameter 'registrationDeadline' is not assigned and could be declared final
+src/model/Event.java:101:	publicMethodCommentRequirement Required
+src/model/Event.java:105:	publicMethodCommentRequirement Required
+src/model/Event.java:109:	Parameter 'participants' is not assigned and could be declared final
+src/model/Event.java:109:	publicMethodCommentRequirement Required
+src/model/Event.java:113:	publicMethodCommentRequirement Required
+src/model/Event.java:117:	Parameter 'restriction' is not assigned and could be declared final
+src/model/Event.java:117:	publicMethodCommentRequirement Required
+src/model/Event.java:121:	publicMethodCommentRequirement Required
+src/model/Event.java:125:	Parameter 'schedule' is not assigned and could be declared final
+src/model/Event.java:125:	publicMethodCommentRequirement Required
+src/model/Event.java:129:	publicMethodCommentRequirement Required
+src/model/Event.java:133:	Parameter 'invited' is not assigned and could be declared final
+src/model/Event.java:133:	publicMethodCommentRequirement Required
+src/model/Event.java:137:	publicMethodCommentRequirement Required
+src/model/Event.java:141:	Avoid excessively long variable names like currentParticipant
+src/model/Event.java:141:	Parameter 'currentParticipant' is not assigned and could be declared final
+src/model/Event.java:141:	publicMethodCommentRequirement Required
+src/model/Event.java:145:	Parameter 'team' is not assigned and could be declared final
+src/model/Event.java:145:	publicMethodCommentRequirement Required
+src/model/Event.java:157:	publicMethodCommentRequirement Required
+src/model/Event.java:158:	Avoid using final local variables, turn them into fields
+src/model/Event.java:159:	Found 'DD'-anomaly for variable 'result' (lines '159'-'160').
+src/model/Event.java:166:	Parameter 'obj' is not assigned and could be declared final
+src/model/Event.java:166:	The method 'equals' has a Cyclomatic Complexity of 10.
+src/model/Event.java:166:	The method 'equals' has a Modified Cyclomatic Complexity of 10.
+src/model/Event.java:166:	The method 'equals' has a Standard Cyclomatic Complexity of 10.
+src/model/Event.java:166:	publicMethodCommentRequirement Required
+src/model/Event.java:167:	Avoid using if statements without curly braces
+src/model/Event.java:168:	A method should have only one exit point, and that should be the last statement in the method
+src/model/Event.java:169:	Avoid using if statements without curly braces
+src/model/Event.java:170:	A method should have only one exit point, and that should be the last statement in the method
+src/model/Event.java:171:	Avoid using if statements without curly braces
+src/model/Event.java:172:	A method should have only one exit point, and that should be the last statement in the method
+src/model/Event.java:173:	Local variable 'other' could be declared final
+src/model/Event.java:175:	Avoid using if statements without curly braces
+src/model/Event.java:176:	A method should have only one exit point, and that should be the last statement in the method
+src/model/Event.java:177:	Avoid using if statements without curly braces
+src/model/Event.java:178:	A method should have only one exit point, and that should be the last statement in the method
+src/model/Event.java:180:	Avoid using if statements without curly braces
+src/model/Event.java:181:	A method should have only one exit point, and that should be the last statement in the method
+src/model/Event.java:182:	Avoid using if statements without curly braces
+src/model/Event.java:183:	A method should have only one exit point, and that should be the last statement in the method
+src/model/Event.java:187:	publicMethodCommentRequirement Required
+src/model/Event.java:191:	Parameter 'teams' is not assigned and could be declared final
+src/model/Event.java:191:	publicMethodCommentRequirement Required
+src/model/Group.java:5:	Each class should declare at least one constructor
+src/model/Group.java:5:	headerCommentRequirement Required
+src/model/Group.java:7:	fieldCommentRequirement Required
+src/model/Group.java:9:	fieldCommentRequirement Required
+src/model/Group.java:11:	publicMethodCommentRequirement Required
+src/model/Group.java:15:	publicMethodCommentRequirement Required
+src/model/Group.java:19:	publicMethodCommentRequirement Required
+src/model/Group.java:23:	Parameter 'hostTeam' is not assigned and could be declared final
+src/model/Group.java:23:	publicMethodCommentRequirement Required
+src/model/Group.java:27:	publicMethodCommentRequirement Required
+src/model/Group.java:31:	Parameter 'guest' is not assigned and could be declared final
+src/model/Group.java:31:	publicMethodCommentRequirement Required
+src/model/Participant.java:6:	headerCommentRequirement Required
+src/model/Participant.java:8:	fieldCommentRequirement Required
+src/model/Participant.java:10:	Avoid excessively long variable names like changedSinceExport
+src/model/Participant.java:10:	fieldCommentRequirement Required
+src/model/Participant.java:12:	fieldCommentRequirement Required
+src/model/Participant.java:14:	fieldCommentRequirement Required
+src/model/Participant.java:16:	fieldCommentRequirement Required
+src/model/Participant.java:18:	fieldCommentRequirement Required
+src/model/Participant.java:20:	Document empty method body
+src/model/Participant.java:20:	Parameter 'participants' is not assigned and could be declared final
+src/model/Participant.java:20:	Parameter 'value' is not assigned and could be declared final
+src/model/Participant.java:20:	publicMethodCommentRequirement Required
+src/model/Participant.java:27:	Document empty method body
+src/model/Participant.java:27:	Parameter 'restriction' is not assigned and could be declared final
+src/model/Participant.java:31:	Document empty method body
+src/model/Participant.java:31:	Parameter 'restriction' is not assigned and could be declared final
+src/model/Participant.java:31:	publicMethodCommentRequirement Required
+src/model/Participant.java:41:	Local variable 'participant' could be declared final
+src/model/Participant.java:50:	publicMethodCommentRequirement Required
+src/model/Participant.java:54:	Parameter 'specialNeeds' is not assigned and could be declared final
+src/model/Participant.java:54:	publicMethodCommentRequirement Required
+src/model/Participant.java:58:	publicMethodCommentRequirement Required
+src/model/Participant.java:62:	Avoid excessively long variable names like changedSinceExport
+src/model/Participant.java:62:	Parameter 'changedSinceExport' is not assigned and could be declared final
+src/model/Participant.java:62:	publicMethodCommentRequirement Required
+src/model/Participant.java:66:	publicMethodCommentRequirement Required
+src/model/Participant.java:70:	Parameter 'restriction' is not assigned and could be declared final
+src/model/Participant.java:70:	publicMethodCommentRequirement Required
+src/model/Participant.java:74:	publicMethodCommentRequirement Required
+src/model/Participant.java:78:	Parameter 'person' is not assigned and could be declared final
+src/model/Participant.java:78:	publicMethodCommentRequirement Required
+src/model/Participant.java:82:	publicMethodCommentRequirement Required
+src/model/Participant.java:86:	Parameter 'address' is not assigned and could be declared final
+src/model/Participant.java:86:	publicMethodCommentRequirement Required
+src/model/Participant.java:90:	publicMethodCommentRequirement Required
+src/model/Participant.java:94:	Parameter 'courseWish' is not assigned and could be declared final
+src/model/Participant.java:94:	publicMethodCommentRequirement Required
+src/model/Person.java:5:	Each class should declare at least one constructor
+src/model/Person.java:5:	headerCommentRequirement Required
+src/model/Person.java:7:	fieldCommentRequirement Required
+src/model/Person.java:9:	fieldCommentRequirement Required
+src/model/Person.java:11:	fieldCommentRequirement Required
+src/model/Person.java:13:	fieldCommentRequirement Required
+src/model/Person.java:15:	fieldCommentRequirement Required
+src/model/Person.java:17:	publicMethodCommentRequirement Required
+src/model/Person.java:21:	Parameter 'name' is not assigned and could be declared final
+src/model/Person.java:21:	publicMethodCommentRequirement Required
+src/model/Person.java:25:	publicMethodCommentRequirement Required
+src/model/Person.java:29:	Parameter 'mailAddress' is not assigned and could be declared final
+src/model/Person.java:29:	publicMethodCommentRequirement Required
+src/model/Person.java:33:	publicMethodCommentRequirement Required
+src/model/Person.java:37:	Parameter 'birthDate' is not assigned and could be declared final
+src/model/Person.java:37:	publicMethodCommentRequirement Required
+src/model/Person.java:41:	publicMethodCommentRequirement Required
+src/model/Person.java:45:	Parameter 'phoneNumber' is not assigned and could be declared final
+src/model/Person.java:45:	publicMethodCommentRequirement Required
+src/model/Person.java:49:	publicMethodCommentRequirement Required
+src/model/Person.java:53:	Parameter 'participant' is not assigned and could be declared final
+src/model/Person.java:53:	publicMethodCommentRequirement Required
+src/model/Restriction.java:5:	Each class should declare at least one constructor
+src/model/Restriction.java:5:	headerCommentRequirement Required
+src/model/Restriction.java:7:	fieldCommentRequirement Required
+src/model/Restriction.java:9:	fieldCommentRequirement Required
+src/model/Restriction.java:11:	fieldCommentRequirement Required
+src/model/Restriction.java:13:	Document empty method body
+src/model/Restriction.java:13:	Parameter 'participant' is not assigned and could be declared final
+src/model/Restriction.java:13:	publicMethodCommentRequirement Required
+src/model/Restriction.java:17:	Document empty method body
+src/model/Restriction.java:17:	Parameter 'participant' is not assigned and could be declared final
+src/model/Restriction.java:17:	publicMethodCommentRequirement Required
+src/model/Restriction.java:21:	publicMethodCommentRequirement Required
+src/model/Restriction.java:25:	Parameter 'name' is not assigned and could be declared final
+src/model/Restriction.java:25:	publicMethodCommentRequirement Required
+src/model/Restriction.java:29:	publicMethodCommentRequirement Required
+src/model/Restriction.java:33:	Parameter 'permanent' is not assigned and could be declared final
+src/model/Restriction.java:33:	publicMethodCommentRequirement Required
+src/model/Restriction.java:37:	publicMethodCommentRequirement Required
+src/model/Restriction.java:41:	Parameter 'participant' is not assigned and could be declared final
+src/model/Restriction.java:41:	publicMethodCommentRequirement Required
+src/model/SampleModel.java:3:	Each class should declare at least one constructor
+src/model/SampleModel.java:3:	headerCommentRequirement Required
+src/model/Schedule.java:6:	Each class should declare at least one constructor
+src/model/Schedule.java:6:	headerCommentRequirement Required
+src/model/Schedule.java:8:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/model/Schedule.java:8:	fieldCommentRequirement Required
+src/model/Schedule.java:10:	Parameter 'course' is not assigned and could be declared final
+src/model/Schedule.java:10:	publicMethodCommentRequirement Required
+src/model/Schedule.java:14:	Parameter 'course' is not assigned and could be declared final
+src/model/Schedule.java:14:	Parameter 'groups' is not assigned and could be declared final
+src/model/Schedule.java:14:	publicMethodCommentRequirement Required
+src/model/Team.java:5:	Avoid short class names like Team
+src/model/Team.java:5:	Each class should declare at least one constructor
+src/model/Team.java:5:	headerCommentRequirement Required
+src/model/Team.java:7:	fieldCommentRequirement Required
+src/model/Team.java:9:	fieldCommentRequirement Required
+src/model/Team.java:11:	publicMethodCommentRequirement Required
+src/model/Team.java:15:	publicMethodCommentRequirement Required
+src/model/Team.java:19:	Parameter 'host' is not assigned and could be declared final
+src/model/Team.java:19:	publicMethodCommentRequirement Required
+src/model/Team.java:23:	publicMethodCommentRequirement Required
+src/model/Team.java:27:	Parameter 'members' is not assigned and could be declared final
+src/model/Team.java:27:	publicMethodCommentRequirement Required
+src/model/WalkingDinner.java:5:	Each class should declare at least one constructor
+src/model/WalkingDinner.java:5:	headerCommentRequirement Required
+src/model/WalkingDinner.java:7:	fieldCommentRequirement Required
+src/model/WalkingDinner.java:9:	fieldCommentRequirement Required
+src/model/WalkingDinner.java:11:	publicMethodCommentRequirement Required
+src/model/WalkingDinner.java:15:	publicMethodCommentRequirement Required
+src/model/WalkingDinner.java:19:	Parameter 'events' is not assigned and could be declared final
+src/model/WalkingDinner.java:19:	publicMethodCommentRequirement Required
+src/model/WalkingDinner.java:23:	publicMethodCommentRequirement Required
+src/model/WalkingDinner.java:27:	Parameter 'currentEvent' is not assigned and could be declared final
+src/model/WalkingDinner.java:27:	publicMethodCommentRequirement Required
+src/view/SampleViewController.java:3:	Each class should declare at least one constructor
+src/view/SampleViewController.java:3:	headerCommentRequirement Required
+tests/controller/ConsistencyControllerTest.java:25:	Avoid excessively long variable names like walkingDinnerController
+tests/controller/ConsistencyControllerTest.java:25:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/ConsistencyControllerTest.java:25:	Perhaps 'walkingDinnerController' could be replaced by a local variable.
+tests/controller/ConsistencyControllerTest.java:25:	fieldCommentRequirement Required
+tests/controller/ConsistencyControllerTest.java:26:	Avoid excessively long variable names like consistencyController
+tests/controller/ConsistencyControllerTest.java:26:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/ConsistencyControllerTest.java:26:	fieldCommentRequirement Required
+tests/controller/ConsistencyControllerTest.java:27:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/ConsistencyControllerTest.java:27:	fieldCommentRequirement Required
+tests/controller/ConsistencyControllerTest.java:28:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/ConsistencyControllerTest.java:28:	fieldCommentRequirement Required
+tests/controller/ConsistencyControllerTest.java:29:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/ConsistencyControllerTest.java:29:	fieldCommentRequirement Required
+tests/controller/ConsistencyControllerTest.java:30:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/ConsistencyControllerTest.java:30:	fieldCommentRequirement Required
+tests/controller/ConsistencyControllerTest.java:32:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/ConsistencyControllerTest.java:32:	Perhaps 'team1' could be replaced by a local variable.
+tests/controller/ConsistencyControllerTest.java:32:	fieldCommentRequirement Required
+tests/controller/ConsistencyControllerTest.java:40:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/ConsistencyControllerTest.java:40:	Document empty method body
+tests/controller/ConsistencyControllerTest.java:47:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/ConsistencyControllerTest.java:47:	Document empty method body
+tests/controller/ConsistencyControllerTest.java:63:	Local variable 'team1' could be declared final
+tests/controller/ConsistencyControllerTest.java:64:	Found 'DU'-anomaly for variable 'team1' (lines '64'-'65').
+tests/controller/ConsistencyControllerTest.java:71:	Document empty method body
+tests/controller/ConsistencyControllerTest.java:77:	Comment is too large: Line too long
+tests/controller/ConsistencyControllerTest.java:82:	The String literal "Not yet implemented" appears 6 times in this file; the first occurrence is on line 82
+tests/controller/ConsistencyControllerTest.java:86:	Comment is too large: Line too long
+tests/controller/ConsistencyControllerTest.java:94:	Comment is too large: Line too long
+tests/controller/ConsistencyControllerTest.java:96:	Comment is too large: Line too long
+tests/controller/ConsistencyControllerTest.java:99:	JUnit tests should not contain more than 1 assert(s).
+tests/controller/ConsistencyControllerTest.java:102:	Assigning an Object to null is a code smell.  Consider refactoring.
+tests/controller/ConsistencyControllerTest.java:103:	Local variable 'members' could be declared final
+tests/controller/ConsistencyControllerTest.java:104:	Found 'DD'-anomaly for variable 'warnings' (lines '104'-'106').
+tests/controller/ConsistencyControllerTest.java:107:	Potential violation of Law of Demeter (object not created locally)
+tests/controller/ConsistencyControllerTest.java:112:	Potential violation of Law of Demeter (object not created locally)
+tests/controller/ConsistencyControllerTest.java:119:	Potential violation of Law of Demeter (object not created locally)
+tests/controller/ConsistencyControllerTest.java:120:	Potential violation of Law of Demeter (object not created locally)
+tests/controller/ConsistencyControllerTest.java:121:	Potential violation of Law of Demeter (object not created locally)
+tests/controller/ConsistencyControllerTest.java:131:	Potential violation of Law of Demeter (object not created locally)
+tests/controller/ConsistencyControllerTest.java:136:	Found 'DU'-anomaly for variable 'warnings' (lines '136'-'142').
+tests/controller/ConsistencyControllerTest.java:145:	Comment is too large: Line too long
+tests/controller/ConsistencyControllerTest.java:154:	Comment is too large: Line too long
+tests/controller/ConsistencyControllerTest.java:163:	Comment is too large: Line too long
+tests/controller/ConsistencyControllerTest.java:165:	Comment is too large: Line too long
+tests/controller/ConsistencyControllerTest.java:173:	Comment is too large: Line too long
+tests/controller/ConsistencyControllerTest.java:174:	Comment is too large: Line too long
+tests/controller/EventControllerTest.java:7:	Each class should declare at least one constructor
+tests/controller/EventControllerTest.java:7:	headerCommentRequirement Required
+tests/controller/EventControllerTest.java:15:	The String literal "Not yet implemented" appears 10 times in this file; the first occurrence is on line 15
+tests/controller/EventControllerTest.java:82:	Comment is too large: Line too long
+tests/controller/EventPickerControllerTest.java:7:	Each class should declare at least one constructor
+tests/controller/EventPickerControllerTest.java:7:	headerCommentRequirement Required
+tests/controller/EventPickerControllerTest.java:14:	The String literal "Not yet implemented" appears 7 times in this file; the first occurrence is on line 14
+tests/controller/EventPickerControllerTest.java:26:	Comment is too large: Line too long
+tests/controller/EventPickerControllerTest.java:50:	Comment is too large: Line too long
+tests/controller/ExportControllerTest.java:7:	Each class should declare at least one constructor
+tests/controller/ExportControllerTest.java:7:	headerCommentRequirement Required
+tests/controller/ExportControllerTest.java:14:	The String literal "Not yet implemented" appears 4 times in this file; the first occurrence is on line 14
+tests/controller/ExportControllerTest.java:26:	publicMethodCommentRequirement Required
+tests/controller/ExportControllerTest.java:31:	publicMethodCommentRequirement Required
+tests/controller/GroupControllerTest.java:18:	This class has too many methods, consider refactoring it.
+tests/controller/GroupControllerTest.java:20:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/GroupControllerTest.java:20:	fieldCommentRequirement Required
+tests/controller/GroupControllerTest.java:21:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/GroupControllerTest.java:21:	fieldCommentRequirement Required
+tests/controller/GroupControllerTest.java:28:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/GroupControllerTest.java:28:	Document empty method body
+tests/controller/GroupControllerTest.java:35:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/GroupControllerTest.java:35:	Document empty method body
+tests/controller/GroupControllerTest.java:52:	Document empty method body
+tests/controller/GroupControllerTest.java:56:	Comment is too large: Line too long
+tests/controller/GroupControllerTest.java:57:	Comment is too large: Line too long
+tests/controller/GroupControllerTest.java:61:	The String literal "Not yet implemented" appears 9 times in this file; the first occurrence is on line 61
+tests/controller/GroupControllerTest.java:65:	Comment is too large: Line too long
+tests/controller/GroupControllerTest.java:74:	Comment is too large: Line too long
+tests/controller/GroupControllerTest.java:83:	Comment is too large: Line too long
+tests/controller/GroupControllerTest.java:93:	Comment is too large: Line too long
+tests/controller/GroupControllerTest.java:139:	Comment is too large: Line too long
+tests/controller/GroupControllerTest.java:144:	Local variable 'testWdc' could be declared final
+tests/controller/GroupControllerTest.java:146:	Local variable 'currentWdc' could be declared final
+tests/controller/GroupControllerTest.java:151:	Comment is too large: Line too long
+tests/controller/GroupControllerTest.java:152:	Comment is too large: Line too long
+tests/controller/GroupControllerTest.java:155:	JUnit tests should not contain more than 1 assert(s).
+tests/controller/InvitationControllerTest.java:21:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/InvitationControllerTest.java:21:	Perhaps 'wdCtrl' could be replaced by a local variable.
+tests/controller/InvitationControllerTest.java:21:	fieldCommentRequirement Required
+tests/controller/InvitationControllerTest.java:22:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/InvitationControllerTest.java:22:	fieldCommentRequirement Required
+tests/controller/InvitationControllerTest.java:23:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/InvitationControllerTest.java:23:	Perhaps 'evtPicker' could be replaced by a local variable.
+tests/controller/InvitationControllerTest.java:23:	fieldCommentRequirement Required
+tests/controller/InvitationControllerTest.java:29:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/InvitationControllerTest.java:29:	Document empty method body
+tests/controller/InvitationControllerTest.java:36:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/InvitationControllerTest.java:36:	Document empty method body
+tests/controller/InvitationControllerTest.java:50:	Local variable 'evt1' could be declared final
+tests/controller/InvitationControllerTest.java:50:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/InvitationControllerTest.java:51:	Avoid unused local variables such as 'evt2'.
+tests/controller/InvitationControllerTest.java:51:	Found 'DU'-anomaly for variable 'evt2' (lines '51'-'59').
+tests/controller/InvitationControllerTest.java:51:	Local variable 'evt2' could be declared final
+tests/controller/InvitationControllerTest.java:51:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/InvitationControllerTest.java:52:	Avoid unused local variables such as 'evt3'.
+tests/controller/InvitationControllerTest.java:52:	Found 'DU'-anomaly for variable 'evt3' (lines '52'-'59').
+tests/controller/InvitationControllerTest.java:52:	Local variable 'evt3' could be declared final
+tests/controller/InvitationControllerTest.java:52:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/InvitationControllerTest.java:65:	Document empty method body
+tests/controller/InvitationControllerTest.java:69:	Comment is too large: Line too long
+tests/controller/InvitationControllerTest.java:73:	The String literal "Not yet implemented" appears 8 times in this file; the first occurrence is on line 73
+tests/controller/InvitationControllerTest.java:77:	Comment is too large: Line too long
+tests/controller/InvitationControllerTest.java:87:	Comment is too large: Line too long
+tests/controller/InvitationControllerTest.java:99:	Comment is too large: Line too long
+tests/controller/InvitationControllerTest.java:120:	Comment is too large: Line too long
+tests/controller/InvitationControllerTest.java:131:	Comment is too large: Line too long
+tests/controller/InvitationControllerTest.java:143:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:24:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/ParticipantActionControllerTest.java:24:	Document empty method body
+tests/controller/ParticipantActionControllerTest.java:31:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/ParticipantActionControllerTest.java:31:	Document empty method body
+tests/controller/ParticipantActionControllerTest.java:38:	Document empty method body
+tests/controller/ParticipantActionControllerTest.java:45:	Document empty method body
+tests/controller/ParticipantActionControllerTest.java:49:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:51:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:52:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:53:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:57:	The String literal "Not yet implemented" appears 7 times in this file; the first occurrence is on line 57
+tests/controller/ParticipantActionControllerTest.java:61:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:70:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:79:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:80:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:88:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:97:	Comment is too large: Line too long
+tests/controller/ParticipantActionControllerTest.java:106:	Comment is too large: Line too long
+tests/controller/ParticipantControllerTest.java:8:	Avoid unused imports such as 'java.time.LocalDate'
+tests/controller/ParticipantControllerTest.java:21:	No need to import a type that lives in the same package
+tests/controller/ParticipantControllerTest.java:27:	This class has too many methods, consider refactoring it.
+tests/controller/ParticipantControllerTest.java:29:	Avoid excessively long variable names like currentParticipant
+tests/controller/ParticipantControllerTest.java:29:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/ParticipantControllerTest.java:29:	To avoid mistakes add a comment at the beginning of the currentParticipant field if you want a default access modifier
+tests/controller/ParticipantControllerTest.java:29:	Use explicit scoping instead of the default package private level
+tests/controller/ParticipantControllerTest.java:29:	fieldCommentRequirement Required
+tests/controller/ParticipantControllerTest.java:30:	Avoid excessively long variable names like participantController
+tests/controller/ParticipantControllerTest.java:30:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/ParticipantControllerTest.java:30:	To avoid mistakes add a comment at the beginning of the participantController field if you want a default access modifier
+tests/controller/ParticipantControllerTest.java:30:	Use explicit scoping instead of the default package private level
+tests/controller/ParticipantControllerTest.java:30:	fieldCommentRequirement Required
+tests/controller/ParticipantControllerTest.java:31:	To avoid mistakes add a comment at the beginning of the currentEvent field if you want a default access modifier
+tests/controller/ParticipantControllerTest.java:31:	Use explicit scoping instead of the default package private level
+tests/controller/ParticipantControllerTest.java:31:	fieldCommentRequirement Required
+tests/controller/ParticipantControllerTest.java:32:	To avoid mistakes add a comment at the beginning of the testName field if you want a default access modifier
+tests/controller/ParticipantControllerTest.java:32:	Use explicit scoping instead of the default package private level
+tests/controller/ParticipantControllerTest.java:32:	fieldCommentRequirement Required
+tests/controller/ParticipantControllerTest.java:34:	To avoid mistakes add a comment at the beginning of the testAddress field if you want a default access modifier
+tests/controller/ParticipantControllerTest.java:34:	Use explicit scoping instead of the default package private level
+tests/controller/ParticipantControllerTest.java:34:	fieldCommentRequirement Required
+tests/controller/ParticipantControllerTest.java:35:	To avoid mistakes add a comment at the beginning of the testMail field if you want a default access modifier
+tests/controller/ParticipantControllerTest.java:35:	Use explicit scoping instead of the default package private level
+tests/controller/ParticipantControllerTest.java:35:	fieldCommentRequirement Required
+tests/controller/ParticipantControllerTest.java:36:	To avoid mistakes add a comment at the beginning of the testNumber field if you want a default access modifier
+tests/controller/ParticipantControllerTest.java:36:	Use explicit scoping instead of the default package private level
+tests/controller/ParticipantControllerTest.java:36:	fieldCommentRequirement Required
+tests/controller/ParticipantControllerTest.java:37:	Avoid using redundant field initializer for 'testPref'
+tests/controller/ParticipantControllerTest.java:37:	To avoid mistakes add a comment at the beginning of the testPref field if you want a default access modifier
+tests/controller/ParticipantControllerTest.java:37:	Use explicit scoping instead of the default package private level
+tests/controller/ParticipantControllerTest.java:37:	fieldCommentRequirement Required
+tests/controller/ParticipantControllerTest.java:38:	To avoid mistakes add a comment at the beginning of the testWishes field if you want a default access modifier
+tests/controller/ParticipantControllerTest.java:38:	Use explicit scoping instead of the default package private level
+tests/controller/ParticipantControllerTest.java:38:	fieldCommentRequirement Required
+tests/controller/ParticipantControllerTest.java:45:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/ParticipantControllerTest.java:45:	Document empty method body
+tests/controller/ParticipantControllerTest.java:52:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/ParticipantControllerTest.java:52:	Document empty method body
+tests/controller/ParticipantControllerTest.java:60:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/ParticipantControllerTest.java:60:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/ParticipantControllerTest.java:74:	Document empty method body
+tests/controller/ParticipantControllerTest.java:78:	Comment is too large: Line too long
+tests/controller/ParticipantControllerTest.java:83:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/ParticipantControllerTest.java:83:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/ParticipantControllerTest.java:88:	Comment is too large: Line too long
+tests/controller/ParticipantControllerTest.java:97:	Comment is too large: Line too long
+tests/controller/ParticipantControllerTest.java:106:	Comment is too large: Line too long
+tests/controller/ParticipantControllerTest.java:111:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/ParticipantControllerTest.java:111:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/ParticipantControllerTest.java:115:	Comment is too large: Line too long
+tests/controller/ParticipantControllerTest.java:120:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/ParticipantControllerTest.java:120:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/ParticipantControllerTest.java:124:	Comment is too large: Line too long
+tests/controller/ParticipantControllerTest.java:133:	Comment is too large: Line too long
+tests/controller/ParticipantControllerTest.java:142:	Comment is too large: Line too long
+tests/controller/ParticipantControllerTest.java:145:	Document empty method body
+tests/controller/ParticipantControllerTest.java:149:	Comment is too large: Line too long
+tests/controller/RestrictionControllerTest.java:24:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/RestrictionControllerTest.java:24:	Document empty method body
+tests/controller/RestrictionControllerTest.java:31:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/RestrictionControllerTest.java:31:	Document empty method body
+tests/controller/RestrictionControllerTest.java:38:	Document empty method body
+tests/controller/RestrictionControllerTest.java:45:	Document empty method body
+tests/controller/RestrictionControllerTest.java:49:	Comment is too large: Line too long
+tests/controller/RestrictionControllerTest.java:50:	Comment is too large: Line too long
+tests/controller/RestrictionControllerTest.java:54:	The String literal "Not yet implemented" appears 7 times in this file; the first occurrence is on line 54
+tests/controller/RestrictionControllerTest.java:60:	Comment is too large: Line too long
+tests/controller/RestrictionControllerTest.java:72:	Comment is too large: Line too long
+tests/controller/RestrictionControllerTest.java:80:	Comment is too large: Line too long
+tests/controller/RestrictionControllerTest.java:88:	Comment is too large: Line too long
+tests/controller/RestrictionControllerTest.java:96:	Comment is too large: Line too long
+tests/controller/RestrictionControllerTest.java:104:	Comment is too large: Line too long
+tests/controller/SampleLogicControllerTest.java:8:	Each class should declare at least one constructor
+tests/controller/SampleLogicControllerTest.java:8:	headerCommentRequirement Required
+tests/controller/SampleLogicControllerTest.java:11:	Document empty method body
+tests/controller/SampleLogicControllerTest.java:11:	publicMethodCommentRequirement Required
+tests/controller/SampleLogicControllerTest.java:15:	publicMethodCommentRequirement Required
+tests/controller/ScheduleControllerTest.java:24:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/ScheduleControllerTest.java:24:	Document empty method body
+tests/controller/ScheduleControllerTest.java:31:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/ScheduleControllerTest.java:31:	Document empty method body
+tests/controller/ScheduleControllerTest.java:38:	Document empty method body
+tests/controller/ScheduleControllerTest.java:45:	Document empty method body
+tests/controller/ScheduleControllerTest.java:49:	Comment is too large: Line too long
+tests/controller/ScheduleControllerTest.java:53:	The String literal "Not yet implemented" appears 6 times in this file; the first occurrence is on line 53
+tests/controller/ScheduleControllerTest.java:81:	Comment is too large: Line too long
+tests/controller/ScheduleControllerTest.java:89:	Comment is too large: Line too long
+tests/controller/ScheduleControllerTest.java:97:	Comment is too large: Line too long
+tests/controller/TeamControllerTest.java:28:	Avoid excessively long variable names like walkingDinnerController
+tests/controller/TeamControllerTest.java:28:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/TeamControllerTest.java:28:	Perhaps 'walkingDinnerController' could be replaced by a local variable.
+tests/controller/TeamControllerTest.java:28:	fieldCommentRequirement Required
+tests/controller/TeamControllerTest.java:29:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/TeamControllerTest.java:29:	Perhaps 'walkingDinner' could be replaced by a local variable.
+tests/controller/TeamControllerTest.java:29:	fieldCommentRequirement Required
+tests/controller/TeamControllerTest.java:30:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/TeamControllerTest.java:30:	fieldCommentRequirement Required
+tests/controller/TeamControllerTest.java:31:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/TeamControllerTest.java:31:	fieldCommentRequirement Required
+tests/controller/TeamControllerTest.java:32:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/TeamControllerTest.java:32:	fieldCommentRequirement Required
+tests/controller/TeamControllerTest.java:33:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/TeamControllerTest.java:33:	fieldCommentRequirement Required
+tests/controller/TeamControllerTest.java:34:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/TeamControllerTest.java:34:	fieldCommentRequirement Required
+tests/controller/TeamControllerTest.java:35:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/TeamControllerTest.java:35:	fieldCommentRequirement Required
+tests/controller/TeamControllerTest.java:36:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/TeamControllerTest.java:36:	fieldCommentRequirement Required
+tests/controller/TeamControllerTest.java:37:	Avoid variables with short names like gc
+tests/controller/TeamControllerTest.java:37:	Found non-transient, non-static member. Please mark as transient or provide accessors.
+tests/controller/TeamControllerTest.java:37:	fieldCommentRequirement Required
+tests/controller/TeamControllerTest.java:43:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/TeamControllerTest.java:43:	Document empty method body
+tests/controller/TeamControllerTest.java:50:	A method/constructor shouldnt explicitly throw java.lang.Exception
+tests/controller/TeamControllerTest.java:50:	Document empty method body
+tests/controller/TeamControllerTest.java:66:	Local variable 'team1' could be declared final
+tests/controller/TeamControllerTest.java:67:	Found 'DU'-anomaly for variable 'team1' (lines '67'-'70').
+tests/controller/TeamControllerTest.java:76:	Document empty method body
+tests/controller/TeamControllerTest.java:80:	Comment is too large: Line too long
+tests/controller/TeamControllerTest.java:81:	Comment is too large: Line too long
+tests/controller/TeamControllerTest.java:84:	JUnit tests should not contain more than 1 assert(s).
+tests/controller/TeamControllerTest.java:85:	Local variable 'team1' could be declared final
+tests/controller/TeamControllerTest.java:87:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:87:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:87:	Potential violation of Law of Demeter (object not created locally)
+tests/controller/TeamControllerTest.java:88:	Avoid variables with short names like k
+tests/controller/TeamControllerTest.java:88:	Local variable 'k' could be declared final
+tests/controller/TeamControllerTest.java:88:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:89:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:89:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:90:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:90:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:94:	Comment is too large: Too many lines
+tests/controller/TeamControllerTest.java:95:	Comment is too large: Line too long
+tests/controller/TeamControllerTest.java:101:	Comment is too large: Line too long
+tests/controller/TeamControllerTest.java:104:	JUnit tests should not contain more than 1 assert(s).
+tests/controller/TeamControllerTest.java:107:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:107:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:108:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:108:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:112:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:112:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:113:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:113:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:117:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:117:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:118:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:118:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:119:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:119:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:123:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:123:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:124:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:124:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:125:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:125:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:129:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:129:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:130:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:130:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:131:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:131:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:132:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:132:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:136:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:136:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:137:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:137:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:138:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:138:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:139:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:139:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:143:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:143:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:144:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:144:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:145:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:145:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:146:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:146:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:147:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:147:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:151:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:151:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:152:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:152:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:153:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:153:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:154:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:154:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:155:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:155:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:159:	Comment is too large: Line too long
+tests/controller/TeamControllerTest.java:164:	Comment is too large: Line too long
+tests/controller/TeamControllerTest.java:167:	JUnit tests should not contain more than 1 assert(s).
+tests/controller/TeamControllerTest.java:170:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:170:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:171:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:171:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:177:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:177:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:178:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:178:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:183:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:183:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:184:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:184:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:185:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:185:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:192:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:192:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:193:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:193:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:194:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:194:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:200:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:200:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:201:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:201:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:202:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:202:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:203:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:203:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:214:	Comment is too large: Line too long
+tests/controller/TeamControllerTest.java:217:	Found 'UR'-anomaly for variable 'g' (lines '217'-'223').
+tests/controller/TeamControllerTest.java:217:	JUnit tests should not contain more than 1 assert(s).
+tests/controller/TeamControllerTest.java:219:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:219:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:221:	Avoid variables with short names like b
+tests/controller/TeamControllerTest.java:221:	Found 'DD'-anomaly for variable 'b' (lines '221'-'224').
+tests/controller/TeamControllerTest.java:222:	Local variable 'g' could be declared final
+tests/controller/TeamControllerTest.java:223:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:224:	Found 'DD'-anomaly for variable 'b' (lines '224'-'224').
+tests/controller/TeamControllerTest.java:233:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:233:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:235:	Found 'DD'-anomaly for variable 'b' (lines '235'-'238').
+tests/controller/TeamControllerTest.java:236:	Local variable 'g' could be declared final
+tests/controller/TeamControllerTest.java:237:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:238:	Found 'DD'-anomaly for variable 'b' (lines '238'-'238').
+tests/controller/TeamControllerTest.java:248:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:248:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:250:	Found 'DD'-anomaly for variable 'b' (lines '250'-'253').
+tests/controller/TeamControllerTest.java:251:	Local variable 'g' could be declared final
+tests/controller/TeamControllerTest.java:252:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:253:	Found 'DD'-anomaly for variable 'b' (lines '253'-'253').
+tests/controller/TeamControllerTest.java:264:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:264:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:266:	Found 'DD'-anomaly for variable 'b' (lines '266'-'269').
+tests/controller/TeamControllerTest.java:267:	Local variable 'g' could be declared final
+tests/controller/TeamControllerTest.java:268:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:269:	Found 'DD'-anomaly for variable 'b' (lines '269'-'269').
+tests/controller/TeamControllerTest.java:279:	Document empty method body
+tests/controller/TeamControllerTest.java:284:	Comment is too large: Line too long
+tests/controller/TeamControllerTest.java:287:	Document empty method body
+tests/controller/TeamControllerTest.java:302:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/TeamControllerTest.java:302:	Potential violation of Law of Demeter (method chain calls)
+tests/controller/WalkingDinnerControllerTest.java:11:	Each class should declare at least one constructor
+tests/controller/WalkingDinnerControllerTest.java:11:	This class has too many methods, consider refactoring it.
+tests/controller/WalkingDinnerControllerTest.java:28:	The String literal "Not yet implemented" appears 28 times in this file; the first occurrence is on line 28
+tests/controller/WalkingDinnerControllerTest.java:48:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:61:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:74:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:87:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:100:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:113:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:126:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:139:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:152:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:165:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:178:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:191:	publicMethodCommentRequirement Required
+tests/controller/WalkingDinnerControllerTest.java:204:	publicMethodCommentRequirement Required
+tests/model/SampleModelTest.java:8:	Each class should declare at least one constructor
+tests/model/SampleModelTest.java:8:	headerCommentRequirement Required
+tests/model/SampleModelTest.java:11:	Document empty method body
+tests/model/SampleModelTest.java:11:	publicMethodCommentRequirement Required
+tests/model/SampleModelTest.java:15:	publicMethodCommentRequirement Required

@@ -7,6 +7,7 @@ import model.WalkingDinner;
 
 import java.util.List;
 import model.Course;
+import model.Event;
 
 /**
  * Controller for functions to manage groups
@@ -20,7 +21,7 @@ public class GroupController {
 	 * reference to central controller for exchange between other controller
 	 */
 	private WalkingDinnerController walkingDinnerController;
-	private Course currentCourse; 
+	//private Course currentCourse; 
 
 	
 	public GroupController(WalkingDinnerController walkingDinnerController) {
@@ -37,6 +38,10 @@ public class GroupController {
 		Group group = new Group();
 		if(team != null)
 			group.setHostTeam(team);
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		List<Group> groupListToAdd = currentEvent.getSchedule().getGroup(getCourse());
+		groupListToAdd.add(group);
+		currentEvent.getSchedule().setGroup(getCourse(), groupListToAdd);
 		return group;
 	}
 
@@ -87,6 +92,8 @@ public class GroupController {
 	 * @return {@link Course} 
 	 */
 	public Course getCourse() {
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		Course currentCourse = currentEvent.getSchedule().getCurrentCourse();
 		return currentCourse;
 	}
 
@@ -95,7 +102,8 @@ public class GroupController {
 	 * @param course
 	 */
 	public void setCourse(Course course) {
-		this.currentCourse = course;
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		currentEvent.getSchedule().setCurrentCourse(course);
 	}
 
 	/**
@@ -104,7 +112,7 @@ public class GroupController {
 	 */
 	public List<Group> getGroups() {
 		WalkingDinner wd = walkingDinnerController.getWalkingDinner();	
-		return wd.getCurrentEvent().getSchedule().getGroup(currentCourse);
+		return wd.getCurrentEvent().getSchedule().getGroup(getCourse());
 	}
 	//
 	/**

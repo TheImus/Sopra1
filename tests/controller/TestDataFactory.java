@@ -85,6 +85,14 @@ public class TestDataFactory {
 		
 		// now editing event 2
 		walkingDinner.setCurrentEvent(event2);
+
+
+	}
+	
+	public static WalkingDinnerController createTest(){
+		WalkingDinnerController walkingDinnerController;
+		return null;
+
 	}
 
 }

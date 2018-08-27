@@ -79,17 +79,17 @@
       </GridPane>
       <ButtonBar maxHeight="55.0" minHeight="55.0" prefHeight="55.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
         <buttons>
-          <Button fx:id="BtnCancel" cancelButton="true" mnemonicParsing="false" text="Abbrechen" />
-            <ComboBox fx:id="CbAction" prefWidth="150.0" promptText="Weiter" />
+          <Button fx:id="BtnCancel" cancelButton="true" mnemonicParsing="false" onAction="#OnCancel" text="Abbrechen" />
+            <ComboBox fx:id="CbAction" onAction="#OnParticipantAction" prefWidth="150.0" promptText="Weiter" />
         </buttons>
       </ButtonBar>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <content>
           <AnchorPane>
                <children>
-                  <CheckBox layoutX="5.0" layoutY="5.0" mnemonicParsing="false" text="Kein Alkohol" />
-                  <CheckBox layoutX="5.0" layoutY="35.0" mnemonicParsing="false" text="Vegetarisch" />
-                  <CheckBox layoutX="5.0" layoutY="65.0" mnemonicParsing="false" text="Vegan" />
+                  <CheckBox fx:id="CheckBoxNoAlkohol" layoutX="5.0" layoutY="5.0" mnemonicParsing="false" onAction="#OnNoAlkoholSelected" text="Kein Alkohol" />
+                  <CheckBox fx:id="CheckBoxVegetarian" layoutX="5.0" layoutY="35.0" mnemonicParsing="false" onAction="#OnVegetarianSelected" text="Vegetarisch" />
+                  <CheckBox fx:id="CheckBoxVegan" layoutX="5.0" layoutY="65.0" mnemonicParsing="false" onAction="#OnVeganSelected" text="Vegan" />
                </children>
             </AnchorPane>
         </content>
