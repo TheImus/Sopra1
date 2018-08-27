@@ -95,7 +95,20 @@ public class InvitationController {
 	 * @return Comma separated String with E-Mail addresses
 	 */
 	public String getEmailList(List<Participant> mailList) {
-		return null;
+		String result = "";
+		final String separator = ";";
+		
+		for (Participant participant : mailList) {
+			result += "\"" + participant.getPerson().getName() + "\"";
+			result += "<" + participant.getPerson().getMailAddress() + ">" + separator;
+		}
+		
+		// remove last separator from the list
+		if (result.length() > 0) {
+			result = result.substring(0, result.length() - 1);
+		}
+		
+		return result;
 	}
 
 	/**
@@ -106,21 +119,26 @@ public class InvitationController {
 	 * in the current event
 	 * 
 	 * If the person linked to the participant is double in <strong>participantList</strong>
-	 * only the first data of participant is imported in the current event
+	 * only the first participant is imported in the current event
 	 * 
 	 * @param participantList List of participants from past events
 	 */
-	/// TODO: Klären, wann genau jetzt ein neuer Participant erstellt werden soll!
 	public void invite(List<Participant> participantList) {
+		ParticipantController partCtrl = walkingDinnerController.getParticipantController();
 		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
 		Event currentEvent = wd.getCurrentEvent();
+		
+		if (currentEvent == null) {
+			throw new NullPointerException();
+		}
+		
 		List<Person> invitedPersons = getInvitedPersons();
 		
 		// if person is not in invitedPersons list, add the person now
 		for (Participant participant : participantList) {
 			if (!invitedPersons.contains(participant.getPerson())) {
 				// create new participant for this event 
-				//Participant newParticipant = new Participant(participant);
+				partCtrl.newParticipantForEvent(participant);
 				currentEvent.getInvited().add(participant); // new participant
 			}
 		}
