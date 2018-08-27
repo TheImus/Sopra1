@@ -165,6 +165,14 @@ public class Event {
 		this.currentParticipant = currentParticipant;
 	}
 	
+	public void addNewTeam(Team team)
+	{
+		if(!allTeams.contains(team))
+		{
+			allTeams.add(team);
+		}
+	}
+	
 	
 	
 
