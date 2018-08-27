@@ -24,9 +24,10 @@ import model.WalkingDinner;
 public class GroupControllerTest {
 	
 	private GroupController groupController;
-	private GroupController testGroupController;
-	private TestDataFactory dataFactory;
 	private WalkingDinnerController wdc;
+	
+	private GroupController testGroupController;
+	private WalkingDinnerController wdc2;
 
 	/**
 	 * create the test case
@@ -58,7 +59,9 @@ public class GroupControllerTest {
 		groupController = new GroupController(wdc);
 		wdc.setGroupController(groupController);
 		
-		dataFactory = new TestDataFactory();
+		//dataFactory = new TestDataFactory();
+		wdc2 = TestDataFactory.createTestWalkingDinnerController();
+		testGroupController = wdc2.getGroupController();
 		//testGroupController = dataFactory
 	}
 
@@ -92,8 +95,21 @@ public class GroupControllerTest {
 	public void testCreateNewGroup(){
 		//testGroupController
 		
+		assertNotNull(testGroupController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent().getSchedule());
+		
+		Group testgroup  = testGroupController.createNewGroup(null);
+		assertNotNull("TestGruppe nicht erstellt",testgroup);
+		assertTrue("Teamliste ist fehlerhaft",testgroup.getTeams().isEmpty());
+		assertNull("HostTeam ist fehlerhaft",testgroup.getHostTeam());
+		
+		
 		Team team = new Team();
-		testGroupController.createNewGroup(team);
+		Group testgroup1 = testGroupController.createNewGroup(team);
+		assertNotNull("Testgruppe leer",testgroup1);
+		assertFalse("Team nicht vorhanden",testgroup1.getTeams().isEmpty());
+		assertNull("HostTeam ist leer",testgroup1.getHostTeam());
+		assertEquals("HostTeam nicht korrekt gesetzt",testgroup1.getHostTeam(), team);
+		
 		
 	}
 

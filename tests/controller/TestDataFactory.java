@@ -117,6 +117,7 @@ public class TestDataFactory {
 	
 	public static Schedule createTestSchedule(){
 		Schedule schedule = new Schedule();
+		schedule.setCurrentCourse(Course.STARTER);
 		//3 groups 
 		List<Group> genGroupsStarter = new ArrayList<Group>();
 		for(int i =0 ; i<3;i++){
