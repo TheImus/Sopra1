@@ -127,13 +127,25 @@ public class TestDataFactory {
 	/*
 	 * *Implementation of TestDataFactory
 	 * */
-	public static WalkingDinnerController createTest(){
+	public static WalkingDinnerController createTestWalkingDinnerController(){
 		WalkingDinnerController walkingDinnerController = new WalkingDinnerController();
-		EventPickerController eventPickerController = new EventPickerController(walkingDinnerController);
-		//EventController()
+		WalkingDinnerController wdc = walkingDinnerController;
+		EventPickerController eventPickerController = new EventPickerController(wdc);
+		EventController eventController = new EventController(wdc);
+		InvitationController invitationCotroller = new InvitationController(wdc);
+		RestrictionController restrictionController = new RestrictionController(wdc);
+		ParticipantController participantController = new ParticipantController(wdc);
+		ConsistencyController consistencyController = new ConsistencyController(wdc);
+		ParticipantActionController participantActionController = new ParticipantActionController(wdc);
+		GroupController groupController = new GroupController(wdc);
+		TeamController teamController = new TeamController(wdc);		
 		
+		wdc.setEventPickerController(eventPickerController);
+		wdc.setEventController(eventController);
+		wdc.setInvitationController(invitationCotroller);
+		wdc.setRestrictionController(restrictionController);
+		wdc.setParticipantController(participantController);
 		
-		walkingDinnerController.setEventPickerController(eventPickerController);
 		return walkingDinnerController;
 	}
 
