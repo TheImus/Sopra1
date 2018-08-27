@@ -99,6 +99,19 @@ public class TestDataFactory {
 		
 		Event event = new Event();
 		event.setSchedule(createTestSchedule());
+		List<Group> group = event.getSchedule().getGroup(Course.STARTER);
+		group.addAll(event.getSchedule().getGroup(Course.MAIN));
+		group.addAll(event.getSchedule().getGroup(Course.DESSERT));
+		
+		List<Team> teams = new ArrayList<Team>();
+		List<Participant>  part = new ArrayList<Participant>();
+		for(Group g : group){
+			teams.addAll(g.getTeams());
+			part.addAll(g.getParticipants());
+		}
+		event.setAllTeams(teams);
+		event.setParticipants(part);
+		
 		return event;
 	}
 	
