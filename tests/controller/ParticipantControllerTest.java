@@ -98,8 +98,8 @@ public class ParticipantControllerTest {
 	 */
 	@Test
 	public void testSetAddress() {
-		//participantController.setAddress(testAddress);
-		//assertEquals(testAddress, currentParticipant.getAddress());
+		participantController.setAddress(testAddress);
+		assertEquals(testAddress, currentParticipant.getAddress());
 	}
 
 	/**
