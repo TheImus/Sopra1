@@ -219,7 +219,6 @@ public class InvitationController {
 		return result;
 	}
 
-	
 	/**
 	 * Exports a PDF document with all invitations 
 	 * 
@@ -239,26 +238,16 @@ public class InvitationController {
 		
 		try {
 			runPDFLatex(tmpDirectory);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// copy PDF to destination
-		try {
+			// copy PDF to destination
 			Files.copy(
 					new File(tmpDirectory + "invitation.pdf").toPath(), 
 					new File(fileName).toPath(), 
 					StandardCopyOption.REPLACE_EXISTING
 			);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	/**
 	 * Helper method, creates the temporary dir structure
@@ -274,12 +263,10 @@ public class InvitationController {
 			}
 			
 			if (!success) {
-				//throw new Exception("Could not create temporary directory for export in InvitationController.exportPDF");
 				System.out.println("Could not create temporary dir for export in InvitationController.exportPDF");
 			}
 		}
 	}
-	
 	
 	/**
 	 * Helper method, generate a list of invited persons from current event
@@ -289,9 +276,7 @@ public class InvitationController {
 	private List<Person> getInvitedPersons() {
 		// list of persons of the current event
 		List<Person> invitedPersons = new ArrayList<Person>();
-		
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
-		Event currentEvent = wd.getCurrentEvent();
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 		
 		// generate a list of persons who are participating
 		for ( Participant participant : currentEvent.getInvited() ) {
@@ -300,8 +285,6 @@ public class InvitationController {
 		
 		return invitedPersons;
 	}
-	
-	
 	
 	/**
 	 * Exports the main tex file for invitations
@@ -363,17 +346,14 @@ public class InvitationController {
 				line += participant.getPerson().getName() + csvSeparator;
 				line += participant.getAddress().getStreet() + csvSeparator;
 				line += participant.getAddress().getZipCode() + csvSeparator;
-				line += participant.getAddress().getCity();
-				
+				line += participant.getAddress().getCity();		
 				writer.println(line);
 			}
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
 	
 	private void exportEventDescription(String tmpDirectory) {
 		PrintWriter writer;
@@ -384,36 +364,27 @@ public class InvitationController {
 			writer.write(currentEvent.getEventDescription());
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	
+	/**
+	 * Generate PDF document
+	 * @param tmpDirectory working directory for pdflatex
+	 * @throws IOException if file not found
+	 * @throws InterruptedException if pdflatex crashes
+	 */
 	private void runPDFLatex(String tmpDirectory) throws IOException, InterruptedException {
-		// === execute pdflatex === 
-		boolean isWindows = System.getProperty("os.name")
-				  .toLowerCase().startsWith("windows");
-		
-		// via ProcessBuilder
 		ProcessBuilder builder = new ProcessBuilder();
-		if (isWindows) {
-			//builder.command("cmd.exe", "/c", "dir");
-			builder.command("pdflatex", "-interaction=nonstopmode", "invitation.tex");
-		} else {
-			//builder.command("sh", "-c", "ls");
-			builder.command("pdflatex", "-interaction=nonstopmode", "invitation.tex");
-		}
-		
+		builder.command("pdflatex", "-interaction=nonstopmode", "invitation.tex");
 		builder.directory(new File(tmpDirectory));
+		
 		Process process = builder.start();
-		StreamWorker streamWorker = 
-				new StreamWorker(process.getInputStream(), System.out::println);
+		StreamWorker streamWorker = new StreamWorker(process.getInputStream(), System.out::println);
 		Executors.newSingleThreadExecutor().submit(streamWorker);
 		int exitCode = process.waitFor();
 		assert exitCode == 0;
 	}
-	
 	
 	// inner class for shell execution
 	private static class StreamWorker implements Runnable {
@@ -427,10 +398,7 @@ public class InvitationController {
 		
 		@Override
 		public void run() {
-			new BufferedReader (new InputStreamReader(inputStream)).lines()
-				.forEach(consumer);
+			new BufferedReader (new InputStreamReader(inputStream)).lines().forEach(consumer);
 		}
 	}
-
-	
 }
