@@ -70,14 +70,13 @@ public class TestDataFactory {
 				event2.getInvited().add(participant);
 			}
 			
-			
-			List<Participant> participants = event1.getParticipants();
+			// add all the participants to the participant list
+			/*List<Participant> participants = event1.getParticipants();
 			participants.add(participant);
 			event1.setParticipants(participants);
 			participants = event2.getParticipants();
 			participants.add(participant);
-			event2.setParticipants(participants);
-			//ConsistencyController.members.add(event.getParticipants().get(0));
+			event2.setParticipants(participants);*/
 		}
 		
 		walkingDinner.getEvents().add(event1);
@@ -85,6 +84,11 @@ public class TestDataFactory {
 		
 		// now editing event 2
 		walkingDinner.setCurrentEvent(event2);
+	}
+	
+	public static WalkingDinnerController createTest(){
+	}
+		
 	}
 
 }
