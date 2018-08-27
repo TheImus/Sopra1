@@ -2,7 +2,13 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
+
+import model.Event;
+import model.WalkingDinner;
 
 public class EventPickerControllerTest {
 
@@ -11,7 +17,7 @@ public class EventPickerControllerTest {
 	 */
 	@Test
 	public void testEventPickerController() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -19,7 +25,7 @@ public class EventPickerControllerTest {
 	 */
 	@Test
 	public void testGetAllEvents() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -27,7 +33,32 @@ public class EventPickerControllerTest {
 	 */
 	@Test
 	public void testSearchEventName() {
-		fail("Not yet implemented");
+		WalkingDinnerController wdc = new WalkingDinnerController();
+		WalkingDinner wd = new WalkingDinner();
+		wdc.setWalkingDinner(wd);
+		ArrayList<Event> al = new ArrayList<Event>();
+		Event e = new Event();
+		al.add(e);
+		wd.setEvents(al);
+		Event currentEvent = new Event();
+		wd.setCurrentEvent(currentEvent);
+		EventPickerController eventPickerController = new EventPickerController(wdc);
+		wdc.setEventPickerController(eventPickerController);
+		
+		List<Event> events = new ArrayList();
+		Event event1 = new Event();
+		event1.setName("abcd");
+		Event event2 = new Event();
+		event2.setName("fghj");
+		events.add(event1);
+		events.add(event2);
+		wd.setEvents(events);
+		List<Event> lliszt = eventPickerController.searchEventName("gh");
+		for(Event ev : lliszt){
+			if(!ev.getName().equals("fghj")){
+				fail("Not searched correctly");
+			}
+		}
 	}
 
 	/**
@@ -35,7 +66,7 @@ public class EventPickerControllerTest {
 	 */
 	@Test
 	public void testNewEvent() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -43,7 +74,7 @@ public class EventPickerControllerTest {
 	 */
 	@Test
 	public void testModifyEvent() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -51,7 +82,7 @@ public class EventPickerControllerTest {
 	 */
 	@Test
 	public void testGetWalkingDinnerController() {
-		fail("Not yet implemented");
+		
 	}
 
 
@@ -60,7 +91,7 @@ public class EventPickerControllerTest {
 	 */
 	@Test
 	public void testSetWalkingDinnerController() {
-		fail("Not yet implemented");
+		
 	}
 
 }
