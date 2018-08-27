@@ -5,12 +5,15 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.WalkingDinner;
+import controller.WalkingDinnerController;
+
 /**
  * @author sopr027 alias Nico 
  *
  */
 public class WalkingDinnerControllerTest {
-
+	WalkingDinner walkingDinner; 
 	
 	/**
 	 * Create a Sample Event
@@ -18,7 +21,7 @@ public class WalkingDinnerControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		
+		walkingDinner = TestDataFactory.createSampleWalkingDinner();
 	}
 	
 	
@@ -27,7 +30,9 @@ public class WalkingDinnerControllerTest {
 	 */
 	@Test
 	public void testSaveModel() {
-		fail("Not yet implemented.");
+		WalkingDinnerController.saveModel(walkingDinner,"test");
+		WalkingDinner walkingDinner2 = WalkingDinnerController.loadModel("test");
+		assertEquals(walkingDinner,walkingDinner2);
 	}
 
 	/**
@@ -35,7 +40,8 @@ public class WalkingDinnerControllerTest {
 	 */
 	@Test
 	public void testLoadModel() {
-		fail("Not yet implemented");
+		WalkingDinner walkingDinner2 = WalkingDinnerController.loadModel("test");
+		assertEquals(walkingDinner, walkingDinner2 );
 	}
 
 	/**

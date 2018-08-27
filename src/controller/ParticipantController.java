@@ -71,10 +71,6 @@ public class ParticipantController {
 	 * this method sets the phone number of a participant
 	 * @param number the participant's phone number
 	 */
-	/**
-	 * this method sets a WalkingDinnerController 
-	 * @param walkingDinnerController 
-	 */
 	public void setPhoneNumber(String number) {
 		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 		Participant currentParticipant = currentEvent.getCurrentParticipant();
