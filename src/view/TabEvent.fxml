@@ -99,7 +99,7 @@
       </BorderPane>
       <ButtonBar GridPane.columnIndex="1" GridPane.rowIndex="2">
         <buttons>
-          <Button mnemonicParsing="false" text="Daten ändern" />
+          <Button fx:id="BtnChangeData" mnemonicParsing="false" onAction="#onModifyEvent" text="Daten ändern" />
         </buttons>
       </ButtonBar>
    </children>

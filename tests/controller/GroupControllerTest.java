@@ -25,6 +25,9 @@ public class GroupControllerTest {
 	
 	private GroupController groupController;
 	private WalkingDinnerController wdc;
+	
+	private GroupController testGroupController;
+	private WalkingDinnerController wdc2;
 
 	/**
 	 * create the test case
@@ -55,6 +58,11 @@ public class GroupControllerTest {
 		walkingDinner.setCurrentEvent(currentEvent);
 		groupController = new GroupController(wdc);
 		wdc.setGroupController(groupController);
+		
+		//dataFactory = new TestDataFactory();
+		wdc2 = TestDataFactory.createTestWalkingDinnerController();
+		testGroupController = wdc2.getGroupController();
+		//testGroupController = dataFactory
 	}
 
 	/**
@@ -69,19 +77,39 @@ public class GroupControllerTest {
 	 * testCase: Team = null should create an empty group , if team not null team should be included in the new group  
 	 */
 	@Test
-	public void testCreateNewGroup() {
-		Group testgroup = groupController.createNewGroup(null);
+//	public void testCreateNewGroup() {
+//		Group testgroup = groupController.createNewGroup(null);
+//		assertNotNull("TestGruppe nicht erstellt",testgroup);
+//		assertTrue("Teamliste ist fehlerhaft",testgroup.getTeams().isEmpty());
+//		assertNull("HostTeam ist fehlerhaft",testgroup.getHostTeam());
+//		
+//		
+//		Team team = new Team();
+//		Group testgroup1 = groupController.createNewGroup(team);
+//		assertNotNull("Testgruppe leer",testgroup1);
+//		assertFalse("Team nicht vorhanden",testgroup1.getTeams().isEmpty());
+//		assertNull("HostTeam ist leer",testgroup1.getHostTeam());
+//		assertEquals("HostTeam nicht korrekt gesetzt",testgroup1.getHostTeam(), team);
+//		
+//	}
+	public void testCreateNewGroup(){
+		//testGroupController
+		
+		assertNotNull(testGroupController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent().getSchedule());
+		
+		Group testgroup  = testGroupController.createNewGroup(null);
 		assertNotNull("TestGruppe nicht erstellt",testgroup);
 		assertTrue("Teamliste ist fehlerhaft",testgroup.getTeams().isEmpty());
 		assertNull("HostTeam ist fehlerhaft",testgroup.getHostTeam());
 		
 		
 		Team team = new Team();
-		Group testgroup1 = groupController.createNewGroup(team);
+		Group testgroup1 = testGroupController.createNewGroup(team);
 		assertNotNull("Testgruppe leer",testgroup1);
 		assertFalse("Team nicht vorhanden",testgroup1.getTeams().isEmpty());
 		assertNull("HostTeam ist leer",testgroup1.getHostTeam());
 		assertEquals("HostTeam nicht korrekt gesetzt",testgroup1.getHostTeam(), team);
+		
 		
 	}
 
@@ -142,7 +170,7 @@ public class GroupControllerTest {
 	public void testGetHostingTeam() {
 		//test case - Group has no hosting team
 		Group group = new Group();
-		assertNotNull("Group hat ein Hosting Team",groupController.getHostingTeam(group));
+		assertNull("Group hat ein Hosting Team",groupController.getHostingTeam(group));
 		
 		
 		//test case - Group has a hosting team
@@ -207,7 +235,7 @@ public class GroupControllerTest {
 		WalkingDinnerController testWdc = new WalkingDinnerController();
 		groupController.setWalkingDinnerController(testWdc);
 		WalkingDinnerController currentWdc = groupController.getWalkingDinnerController();
-		assertNotEquals(testWdc, currentWdc);
+		assertNotEquals(wdc, currentWdc);
 	}
 
 	/**
