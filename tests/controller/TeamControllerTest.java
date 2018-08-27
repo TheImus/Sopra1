@@ -5,14 +5,19 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.Course;
 import model.Event;
+import model.Group;
 import model.Participant;
+import model.Schedule;
 import model.Team;
 import model.WalkingDinner;
 
@@ -31,6 +36,8 @@ private Participant part3;
 private Participant part4;
 private Event currentEvent;
 private Team team1;
+private Schedule sch;
+private GroupController gc;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -61,6 +68,8 @@ private Team team1;
 		currentEvent = walkingDinner.getCurrentEvent();
 		@SuppressWarnings("unused")
 		Team team1 = new Team();
+		sch = currentEvent.getSchedule();
+		gc = walkingDinnerController.getGroupController();
 	}
 
 	/**
@@ -79,8 +88,9 @@ private Team team1;
 		Team team1 = teamController.createNewTeam(part1);
 		assertNotNull(team1);
 		assertTrue(team1.getParticipants().contains(part1));
+		int k = currentEvent.getAllTeams().size();
 		assertTrue(currentEvent.getAllTeams().contains(team1));
-		assertEquals(1,currentEvent.getAllTeams().size());
+		assertEquals(k+1,currentEvent.getAllTeams().size());
 		
 	}
 
@@ -207,8 +217,62 @@ private Team team1;
 	 * check if team is not in the Teamlist in Event and in no List in Schedule anymore
 	 */
 	@Test
-	public void testRemoveTeam() {
-		fail("Not yet implemented");
+	public void testRemoveTeam() {		
+		teamController.removeTeam(team1);
+		assertFalse(currentEvent.getAllTeams().contains(team1));
+		List<Group> list = gc.getAllGroups();		//ist team1 noch im Schedule?
+		boolean b = false;
+		for(Group g: list){
+			if(g.getTeams().contains(team1)){
+				b = true;
+			}
+		}
+		assertFalse(b);
+		
+		//Fall2)
+		team1 = new Team();
+		teamController.addParticipantToTeam(team1, part1);
+		teamController.removeTeam(team1);
+		assertFalse(currentEvent.getAllTeams().contains(team1));
+		list = gc.getAllGroups();		//ist team1 noch im Schedule?
+		b = false;
+		for(Group g: list){
+			if(g.getTeams().contains(team1)){
+				b = true;
+			}
+		}
+		assertFalse(b);
+		
+		//Fall3)
+		team1 = new Team();
+		teamController.addParticipantToTeam(team1, part1);
+		teamController.addParticipantToTeam(team1, part2);
+		teamController.removeTeam(team1);
+		assertFalse(currentEvent.getAllTeams().contains(team1));
+		list = gc.getAllGroups();		//ist team1 noch im Schedule?
+		b = false;
+		for(Group g: list){
+			if(g.getTeams().contains(team1)){
+				b = true;
+			}
+		}
+		assertFalse(b);
+		
+		//Fall4)
+		team1 = new Team();
+		teamController.addParticipantToTeam(team1, part1);
+		teamController.addParticipantToTeam(team1, part2);
+		teamController.addParticipantToTeam(team1, part3);
+		teamController.removeTeam(team1);
+		assertFalse(currentEvent.getAllTeams().contains(team1));
+		list = gc.getAllGroups();		//ist team1 noch im Schedule?
+		b = false;
+		for(Group g: list){
+			if(g.getTeams().contains(team1)){
+				b = true;
+			}
+		}
+		assertFalse(b);
 	}
 
 	/**
@@ -216,7 +280,7 @@ private Team team1;
 	 */
 	@Test
 	public void testGetWalkingDinnerController() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -224,7 +288,7 @@ private Team team1;
 	 */
 	@Test
 	public void testSetWalkingDinnerController() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -237,7 +301,12 @@ private Team team1;
 	 */
 	@Test
 	public void testGetFreeParticipants() {
-		fail("Not yet implemented");
+		//Fall1)
+		assertEquals(0,teamController.getFreeParticipants().size());
+		
+		//Fall2)
+		
+		
 	}
 
 	/**
