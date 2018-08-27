@@ -6,6 +6,7 @@ package controller;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.After;
@@ -16,15 +17,24 @@ import org.junit.Test;
 
 import model.Event;
 import model.Participant;
+import model.WalkingDinner;
 
 /**
  * @author Fabian Kemper
  *
  */
 public class InvitationControllerTest {
-	private WalkingDinnerController wdCtrl;
-	private InvitationController invCtrl;
-	private EventPickerController evtPicker;
+	private WalkingDinnerController walkingDinnerCtrl;
+	private WalkingDinner walkingDinner;
+	private InvitationController invitationCtrl;
+	private EventPickerController eventPickerCtrl;
+	
+	private List<Event> events;
+	private Event evt1;
+	private Event evt2;
+	
+	private List<Participant> participants1;
+	
 	
 	/**
 	 * @throws java.lang.Exception
@@ -47,11 +57,23 @@ public class InvitationControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		wdCtrl     = new WalkingDinnerController();
-		invCtrl    = wdCtrl.getInvitationController();
-		evtPicker  = wdCtrl.getEventPickerController();
+		walkingDinnerCtrl   = new WalkingDinnerController();
+		invitationCtrl      = walkingDinnerCtrl.getInvitationController();
+		eventPickerCtrl     = walkingDinnerCtrl.getEventPickerController();
 		
+		// add sample data
+		walkingDinnerCtrl.setWalkingDinner(TestDataFactory.createSampleWalkingDinner());
 		
+		walkingDinner =  walkingDinnerCtrl.getWalkingDinner();
+		
+		events = walkingDinner.getEvents();
+		evt1 = events.get(0);
+		evt2 = events.get(1);
+		
+		participants1 = new ArrayList<Participant>();
+		for (int i = 0; i < 2; i++) {
+			participants1.add(evt1.getInvited().get(i));
+		}
 	}
 
 	/**
@@ -59,24 +81,6 @@ public class InvitationControllerTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-	}
-
-	/**
-	 * Test method for {@link controller.InvitationController#InvitationController(controller.WalkingDinnerController)}.
-	 */
-	@Test
-	public void testInvitationController() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link controller.InvitationController#getWalkingDinnerController()}.
-	 * 
-	 * Return the central walking dinner controller
-	 */
-	@Test
-	public void testGetWalkingDinnerController() {
-		fail("Not yet implemented");
 	}
 
 	/**
@@ -109,7 +113,30 @@ public class InvitationControllerTest {
 	 */
 	@Test
 	public void testInvite() {
-		fail("Not yet implemented");
+		// backup old invited list
+		List<Participant> oldList = new ArrayList<Participant>();
+		Collections.copy(oldList, walkingDinner.getCurrentEvent().getInvited());
+		
+		// check if NO new participant is created, for inviting an participant which is invited
+		eventPickerCtrl.modifyEvent(evt1);
+		
+		// get a list of already invited persons
+		List<Participant> invited = new ArrayList<Participant>();
+		// add 6 participants to invite list
+		for (int i = 0; i < 6; i++) {
+			invited.add(evt1.getInvited().get(i));
+		}
+		
+		invitationCtrl.invite(invited);
+		
+		// check if no one is added
+		assertEquals(oldList.size(), evt1.getInvited().size());
+		for (int i = 0; i < oldList.size(); i++) {
+			assertEquals(oldList.get(i), evt1.getInvited().get(i));
+		}
+		
+		// check if a new participant is created for a 
+		//invCtrl.invite();
 	}
 
 	/**
@@ -143,7 +170,7 @@ public class InvitationControllerTest {
 	 */
 	@Test
 	public void testExportPDF() {
-		invCtrl.exportPDF("~/tmp/test.pdf");
+		invitationCtrl.exportPDF("~/tmp/test.pdf");
 		fail("Not yet implemented");
 	}
 

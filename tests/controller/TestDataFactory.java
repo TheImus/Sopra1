@@ -22,8 +22,8 @@ public class TestDataFactory {
 	 * person 0 to 23
 	 * 
 	 * Every Person is invited in event1
-	 * Every Person (with ID % 6 != 0 is registered at event 1)
-	 * Every Person (with ID % 3 == 0 is invited at event 2) 
+	 * Every Person (with ID < 18 is registered at event 1)
+	 * Every Person (with ID < 12 is invited at event 2) 
 	 * @param walkingDinner
 	 */
 	private static void addSampleEvents(WalkingDinner walkingDinner) {
@@ -38,17 +38,21 @@ public class TestDataFactory {
 		for (int i = 0; i < 24; i++) {
 			Participant participant = new Participant();
 			participant.getPerson().setName("Person"+Integer.toString(i));
+			participant.getPerson().setMailAddress("person"+Integer.toString(i)+"@example.com");
+			participant.getAddress().setStreet("Musterstraße " + Integer.toString(i));
+			participant.getAddress().setCity("Musterstadt");
 			
-			// invite participants
+			
+			// invite all participants
 			event1.getInvited().add(participant);
 			
 			// some participants are just invited and not registered
-			if (i % 6 != 0) {
+			if (i < 18) {
 				event1.getParticipants().add(participant);
 			}
 			
 			// some participants are invited in the second event
-			if (i % 3 == 0) {
+			if (i < 12) {
 				event2.getInvited().add(participant);
 			}
 		}
