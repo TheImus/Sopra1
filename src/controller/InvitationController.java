@@ -124,9 +124,9 @@ public class InvitationController {
 	 * @param participantList List of participants from past events
 	 */
 	public void invite(List<Participant> participantList) {
-		ParticipantController partCtrl = walkingDinnerController.getParticipantController();
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
-		Event currentEvent = wd.getCurrentEvent();
+		ParticipantController participantController = walkingDinnerController.getParticipantController();
+		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
+		Event currentEvent = walkingDinner.getCurrentEvent();
 		
 		if (currentEvent == null) {
 			throw new NullPointerException();
@@ -138,7 +138,7 @@ public class InvitationController {
 		for (Participant participant : participantList) {
 			if (!invitedPersons.contains(participant.getPerson())) {
 				// create new participant for this event 
-				partCtrl.newParticipantForEvent(participant);
+				participantController.newParticipantForEvent(participant);
 				currentEvent.getInvited().add(participant); // new participant
 			}
 		}
@@ -151,8 +151,8 @@ public class InvitationController {
 	 * @param participantList list of participants to remove 
 	 */
 	public void uninvite(List<Participant> participantList) {
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
-		Event currentEvent = wd.getCurrentEvent();
+		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
+		Event currentEvent = walkingDinner.getCurrentEvent();
 		// Error: no event selected
 		if (currentEvent == null) {
 			throw new NullPointerException();
