@@ -2,6 +2,8 @@ package controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Map;
+
 import model.Course;
 import model.Event;
 
@@ -18,7 +20,7 @@ public class EventController {
 	 * @param walkingDinnerController Reference to access all other classes
 	 */
 	public EventController(WalkingDinnerController walkingDinnerController){
-		//this.setWalkingDinnerController(walkingDinnerController);
+		this.setWalkingDinnerController(walkingDinnerController);
 	}
 
 	/**
@@ -27,15 +29,22 @@ public class EventController {
 	 * @throws IllegalArgumentException
 	 */
 	public void setEventName(String name) {
-
+		for(Event event : walkingDinnerController.getWalkingDinner().getEvents()){
+			if(event.getName().equals(name)){
+				throw new IllegalArgumentException("Eventname '" + name + "' already exists.");
+			}
+		}
+		getCurrentEvent().setName(name);
 	}
 
 	/**
-	 * Set the day of the Event.
+	 * Set the day of the Event.else{
+			
+		}
 	 * @param date Day of the Event
 	 */
 	public void setEventDate(LocalDate date) {
-
+		getCurrentEvent().setDate(date);
 	}
 
 	/**
@@ -43,7 +52,7 @@ public class EventController {
 	 * @param place The City where the event will be held
 	 */
 	public void setEventPlace(String city) {
-
+		getCurrentEvent().setCity(city);
 	}
 
 	/**
@@ -51,8 +60,11 @@ public class EventController {
 	 * @param course The course that will be specified
 	 * @param time The time of the specified course
 	 */
-	public void setCourseTime(Course course, LocalTime time) {
-
+	public void setCourseTime(Course course, LocalTime time) {		
+		Event currentEvent = getCurrentEvent();
+		Map<Course, LocalTime> courseTimes = currentEvent.getCourseTimes();
+		courseTimes.put(course, time);
+		currentEvent.setCourseTimes(courseTimes);
 	}
 
 	/**
@@ -60,23 +72,30 @@ public class EventController {
 	 * @param description The description and invitation text of the event.
 	 */
 	public void setEventDescription(String description) {
-
+		getCurrentEvent().setEventDescription(description);
 	}
 
 	/**
 	 * Set the registration deadline of the Event.
-	 * @param deadline The registation deadline of the Event.
+	 * @param deadline The registration deadline of the Event.
 	 */
 	public void setDeadline(LocalDate deadline) {
-
+		getCurrentEvent().setRegistrationDeadline(deadline);
 	}
 
 	/**
 	 * Delete the specified event from the list of all events.
 	 * @param event The event that will be deleted.
+	 * @throws IllegalStateException, IllegalArgumentException
 	 */
 	public void deleteEvent(Event event) {
-		
+		if(getCurrentEvent() == event){
+			throw new IllegalStateException("The current event should not be deleted.");
+		}
+		boolean removedSomething = walkingDinnerController.getWalkingDinner().getEvents().remove(event);
+		if(!removedSomething){
+			throw new IllegalArgumentException("The event could not be removed.(It might not be in the list.)");
+		}
 	}
 
 	/**
@@ -93,6 +112,14 @@ public class EventController {
 	 */
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
+	}
+	
+	/**
+	 * Get the currentEvent.
+	 * @return currentEvent The current event.
+	 */
+	private Event getCurrentEvent(){
+		return walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	}
 
 }

@@ -1,0 +1,7 @@
+\documentclass[fontsize=12pt,version=last,parskip=full]{scrlttr2}
+\usepackage[utf8]{inputenc}\usepackage[ngerman]{babel}\usepackage{datatool}
+\LoadLetterOption{DIN}\LoadLetterOption{invitationoptions}
+\DTLsetseparator{;}\DTLloaddb[noheader,keys={name,street,zip,place}]{adressen}{addresses.csv}
+\begin{document}\DTLforeach{adressen}{\Name=name,\Str=street,\ZIP=zip,\Place=place}%
+{\begin{letter}{\Name \\ \Str \\ \ZIP~\Place}
+\opening{Sehr geehrte Damen und Herren,}\input{invitation.txt}\end{letter}}\end{document}

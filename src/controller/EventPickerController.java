@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.Event;
 
@@ -16,16 +17,15 @@ public class EventPickerController {
 	 * @param walkingDinnerController Reference to access all other classes
 	 */
 	public EventPickerController(WalkingDinnerController walkingDinnerController){
-		//this.setWalkingDinnerController(walkingDinnerController);
+		this.setWalkingDinnerController(walkingDinnerController);
 	}
 
 	/**
 	 * Return the list of all events.
 	 * @return eventList The list of all Events.
-	 * @throws IllegalArgumentException
 	 */
 	public List<Event> getAllEvents() {
-		return null;
+		return walkingDinnerController.getWalkingDinner().getEvents();
 	}
 
 	/**
@@ -33,24 +33,35 @@ public class EventPickerController {
 	 * @param name The name of the event that is being searched.
 	 * @return eventList The list of all events with a name containing the parameter 'name'.
 	 */
-	public List<Event> searchEventName(String name) {
-		return null;
+	public List<Event> searchEventName(String name) {//#TODO
+		List<Event> events1 = getAllEvents();
+		List<Event> events2 = new ArrayList<Event>();
+		for(Event event : events1){
+			if(event.getName().contains(name)){
+				events2.add(event);
+			}
+		}
+		return events2;
 	}
 
 	/**
-	 * Create a new event and add it to the list of events and change the GUI to 'EventBearbeiten'//TODO NAME TO BE CHANGED
+	 * Create a new event and add it to the list of events.
 	 * @return event The new event that was created.
 	 */
 	public Event newEvent() {
-		return null;
+		Event newEvent = new Event();
+		List<Event> eventList = getWalkingDinnerController().getWalkingDinner().getEvents();
+		eventList.add(newEvent);
+		getWalkingDinnerController().getWalkingDinner().setEvents(eventList);
+		return newEvent;
 	}
 
 	/**
-	 * Set the currentEvent of the walkingDinner and change the GUI to 'EventBearbeiten'//TODO NAME TO BE CHANGED
+	 * Set the currentEvent of the walkingDinner.
 	 * @param event The event that will be modified
 	 */
 	public void modifyEvent(Event event) {
-		
+		getWalkingDinnerController().getWalkingDinner().setCurrentEvent(event);
 	}
 
 	/**

@@ -10,8 +10,32 @@ public class Address {
 
 	private String addressAdditional;
 
-	private Participant participant;
-
+	
+	/**
+	 * Initialize fields with empty values
+	 */
+	public Address() {
+		this.street = "";
+		this.city = "";
+		this.zipCode = "";
+		this.addressAdditional = "";
+	}
+	
+	/**
+	 * Clones the actual address object
+	 * 
+	 * @return new Address object with same attributes as the original one
+	 */
+	public Address clone() {
+		Address result = new Address();
+		result.addressAdditional = this.getAddressAdditional();
+		result.city = this.getCity();
+		result.street = this.getStreet();
+		result.zipCode = this.getZipCode();
+		
+		return result;
+	}
+	
 	public String getStreet() {
 		return street;
 	}
@@ -42,14 +66,6 @@ public class Address {
 
 	public void setAddressAdditional(String addressAdditional) {
 		this.addressAdditional = addressAdditional;
-	}
-
-	public Participant getParticipant() {
-		return participant;
-	}
-
-	public void setParticipant(Participant participant) {
-		this.participant = participant;
 	}
 
 }

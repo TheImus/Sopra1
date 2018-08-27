@@ -1,6 +1,13 @@
 package controller;
 
+import java.io.Serializable;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import controller.ErrorAUI;
+import model.Event;
 import model.WalkingDinner;
 
 /**
@@ -9,7 +16,7 @@ import model.WalkingDinner;
  * @author sopr027 alias Nico
  *
  */
-public class WalkingDinnerController {
+public class WalkingDinnerController implements Serializable {
 	
 	/**
 	 * Reference on Walking Dinner object
@@ -76,17 +83,52 @@ public class WalkingDinnerController {
 	 */
 	private ErrorAUI errorAUI;
 
+	
+	public WalkingDinnerController() {
+		this.walkingDinner = new WalkingDinner();
+		this.consistencyController = new ConsistencyController(this);
+		this.errorAUI = null;
+		this.eventController = new EventController(this);
+		this.eventPickerController = new EventPickerController(this);
+		this.exportController = new ExportController(this);
+		this.groupController = new GroupController(this);
+		this.invitationController = new InvitationController(this);
+		this.participantActionController = new ParticipantActionController(this);
+		this.participantController = new ParticipantController(this);
+		this.restrictionController = new RestrictionController(this);
+		this.scheduleController = new ScheduleController(this);
+		this.teamController = new TeamController(this);
+	}
+	
 	/**
-	 * 
+	 * Saves Current Model to a file 
 	 */
-	public void saveModel() {
-
+	public static void saveModel(WalkingDinner currentWalkingDinner, String fileName) {
+		try{
+			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(fileName));
+			stream.writeObject(currentWalkingDinner);
+			stream.close();
+		}catch(IOException ioex){
+            System.err.println("Error while saving");
+            ioex.printStackTrace();
+		}
 	}
 
 	/**
 	 * loads the data from the model classes in order to get the information about the events
 	 */
-	public void loadModel() {
+	public static WalkingDinner loadModel(String fileName) {
+		try{
+			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(fileName));
+			WalkingDinner wd = (WalkingDinner) stream.readObject();
+			stream.close();
+			return wd;
+		}catch(ClassNotFoundException cnfex){
+			 System.err.println("Class of given Event couldn't be found");
+		}catch(IOException ioex){
+			System.err.println("Event couldn't be loaded");
+		}
+		return null;
 
 	}
 
@@ -95,7 +137,7 @@ public class WalkingDinnerController {
 	 * @param error the errors which were found
 	 */
 	public void showError(String error) {
-		
+		errorAUI.showError(error);
 	}
 
 	/**
@@ -163,7 +205,7 @@ public class WalkingDinnerController {
 	}
 
 	/**
-	 * returns the current GroupController object 
+	 * retu		walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant().setCourseWish(course);rns the current GroupController object 
 	 * @return GroupController object
 	 */
 	public GroupController getGroupController() {

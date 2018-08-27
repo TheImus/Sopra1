@@ -2,25 +2,53 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author sopr027 alias Nico 
+ *
+ */
 public class WalkingDinnerControllerTest {
 
+	
+	/**
+	 * Create a Sample Event
+	 * @throws Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		
+	}
+	
+	
+	/**
+	 * check if model was really saved 
+	 */
 	@Test
 	public void testSaveModel() {
 		fail("Not yet implemented.");
 	}
 
+	/**
+	 * check if given model is a valid model or null 
+	 */
 	@Test
 	public void testLoadModel() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testShowError() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetWalkingDinner() {
 		fail("Not yet implemented");
@@ -30,7 +58,10 @@ public class WalkingDinnerControllerTest {
 	public void testSetWalkingDinner() {
 		fail("Not yet implemented");
 	}
-
+	
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetScheduleController() {
 		fail("Not yet implemented");
@@ -40,7 +71,10 @@ public class WalkingDinnerControllerTest {
 	public void testSetScheduleController() {
 		fail("Not yet implemented");
 	}
-
+	
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetExportController() {
 		fail("Not yet implemented");
@@ -50,6 +84,9 @@ public class WalkingDinnerControllerTest {
 	public void testSetExportController() {
 		fail("Not yet implemented");
 	}
+	/**
+	 * check if return value is null or an exception
+	 */
 
 	@Test
 	public void testGetTeamController() {
@@ -61,6 +98,9 @@ public class WalkingDinnerControllerTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetGroupController() {
 		fail("Not yet implemented");
@@ -71,6 +111,9 @@ public class WalkingDinnerControllerTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetParticipantActionController() {
 		fail("Not yet implemented");
@@ -81,6 +124,9 @@ public class WalkingDinnerControllerTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetConsistencyController() {
 		fail("Not yet implemented");
@@ -91,6 +137,9 @@ public class WalkingDinnerControllerTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetParticipantController() {
 		fail("Not yet implemented");
@@ -101,6 +150,9 @@ public class WalkingDinnerControllerTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetRestrictionController() {
 		fail("Not yet implemented");
@@ -111,6 +163,9 @@ public class WalkingDinnerControllerTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetInvitationController() {
 		fail("Not yet implemented");
@@ -121,6 +176,9 @@ public class WalkingDinnerControllerTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetEventController() {
 		fail("Not yet implemented");
@@ -131,6 +189,9 @@ public class WalkingDinnerControllerTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetEventPickerController() {
 		fail("Not yet implemented");
@@ -141,6 +202,9 @@ public class WalkingDinnerControllerTest {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * check if return value is null or an exception
+	 */
 	@Test
 	public void testGetErrorAUI() {
 		fail("Not yet implemented");

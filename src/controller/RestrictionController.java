@@ -6,10 +6,14 @@ import model.Restriction;
 public class RestrictionController {
 	
 	/**
-	 * @author sopr023
+	 * @author sopr026
 	 */
 	
-	private WalkingDinnerController walkingDinnerController;
+	private WalkingDinnerController walkingDinnerController;	
+	
+	public RestrictionController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
 
 	/**
 	 * Create a new restriction and add it toe the list of restrictions.

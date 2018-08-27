@@ -2,7 +2,10 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Event {
 
@@ -12,7 +15,7 @@ public class Event {
 
 	private String city;
 
-	private LocalTime[] courseTimes;
+	private Map<Course, LocalTime> courseTimes;
 
 	private String eventDescription;
 
@@ -27,6 +30,28 @@ public class Event {
 	private List<Participant> invited;
 
 	private Participant currentParticipant;
+	
+	private List<Team> allTeams;
+	
+	
+	public Event() {
+		this.date = LocalDate.now().plusWeeks(2); // default new event in two weeks 
+		this.name = "";
+		this.city = "";
+		this.courseTimes = new HashMap<Course, LocalTime>();
+		for (Course course : Course.values()) {
+			this.courseTimes.put(course, LocalTime.now());
+		}
+		this.eventDescription = "";
+		this.registrationDeadline = this.date.minusWeeks(1); // deadline one week before
+		this.participants = new ArrayList<Participant>();
+		this.restriction = new ArrayList<Restriction>();
+		this.schedule = new Schedule();
+		this.invited = new ArrayList<Participant>();
+		this.currentParticipant = null;
+		this.allTeams = new ArrayList<Team>();
+		
+	}
 
 	public List<Participant> getChangedParticipants() {
 		return null;
@@ -76,11 +101,11 @@ public class Event {
 		this.city = city;
 	}
 
-	public LocalTime[] getCourseTimes() {
+	public Map<Course, LocalTime> getCourseTimes() {
 		return courseTimes;
 	}
 
-	public void setCourseTimes(LocalTime[] courseTimes) {
+	public void setCourseTimes(Map<Course, LocalTime> courseTimes) {
 		this.courseTimes = courseTimes;
 	}
 
@@ -139,6 +164,17 @@ public class Event {
 	public void setCurrentParticipant(Participant currentParticipant) {
 		this.currentParticipant = currentParticipant;
 	}
+	
+	public void addNewTeam(Team team)
+	{
+		if(!allTeams.contains(team))
+		{
+			allTeams.add(team);
+		}
+	}
+	
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -169,6 +205,14 @@ public class Event {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public List<Team> getAllTeams() {
+		return allTeams;
+	}
+
+	public void setAllTeams(List<Team> teams) {
+		this.allTeams = teams;
 	}
 
 }

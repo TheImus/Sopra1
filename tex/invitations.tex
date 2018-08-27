@@ -1,0 +1,66 @@
+%!TeX program = pdflatex
+
+% Beispieldatei, auskommentieren in finaler Version!
+\begin{filecontents*}{daten.csv}
+	Sonnenschein;Summer;w;Wetterstraße;5;1111;Strahlenau
+	Quietsch;York;m;Bachstr.;4;67345;Ententeich
+	Firma Anwander Gmbh;;;Wattstr.;11;1111;Turgau
+\end{filecontents*}
+
+
+\documentclass[%
+fontsize=12pt, % Schriftgröße
+version=last, % Neueste Version von KOMA-Skript verwenden
+parskip=full % Kein hässliches Einrücken
+]{scrlttr2}
+
+% ===== Deutsche Sprache =====
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+% ============================
+
+\LoadLetterOption{DIN} % Einstellungen für DIN 676 laden
+\LoadLetterOption{invitationoptions} % Absenderdaten und -einstellungen aus absender.lco laden
+
+% Einstellungen für CSV
+\usepackage{datatool}
+\DTLsetseparator{;}
+\DTLloaddb
+[noheader,
+keys={name,vorname,gender,strasse,nr,plz,ort}
+]
+{adressen}
+{daten.csv}
+
+\begin{document}
+
+\DTLforeach{adressen}
+{\Name=name,%
+	\Vorname=vorname,%
+	\Gender=gender,%
+	\Str=strasse,%
+	\Nr=nr,%
+	\PLZ=plz,%
+	\Ort=ort%
+}{
+	\begin{letter}%
+{\ifstr{\Gender}{}{\Name \\ \Str~\Nr \\ \PLZ~\Ort}{\Vorname~\Name \\ \Str~\Nr \\ \PLZ~\Ort}}
+
+\setkomavar{date}{\today}       % Datum
+% =====================================
+
+% Eingestellt über die invitationoptions.lco
+%\setkomavar{title}{Titel}
+%\setkomavar{subject}{Betreff}
+
+%\opening{Sehr geehrte Frau Musterfrau,}
+\opening{\ifstr{\Gender}{w}{Sehr geehrte Frau \Name,}{\ifstr{\Gender}{m}{Sehr geehrter Herr \Name,}{\ifstr{\Gender}{}{Sehr geehrte Damen und Herren,}{}}}}
+
+
+\input{invitation.txt}
+
+%\closing{Mit freundlichen Grüßen}
+
+\end{letter}
+}
+\end{document}

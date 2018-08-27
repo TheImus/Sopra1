@@ -6,6 +6,10 @@ import model.Group;
 import model.Team;
 import model.Person;
 
+/**
+ * @author sopr026
+ */
+
 public class ScheduleController {
 
 	private WalkingDinnerController walkingDinnerController;
@@ -21,15 +25,17 @@ public class ScheduleController {
 	}
 
 	/**
-	 * DO WE REALLY NEED THIS??!!!
-	 * @return Returns a valid Group-Schedule for all Teams
+	 * This method implements the scheduling for teams into valid groups for one course and is
+	 * referring to the knowing-Relation and therefore other already scheduled courses.
+	 * @return Returns a valid Group-Schedule for a course with reference to the knowing-Relation and therefore other courses
 	 */
 	public List<Group> generateGroups() {
 		return null;
 	}
 
 	/**
-	 * DO WE REALLY NEED THIS??!!!
+	 * This method implements the first step of the scheduling-algorithm and
+	 * generates a List of valid Teams of 2-3 members from all participants
 	 * @return Returns a valid Team-Schedule for all Participants
 	 */
 	public List<Team> generateTeams() {
