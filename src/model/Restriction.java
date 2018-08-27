@@ -49,5 +49,15 @@ public class Restriction {
 	public void setParticipant(List<Participant> participant) {
 		this.participant = participant;
 	}
+	
+	public static ArrayList<Restriction> getIntersectionForRestrictions(List<Restriction> restrictionList1, List<Restriction> restrictionList2){
+		ArrayList<Restriction> intersectionList = new ArrayList<Restriction>();
+		for(Restriction restriction:restrictionList1){
+			if(restrictionList2.contains(restriction)){
+				intersectionList.add(restriction);
+			}
+		}
+		return intersectionList;
+	}
 
 }

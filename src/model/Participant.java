@@ -104,5 +104,10 @@ public class Participant {
 	public void setCourseWish(Course courseWish) {
 		this.courseWish = courseWish;
 	}
+	
+	public static ArrayList<Restriction> getRestrictionIntersectionForParticipants(Participant participant1, Participant participant2){
+		ArrayList<Restriction> restrictionIntersection = Restriction.getIntersectionForRestrictions(participant1.getRestriction(), participant2.getRestriction());
+		return restrictionIntersection;
+	}
 
 }
