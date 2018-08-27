@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 import model.Address;
@@ -137,19 +138,48 @@ public class TestDataFactory {
 	}
 	
 	public static Team createTestTeam(){
-		return null;
+		Team team = new Team();
+		Participant host = createTestParticipant();
+		Participant participant1 = createTestParticipant();
+		Participant participant2 = createTestParticipant();
+		List<Participant> members = new ArrayList<Participant>();
+		members.add(participant1);
+		members.add(participant2);
+		team.setHost(host);
+		team.setMembers(members);
+		return team;
 	}
 	public static Participant createTestParticipant(){
-		return null;
+		Participant participant = new Participant();
+		Address address = createTestAddress();
+		participant.setAddress(address);
+		participant.setCourseWish(Course.MAIN);
+		Person person = createTestPerson();
+		participant.setPerson(person);
+		participant.setSpecialNeeds("I don't want to do this.");
+		return participant;
 	}
 	public static Restriction createTestRestriction(){
-		return null;
+		Restriction restriction = new Restriction();
+		restriction.setName("TEST_RESTRICTION_PERMANENT");
+		restriction.setPermanent(true);
+		return restriction;
 	}
-	public static Person createtestPerson(){
-		return null;
+	public static Person createTestPerson(){
+		Person person = new Person();
+		person.setBirthDate(LocalDate.MIN);
+		person.setMailAddress("test@mail.com");
+		person.setName("Maax Mustermann");
+		person.setPhoneNumber("0231/666999");
+		return person;
 	}
 	public static Address createTestAddress(){
-		return null;
+		Address address = new Address();
+		address.setAddressAdditional("3rd left");
+		address.setCity("City");
+		address.setStreet("Street");
+		address.setZipCode("44444");
+		return address;
 	}
 	
 	/*
@@ -158,6 +188,7 @@ public class TestDataFactory {
 	public static WalkingDinnerController createTestWalkingDinnerController(){
 		WalkingDinnerController walkingDinnerController = new WalkingDinnerController();
 		WalkingDinnerController wdc = walkingDinnerController;
+		
 		EventPickerController eventPickerController = new EventPickerController(wdc);
 		EventController eventController = new EventController(wdc);
 		InvitationController invitationCotroller = new InvitationController(wdc);
@@ -167,12 +198,28 @@ public class TestDataFactory {
 		ParticipantActionController participantActionController = new ParticipantActionController(wdc);
 		GroupController groupController = new GroupController(wdc);
 		TeamController teamController = new TeamController(wdc);		
+		ExportController exportController = new ExportController(wdc);
+		ScheduleController scheduleController = new ScheduleController(wdc);
 		
 		wdc.setEventPickerController(eventPickerController);
 		wdc.setEventController(eventController);
 		wdc.setInvitationController(invitationCotroller);
 		wdc.setRestrictionController(restrictionController);
 		wdc.setParticipantController(participantController);
+		wdc.setConsistencyController(consistencyController);
+		wdc.setParticipantActionController(participantActionController);
+		wdc.setGroupController(groupController);
+		wdc.setTeamController(teamController);
+		wdc.setExportController(exportController);
+		wdc.setScheduleController(scheduleController);
+		
+		WalkingDinner walkingDinner = new WalkingDinner();
+		wdc.setWalkingDinner(walkingDinner);
+		
+		Event event = createTestEvent();
+		List<Event> events = new ArrayList<Event>();
+		events.add(event);
+		walkingDinner.setEvents(events);		
 		
 		return walkingDinnerController;
 	}

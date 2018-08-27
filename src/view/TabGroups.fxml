@@ -14,13 +14,13 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="761.0" prefWidth="600.0">
                <children>
-                  <Button layoutX="419.0" layoutY="31.0" mnemonicParsing="false" text="Gruppen gerenieren" />
+                  <Button fx:id="BtnGenerateTeams" layoutX="419.0" layoutY="31.0" mnemonicParsing="false" onAction="#onGenerateTeams" text="Gruppen gerenieren" />
                   <TextArea editable="false" layoutX="186.0" layoutY="256.0" prefHeight="44.0" prefWidth="194.0" visible="false" />
-                  <Button layoutX="480.0" layoutY="723.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" text="Save" />
-                  <Button layoutX="41.0" layoutY="723.0" mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="BtnSave" layoutX="480.0" layoutY="723.0" mnemonicParsing="false" onAction="#onSave" prefHeight="26.0" prefWidth="60.0" text="Save" />
+                  <Button fx:id="BtnCancel" layoutX="41.0" layoutY="723.0" mnemonicParsing="false" text="Cancel" />
                   <TabPane layoutX="41.0" layoutY="83.0" prefHeight="382.0" prefWidth="499.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab text="Vorspeise">
+                      <Tab fx:id="TabStarter" text="Vorspeise">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="195.0" prefWidth="470.0">
                                  <children>
@@ -48,7 +48,7 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                        <Tab text="Hauptspeise">
+                        <Tab fx:id="TabMain" text="Hauptspeise">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="195.0" prefWidth="470.0">
                                  <children>
@@ -76,7 +76,7 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="Nachtisch">
+                        <Tab fx:id="TabDesert" text="Nachtisch">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="195.0" prefWidth="470.0">
                                  <children>
@@ -84,7 +84,7 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="120.0" prefWidth="480.0">
                                              <children>
-                                                <TextArea editable="false" prefHeight="120.0" prefWidth="480.0" />
+                                                <TextArea fx:id="TextTeams" editable="false" prefHeight="120.0" prefWidth="480.0" />
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -94,7 +94,7 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="120.0" prefWidth="480.0">
                                              <children>
-                                                <TextArea editable="false" prefHeight="120.0" prefWidth="480.0" />
+                                                <TextArea fx:id="TextFreeTeams" editable="false" prefHeight="120.0" prefWidth="480.0" />
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -107,9 +107,9 @@
                     </tabs>
                   </TabPane>
                   <Label layoutX="41.0" layoutY="475.0" text="Teams" />
-                  <TextArea editable="false" layoutX="41.0" layoutY="529.0" prefHeight="140.0" prefWidth="110.0" />
-                  <TextArea editable="false" layoutX="151.0" layoutY="529.0" prefHeight="120.0" prefWidth="100.0" />
-                  <TextArea editable="false" layoutX="250.0" layoutY="529.0" prefHeight="120.0" prefWidth="100.0" />
+                  <TextArea fx:id="TestHostTeams" editable="false" layoutX="41.0" layoutY="529.0" prefHeight="140.0" prefWidth="110.0" />
+                  <TextArea fx:id="TextGuestTeam" editable="false" layoutX="151.0" layoutY="529.0" prefHeight="120.0" prefWidth="100.0" />
+                  <TextArea fx:id="TextGuestTeam2" editable="false" layoutX="250.0" layoutY="529.0" prefHeight="120.0" prefWidth="100.0" />
                   <Label layoutX="41.0" layoutY="504.0" text="Host team" />
                   <Label layoutX="151.0" layoutY="504.0" text="Guest team" />
                   <Label layoutX="250.0" layoutY="504.0" text="Guest team" />
