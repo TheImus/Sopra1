@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
@@ -9,7 +10,8 @@ public class Group {
 	private List<Team> guest;
 	
 	public Group() {
-		
+		this.hostTeam = null;
+		this.guest = new ArrayList<Team>();
 	}
 
 	public List<Participant> getParticipants() {

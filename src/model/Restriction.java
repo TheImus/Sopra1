@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Restriction {
@@ -9,6 +10,13 @@ public class Restriction {
 	private boolean permanent;
 
 	private List<Participant> participant;
+	
+	
+	public Restriction() {
+		this.name = "";
+		this.permanent = false;
+		this.participant = new ArrayList<Participant>();
+	}
 
 	public void removeParticipant(Participant participant) {
 
