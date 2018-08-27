@@ -76,7 +76,7 @@ public class ConsistencyController {
 		for(int i = 0; i<membersAsPerson.size()-1;i++) {																				
 			for(int j = 1; j<membersAsPerson.size();j++) {														
 				if(membersAsPerson.get(i).equals(membersAsPerson.get(j))){									//check if a person is multiple times in the same team
-					warnings.add(membersAsPerson.get(i) + "kommt mehrmals vor");	
+					warnings.add(membersAsPerson.get(i) + "kommt mehrmals im Team vor");	
 				}
 			}		
 		}

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import model.Event;
 import model.Participant;
 import model.WalkingDinner;
@@ -67,6 +69,15 @@ public class TestDataFactory {
 			if (i < 12) {
 				event2.getInvited().add(participant);
 			}
+			
+			
+			List<Participant> participants = event1.getParticipants();
+			participants.add(participant);
+			event1.setParticipants(participants);
+			participants = event2.getParticipants();
+			participants.add(participant);
+			event2.setParticipants(participants);
+			//ConsistencyController.members.add(event.getParticipants().get(0));
 		}
 		
 		walkingDinner.getEvents().add(event1);
