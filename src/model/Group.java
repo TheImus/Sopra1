@@ -24,8 +24,10 @@ public class Group {
 	}
 
 	public List<Team> getTeams() {
-		List<Team> allTeams = guest;
-		allTeams.add(hostTeam);
+		List<Team> allTeams = new ArrayList<Team>(); 
+		allTeams = guest;
+		if(hostTeam != null)
+			allTeams.add(hostTeam);
 		
 		return allTeams;
 	}
