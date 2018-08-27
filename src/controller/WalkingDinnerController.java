@@ -83,6 +83,23 @@ public class WalkingDinnerController implements Serializable {
 	 */
 	private ErrorAUI errorAUI;
 
+	
+	public WalkingDinnerController() {
+		this.walkingDinner = new WalkingDinner();
+		this.consistencyController = new ConsistencyController(this);
+		this.errorAUI = null;
+		this.eventController = new EventController(this);
+		this.eventPickerController = new EventPickerController(this);
+		this.exportController = new ExportController(this);
+		this.groupController = new GroupController(this);
+		this.invitationController = new InvitationController(this);
+		this.participantActionController = new ParticipantActionController(this);
+		this.participantController = new ParticipantController(this);
+		this.restrictionController = new RestrictionController(this);
+		this.scheduleController = new ScheduleController(this);
+		this.teamController = new TeamController(this);
+	}
+	
 	/**
 	 * 
 	 */

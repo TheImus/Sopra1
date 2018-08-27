@@ -20,6 +20,11 @@ public class ParticipantController {
 	 */
 	private WalkingDinnerController walkingDinnerController;
 
+	public ParticipantController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
+
 	/**
 	 * this method sets the name of a participant 
 	 * @param name the participant's name 

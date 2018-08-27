@@ -1,6 +1,8 @@
 package controller;
 
 import model.Team;
+import model.WalkingDinner;
+import model.Event;
 import model.Participant;
 import java.util.List;
 
@@ -13,13 +15,23 @@ public class TeamController {
 
 	private WalkingDinnerController walkingDinnerController;
 
-	/**this method creates a new Team with only one member. The member is given by the parameter participant. <br> 
+	
+	public TeamController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
+	/**this method creates a new Team with only one member as the new host. The member is given by the parameter participant. <br> 
 	 * Afterward this team is added to Team-list in Event.
 	 * @param participant The only member of the new team, which is created in the method
 	 * @return the new created Team 
 	 */
 	public Team createNewTeam(Participant participant) {
-		return null;
+		Team newTeam = new Team();
+		newTeam.setHost(participant);
+		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
+		Event currentEvent = walkingDinner.getCurrentEvent();
+		currentEvent.addNewTeam(newTeam);
+		return newTeam;
 	}
 
 	/** adds the given participant to the given team. Creates a new team when team is null.

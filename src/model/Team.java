@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Team {
@@ -7,6 +8,12 @@ public class Team {
 	private Participant host;
 
 	private List<Participant> members;
+	
+	
+	public Team() {
+		this.host = null;
+		this.members = new ArrayList<Participant>();
+	}
 
 	public List<Participant> getParticipants() {
 		return null;

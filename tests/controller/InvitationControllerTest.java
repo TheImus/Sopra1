@@ -5,6 +5,9 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,6 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import model.Event;
+import model.Participant;
 
 /**
  * @author Fabian Kemper
@@ -21,7 +25,7 @@ public class InvitationControllerTest {
 	private WalkingDinnerController wdCtrl;
 	private InvitationController invCtrl;
 	private EventPickerController evtPicker;
-
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -47,14 +51,6 @@ public class InvitationControllerTest {
 		invCtrl    = wdCtrl.getInvitationController();
 		evtPicker  = wdCtrl.getEventPickerController();
 		
-		Event evt1 = wdCtrl.getEventPickerController().newEvent();
-		Event evt2 = wdCtrl.getEventPickerController().newEvent();
-		Event evt3 = wdCtrl.getEventPickerController().newEvent();
-		
-		// Select first test event for manipulation
-		evtPicker.modifyEvent(evt1);
-		
-		// create a few participants for events
 		
 	}
 

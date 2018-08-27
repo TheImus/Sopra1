@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WalkingDinner {
@@ -7,6 +8,12 @@ public class WalkingDinner {
 	private List<Event> events;
 
 	private Event currentEvent;
+	
+	
+	public WalkingDinner() {
+		this.events = new ArrayList<Event>();
+		this.currentEvent = null;
+	}
 
 	public List<Person> getPersons() {
 		return null;
