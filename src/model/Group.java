@@ -7,6 +7,10 @@ public class Group {
 	private Team hostTeam;
 
 	private List<Team> guest;
+	
+	public Group() {
+		
+	}
 
 	public List<Participant> getParticipants() {
 		return null;

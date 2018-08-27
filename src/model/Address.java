@@ -10,12 +10,15 @@ public class Address {
 
 	private String addressAdditional;
 
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
+	
+	/**
+	 * Initialize fields with empty values
+	 */
+	public Address() {
+		this.street = "";
+		this.city = "";
+		this.zipCode = "";
+		this.addressAdditional = "";
 	}
 	
 	/**
@@ -31,6 +34,14 @@ public class Address {
 		result.zipCode = this.getZipCode();
 		
 		return result;
+	}
+	
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
 	public String getCity() {
