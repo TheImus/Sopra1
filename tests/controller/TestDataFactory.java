@@ -106,12 +106,20 @@ public class TestDataFactory {
 		ParticipantActionController participantActionController = new ParticipantActionController(wdc);
 		GroupController groupController = new GroupController(wdc);
 		TeamController teamController = new TeamController(wdc);		
+		ExportController exportController = new ExportController(wdc);
+		ScheduleController scheduleController = new ScheduleController(wdc);
 		
 		wdc.setEventPickerController(eventPickerController);
 		wdc.setEventController(eventController);
 		wdc.setInvitationController(invitationCotroller);
 		wdc.setRestrictionController(restrictionController);
 		wdc.setParticipantController(participantController);
+		wdc.setConsistencyController(consistencyController);
+		wdc.setParticipantActionController(participantActionController);
+		wdc.setGroupController(groupController);
+		wdc.setTeamController(teamController);
+		wdc.setExportController(exportController);
+		wdc.setScheduleController(scheduleController);
 		
 		return walkingDinnerController;
 	}
