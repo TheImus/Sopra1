@@ -230,6 +230,7 @@ public class TestDataFactory {
 		wdc.setWalkingDinner(walkingDinner);
 		
 		Event event = createTestEvent();
+		walkingDinner.setCurrentEvent(event);
 		List<Event> events = new ArrayList<Event>();
 		events.add(event);
 		walkingDinner.setEvents(events);		
