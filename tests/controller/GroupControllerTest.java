@@ -141,7 +141,10 @@ public class GroupControllerTest {
 	 */
 	@Test
 	public void testGetWalkingDinnerController() {
-		fail("Not yet implemented");
+		WalkingDinnerController testWdc = new WalkingDinnerController();
+		groupController.setWalkingDinnerController(testWdc);
+		WalkingDinnerController currentWdc = groupController.getWalkingDinnerController();
+		assertNotEquals(testWdc, currentWdc);
 	}
 
 	/**
