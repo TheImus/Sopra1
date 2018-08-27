@@ -87,8 +87,8 @@ public class TestDataFactory {
 	}
 	
 	public static WalkingDinnerController createTest(){
-	}
-		
+	
+		return null;
 	}
 
 }
