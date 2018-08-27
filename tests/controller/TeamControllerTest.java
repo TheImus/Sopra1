@@ -13,11 +13,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.Course;
 import model.Event;
 import model.Group;
 import model.Participant;
-import model.Schedule;
 import model.Team;
 import model.WalkingDinner;
 
@@ -36,7 +34,6 @@ private Participant part3;
 private Participant part4;
 private Event currentEvent;
 private Team team1;
-private Schedule sch;
 private GroupController gc;
 	
 	/**
@@ -68,7 +65,7 @@ private GroupController gc;
 		currentEvent = walkingDinner.getCurrentEvent();
 		@SuppressWarnings("unused")
 		Team team1 = new Team();
-		sch = currentEvent.getSchedule();
+		currentEvent.getSchedule();
 		gc = walkingDinnerController.getGroupController();
 	}
 
@@ -303,9 +300,6 @@ private GroupController gc;
 	public void testGetFreeParticipants() {
 		//Fall1)
 		assertEquals(0,teamController.getFreeParticipants().size());
-		
-		//Fall2)
-		
 		
 	}
 
