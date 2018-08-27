@@ -73,14 +73,14 @@
                </children>
             </HBox>
             <TextField fx:id="EdAddressExtra" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox fx:id="CbWishCourse" prefWidth="200.0" promptText="Gang" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox fx:id="CbSearchBox" editable="true" prefHeight="26.0" prefWidth="203.0" promptText="Lupe" GridPane.columnIndex="1" />
+            <ComboBox fx:id="CbWishCourse" onMouseClicked="#OnWishCourseClicked" prefWidth="200.0" promptText="Gang" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="CbSearchBox" editable="true" onMouseClicked="#OnSearchBoxClicked" prefHeight="26.0" prefWidth="203.0" promptText="Lupe" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <ButtonBar maxHeight="55.0" minHeight="55.0" prefHeight="55.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
         <buttons>
           <Button fx:id="BtnCancel" cancelButton="true" mnemonicParsing="false" onAction="#OnCancel" text="Abbrechen" />
-            <ComboBox fx:id="CbAction" onAction="#OnParticipantAction" prefWidth="150.0" promptText="Weiter" />
+            <ComboBox fx:id="CbAction" onAction="#OnParticipantActionSelected" onMouseClicked="#OnParticipantAction" prefWidth="150.0" promptText="Weiter" />
         </buttons>
       </ButtonBar>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
