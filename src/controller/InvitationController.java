@@ -11,6 +11,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -209,15 +211,19 @@ public class InvitationController {
 	 * for each invited participant there will be one page in the PDF document
 	 * 
 	 * @param fileName filename of the pdf document
+	 * @throws Exception if temporary file could not be created
 	 */
 	public void exportPDF(String fileName) {
-		String tmpDir = System.getProperty("user.home") + "/tmp/walkingdinner/";
-		exportTexFile(tmpDir);
-		exportEventDataToTex(tmpDir);
-		exportInvitedParticipants(tmpDir);
+		String tmpDirectory = System.getProperty("user.home") + "/tmp/walkingdinner/";
+
+		createTemporaryDirectory(tmpDirectory);
+		exportTexFile(tmpDirectory);
+		exportEventDataToTex(tmpDirectory);
+		exportInvitedParticipants(tmpDirectory);
+		exportEventDescription(tmpDirectory);
 		
 		try {
-			runPDFLatex(tmpDir);
+			runPDFLatex(tmpDirectory);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -226,10 +232,39 @@ public class InvitationController {
 			e.printStackTrace();
 		}
 		
-		
 		// copy PDF to destination
+		try {
+			Files.copy(
+					new File(tmpDirectory + "invitation.pdf").toPath(), 
+					new File(fileName).toPath(), 
+					StandardCopyOption.REPLACE_EXISTING
+			);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
+
+	/**
+	 * Helper method, creates the temporary dir structure
+	 */
+	private void createTemporaryDirectory(String tmpDirectory) {
+		File tmpFile = new File(tmpDirectory);
+		if (!tmpFile.exists() && !tmpFile.isDirectory()) {
+			boolean success = false;
+			try {
+				success = new File(tmpDirectory).mkdirs();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			if (!success) {
+				//throw new Exception("Could not create temporary directory for export in InvitationController.exportPDF");
+				System.out.println("Could not create temporary dir for export in InvitationController.exportPDF");
+			}
+		}
+	}
+	
 	
 	/**
 	 * Helper method, generate a list of invited persons from current event
@@ -325,6 +360,21 @@ public class InvitationController {
 	}
 	
 	
+	private void exportEventDescription(String tmpDirectory) {
+		PrintWriter writer;
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		
+		try {
+			writer = new PrintWriter(tmpDirectory + "invitation.txt", "UTF-8");
+			writer.write(currentEvent.getEventDescription());
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	private void runPDFLatex(String tmpDirectory) throws IOException, InterruptedException {
 		// === execute pdflatex === 
 		boolean isWindows = System.getProperty("os.name")
@@ -333,12 +383,14 @@ public class InvitationController {
 		// via ProcessBuilder
 		ProcessBuilder builder = new ProcessBuilder();
 		if (isWindows) {
-			builder.command("cmd.exe", "/c", "dir");
+			//builder.command("cmd.exe", "/c", "dir");
+			builder.command("pdflatex", "-interaction=nonstopmode", "invitation.tex");
 		} else {
-			builder.command("sh", "-c", "ls");
+			//builder.command("sh", "-c", "ls");
+			builder.command("pdflatex", "-interaction=nonstopmode", "invitation.tex");
 		}
 		
-		builder.directory(new File(System.getProperty("user.home")));
+		builder.directory(new File(tmpDirectory));
 		Process process = builder.start();
 		StreamWorker streamWorker = 
 				new StreamWorker(process.getInputStream(), System.out::println);

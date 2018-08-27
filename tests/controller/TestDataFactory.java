@@ -64,6 +64,7 @@ public class TestDataFactory {
 			participant.getPerson().setMailAddress("person"+Integer.toString(i)+"@example.com");
 			participant.getAddress().setStreet("Musterstraße " + Integer.toString(i));
 			participant.getAddress().setCity("Musterstadt");
+			participant.getAddress().setZipCode("12345");
 			
 			
 			// invite all participants
