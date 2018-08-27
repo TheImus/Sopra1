@@ -8,6 +8,11 @@ public class ParticipantActionController {
 
 	private WalkingDinnerController walkingDinnerController;
 
+	
+	public ParticipantActionController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 	/**
 	 * This method could return the actions,which are allowed manipulations of the current participant
 	 * the participant in the participantlist of the event could have the actions UNREGISTER, UPDATE_PARTICIPANT;

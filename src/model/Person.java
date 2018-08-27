@@ -11,8 +11,14 @@ public class Person {
 	private LocalDate birthDate;
 
 	private String phoneNumber;
-
-	private Participant participant;
+	
+	
+	public Person() {
+		this.name = "";
+		this.mailAddress = "";
+		this.birthDate = LocalDate.now();
+		this.phoneNumber = "";
+	}
 
 	public String getName() {
 		return name;
@@ -44,14 +50,6 @@ public class Person {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-	public Participant getParticipant() {
-		return participant;
-	}
-
-	public void setParticipant(Participant participant) {
-		this.participant = participant;
 	}
 
 }

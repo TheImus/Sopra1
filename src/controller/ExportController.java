@@ -8,7 +8,11 @@ public class ExportController {
 	private WalkingDinnerController walkingDinnerController;
 
 	
-	 
+	
+	public ExportController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 	/**
 	 * the method exports all data from all participants given by a List of participants into the file path
 	 * @param participant name of a list of all participants you want to export
