@@ -1,7 +1,7 @@
 package controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 import model.Address;
@@ -79,14 +79,13 @@ public class TestDataFactory {
 				event2.getInvited().add(participant);
 			}
 			
-			
-			List<Participant> participants = event1.getParticipants();
+			// add all the participants to the participant list
+			/*List<Participant> participants = event1.getParticipants();
 			participants.add(participant);
 			event1.setParticipants(participants);
 			participants = event2.getParticipants();
 			participants.add(participant);
-			event2.setParticipants(participants);
-			//ConsistencyController.members.add(event.getParticipants().get(0));
+			event2.setParticipants(participants);*/
 		}
 		
 		walkingDinner.getEvents().add(event1);
@@ -94,8 +93,6 @@ public class TestDataFactory {
 		
 		// now editing event 2
 		walkingDinner.setCurrentEvent(event2);
-
-
 	}
 	
 	public static Event createTestEvent(){
@@ -106,13 +103,38 @@ public class TestDataFactory {
 	}
 	
 	public static Schedule createTestSchedule(){
+		Schedule schedule = new Schedule();
+		//3 groups 
+		List<Group> genGroupsStarter = new ArrayList<Group>();
+		for(int i =0 ; i<3;i++){
+			genGroupsStarter.add(createTestGroup());
+		}
+		schedule.setGroup(Course.STARTER, genGroupsStarter);
 		
-		return null;
+		List<Group> genGroupsMain = new ArrayList<Group>();
+		for(int i =0 ; i<3;i++){
+			genGroupsMain.add(createTestGroup());
+		}
+		schedule.setGroup(Course.MAIN, genGroupsMain);
+		
+		List<Group> genGroupsDessert = new ArrayList<Group>();
+		for(int i =0 ; i<3;i++){
+			genGroupsDessert.add(createTestGroup());
+		}
+		schedule.setGroup(Course.DESSERT, genGroupsDessert);
 
+		return schedule;
 	}
 	
 	public static Group createTestGroup(){
-		return null;
+		Group group = new Group();
+		group.setHostTeam(createTestTeam());
+		List<Team> guest = new ArrayList<Team>();
+		guest.add(createTestTeam());
+		guest.add(createTestTeam());
+		group.setGuest(guest);
+		
+		return group;
 	}
 	
 	public static Team createTestTeam(){

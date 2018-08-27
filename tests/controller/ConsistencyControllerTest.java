@@ -58,12 +58,10 @@ public class ConsistencyControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		walkingDinnerController = TestDataFactory.createTest();
+		walkingDinnerController = TestDataFactory.createTestWalkingDinnerController();
 		consistencyController = walkingDinnerController.getConsistencyController();
 		WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
 		event = wd.getCurrentEvent();
-	
-		TestDataFactory.createSampleWalkingDinner();
 		
 		//@SuppressWarnings("unused")
 		team1 = new Team();
@@ -107,8 +105,7 @@ public class ConsistencyControllerTest {
 	public void testGetWarningsTeam() {
 				
 	
-		//WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
-		//Event event = wd.getCurrentEvent();
+		
 		List<Participant> participants = event.getParticipants();
 		List<Participant> members = new ArrayList<Participant>();
 		List<String> warnings = new ArrayList<String>();
@@ -202,7 +199,7 @@ public class ConsistencyControllerTest {
 	 */
 	@Test
 	public void testGetWarningsGroup() {
-		
+
 		List<Team> teams = event.getAllTeams();
 		List<Team> guests = new ArrayList<Team>();
 		List<String> warnings = new ArrayList<String>();
@@ -223,8 +220,37 @@ public class ConsistencyControllerTest {
 		warnings = consistencyController.getWarnings(group1);
 		assertEquals("Gruppe zu groß", warnings.get(0));
 		
-		guests.remove(3);
+		guests.remove(2);
 		group1.setGuest(guests);
+		group1.setHostTeam(null);
+		warnings.clear();
+		
+		warnings = consistencyController.getWarnings(group1);
+		assertEquals("kein Hostteam festgelegt", warnings.get(0));
+		
+		group1.setGuest(null);
+		group1.setHostTeam(teams.get(0));
+		
+		warnings.clear();
+		warnings = consistencyController.getWarnings(group1);
+		assertEquals("keine Gastteams vorhanden", warnings.get(0));
+		
+		guests.clear();
+		guests.add(teams.get(1));
+		
+		group1.setGuest(guests);
+		warnings = consistencyController.getWarnings(group1);
+		assertEquals("Die Anzahl der Gastteams stimmt nicht", warnings.get(0));
+		
+		warnings.clear();
+		guests.add(teams.get(2));
+		group1.setGuest(guests);
+		warnings = consistencyController.getWarnings(group1);
+		assertNotNull(warnings);
+		
+		
+		
+		
 		
 		
 	}
