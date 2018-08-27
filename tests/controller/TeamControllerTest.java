@@ -5,6 +5,7 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -56,17 +57,21 @@ private GroupController gc;
 	@Before
 	public void setUp() throws Exception {
 		
+		Event ev = new Event();
+		WalkingDinner walkingDinner = new WalkingDinner();
+		ArrayList<Event> list = new ArrayList<>();
+		list.add(ev);
+		walkingDinner.setEvents(list);
+		walkingDinner.setCurrentEvent(ev);
 		walkingDinnerController = TestDataFactory.createTestWalkingDinnerController();
-		walkingDinner = walkingDinnerController.getWalkingDinner();
+		walkingDinnerController.setWalkingDinner(walkingDinner);	
 		teamController = new TeamController(walkingDinnerController);
 		part1 = new  Participant();
 		part2 = new  Participant();
 		part3 = new  Participant();
 		part4 = new  Participant();
-		currentEvent = walkingDinner.getCurrentEvent();
-		@SuppressWarnings("unused")
-		Team team1 = new Team();
-		currentEvent.getSchedule();
+		currentEvent = ev;		
+		team1 = new Team();
 		gc = walkingDinnerController.getGroupController();
 	}
 
@@ -83,10 +88,10 @@ private GroupController gc;
 	 */
 	@Test
 	public void testCreateNewTeam() {
+		int k = currentEvent.getAllTeams().size();
 		Team team1 = teamController.createNewTeam(part1);
 		assertNotNull(team1);
 		assertTrue(team1.getParticipants().contains(part1));
-		int k = currentEvent.getAllTeams().size();
 		assertTrue(currentEvent.getAllTeams().contains(team1));
 		assertEquals(k+1,currentEvent.getAllTeams().size());
 		
@@ -106,46 +111,43 @@ private GroupController gc;
 		//1)
 		teamController.addParticipantToTeam(team1,part1);
 		assertTrue(team1.getParticipants().contains(part1));
-		assertEquals(1,currentEvent.getAllTeams().size());
+		
 		
 		//team now already contains part1
 		teamController.addParticipantToTeam(team1,part1);
 		assertTrue(team1.getParticipants().contains(part1));
-		assertEquals(1,currentEvent.getAllTeams().size());
+		
 		
 		//2)
 		teamController.addParticipantToTeam(team1,part2);
 		assertTrue(team1.getParticipants().contains(part2));
 		assertTrue(team1.getParticipants().contains(part1));
-		assertEquals(2,currentEvent.getAllTeams().size());
+		
 		
 		//team now already contains part1, part2
 		teamController.addParticipantToTeam(team1,part2);
 		assertTrue(team1.getParticipants().contains(part2));
 		assertTrue(team1.getParticipants().contains(part1));
-		assertEquals(2,currentEvent.getAllTeams().size());		
+		
 		
 		//3)
 		teamController.addParticipantToTeam(team1,part3);
 		assertTrue(team1.getParticipants().contains(part3));
 		assertTrue(team1.getParticipants().contains(part2));
-		assertTrue(team1.getParticipants().contains(part1));
-		assertEquals(3,currentEvent.getAllTeams().size());
+		assertTrue(team1.getParticipants().contains(part1));		
 		
 		//team now already contains part1,part2,part3
 		teamController.addParticipantToTeam(team1,part3);
 		assertTrue(team1.getParticipants().contains(part3));
 		assertTrue(team1.getParticipants().contains(part2));
 		assertTrue(team1.getParticipants().contains(part1));
-		assertEquals(3,currentEvent.getAllTeams().size());
-				
+
 		//4)
 		teamController.addParticipantToTeam(team1,part4);
 		assertTrue(team1.getParticipants().contains(part4));
 		assertTrue(team1.getParticipants().contains(part3));
 		assertTrue(team1.getParticipants().contains(part2));
 		assertTrue(team1.getParticipants().contains(part1));
-		assertEquals(4,currentEvent.getAllTeams().size());
 		
 		//team now already contains part1,part2,part3,part4
 		teamController.addParticipantToTeam(team1,part4);
@@ -153,7 +155,6 @@ private GroupController gc;
 		assertTrue(team1.getParticipants().contains(part3));
 		assertTrue(team1.getParticipants().contains(part2));
 		assertTrue(team1.getParticipants().contains(part1));
-		assertEquals(4,currentEvent.getAllTeams().size());
 	}
 
 	/**
@@ -172,9 +173,10 @@ private GroupController gc;
 		assertEquals(0,currentEvent.getAllTeams().size());
 		
 		//Fall2 herstellen und testen
-		team1= new Team();
-		teamController.addParticipantToTeam(team1, part1);
-		teamController.removeParticipantFromTeam(team1, part1);
+		
+		team1 = teamController.createNewTeam(part1);
+		assertEquals(1,team1.getParticipants().size());	
+		teamController.removeParticipantFromTeam(team1, part1);	
 		assertFalse(team1.getParticipants().contains(part1));		
 		assertEquals(0,currentEvent.getAllTeams().size());
 		
@@ -183,7 +185,6 @@ private GroupController gc;
 		teamController.removeParticipantFromTeam(team1, part1);
 		assertFalse(team1.getParticipants().contains(part1));
 		assertTrue(team1.getParticipants().contains(part2));
-		assertEquals(1,currentEvent.getAllTeams().size());
 		
 		//Fall3 herstellen und testen
 		team1=new Team();
@@ -192,7 +193,6 @@ private GroupController gc;
 		teamController.removeParticipantFromTeam(team1, part1);
 		assertFalse(team1.getParticipants().contains(part1));
 		assertTrue(team1.getParticipants().contains(part2));
-		assertEquals(1,currentEvent.getAllTeams().size());
 		
 		team1=new Team();
 		teamController.addParticipantToTeam(team1, part1);
@@ -200,8 +200,7 @@ private GroupController gc;
 		teamController.removeParticipantFromTeam(team1, part3);
 		assertFalse(team1.getParticipants().contains(part3));
 		assertTrue(team1.getParticipants().contains(part2));
-		assertTrue(team1.getParticipants().contains(part1));
-		assertEquals(2,currentEvent.getAllTeams().size());		
+		assertTrue(team1.getParticipants().contains(part1));	
 	}
 
 	
@@ -301,6 +300,18 @@ private GroupController gc;
 	public void testGetFreeParticipants() {
 		//Fall1)
 		assertEquals(0,teamController.getFreeParticipants().size());
+		WalkingDinnerController wdc = TestDataFactory.createTestWalkingDinnerController();
+		WalkingDinner wd = wdc.getWalkingDinner();
+		TeamController tc = wdc.getTeamController();
+		Event ce = wd.getCurrentEvent();
+		List<Participant> partList = ce.getParticipants();
+		partList.add(part1);
+		assertEquals(1,tc.getFreeParticipants().size());
+		partList.add(part2);
+		partList.add(part3);
+		partList.add(part4);
+		assertEquals(4,tc.getFreeParticipants().size());
+		
 		
 	}
 
@@ -314,7 +325,20 @@ private GroupController gc;
 	 */
 	@Test
 	public void testGetFreeTeams() {
-		fail("Not yet implemented");
+		WalkingDinnerController wdc = TestDataFactory.createTestWalkingDinnerController();
+		WalkingDinner wd = wdc.getWalkingDinner();
+		TeamController tc = wdc.getTeamController();
+		Event ce = wd.getCurrentEvent();
+		assertEquals(0,tc.getFreeTeams().size());
+		List<Team> list = ce.getAllTeams();
+		tc.removeTeam(list.get(0));
+		assertEquals(1,tc.getFreeTeams().size());
+		tc.removeTeam(list.get(4));
+		tc.removeTeam(list.get(22));
+		tc.removeTeam(list.get(7));
+		assertEquals(4,tc.getFreeTeams().size());
+		
+		
 	}
 
 }

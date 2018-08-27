@@ -8,6 +8,9 @@ import model.Group;
 import model.Participant;
 import model.Schedule;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -31,7 +34,7 @@ public class TeamController {
 	 */
 	public Team createNewTeam(Participant participant) {
 		Team newTeam = new Team();
-		newTeam.setHost(participant);
+		newTeam.setHost(participant);		
 		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
 		Event currentEvent = walkingDinner.getCurrentEvent();
 		currentEvent.addNewTeam(newTeam);
@@ -62,11 +65,13 @@ public class TeamController {
 	 */
 	public void removeParticipantFromTeam(Team team, Participant participant) {
 		if (team == null || participant == null || !team.getParticipants().contains(participant)) {
+			
 		} 
 		else {
 
 			if (team.getParticipants().size() == 1 || team.getParticipants().size() == 0) {
 				removeTeam(team);
+				
 			} 
 			else if (team.getHost().equals(participant)) {
 				team.setHost(team.getMembers().get(0));
@@ -91,9 +96,12 @@ public class TeamController {
 	 *            The team that is deleted
 	 */
 	public void removeTeam(Team team) {
+		//team.setHost(null);
+//		List<Participant> nullList = new ArrayList<>();
+//		team.setMembers(nullList);
 		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
-		List<Team> list = currentEvent.getAllTeams();
-		list.remove(team);
+//		List<Team> list = currentEvent.getAllTeams();
+//		list.remove(team);
 		Schedule currentSchedule = currentEvent.getSchedule();
 		Course[] courses = Course.values();
 		for(Course c:courses)
@@ -128,7 +136,7 @@ public class TeamController {
 	 * @return the private attribute getWalkingDinnerController
 	 */
 	public WalkingDinnerController getWalkingDinnerController() {
-		return walkingDinnerController;
+		return walkingDinnerController;		
 	}
 
 	/**
@@ -180,7 +188,8 @@ public class TeamController {
 	 */
 	public List<Team> getFreeTeams() {
 		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
-		List<Team> list = currentEvent.getAllTeams();
+		List<Team> list = new ArrayList<Team>();
+		list.addAll(currentEvent.getAllTeams());
 		Schedule currentSchedule = currentEvent.getSchedule();
 		Course[] courses = Course.values();
 		for(Course c:courses)
