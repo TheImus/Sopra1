@@ -63,7 +63,7 @@ public class ParticipantControllerTest {
 		testAddress.setCity("Dortmund");
 		testAddress.setStreet("Waterstreet");
 		testAddress.setZipCode("44444");
-		testAddress.setParticipant(currentParticipant);
+		//testAddress.setParticipant(currentParticipant);
 		testAddress.setAddressAdditional("test");
 	}
 

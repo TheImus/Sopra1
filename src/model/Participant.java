@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Participant {
@@ -16,6 +17,16 @@ public class Participant {
 
 	private Course courseWish;
 
+	
+	public Participant() {
+		this.specialNeeds = "";
+		this.changedSinceExport = true;
+		this.restriction = new ArrayList<Restriction>();
+		this.person = new Person();
+		this.address = new Address();
+		this.courseWish = null;
+	}
+	
 	public static void setChanged(List<Participant> participants, boolean value) {
 
 	}
@@ -29,6 +40,21 @@ public class Participant {
 
 	public void addRestriction(Restriction restriction) {
 
+	}
+	
+	/**
+	 * 
+	 * @param participant
+	 * @return
+	 */
+	public Participant createNewParticipant() {
+		Participant participant = new Participant();
+		participant.address = this.address.clone();
+		participant.changedSinceExport = true;
+		participant.person = this.getPerson();
+		participant.restriction = new ArrayList<Restriction>();
+		participant.specialNeeds = "";
+		return participant;
 	}
 
 	public String getSpecialNeeds() {
