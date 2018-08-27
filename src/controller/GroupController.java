@@ -21,6 +21,11 @@ public class GroupController {
 	private WalkingDinnerController walkingDinnerController;
 	private Course currentCourse; 
 
+	
+	public GroupController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 	/**
 	 * createNewGroup creates a new Group with a team as host
 	 * @param team team is the host of the new created Group 

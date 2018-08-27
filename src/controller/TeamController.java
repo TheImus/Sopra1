@@ -15,6 +15,11 @@ public class TeamController {
 
 	private WalkingDinnerController walkingDinnerController;
 
+	
+	public TeamController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 	/**this method creates a new Team with only one member as the new host. The member is given by the parameter participant. <br> 
 	 * Afterward this team is added to Team-list in Event.
 	 * @param participant The only member of the new team, which is created in the method

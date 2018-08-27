@@ -60,7 +60,7 @@ private GroupController gc;
 	public void setUp() throws Exception {
 		walkingDinnerController = new WalkingDinnerController();
 		walkingDinner = walkingDinnerController.getWalkingDinner();
-		teamController = new TeamController();
+		teamController = new TeamController(walkingDinnerController);
 		part1 = new  Participant();
 		part2 = new  Participant();
 		part3 = new  Participant();

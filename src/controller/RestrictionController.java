@@ -11,6 +11,11 @@ public class RestrictionController {
 	
 	private WalkingDinnerController walkingDinnerController;
 
+	
+	public RestrictionController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 	/**
 	 * Create a new restriction and add it toe the list of restrictions.
 	 * @param restricton The restriction to be added
