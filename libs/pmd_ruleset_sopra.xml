@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset name="Sopra"
+	xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+	<description>
+		Diese Regelmenge wurde zur Nutzung in der Lehrveranstaltung "Sopra" der TU Dortmund erstellt.
+		Sie besteht ausschließlich aus Standardregeln.
+	</description>
+<!-- Namensgebung-->
+	<rule ref="category/java/codestyle.xml/ShortVariable"/>
+	<rule ref="category/java/codestyle.xml/ShortMethodName"/>
+	<rule ref="category/java/codestyle.xml/ShortClassName"/>
+	<rule ref="category/java/codestyle.xml/VariableNamingConventions"/>
+	<rule ref="category/java/codestyle.xml/MethodNamingConventions"/>
+	<rule ref="category/java/codestyle.xml/ClassNamingConventions"/>
+	<rule ref="category/java/codestyle.xml/PackageCase"/>
+	<rule ref="category/java/codestyle.xml/AvoidDollarSigns"/>
+	<rule ref="category/java/codestyle.xml/SuspiciousConstantFieldName"/>
+	<rule ref="category/java/errorprone.xml/AvoidLiteralsInIfCondition"/>
+<!-- Methoden-->
+	<rule ref="category/java/design.xml/CyclomaticComplexity"/>
+	<rule ref="category/java/design.xml/ExcessiveMethodLength">
+		<properties>
+			<property name="minimum" value="40"/>
+		</properties>
+	</rule>
+	<rule ref="category/java/design.xml/AvoidDeeplyNestedIfStmts"/>
+	<rule ref="category/java/design.xml/ExcessiveParameterList">
+		<properties>
+			<property name="minimum" value="5"/>
+		</properties>
+	</rule>
+<!-- Klassen-->
+	<rule ref="category/java/codestyle.xml/FieldDeclarationsShouldBeAtStartOfClass"/>
+	<rule ref="category/java/design.xml/ExcessiveClassLength">
+		<properties>
+			<property name="minimum" value="400"/>
+		</properties>
+	</rule>
+	<rule ref="category/java/design.xml/GodClass"/>
+<!-- Unused Code-->
+	<rule ref="category/java/bestpractices.xml/UnusedPrivateField"/>
+	<rule ref="category/java/bestpractices.xml/UnusedLocalVariable"/>
+	<rule ref="category/java/bestpractices.xml/UnusedPrivateMethod"/>
+	<rule ref="category/java/bestpractices.xml/UnusedFormalParameter"/>
+</ruleset>
