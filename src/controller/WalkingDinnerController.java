@@ -101,7 +101,7 @@ public class WalkingDinnerController implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Saves Current Model to a file 
 	 */
 	public static void saveModel(WalkingDinner currentWalkingDinner, String fileName) {
 		try{
@@ -137,7 +137,7 @@ public class WalkingDinnerController implements Serializable {
 	 * @param error the errors which were found
 	 */
 	public void showError(String error) {
-
+		errorAUI.showError(error);
 	}
 
 	/**
