@@ -4,6 +4,7 @@ import model.Group;
 import model.Schedule;
 import model.Team;
 import model.WalkingDinner;
+
 import java.util.List;
 import model.Course;
 
@@ -24,6 +25,7 @@ public class GroupController {
 	
 	public GroupController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
+		
 	}
 
 	/**
@@ -33,7 +35,8 @@ public class GroupController {
 	 */
 	public Group createNewGroup(Team team) { 
 		Group group = new Group();
-		group.setHostTeam(team);
+		if(team != null)
+			group.setHostTeam(team);
 		return group;
 	}
 
