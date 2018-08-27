@@ -43,9 +43,9 @@ public class GroupControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		groupController = new GroupController();
 		wdc = new WalkingDinnerController();
 		groupController.setWalkingDinnerController(wdc);
+		groupController = wdc.getGroupController();
 	}
 
 	/**
