@@ -10,6 +10,10 @@ public class RestrictionController {
 	 */
 	
 	private WalkingDinnerController walkingDinnerController;
+	
+	public RestrictionController(WalkingDinnerController wdc){
+		this.walkingDinnerController = wdc;
+	}
 
 	/**
 	 * Create a new restriction and add it toe the list of restrictions.
