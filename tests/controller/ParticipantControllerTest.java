@@ -17,6 +17,7 @@ import model.Address;
 import model.Course;
 import model.Event;
 import model.Participant;
+import model.WalkingDinner;
 //import model.Person;
 import controller.ParticipantController;
 
@@ -28,14 +29,15 @@ public class ParticipantControllerTest {
 	
 	Participant currentParticipant; 
 	ParticipantController participantController; 
-	static Event currentEvent;
-	static String testName = "H";
+	WalkingDinner walkingDinner;
+	Event currentEvent;
+	String testName = "H";
 	//static LocalDate testDate = LocalDate.parse("24.12.2014");
-	static Address testAddress;
-	static String testMail = "test@test.com";
-	static String testNumber = "99999999";
-	static Course testPref = null;
-	static String testWishes = "test";
+	Address testAddress;
+	String testMail = "test@test.com";
+	String testNumber = "99999999";
+	Course testPref = null;
+	String testWishes = "test";
 	
 	
 	/**
@@ -57,14 +59,15 @@ public class ParticipantControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		currentEvent = participantController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent();
+		walkingDinner = TestDataFactory.createSampleWalkingDinner();
+		currentEvent = TestDataFactory.createTestEvent();
 		currentParticipant = currentEvent.getCurrentParticipant();
 		
-		testAddress.setCity("Dortmund");
+		/*testAddress.setCity("Dortmund");
 		testAddress.setStreet("Waterstreet");
 		testAddress.setZipCode("44444");
 		//testAddress.setParticipant(currentParticipant);
-		testAddress.setAddressAdditional("test");
+		testAddress.setAddressAdditional("test");*/
 	}
 
 	/**
