@@ -98,7 +98,7 @@ public class GroupController {
 		WalkingDinner wd = walkingDinnerController.getWalkingDinner();	
 		return wd.getCurrentEvent().getSchedule().getGroup(currentCourse);
 	}
-
+	//
 	/**
 	 * delete Group from current event {@see WalkingDinnerController}
 	 * @param group Group to remove
