@@ -29,14 +29,21 @@ public class ConsistencyControllerTest {
 	
 	private WalkingDinnerController walkingDinnerController;
 	private ConsistencyController consistencyController;
-	
+	private RestrictionController restrictionController;
+	private TeamController teamController;
+	private ParticipantController participantController;
 	
 	
 	private Team team1;
 	private Team team2;
 	private Team team3;
+	private Participant part1;
+	private Participant part2;
+	private Participant part3;
+	private Participant part4;
 	private Group group1;
 	private Event event;
+	
 	
 	
 	/**
@@ -62,6 +69,13 @@ public class ConsistencyControllerTest {
 		consistencyController = walkingDinnerController.getConsistencyController();
 		WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
 		event = wd.getCurrentEvent();
+		restrictionController = walkingDinnerController.getRestrictionController();
+		participantController = walkingDinnerController.getParticipantController();
+		
+		part1 = part1.createNewParticipant();
+		part2 = part2.createNewParticipant();
+		part3 = part3.createNewParticipant();
+		part4 = part4.createNewParticipant();
 		
 		//@SuppressWarnings("unused")
 		team1 = new Team();
@@ -248,11 +262,6 @@ public class ConsistencyControllerTest {
 		warnings = consistencyController.getWarnings(group1);
 		assertNotNull(warnings);
 		
-		
-		
-		
-		
-		
 	}
 
 	/**
@@ -284,7 +293,25 @@ public class ConsistencyControllerTest {
 	 */
 	@Test
 	public void testGetDifferentRestrictionsFor() {
-		fail("Not yet implemented");
+		
+		List<Restriction> restrictions = new ArrayList<Restriction>();
+		List<Participant> participants = new ArrayList<Participant>();
+		Restriction rest1 = new Restriction();
+		Restriction rest2 = new Restriction();
+		rest1.setName("Fleisch");
+		restrictions.add(rest1);
+		part1.setRestriction(restrictions);
+		rest2.setName("Gemüse");
+		restrictions.remove(0);
+		restrictions.add(rest2);
+		part2.setRestriction(restrictions);
+		
+		restrictions.remove(0);
+		restrictions.add(rest2);
+		restrictions.add(rest1);
+		
+		assertEquals(restrictions, consistencyController.getDifferentRestrictionsFor(participants));
+
 	}
 
 }

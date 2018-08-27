@@ -205,11 +205,12 @@ public class ConsistencyController {
 	
 
 	/**
+	 * Hilfsmethode
 	 * the method compares all of the restrictions of all participants given as parameter and checks if
 	 * there are any differences between the participants
 	 * @param participants name of list of participants
 	 * @return Returns a list of all restrictions that don't appear more than once
-	 */
+	 */	
 	public List<Restriction> getDifferentRestrictionsFor(List<Participant> participants) {
 	
 		List<Restriction> notMatchingRestrictions = new ArrayList<Restriction>();				//create list to save all restrictions that don't match
