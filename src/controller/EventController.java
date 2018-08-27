@@ -2,6 +2,8 @@ package controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Map;
+
 import model.Course;
 import model.Event;
 
@@ -58,10 +60,10 @@ public class EventController {
 	 * @param course The course that will be specified
 	 * @param time The time of the specified course
 	 */
-	public void setCourseTime(Course course, LocalTime time) {
+	public void setCourseTime(Course course, LocalTime time) {		
 		Event currentEvent = getCurrentEvent();
-		LocalTime[] courseTimes = currentEvent.getCourseTimes();
-		courseTimes[course.ordinal()] = time;
+		Map<Course, LocalTime> courseTimes = currentEvent.getCourseTimes();
+		courseTimes.put(course, time);
 		currentEvent.setCourseTimes(courseTimes);
 	}
 

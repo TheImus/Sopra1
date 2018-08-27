@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -89,10 +91,15 @@ public class EventControllerTest {
 		EventController eventController = new EventController(wdc);
 		wdc.setEventController(eventController);
 		
-		currentEvent.setCourseTimes(new LocalTime[]{LocalTime.MIN, LocalTime.MIN, LocalTime.MIN});
+		Map<Course, LocalTime> map = new HashMap();
+		map.put(Course.STARTER, LocalTime.MIN);
+		map.put(Course.MAIN, LocalTime.MIN);
+		map.put(Course.DESSERT, LocalTime.MIN);
+		
+		currentEvent.setCourseTimes(map);
 		for(Course c : Course.values())
 		wdc.getEventController().setCourseTime(c, LocalTime.MAX);
-		for(LocalTime lt : currentEvent.getCourseTimes()){
+		for(LocalTime lt : currentEvent.getCourseTimes().values()){
 			if(!lt.equals(LocalTime.MAX)){
 				fail("CourseTime was not set correctly.");
 			}
