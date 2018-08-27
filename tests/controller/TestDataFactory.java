@@ -7,11 +7,15 @@ import model.WalkingDinner;
 public class TestDataFactory {
 
 	
-	
+	/**
+	 * Create a walking Dinner with sample data
+	 * @return
+	 */
 	public static WalkingDinner createSampleWalkingDinner() {
 		WalkingDinner walkingDinner = new WalkingDinner();
 		
 		addSampleEvents(walkingDinner);
+		addSampleParticipants(walkingDinner);
 		
 		return walkingDinner;
 	}
@@ -21,18 +25,26 @@ public class TestDataFactory {
 	 * adds two sample events with 24 participants with the name
 	 * person 0 to 23
 	 * 
+	 * @param walkingDinner
+	 */
+	private static void addSampleEvents(WalkingDinner walkingDinner) {
+		
+		for (int i = 1; i <= 2; i++) {
+			Event event = new Event();
+			event.setName("Event" + Integer.toString(i));
+			walkingDinner.getEvents().add(event);
+		}
+	}
+	
+	/**
 	 * Every Person is invited in event1
 	 * Every Person (with ID < 18 is registered at event 1)
 	 * Every Person (with ID < 12 is invited at event 2) 
 	 * @param walkingDinner
 	 */
-	private static void addSampleEvents(WalkingDinner walkingDinner) {
-		Event event1 = new Event();
-		event1.setName("Event1");
-		
-		Event event2 = new Event();
-		event2.setName("Event2");
-		
+	private static void addSampleParticipants(WalkingDinner walkingDinner) {
+		Event event1 = walkingDinner.getEvents().get(0);
+		Event event2 = walkingDinner.getEvents().get(1);
 		
 		// sample participants
 		for (int i = 0; i < 24; i++) {

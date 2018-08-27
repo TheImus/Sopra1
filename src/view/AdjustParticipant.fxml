@@ -57,30 +57,30 @@
             <Label text="PLZ/Ort" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <Label text="Wunschgang" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
             <Label text="Sonderwünsche" translateX="-8.0" translateY="7.0" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="TOP" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <DatePicker fx:id="DateBirthday" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextArea fx:id="EdSpecialWished" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets top="2.0" />
                </GridPane.margin>
             </TextArea>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="EdName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <TextField maxWidth="65.0" minWidth="65.0" prefWidth="65.0" translateY="2.0" />
+                  <TextField fx:id="EdZipCode" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" translateY="2.0" />
                   <Label text="-" translateY="5.0" />
-                  <TextField translateY="2.0" />
+                  <TextField fx:id="EdPlace" translateY="2.0" />
                </children>
             </HBox>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox prefWidth="200.0" promptText="Gang" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox editable="true" prefHeight="26.0" prefWidth="203.0" promptText="Lupe" GridPane.columnIndex="1" />
+            <TextField fx:id="EdAddressExtra" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox fx:id="CbWishCourse" prefWidth="200.0" promptText="Gang" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="CbSearchBox" editable="true" prefHeight="26.0" prefWidth="203.0" promptText="Lupe" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <ButtonBar maxHeight="55.0" minHeight="55.0" prefHeight="55.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
         <buttons>
-          <Button cancelButton="true" mnemonicParsing="false" text="Abbrechen" />
-            <ComboBox prefWidth="150.0" promptText="Weiter" />
+          <Button fx:id="BtnCancel" cancelButton="true" mnemonicParsing="false" text="Abbrechen" />
+            <ComboBox fx:id="CbAction" prefWidth="150.0" promptText="Weiter" />
         </buttons>
       </ButtonBar>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -112,7 +112,7 @@
       </Label>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
         <buttons>
-          <Button mnemonicParsing="false" text="Neu" />
+          <Button fx:id="BtnNewRestriction" mnemonicParsing="false" onAction="#OnCreateNewRestriction" text="Neu" />
         </buttons>
       </ButtonBar>
    </children>
