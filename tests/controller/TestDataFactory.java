@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import model.Event;
 import model.Participant;
 import model.WalkingDinner;
@@ -67,6 +69,14 @@ public class TestDataFactory {
 			if (i < 12) {
 				event2.getInvited().add(participant);
 			}
+			
+			// add all the participants to the participant list
+			/*List<Participant> participants = event1.getParticipants();
+			participants.add(participant);
+			event1.setParticipants(participants);
+			participants = event2.getParticipants();
+			participants.add(participant);
+			event2.setParticipants(participants);*/
 		}
 		
 		walkingDinner.getEvents().add(event1);
@@ -74,6 +84,11 @@ public class TestDataFactory {
 		
 		// now editing event 2
 		walkingDinner.setCurrentEvent(event2);
+	}
+	
+	public static WalkingDinnerController createTest(){
+		WalkingDinnerController walkingDinnerController;
+		return null;
 	}
 
 }

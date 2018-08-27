@@ -14,8 +14,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.Course;
+import model.Event;
 import model.Participant;
+import model.Restriction;
 import model.Team;
+import model.WalkingDinner;
 /**
  * @author sopr024
  *
@@ -30,6 +34,7 @@ public class ConsistencyControllerTest {
 	private Participant part4;
 	
 	private Team team1;
+	private Team team2;
 
 	
 	
@@ -54,14 +59,19 @@ public class ConsistencyControllerTest {
 	public void setUp() throws Exception {
 		walkingDinnerController = new WalkingDinnerController();
 		consistencyController = walkingDinnerController.getConsistencyController();
+		WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
+		Event event = wd.getCurrentEvent();
 	
+		TestDataFactory.createSampleWalkingDinner();
 		part1 = new  Participant();
 		part2 = new  Participant();
 		part3 = new  Participant();
 		part4 = new  Participant();
 		
-		@SuppressWarnings("unused")
-		Team team1 = new Team();
+		//@SuppressWarnings("unused")
+		team1 = new Team();
+		System.out.println(team1);
+		team2 = new Team();
 	}
 
 	/**
@@ -93,20 +103,36 @@ public class ConsistencyControllerTest {
 	/**
 	 * Test method for {@link controller.ConsistencyController#getWarnings(model.Team)}.
 	 * check if test gives the correct warnings if the object has warning cases
-	 * how to check: generate/give a team which throws a warning on purpose and check if the method gives the correct warning
+	 * how to check: generate/give a team which throws a warning 
+	 * on purpose and check if the method gives the correct warning
 	 */
 	@Test
 	public void testGetWarningsTeam() {
+		try {
+			setUp();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Could not load setUp for testGetWarningsTeam()");
+		}
+		
+		WalkingDinner wd = TestDataFactory.createSampleWalkingDinner();			
+		Event event = wd.getCurrentEvent();
 		
 		
-		team1 = null;
 		List<Participant> members = new ArrayList<Participant>();
 		List<String> warnings = new ArrayList<String>();
+		List<Restriction> restrictions = new ArrayList<Restriction>();
+		Restriction rest = new Restriction();
+		rest.setName("Fleisch");
+		restrictions.add(rest);
 		
-		warnings = consistencyController.getWarnings(team1);							// check if team is null
-		assertEquals("Dieses Team existiert nicht", warnings.get(0));
 		
-		members.add(part1);																// increase teamsize to 1
+		
+		members.add(event.getParticipants().get(0));	
+		//TODO REMOVE THIS
+		//System.out.println(team1);
+		//// increase teamsize to 1
 		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);							// check if size warning is correct (too small)
 		assertEquals("Teamgröße ist kleiner als 2", warnings.get(0));
@@ -120,7 +146,7 @@ public class ConsistencyControllerTest {
 		assertEquals(part1 + "kommt mehrmals im Team vor", warnings.get(1));
 		assertEquals(part1 + "kommt mehrmals im Team vor", warnings.get(2));
 		
-		members.clear();
+		members.clear();																//delete members list
 		members.add(part1);
 		members.add(part2);
 		members.add(part3);
@@ -135,7 +161,28 @@ public class ConsistencyControllerTest {
 		team1.setHost(part1);
 		warnings = consistencyController.getWarnings(team1);
 		
+		assertEquals("Teamgröße ist größer als 3", warnings.get(1));
 		
+		part1.setCourseWish(Course.STARTER);
+		part2.setCourseWish(Course.MAIN);
+		part3.setCourseWish(Course.STARTER);
+		
+		members.clear();
+		warnings.clear();
+		members.add(part1);
+		members.add(part2);
+		members.add(part3);
+		team1.setMembers(members);
+		team1.setHost(part1);
+		assertEquals(part1 + "hat anderen Wunschgang als " + part2, consistencyController.getWarnings(team1).get(0));
+		
+		part1.setRestriction(restrictions);
+		rest.setName("Gemüse");
+		restrictions.add(rest);
+		part2.setRestriction(restrictions);
+		part3.setRestriction(restrictions);
+		
+		assertEquals("folgende Restriktionen könnten Problematisch sein:" + restrictions.get(1) + "bitte einmal überprüfen für folgendes Team:" + team1.getMembers().toString(), consistencyController.getWarnings(team1));
 		
 		
 		
@@ -147,7 +194,16 @@ public class ConsistencyControllerTest {
 	 */
 	@Test
 	public void testGetInconsistentTeams() {
-		fail("Not yet implemented");
+		team1 = new Team();
+		ConsistencyController cc = walkingDinnerController.getConsistencyController();
+		List<Participant> members = new ArrayList<Participant>();
+		members.add(part1);
+		
+		
+		team1.setMembers(members);
+		cc.getInconsistentTeams();
+		
+		assertEquals(team1, cc.getInconsistentTeams());
 	}
 
 	/**

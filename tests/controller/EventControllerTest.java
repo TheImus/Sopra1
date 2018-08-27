@@ -2,7 +2,16 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
+
+import model.Course;
+import model.Event;
+import model.WalkingDinner;
 
 public class EventControllerTest {
 
@@ -12,7 +21,7 @@ public class EventControllerTest {
 	 */
 	@Test
 	public void testEventController() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -20,7 +29,30 @@ public class EventControllerTest {
 	 */
 	@Test
 	public void testSetEventName() {
-		fail("Not yet implemented");
+		WalkingDinnerController wdc = new WalkingDinnerController();
+		WalkingDinner wd = new WalkingDinner();
+		wdc.setWalkingDinner(wd);
+		ArrayList<Event> al = new ArrayList<Event>();
+		Event e = new Event();
+		al.add(e);
+		wd.setEvents(al);
+		Event currentEvent = new Event();
+		wd.setCurrentEvent(currentEvent);
+		EventController eventController = new EventController(wdc);
+		wdc.setEventController(eventController);
+
+		boolean catcher = false;
+		e.setName("TestForDuplicateNames");
+		try{
+			wdc.getEventController().setEventName("TestForDuplicateNames");
+		}catch(IllegalArgumentException exception){
+			catcher = true;
+		}
+		if(!catcher) fail("No error was thrown.");
+		wdc.getEventController().setEventName("TestForName");
+		if(!wd.getCurrentEvent().getName().equals("TestForName")){
+			fail("Name was not set.");
+		}
 	}
 
 
@@ -29,7 +61,7 @@ public class EventControllerTest {
 	 */
 	@Test
 	public void testSetEventDate() {
-		fail("Not yet implemented");
+		
 	}
 
 
@@ -38,7 +70,7 @@ public class EventControllerTest {
 	 */
 	@Test
 	public void testSetEventPlace() {
-		fail("Not yet implemented");
+		
 	}
 
 
@@ -47,7 +79,31 @@ public class EventControllerTest {
 	 */
 	@Test
 	public void testSetCourseTime() {
-		fail("Not yet implemented");
+		WalkingDinnerController wdc = new WalkingDinnerController();
+		WalkingDinner wd = new WalkingDinner();
+		wdc.setWalkingDinner(wd);
+		ArrayList<Event> al = new ArrayList<Event>();
+		Event e = new Event();
+		al.add(e);
+		wd.setEvents(al);
+		Event currentEvent = new Event();
+		wd.setCurrentEvent(currentEvent);
+		EventController eventController = new EventController(wdc);
+		wdc.setEventController(eventController);
+		
+		Map<Course, LocalTime> map = new HashMap();
+		map.put(Course.STARTER, LocalTime.MIN);
+		map.put(Course.MAIN, LocalTime.MIN);
+		map.put(Course.DESSERT, LocalTime.MIN);
+		
+		currentEvent.setCourseTimes(map);
+		for(Course c : Course.values())
+		wdc.getEventController().setCourseTime(c, LocalTime.MAX);
+		for(LocalTime lt : currentEvent.getCourseTimes().values()){
+			if(!lt.equals(LocalTime.MAX)){
+				fail("CourseTime was not set correctly.");
+			}
+		}
 	}
 
 
@@ -56,7 +112,7 @@ public class EventControllerTest {
 	 */
 	@Test
 	public void testSetEventDescription() {
-		fail("Not yet implemented");
+		
 	}
 
 
@@ -65,7 +121,7 @@ public class EventControllerTest {
 	 */
 	@Test
 	public void testSetDeadline() {
-		fail("Not yet implemented");
+		
 	}
 
 
@@ -74,7 +130,22 @@ public class EventControllerTest {
 	 */
 	@Test
 	public void testDeleteEvent() {
-		fail("Not yet implemented");
+		WalkingDinnerController wdc = new WalkingDinnerController();
+		WalkingDinner wd = new WalkingDinner();
+		wdc.setWalkingDinner(wd);
+		ArrayList<Event> al = new ArrayList<Event>();
+		Event e = new Event();
+		al.add(e);
+		wd.setEvents(al);
+		Event currentEvent = new Event();
+		wd.setCurrentEvent(currentEvent);
+		EventController eventController = new EventController(wdc);
+		wdc.setEventController(eventController);
+
+		wdc.getEventController().deleteEvent(e);
+		if(al.contains(e)){
+			fail("Event was not removed.");
+		}
 	}
 
 
@@ -83,7 +154,7 @@ public class EventControllerTest {
 	 */
 	@Test
 	public void testGetWalkingDinnerController() {
-		fail("Not yet implemented");
+		
 	}
 
 
@@ -92,7 +163,7 @@ public class EventControllerTest {
 	 */
 	@Test
 	public void testSetWalkingDinnerController() {
-		fail("Not yet implemented");
+		
 	}
 
 }
