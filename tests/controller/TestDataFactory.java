@@ -100,10 +100,17 @@ public class TestDataFactory {
 		walkingDinner.setCurrentEvent(event2);
 	}
 	
+	
+	/**creates an event with an Schedule and Participants and Groups
+	 * @return Event
+	 */
 	public static Event createTestEvent(){
 		
+		//create Event with Schedule
 		Event event = new Event();
 		event.setSchedule(createTestSchedule());
+		
+		//get all Groups from Schedule to include them into lists in Event
 		List<Group> group = event.getSchedule().getGroup(Course.STARTER);
 		group.addAll(event.getSchedule().getGroup(Course.MAIN));
 		group.addAll(event.getSchedule().getGroup(Course.DESSERT));
@@ -120,10 +127,14 @@ public class TestDataFactory {
 		return event;
 	}
 	
+	/** creates a schedule with Groups and Teams
+	 * @return Schedule
+	 */
 	public static Schedule createTestSchedule(){
 		Schedule schedule = new Schedule();
 		schedule.setCurrentCourse(Course.STARTER);
-		//3 groups 
+		
+		//groups for every schedule list 
 		List<Group> genGroupsStarter = new ArrayList<Group>();
 		for(int i =0 ; i<3;i++){
 			genGroupsStarter.add(createTestGroup());
@@ -145,7 +156,12 @@ public class TestDataFactory {
 		return schedule;
 	}
 	
+	/**
+	 * creates a test group with 3 teams in it
+	 * @return Group
+	 */
 	public static Group createTestGroup(){
+		
 		Group group = new Group();
 		group.setHostTeam(createTestTeam());
 		List<Team> guest = new ArrayList<Team>();
@@ -156,6 +172,9 @@ public class TestDataFactory {
 		return group;
 	}
 	
+	/** creates a team with host and 2 members
+	 * @return Team
+	 */
 	public static Team createTestTeam(){
 		Team team = new Team();
 		Participant host = createTestParticipant();
@@ -168,6 +187,10 @@ public class TestDataFactory {
 		team.setMembers(members);
 		return team;
 	}
+	
+	/**Creates a participant with address person and special needs
+	 * @return Team
+	 */
 	public static Participant createTestParticipant(){
 		Participant participant = new Participant();
 		Address address = createTestAddress();
@@ -178,12 +201,21 @@ public class TestDataFactory {
 		participant.setSpecialNeeds("I don't want to do this.");
 		return participant;
 	}
+	
+	/**Creates a Restriction
+	 * @return Restriction
+	 */
 	public static Restriction createTestRestriction(){
 		Restriction restriction = new Restriction();
 		restriction.setName("TEST_RESTRICTION_PERMANENT");
 		restriction.setPermanent(true);
 		return restriction;
 	}
+	
+	
+	/** creates a person with their information
+	 * @return Person
+	 */
 	public static Person createTestPerson(){
 		Person person = new Person();
 		person.setBirthDate(LocalDate.MIN);
@@ -192,6 +224,11 @@ public class TestDataFactory {
 		person.setPhoneNumber("0231/666999");
 		return person;
 	}
+	
+	
+	/**creates an address
+	 * @return address
+	 */
 	public static Address createTestAddress(){
 		Address address = new Address();
 		address.setAddressAdditional("3rd left");
@@ -202,12 +239,13 @@ public class TestDataFactory {
 	}
 	
 	/*
-	 * *Implementation of TestDataFactory
+	 * *Implementation and Set up of TestDataFactory
 	 * */
 	public static WalkingDinnerController createTestWalkingDinnerController(){
 		WalkingDinnerController walkingDinnerController = new WalkingDinnerController();
 		WalkingDinnerController wdc = walkingDinnerController;
 		
+		//link between the controller and WalkingDinnerController
 		EventPickerController eventPickerController = new EventPickerController(wdc);
 		EventController eventController = new EventController(wdc);
 		InvitationController invitationCotroller = new InvitationController(wdc);
@@ -234,7 +272,7 @@ public class TestDataFactory {
 		
 		WalkingDinner walkingDinner = new WalkingDinner();
 		wdc.setWalkingDinner(walkingDinner);
-		
+		//testEvent added
 		Event event = createTestEvent();
 		walkingDinner.setCurrentEvent(event);
 		List<Event> events = new ArrayList<Event>();

@@ -36,13 +36,19 @@ public class GroupController {
 	 * @return new Group with team as host, if team is not null
 	 */
 	public Group createNewGroup(Team team) { 
+		
 		Group group = new Group();
 		if(team != null)
+		{
 			group.setHostTeam(team);
+		}
 		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		
+		//update Schedule with new Group
 		List<Group> groupListToAdd = currentEvent.getSchedule().getGroup(getCourse());
 		groupListToAdd.add(group);
 		currentEvent.getSchedule().setGroup(getCourse(), groupListToAdd);
+		
 		return group;
 	}
 
@@ -52,10 +58,15 @@ public class GroupController {
 	 * @param group Group which gets the team
 	 */
 	public void addTeamToGroup(Team team, Group group) {
-		List<Team> newTeamList = group.getTeams();
+		List<Team> newTeamList = group.getGuest();
 		if(team != null){
+			if(group.getHostTeam() == null){
+				group.setHostTeam(team);
+			}
+			else{
 			newTeamList.add(team);
 			group.setGuest(newTeamList);
+			}
 		}
 	}
 
@@ -67,7 +78,14 @@ public class GroupController {
 	public void removeTeamFromGroup(Team team, Group group) {
 		List<Team> workingList = group.getTeams();
 		if(workingList.contains(team)){
-			workingList.remove(team);
+			if(group.getHostTeam().equals(team)){
+				group.setHostTeam(group.getGuest().get(0));
+			}
+			else{
+				List<Team> guests = group.getGuest();
+				guests.remove(team);
+				group.setGuest(guests);
+			}
 		}
 
 	}
@@ -113,8 +131,8 @@ public class GroupController {
 	 * @return {@link Group}
 	 */
 	public List<Group> getGroups() {
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();	
-		return wd.getCurrentEvent().getSchedule().getGroup(getCourse());
+		WalkingDinner dinnerController = walkingDinnerController.getWalkingDinner();	
+		return dinnerController.getCurrentEvent().getSchedule().getGroup(getCourse());
 	}
 	//
 	/**
@@ -136,14 +154,12 @@ public class GroupController {
 	 */
 	public List<Group> getAllGroups(){
 		
-		
-		WalkingDinner event= getWalkingDinnerController().getWalkingDinner();
-		if(event == null)
-			System.out.println("Thilo");
 		Schedule schedule = getWalkingDinnerController().getWalkingDinner().getCurrentEvent().getSchedule();
+		//get Groups from the three schedule lists
 		List<Group> allGroups = schedule.getGroup(Course.STARTER);
 		allGroups.addAll(schedule.getGroup(Course.MAIN));
 		allGroups.addAll(schedule.getGroup(Course.DESSERT));
+		
 		return allGroups;
 	}
 	

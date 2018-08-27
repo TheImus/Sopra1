@@ -28,7 +28,7 @@ public class Group {
 		if(hostTeam != null)
 			allTeams.add(hostTeam);
 		
-		allTeams = guest;
+		allTeams.addAll(guest);
 		
 		
 		return allTeams;
