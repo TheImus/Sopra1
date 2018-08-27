@@ -19,24 +19,15 @@ public class TeamController {
 
 	private WalkingDinnerController walkingDinnerController;
 
-
-	/**
-	 * this method creates a new Team with only one member as the new host. The
-	 * member is given by the parameter participant. <br>
-=======
 	
 	public TeamController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
 	}
 
 	/**this method creates a new Team with only one member as the new host. The member is given by the parameter participant. <br> 
->>>>>>> branch 'master' of https://thwomp.cs.tu-dortmund.de/git/sopra19b/gruppe02/project1.git
 	 * Afterward this team is added to Team-list in Event.
-	 * 
-	 * @param participant
-	 *            The only member of the new team, which is created in the
-	 *            method
-	 * @return the new created Team
+	 * @param participant The only member of the new team, which is created in the method
+	 * @return the new created Team 
 	 */
 	public Team createNewTeam(Participant participant) {
 		Team newTeam = new Team();
@@ -47,14 +38,9 @@ public class TeamController {
 		return newTeam;
 	}
 
-	/**
-	 * adds the given participant to the given team. Creates a new team when
-	 * team is null.
-	 * 
-	 * @param team
-	 *            The team that gets a new person
-	 * @param participant
-	 *            The participant that is added to the given Team
+	/** adds the given participant to the given team. Creates a new team when team is null.
+	 * @param team The team that gets a new person
+	 * @param participant The participant that is added to the given Team
 	 */
 	public void addParticipantToTeam(Team team, Participant participant) {
 		if (team == null) {
@@ -70,13 +56,9 @@ public class TeamController {
 		}
 	}
 
-	/**
-	 * removes the given participant from the given team.
-	 * 
-	 * @param team
-	 *            The given participant is deleted from this team
-	 * @param participant
-	 *            The participant that is deleted from the given team
+	/** removes the given participant from the given team.  
+	 * @param team The given participant is deleted from this team
+	 * @param participant The participant that is deleted from the given team
 	 */
 	public void removeParticipantFromTeam(Team team, Participant participant) {
 		if (team == null || participant == null || !team.getParticipants().contains(participant)) {
