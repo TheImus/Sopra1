@@ -28,11 +28,12 @@ public class TestDataFactory {
 	 * @param walkingDinner
 	 */
 	private static void addSampleEvents(WalkingDinner walkingDinner) {
-		Event event1 = new Event();
-		event1.setName("Event1");
 		
-		Event event2 = new Event();
-		event2.setName("Event2");
+		for (int i = 1; i <= 2; i++) {
+			Event event = new Event();
+			event.setName("Event" + Integer.toString(i));
+			walkingDinner.getEvents().add(event);
+		}
 	}
 	
 	/**
