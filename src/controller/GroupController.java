@@ -21,6 +21,11 @@ public class GroupController {
 	private WalkingDinnerController walkingDinnerController;
 	private Course currentCourse; 
 
+	
+	public GroupController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
 	/**
 	 * createNewGroup creates a new Group with a team as host
 	 * @param team team is the host of the new created Group 
@@ -112,6 +117,11 @@ public class GroupController {
 			throw new IllegalArgumentException("This Group doesn't exist");
 	}
 	
+	
+	/**
+	 * 	returns all Groups from a currentEvent
+	 * @return {@link Group}
+	 */
 	public List<Group> getAllGroups(){
 		Schedule schedule = walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule();
 		List<Group> allGroups = schedule.getGroup(Course.STARTER);

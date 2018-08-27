@@ -17,6 +17,16 @@ public class Participant {
 
 	private Course courseWish;
 
+	
+	public Participant() {
+		this.specialNeeds = "";
+		this.changedSinceExport = true;
+		this.restriction = new ArrayList<Restriction>();
+		this.person = new Person();
+		this.address = new Address();
+		this.courseWish = null;
+	}
+	
 	public static void setChanged(List<Participant> participants, boolean value) {
 
 	}

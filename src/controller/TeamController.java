@@ -19,9 +19,18 @@ public class TeamController {
 
 	private WalkingDinnerController walkingDinnerController;
 
+
 	/**
 	 * this method creates a new Team with only one member as the new host. The
 	 * member is given by the parameter participant. <br>
+=======
+	
+	public TeamController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+
+	/**this method creates a new Team with only one member as the new host. The member is given by the parameter participant. <br> 
+>>>>>>> branch 'master' of https://thwomp.cs.tu-dortmund.de/git/sopra19b/gruppe02/project1.git
 	 * Afterward this team is added to Team-list in Event.
 	 * 
 	 * @param participant
