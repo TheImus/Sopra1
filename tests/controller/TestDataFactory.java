@@ -86,9 +86,22 @@ public class TestDataFactory {
 		walkingDinner.setCurrentEvent(event2);
 	}
 	
-	public static WalkingDinnerController createTest(){
-		WalkingDinnerController walkingDinnerController;
+	private static Event createTestEvent(){
+		
 		return null;
+	}
+	
+	/*
+	 * *Implementation of TestDataFactory
+	 * */
+	public static WalkingDinnerController createTest(){
+		WalkingDinnerController walkingDinnerController = new WalkingDinnerController();
+		EventPickerController eventPickerController = new EventPickerController(walkingDinnerController);
+		//EventController()
+		
+		
+		walkingDinnerController.setEventPickerController(eventPickerController);
+		return walkingDinnerController;
 	}
 
 }
