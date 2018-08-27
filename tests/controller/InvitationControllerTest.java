@@ -25,8 +25,7 @@ public class InvitationControllerTest {
 	private WalkingDinnerController wdCtrl;
 	private InvitationController invCtrl;
 	private EventPickerController evtPicker;
-	private List<Participant> participants1;
-
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -51,20 +50,6 @@ public class InvitationControllerTest {
 		wdCtrl     = new WalkingDinnerController();
 		invCtrl    = wdCtrl.getInvitationController();
 		evtPicker  = wdCtrl.getEventPickerController();
-		
-		Event evt1 = wdCtrl.getEventPickerController().newEvent();
-		Event evt2 = wdCtrl.getEventPickerController().newEvent();
-		Event evt3 = wdCtrl.getEventPickerController().newEvent();
-		
-		// Select first test event for manipulation
-		evtPicker.modifyEvent(evt1);
-		
-		// create some participants for event 1
-		Participant p1 = new Participant();
-		Participant p2 = new Participant();
-		Participant p3 = new Participant();
-		List<Participant> participants1 = new ArrayList<Participant>();
-		participants1.add(p1);
 		
 		
 	}
