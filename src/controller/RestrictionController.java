@@ -9,12 +9,7 @@ public class RestrictionController {
 	 * @author sopr026
 	 */
 	
-	private WalkingDinnerController walkingDinnerController;
-	
-	public RestrictionController(WalkingDinnerController wdc){
-		this.walkingDinnerController = wdc;
-	}
-
+	private WalkingDinnerController walkingDinnerController;	
 	
 	public RestrictionController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
