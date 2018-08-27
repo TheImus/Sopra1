@@ -3,6 +3,8 @@ package controller;
 import java.time.LocalDate;
 import model.Address;
 import model.Course;
+import model.Event;
+import model.Participant;
 
 /**
  * controller which manages the information about the Participants.
@@ -90,5 +92,16 @@ public class ParticipantController {
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
 	}
-
+	
+	public Participant newParticipantForEvent (Participant participant){
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		
+		for( Participant part : currentEvent.getInvited()){
+			if(part.equals(participant)){
+				return part;
+			}
+		}
+		return participant.createNewParticipant();
+	}
+	
 }
