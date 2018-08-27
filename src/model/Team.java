@@ -27,5 +27,12 @@ public class Team {
 	public void setMembers(List<Participant> members) {
 		this.members = members;
 	}
+	
+	public int getSize(){
+		if(host != null){
+			return members.size() + 1;
+		}
+		return members.size();
+	}
 
 }

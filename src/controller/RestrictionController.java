@@ -6,7 +6,7 @@ import model.Restriction;
 public class RestrictionController {
 	
 	/**
-	 * @author sopr023
+	 * @author sopr026
 	 */
 	
 	private WalkingDinnerController walkingDinnerController;
