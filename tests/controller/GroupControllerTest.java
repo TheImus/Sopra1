@@ -11,8 +11,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.Event;
 import model.Group;
+import model.Schedule;
 import model.Team;
+import model.WalkingDinner;
 
 /**
  * @author sopr028
@@ -45,6 +48,11 @@ public class GroupControllerTest {
 	public void setUp() throws Exception {
 		
 		wdc = new WalkingDinnerController();
+		WalkingDinner walkingDinner = new WalkingDinner();
+		Event currentEvent = new Event();
+		Schedule schedule = new Schedule();
+		currentEvent.setSchedule(schedule);
+		walkingDinner.setCurrentEvent(currentEvent);
 		groupController = new GroupController(wdc);
 		wdc.setGroupController(groupController);
 	}
@@ -87,13 +95,11 @@ public class GroupControllerTest {
 		Team team = new Team();
 		groupController.addTeamToGroup(team, group);
 		assertTrue("Team nicht in Gruppe", group.getTeams().contains(team));
-		assertFalse("Team wurde als Host gesetzt", group.getHostTeam().equals(team));
 		
 		Team team2 = new Team();
 		groupController.addTeamToGroup(team2, group);
 		assertTrue("Team nicht in Gruppe", group.getTeams().contains(team));
 		assertTrue("Team2 nicht in Gruppe", group.getTeams().contains(team2));
-		assertFalse("Team wurde als Host gesetzt", group.getHostTeam().equals(team2));
 	}
 
 	/**
@@ -178,7 +184,18 @@ public class GroupControllerTest {
 	 */
 	@Test
 	public void testRemoveGroup() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
+		Group group = new Group();
+		Group group2 = new Group();
+		groupController.getWalkingDinnerController();
+		groupController.addTeamToGroup(null, group);
+		groupController.addTeamToGroup(null, group2);
+		
+		groupController.removeGroup(group);
+		assertFalse("gruppe ist im Event",groupController.getAllGroups().contains(group));
+		assertTrue("gruppe ist nicht im Event",groupController.getAllGroups().contains(group2));
+		
+		
 	}
 
 	/**

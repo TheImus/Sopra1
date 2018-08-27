@@ -7,6 +7,7 @@ import java.util.EnumMap;
 public class Schedule {
 	
 	private EnumMap<Course, List<Group>> courses;
+	private Course currentCourse;
 
 	public Schedule() {
 		this.courses = new EnumMap<Course, List<Group>>(Course.class);
@@ -21,6 +22,14 @@ public class Schedule {
 	
 	public void setGroup(Course course, List<Group> groups) {
 		this.courses.put(course, groups);
+	}
+	
+	public void setCurrentCourse(Course course){
+		this.currentCourse = course;
+	}
+	
+	public Course getCurrentCourse(){
+		return currentCourse;
 	}
 
 }
