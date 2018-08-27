@@ -10,14 +10,27 @@ public class Address {
 
 	private String addressAdditional;
 
-	private Participant participant;
-
 	public String getStreet() {
 		return street;
 	}
 
 	public void setStreet(String street) {
 		this.street = street;
+	}
+	
+	/**
+	 * Clones the actual address object
+	 * 
+	 * @return new Address object with same attributes as the original one
+	 */
+	public Address clone() {
+		Address result = new Address();
+		result.addressAdditional = this.getAddressAdditional();
+		result.city = this.getCity();
+		result.street = this.getStreet();
+		result.zipCode = this.getZipCode();
+		
+		return result;
 	}
 
 	public String getCity() {
@@ -42,14 +55,6 @@ public class Address {
 
 	public void setAddressAdditional(String addressAdditional) {
 		this.addressAdditional = addressAdditional;
-	}
-
-	public Participant getParticipant() {
-		return participant;
-	}
-
-	public void setParticipant(Participant participant) {
-		this.participant = participant;
 	}
 
 }

@@ -102,6 +102,9 @@ public class InvitationController {
 	 * Add a participant from a past event to the invited participants 
 	 * of the current event
 	 * 
+	 * This method creates a new participant, if the participant is not 
+	 * in the current event
+	 * 
 	 * If the person linked to the participant is double in <strong>participantList</strong>
 	 * only the first data of participant is imported in the current event
 	 * 
