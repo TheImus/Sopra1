@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import model.Course;
 import model.Event;
+import model.Group;
 import model.Participant;
 import model.Restriction;
 import model.Team;
@@ -35,6 +36,8 @@ public class ConsistencyControllerTest {
 	
 	private Team team1;
 	private Team team2;
+	private Team team3;
+	private Group group1;
 
 	
 	
@@ -57,7 +60,7 @@ public class ConsistencyControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		walkingDinnerController = new WalkingDinnerController();
+		//walkingDinnerController = TestDataFactory.createTest();
 		consistencyController = walkingDinnerController.getConsistencyController();
 		WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
 		Event event = wd.getCurrentEvent();
@@ -70,8 +73,8 @@ public class ConsistencyControllerTest {
 		
 		//@SuppressWarnings("unused")
 		team1 = new Team();
-		System.out.println(team1);
 		team2 = new Team();
+		team3 = new Team();
 	}
 
 	/**
@@ -80,7 +83,7 @@ public class ConsistencyControllerTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
+	
 	
 
 	/**
@@ -108,17 +111,10 @@ public class ConsistencyControllerTest {
 	 */
 	@Test
 	public void testGetWarningsTeam() {
-		try {
-			setUp();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Could not load setUp for testGetWarningsTeam()");
-		}
-		
-		WalkingDinner wd = TestDataFactory.createSampleWalkingDinner();			
+				
+	
+		WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
 		Event event = wd.getCurrentEvent();
-		
 		
 		List<Participant> members = new ArrayList<Participant>();
 		List<String> warnings = new ArrayList<String>();
@@ -129,10 +125,7 @@ public class ConsistencyControllerTest {
 		
 		
 		
-		members.add(event.getParticipants().get(0));	
-		//TODO REMOVE THIS
-		//System.out.println(team1);
-		//// increase teamsize to 1
+		members.add(event.getParticipants().get(0));									// increase teamsize to 1
 		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);							// check if size warning is correct (too small)
 		assertEquals("Teamgröße ist kleiner als 2", warnings.get(0));
@@ -212,7 +205,7 @@ public class ConsistencyControllerTest {
 	 */
 	@Test
 	public void testGetWarningsGroup() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -222,7 +215,23 @@ public class ConsistencyControllerTest {
 	 */
 	@Test
 	public void testGetInconsistentGroups() {
-		fail("Not yet implemented");
+		List<Team> teams = new ArrayList<Team>();
+		teams.add(team2);
+		teams.add(team3);
+		group1 = new Group();
+		group1.setHostTeam(team1);
+		group1.setGuest(teams);
+		
+		ConsistencyController cc = walkingDinnerController.getConsistencyController();
+		List<Participant> members = new ArrayList<Participant>();
+		members.add(part1);
+		
+		
+		team1.setMembers(members);
+		cc.getInconsistentGroups();
+		
+		assertEquals(team1, cc.getInconsistentTeams());
+		
 	}
 
 	/**
