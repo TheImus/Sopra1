@@ -1,7 +1,9 @@
 package controller;
 
 import model.Group;
+import model.Schedule;
 import model.Team;
+import model.WalkingDinner;
 import java.util.List;
 import model.Course;
 
@@ -25,7 +27,9 @@ public class GroupController {
 	 * @return new Group with team as host, if team is not null
 	 */
 	public Group createNewGroup(Team team) { 
-		return null;
+		Group group = new Group();
+		group.setHostTeam(team);
+		return group;
 	}
 
 	/**
@@ -34,6 +38,9 @@ public class GroupController {
 	 * @param group Group which gets the team
 	 */
 	public void addTeamToGroup(Team team, Group group) {
+		List<Team> newTeamList = group.getTeams();
+		newTeamList.add(team);
+		group.setGuest(newTeamList);
 
 	}
 
@@ -43,6 +50,10 @@ public class GroupController {
 	 * @param group 
 	 */
 	public void removeTeamFromGroup(Team team, Group group) {
+		List<Team> workingList = group.getTeams();
+		if(workingList.contains(team)){
+			workingList.remove(team);
+		}
 
 	}
 
@@ -52,7 +63,7 @@ public class GroupController {
 	 * @return list with teams 
 	 */
 	public List<Team> getGuestTeams(Group group) {
-		return null;
+		return group.getGuest();
 	}
 
 	/** returns host {@link Team} from given group
@@ -60,7 +71,7 @@ public class GroupController {
 	 * @return hostTeam
 	 */
 	public Team getHostingTeam(Group group) {
-		return null;
+		return group.getHostTeam();
 	}
 
 	/**
@@ -84,16 +95,29 @@ public class GroupController {
 	 * @return {@link Group}
 	 */
 	public List<Group> getGroups() {
-		return null;
+		WalkingDinner wd = walkingDinnerController.getWalkingDinner();	
+		return wd.getCurrentEvent().getSchedule().getGroup(currentCourse);
 	}
-
+	//
 	/**
 	 * delete Group from current event {@see WalkingDinnerController}
 	 * @param group Group to remove
 	 * @throws IllegalArgumentException if group is not in current event
 	 */
 	public void removeGroup(Group group) throws IllegalArgumentException{
-
+		List<Group> allGroups = getAllGroups();
+		if(allGroups.contains(group))
+			allGroups.remove(group);
+		else
+			throw new IllegalArgumentException("This Group doesn't exist");
+	}
+	
+	public List<Group> getAllGroups(){
+		Schedule schedule = walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule();
+		List<Group> allGroups = schedule.getGroup(Course.STARTER);
+		allGroups.addAll(schedule.getGroup(Course.MAIN));
+		allGroups.addAll(schedule.getGroup(Course.DESSERT));
+		return allGroups;
 	}
 	
 
