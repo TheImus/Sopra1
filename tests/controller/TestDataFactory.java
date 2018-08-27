@@ -1,8 +1,10 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Address;
+import model.Course;
 import model.Event;
 import model.Group;
 import model.Participant;
@@ -100,12 +102,38 @@ public class TestDataFactory {
 	}
 	
 	public static Schedule createTestSchedule(){
+		Schedule schedule = new Schedule();
+		//3 groups 
+		List<Group> genGroupsStarter = new ArrayList<Group>();
+		for(int i =0 ; i<3;i++){
+			genGroupsStarter.add(createTestGroup());
+		}
+		schedule.setGroup(Course.STARTER, genGroupsStarter);
 		
-		return null;
+		List<Group> genGroupsMain = new ArrayList<Group>();
+		for(int i =0 ; i<3;i++){
+			genGroupsMain.add(createTestGroup());
+		}
+		schedule.setGroup(Course.MAIN, genGroupsMain);
+		
+		List<Group> genGroupsDessert = new ArrayList<Group>();
+		for(int i =0 ; i<3;i++){
+			genGroupsDessert.add(createTestGroup());
+		}
+		schedule.setGroup(Course.DESSERT, genGroupsDessert);
+
+		return schedule;
 	}
 	
 	public static Group createTestGroup(){
-		return null;
+		Group group = new Group();
+		group.setHostTeam(createTestTeam());
+		List<Team> guest = new ArrayList<Team>();
+		guest.add(createTestTeam());
+		guest.add(createTestTeam());
+		group.setGuest(guest);
+		
+		return group;
 	}
 	
 	public static Team createTestTeam(){
