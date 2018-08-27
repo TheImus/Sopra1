@@ -96,11 +96,15 @@ public class InvitationController {
 	 * 		Participants for the E-Mail List
 	 * @return Comma separated String with E-Mail addresses
 	 */
-	public String getEmailList(List<Participant> mailList) {
+	public String getEmailList(List<Participant> participantList) {
+		if (participantList == null) {
+			throw new NullPointerException();
+		}
+		
 		String result = "";
 		final String separator = ";";
 		
-		for (Participant participant : mailList) {
+		for (Participant participant : participantList) {
 			result += "\"" + participant.getPerson().getName() + "\"";
 			result += "<" + participant.getPerson().getMailAddress() + ">" + separator;
 		}
@@ -130,7 +134,7 @@ public class InvitationController {
 		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
 		Event currentEvent = walkingDinner.getCurrentEvent();
 		
-		if (currentEvent == null) {
+		if (currentEvent == null || participantList == null) {
 			throw new NullPointerException();
 		}
 		
@@ -153,6 +157,10 @@ public class InvitationController {
 	 * @param participantList list of participants to remove 
 	 */
 	public void uninvite(List<Participant> participantList) {
+		if (participantList == null) {
+			throw new NullPointerException();
+		}
+		
 		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
 		Event currentEvent = walkingDinner.getCurrentEvent();
 		// Error: no event selected
@@ -160,12 +168,15 @@ public class InvitationController {
 			throw new NullPointerException();
 		}
 		
-		List<Participant> participants = currentEvent.getParticipants(); 
+		// do NOT remove a participant, who is registered at this event
+		List<Participant> participants  = currentEvent.getParticipants(); 
+		List<Participant> invited 		= currentEvent.getInvited();
 		
 		for (Participant participant : participantList) {
 			// delete if participant is not registered in this event
 			if (!participants.contains(participant)) {
-				currentEvent.getInvited().remove(participant);
+				invited.remove(participant);
+				System.out.println("Removed");
 			}
 		}
 	}
@@ -186,6 +197,10 @@ public class InvitationController {
 	 * @return Line separated list of addresses
 	 */
 	public String getAdressList(List<Participant> participantList) {
+		if (participantList == null) {
+			throw new NullPointerException();
+		}
+		
 		String result = "";
 		
 		for (int i = 0; i < participantList.size(); i++) {

@@ -58,7 +58,7 @@ public class TestDataFactory {
 		Event event2 = walkingDinner.getEvents().get(1);
 		
 		// sample participants
-		for (int i = 0; i < 24; i++) {
+		for (int i = 0; i < 36; i++) {
 			Participant participant = new Participant();
 			participant.getPerson().setName("Person"+Integer.toString(i));
 			participant.getPerson().setMailAddress("person"+Integer.toString(i)+"@example.com");
@@ -68,8 +68,10 @@ public class TestDataFactory {
 			
 			
 			// invite all participants
-			event1.getInvited().add(participant);
-			
+			if (i < 24) {
+				event1.getInvited().add(participant);
+			}
+
 			// some participants are just invited and not registered
 			if (i < 18) {
 				event1.getParticipants().add(participant);
@@ -77,6 +79,11 @@ public class TestDataFactory {
 			
 			// some participants are invited in the second event
 			if (i < 12) {
+				event2.getInvited().add(participant);
+			}
+			
+			// add some participants to second event, that are not in the first
+			if (i >= 24) {
 				event2.getInvited().add(participant);
 			}
 			
@@ -88,9 +95,6 @@ public class TestDataFactory {
 			participants.add(participant);
 			event2.setParticipants(participants);*/
 		}
-		
-		walkingDinner.getEvents().add(event1);
-		walkingDinner.getEvents().add(event2);
 		
 		// now editing event 2
 		walkingDinner.setCurrentEvent(event2);

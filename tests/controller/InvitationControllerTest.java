@@ -33,6 +33,7 @@ public class InvitationControllerTest {
 	
 	private List<Event> events;
 	private Event evt1;
+	private Event evt2;
 	
 	private List<Participant> participants1;
 	
@@ -68,7 +69,7 @@ public class InvitationControllerTest {
 		
 		events = walkingDinner.getEvents();
 		evt1 = events.get(0);
-//		evt2 = events.get(1);
+		evt2 = events.get(1);
 		
 		participants1 = new ArrayList<Participant>();
 		for (int i = 0; i < 2; i++) {
@@ -108,7 +109,12 @@ public class InvitationControllerTest {
 				invitationCtrl.getEmailList(participants1)
 		);
 		
-		assertEquals("", invitationCtrl.getEmailList(null));
+		try {
+			assertEquals("", invitationCtrl.getEmailList(null));
+			fail("NullPointerException not thrown!");
+		} catch (NullPointerException e) {
+			// ok
+		}
 	}
 
 	/**
@@ -155,7 +161,6 @@ public class InvitationControllerTest {
 		
 		// Check current Event null
 		eventPickerCtrl.modifyEvent(null);
-//		ExcpectedException thrown = 
 		try {
 			invitationCtrl.invite(newParticipants);
 			fail("No NullPointerException thrown!"); 
@@ -188,13 +193,39 @@ public class InvitationControllerTest {
 		
 		// remove participants that are not in the event
 		ArrayList<Participant> notInEvent = new ArrayList<Participant>();
+		notInEvent.add(evt2.getInvited().get(12));
 		
+		// there should be no difference
+		assertEquals(oldList.size(), walkingDinner.getCurrentEvent().getInvited().size());
+		for (int i = 0; i < oldList.size(); i++) {
+			assertEquals(oldList.get(i), evt1.getInvited().get(i));
+		}
 		
 		// remove first
 		ArrayList<Participant> removeList = new ArrayList<Participant>();
-		removeList.add(oldList.get(0));
+		removeList.add(oldList.get(20));
 		invitationCtrl.uninvite(removeList);
-		oldList.remove(0);
+		oldList.remove(20);
+		
+		// check if one is missing
+		assertEquals(oldList.size(), walkingDinner.getCurrentEvent().getInvited().size());
+		for (int i = 0; i < oldList.size(); i++) {
+			assertEquals(oldList.get(i), evt1.getInvited().get(i));
+		}
+		
+		// do NOT remove a registered Participant
+		removeList.clear();
+		
+		Participant first = oldList.get(0);
+		removeList.add(first);
+//		evt2.getParticipants().add(first); // already in list
+		invitationCtrl.uninvite(removeList);
+		
+		// check if one is missing
+		assertEquals(oldList.size(), walkingDinner.getCurrentEvent().getInvited().size());
+		for (int i = 0; i < oldList.size(); i++) {
+			assertEquals(oldList.get(i), evt1.getInvited().get(i));
+		}
 	}
 
 	/**
@@ -206,7 +237,24 @@ public class InvitationControllerTest {
 	 */
 	@Test
 	public void testGetAdressList() {
+		assertEquals(
+				"Person0\n" + 
+				"Musterstraße 0\n" + 
+				"12345 Musterstadt\n" + 
+				"\n" + 
+				"Person1\n" + 
+				"Musterstraße 1\n" + 
+				"12345 Musterstadt",
+				invitationCtrl.getAdressList(participants1)
+		);
 		
+		try {
+			assertEquals("", invitationCtrl.getAdressList(null));
+			fail("NullPointerException not thrown!");
+		} catch (NullPointerException e) {
+			// ok
+		}
+
 	}
 
 	/**
