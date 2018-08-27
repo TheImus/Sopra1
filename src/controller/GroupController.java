@@ -5,7 +5,6 @@ import model.Schedule;
 import model.Team;
 import model.WalkingDinner;
 
-import java.util.ArrayList;
 import java.util.List;
 import model.Course;
 
@@ -38,9 +37,6 @@ public class GroupController {
 		Group group = new Group();
 		if(team != null)
 			group.setHostTeam(team);
-		
-		List<Team> guest = new ArrayList<Team>(); 
-		group.setGuest(guest);
 		return group;
 	}
 
