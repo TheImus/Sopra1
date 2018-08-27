@@ -11,6 +11,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.Group;
+import model.Team;
+
 /**
  * @author sopr028
  *
@@ -42,7 +45,7 @@ public class GroupControllerTest {
 	public void setUp() throws Exception {
 		groupController = new GroupController();
 		wdc = new WalkingDinnerController();
-		
+		groupController.setWalkingDinnerController(wdc);
 	}
 
 	/**
@@ -58,7 +61,19 @@ public class GroupControllerTest {
 	 */
 	@Test
 	public void testCreateNewGroup() {
-		fail("Not yet implemented");
+		Group testgroup = groupController.createNewGroup(null);
+		assertNotNull("TestGruppe nicht erstellt",testgroup);
+		assertTrue("Teamliste ist fehlerhaft",testgroup.getTeams().isEmpty());
+		assertNull("HostTeam ist fehlerhaft",testgroup.getHostTeam());
+		
+		
+		Team team = new Team();
+		Group testgroup1 = groupController.createNewGroup(team);
+		assertNotNull("Testgruppe leer",testgroup1);
+		assertFalse("Team nicht vorhanden",testgroup1.getTeams().isEmpty());
+		assertNull("HostTeam ist leer",testgroup1.getHostTeam());
+		assertEquals("HostTeam nicht korrekt gesetzt",testgroup1.getHostTeam(), team);
+		
 	}
 
 	/**
@@ -67,7 +82,17 @@ public class GroupControllerTest {
 	 */
 	@Test
 	public void testAddTeamToGroup() {
-		fail("Not yet implemented");
+		Group group = new Group();
+		Team team = new Team();
+		groupController.addTeamToGroup(team, group);
+		assertTrue("Team nicht in Gruppe", group.getTeams().contains(team));
+		assertFalse("Team wurde als Host gesetzt", group.getHostTeam().equals(team));
+		
+		Team team2 = new Team();
+		groupController.addTeamToGroup(team2, group);
+		assertTrue("Team nicht in Gruppe", group.getTeams().contains(team));
+		assertTrue("Team2 nicht in Gruppe", group.getTeams().contains(team2));
+		assertFalse("Team wurde als Host gesetzt", group.getHostTeam().equals(team2));
 	}
 
 	/**
@@ -76,7 +101,19 @@ public class GroupControllerTest {
 	 */
 	@Test
 	public void testRemoveTeamFromGroup() {
-		fail("Not yet implemented");
+		
+		
+		Group group = new Group();
+		Team team = new Team();
+		Team team2 = new Team();
+		
+		//test case- Group
+		groupController.addTeamToGroup(team, group);
+		groupController.addTeamToGroup(team2, group);
+		groupController.removeTeamFromGroup(team, group);
+		assertFalse("Team in Gruppe", group.getTeams().contains(team));
+		assertTrue("Team2 nicht in Gruppe", group.getTeams().contains(team2));
+		
 	}
 
 	/**
@@ -96,7 +133,15 @@ public class GroupControllerTest {
 	 */
 	@Test
 	public void testGetHostingTeam() {
-		fail("Not yet implemented");
+		//test case - Group has no hosting team
+		Group group = new Group();
+		assertNotNull("Group hat ein Hosting Team",groupController.getHostingTeam(group));
+		
+		
+		//test cas - Group has a hosting team
+		Team team = new Team();
+		group.setHostTeam(team);
+		assertNotNull("Group hat keinen Hosting Team",groupController.getHostingTeam(group));
 	}
 
 	/**

@@ -112,6 +112,11 @@ public class GroupController {
 			throw new IllegalArgumentException("This Group doesn't exist");
 	}
 	
+	
+	/**
+	 * 	returns all Groups from a currentEvent
+	 * @return {@link Group}
+	 */
 	public List<Group> getAllGroups(){
 		Schedule schedule = walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule();
 		List<Group> allGroups = schedule.getGroup(Course.STARTER);
