@@ -94,6 +94,7 @@ public class ScheduleController {
 	}
 	
 	private Integer[][] generateIrvingArrayForParticipants(ArrayList<Participant> participants){
+		//Generates an Array for Irving-Algorithm
 		if(participants!=null){
 			int n = participants.size();
 			if(n%2 == 1){
