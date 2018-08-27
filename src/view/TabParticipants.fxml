@@ -24,8 +24,8 @@
   </rowConstraints>
    <children>
       <Label graphicTextGap="6.0" text="Teilnehmerliste" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <ListView prefHeight="213.0" prefWidth="573.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" text="Teilnehmerdaten exportieren" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" text="Änderungen exportieren" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <ListView fx:id="participantList" prefHeight="213.0" prefWidth="573.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button fx:id="BtnExportParticipantData" mnemonicParsing="false" onAction="#onExportParticipantData" text="Teilnehmerdaten exportieren" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Button fx:id="BtnExportChanges" mnemonicParsing="false" onAction="#onExportChangedParticipantData" text="Änderungen exportieren" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    </children>
 </GridPane>

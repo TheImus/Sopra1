@@ -46,7 +46,7 @@ public class GroupControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		
+		//TestDataFactory dataFactory = new TestDataFactory();
 		wdc = new WalkingDinnerController();
 		WalkingDinner walkingDinner = new WalkingDinner();
 		Event currentEvent = new Event();
@@ -142,7 +142,7 @@ public class GroupControllerTest {
 	public void testGetHostingTeam() {
 		//test case - Group has no hosting team
 		Group group = new Group();
-		assertNotNull("Group hat ein Hosting Team",groupController.getHostingTeam(group));
+		assertNull("Group hat ein Hosting Team",groupController.getHostingTeam(group));
 		
 		
 		//test case - Group has a hosting team
@@ -207,7 +207,7 @@ public class GroupControllerTest {
 		WalkingDinnerController testWdc = new WalkingDinnerController();
 		groupController.setWalkingDinnerController(testWdc);
 		WalkingDinnerController currentWdc = groupController.getWalkingDinnerController();
-		assertNotEquals(testWdc, currentWdc);
+		assertNotEquals(wdc, currentWdc);
 	}
 
 	/**

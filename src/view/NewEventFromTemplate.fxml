@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -60,13 +60,13 @@
                   <Label text="Vorspeise" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
                   <Label text="Hauptspeise" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
                   <Label text="Dessert" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-                  <TextField GridPane.columnIndex="1" />
-                  <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="TextEventName" GridPane.columnIndex="1" />
+                  <DatePicker fx:id="PickerDate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="TextPlace" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="PickerDeadline" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <children>
-                        <TextField promptText="16:00" />
+                        <TextField fx:id="TextStarter" promptText="16:00" />
                         <Label minHeight="-Infinity" minWidth="-Infinity" text="Uhr">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -76,7 +76,7 @@
                   </HBox>
                   <HBox layoutX="210.0" layoutY="160.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
-                        <TextField promptText="18:00" />
+                        <TextField fx:id="TextMain" promptText="18:00" />
                         <Label minHeight="-Infinity" minWidth="-Infinity" text="Uhr">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -86,7 +86,7 @@
                   </HBox>
                   <HBox layoutX="210.0" layoutY="190.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <children>
-                        <TextField promptText="20:00" />
+                        <TextField fx:id="TextDessert" promptText="20:00" />
                         <Label minHeight="-Infinity" minWidth="-Infinity" text="Uhr">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -110,15 +110,15 @@
                   </Label>
                </top>
                <center>
-                  <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                  <TextArea fx:id="TextEventDetails" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </center>
       </BorderPane>
       <ButtonBar prefHeight="55.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <buttons>
-            <Button cancelButton="true" mnemonicParsing="false" text="Verwerfen" />
-          <Button defaultButton="true" mnemonicParsing="false" text="Erstellen" />
+            <Button fx:id="BtnDispose" cancelButton="true" mnemonicParsing="false" onAction="#onDispose" text="Verwerfen" />
+          <Button fx:id="BtnCreateEvent" defaultButton="true" mnemonicParsing="false" onAction="#onCreateEvent" text="Erstellen" />
         </buttons>
       </ButtonBar>
    </children>

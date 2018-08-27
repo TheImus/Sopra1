@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="200.0" />
@@ -44,31 +44,31 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TreeView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-            <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TreeView fx:id="TreePastEvents" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <ListView fx:id="ListInvited" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <ButtonBar prefHeight="40.0" prefWidth="100.0" GridPane.rowIndex="2">
               <buttons>
-                <Button mnemonicParsing="false" text="Einladen" />
+                <Button fx:id="BtnInvite" mnemonicParsing="false" onAction="#onInvite" text="Einladen" />
               </buttons>
             </ButtonBar>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
               <buttons>
-                <Button mnemonicParsing="false" text="Ausladen" />
+                <Button fx:id="BtnUninvite" mnemonicParsing="false" onAction="#onUninvite" text="Ausladen" />
               </buttons>
             </ButtonBar>
          </children>
       </GridPane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <buttons>
-          <Button mnemonicParsing="false" text="Adressen kopieren" />
-            <Button mnemonicParsing="false" text="E-Mail kopieren" />
-            <Button mnemonicParsing="false" text="PDF speichern ..." />
+          <Button fx:id="BtnCopyAddress" mnemonicParsing="false" onAction="#onCopyToClip" text="Adressen kopieren" />
+            <Button fx:id="BtnCopyEmail" mnemonicParsing="false" onAction="#onCopyToClipboard" text="E-Mail kopieren" />
+            <Button fx:id="BtnSavePDF" mnemonicParsing="false" onAction="#onExportPDF" text="PDF speichern ..." />
         </buttons>
       </ButtonBar>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <buttons>
-          <Button cancelButton="true" mnemonicParsing="false" text="Verwerfen" />
-            <Button defaultButton="true" mnemonicParsing="false" text="Speichern" />
+          <Button fx:id="BtnDispose" cancelButton="true" mnemonicParsing="false" onAction="#onDispose" text="Verwerfen" />
+            <Button fx:id="BtnSave" defaultButton="true" mnemonicParsing="false" text="Speichern" />
         </buttons>
       </ButtonBar>
    </children>

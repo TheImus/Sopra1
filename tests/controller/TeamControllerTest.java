@@ -55,7 +55,8 @@ private GroupController gc;
 	 */
 	@Before
 	public void setUp() throws Exception {
-		walkingDinnerController = new WalkingDinnerController();
+		
+		walkingDinnerController = TestDataFactory.createTestWalkingDinnerController();
 		walkingDinner = walkingDinnerController.getWalkingDinner();
 		teamController = new TeamController(walkingDinnerController);
 		part1 = new  Participant();
