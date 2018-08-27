@@ -5,12 +5,15 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.Course;
 import model.Event;
 import model.Group;
 import model.Schedule;
@@ -95,11 +98,11 @@ public class GroupControllerTest {
 	public void testCreateNewGroup(){
 		//testGroupController
 		
-		assertNotNull(testGroupController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent().getSchedule());
+		
 		
 		Group testgroup  = testGroupController.createNewGroup(null);
 		assertNotNull("TestGruppe nicht erstellt",testgroup);
-		assertTrue("Teamliste ist fehlerhaft",testgroup.getTeams().isEmpty());
+		assertEquals("Teamliste ist fehlerhaft",0, testgroup.getTeams().size());
 		assertNull("HostTeam ist fehlerhaft",testgroup.getHostTeam());
 		
 		
@@ -107,7 +110,7 @@ public class GroupControllerTest {
 		Group testgroup1 = testGroupController.createNewGroup(team);
 		assertNotNull("Testgruppe leer",testgroup1);
 		assertFalse("Team nicht vorhanden",testgroup1.getTeams().isEmpty());
-		assertNull("HostTeam ist leer",testgroup1.getHostTeam());
+		assertNotNull("HostTeam ist leer",testgroup1.getHostTeam());
 		assertEquals("HostTeam nicht korrekt gesetzt",testgroup1.getHostTeam(), team);
 		
 		
@@ -215,13 +218,20 @@ public class GroupControllerTest {
 		//fail("Not yet implemented");
 		Group group = new Group();
 		Group group2 = new Group();
-		groupController.getWalkingDinnerController();
-		groupController.addTeamToGroup(null, group);
-		groupController.addTeamToGroup(null, group2);
+		Event event = testGroupController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent();
+		List<Group> groups = event.getSchedule().getGroup(Course.STARTER);
+		groups.add(group);
+		groups.add(group2);
+		event.getSchedule().setGroup(Course.STARTER, groups);
+//		testGroupController.getWalkingDinnerController();
+//		testGroupController.addTeamToGroup(null, group);
+//		testGroupController.addTeamToGroup(null, group2);
 		
-		groupController.removeGroup(group);
-		assertFalse("gruppe ist im Event",groupController.getAllGroups().contains(group));
-		assertTrue("gruppe ist nicht im Event",groupController.getAllGroups().contains(group2));
+		//assertNull(testGroupController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent());
+		
+		testGroupController.removeGroup(group);
+		assertFalse("gruppe ist im Event",testGroupController.getAllGroups().contains(group));
+		assertTrue("gruppe 2 ist nicht im Event",testGroupController.getAllGroups().contains(group2));
 		
 		
 	}

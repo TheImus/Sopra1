@@ -49,5 +49,32 @@ public class Restriction {
 	public void setParticipant(List<Participant> participant) {
 		this.participant = participant;
 	}
+	
+	public static ArrayList<Restriction> getIntersectionForRestrictions(List<Restriction> restrictionList1, List<Restriction> restrictionList2){
+		ArrayList<Restriction> intersectionList = new ArrayList<Restriction>();
+		for(Restriction restriction:restrictionList1){
+			if(restrictionList2.contains(restriction)){
+				intersectionList.add(restriction);
+			}
+		}
+		return intersectionList;
+	}
+	
+	public static ArrayList<Restriction> getSymmetricDifferenceForRestrictions(List<Restriction> restrictionList1, 
+			List<Restriction> restrictionList2){
+		ArrayList<Restriction> intersectionList = getIntersectionForRestrictions(restrictionList1, restrictionList2);
+		ArrayList<Restriction> symDiffList = new ArrayList<Restriction>();
+		for(Restriction restriction:restrictionList1){
+			if(!intersectionList.contains(restriction)){
+				symDiffList.add(restriction);
+			}
+		}
+		for(Restriction restriction:restrictionList2){
+			if(!symDiffList.contains(restriction) && !intersectionList.contains(restriction)){
+				symDiffList.add(restriction);
+			}
+		}
+		return symDiffList;
+	}
 
 }
