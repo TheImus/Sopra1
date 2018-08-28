@@ -137,7 +137,7 @@ public class ConsistencyController {
 	 * @return Returns a list with all warnings for the group
 	 */
 	public List<String> getWarnings(Group group) {
-		
+
 		List<String> warnings = new ArrayList<String>();								//return List with all warnings
 		List<Participant> allParticipantsInGroup = new ArrayList<Participant>();		//List with all participants in the group
 		List<Person> allPersonsInGroup = new ArrayList<Person>();						//List with all Persons in the group
@@ -152,17 +152,18 @@ public class ConsistencyController {
 		}
 		warnings.addAll(GroupSizeWarnings(group));
 	    //warnings.addAll(knowingRelation(allPersonsInGroup));							//checks if any persons in the group know each other
-	    
-	    if(getDifferentRestrictionsFor(allParticipantsInGroup) != null) {					// check if there are any restrictions that don't match
-			warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
-					getDifferentRestrictionsFor(allParticipantsInGroup).toString() + 
+	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
+	    if(!differentR.isEmpty()) {					// check if there are any restrictions that don't match
+			
+	    	warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
+					differentR + 
 					"bitte einmal überprüfen für folgende Gruppe:" + allParticipantsInGroup.toString());
 		}	
 	    
 	    warnings.addAll(checkGroupCoursesStarter(group));								//checks if any team in the group has another group with the same course (Starter) already
 	    warnings.addAll(checkGroupCoursesMain(group));									//checks if any team in the group has another group with the same course (Main) already
 	    warnings.addAll(checkGroupCoursesDessert(group));								//checks if any team in the group has another group with the same course (Dessert) already
-		
+
 		return warnings;
 	}
 
@@ -207,16 +208,17 @@ public class ConsistencyController {
 				if(!part.equals(others)) {														//make sure the participants are not the same
 					for(Restriction compareRestriction : restOfOthers) {						//check if any restrictions of the participant and other participant match
 						if(!rest.contains(compareRestriction) && !notMatchingRestrictions.contains(compareRestriction)) {								//if they don't match add them to the list
-							//System.out.println(restOfOthers);
+							System.out.println(compareRestriction);
 							notMatchingRestrictions.add(compareRestriction);
 						}
 					}
 				}
 			}
 		}
-//		System.out.println("");
-//		for(Restriction s : notMatchingRestrictions)
-//			System.out.print(s);
+		System.out.println("Rückgabe von diffRest");
+		for(Restriction s : notMatchingRestrictions)
+			System.out.print(s);
+		System.out.println("Das wars");
 		return notMatchingRestrictions;															//return all restrictions that don't match
 	}
 	
