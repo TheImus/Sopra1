@@ -59,8 +59,8 @@ public class TabsOverviewController {
 			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/TabInvite.fxml"));
 			root2 = loader2.load();
 			
-			TabInviteController tabInviteController = (TabInviteController) loader2.getController();
-			tabInviteController.setWalkingDinnerController(walkingDinnerController);			
+			TabInviteViewController tabInviteViewController = (TabInviteViewController) loader2.getController();
+			tabInviteViewController.setWalkingDinnerController(walkingDinnerController);			
 			TabInvitation.setContent(root2);
 			
 			GridPane root3 = new GridPane();

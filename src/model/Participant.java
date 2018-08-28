@@ -26,17 +26,24 @@ public class Participant implements Serializable{
 		this.address = new Address();
 		this.courseWish = null;
 	}
-	
+
+	/* 
+	public static void setChanged(List<Participant> participants, boolean value) {
+
+	}
+	*/
 
 	/**
 	 *  
 	 */
-	public void removeRestriction(Restriction restriction) {
-
+	public void removeRestriction(Restriction oldRestriction) {
+		changedSinceExport = true;
+		restriction.remove(oldRestriction);
 	}
 
-	public void addRestriction(Restriction restriction) {
-
+	public void addRestriction(Restriction newRestriction) {
+		changedSinceExport = true;
+		restriction.add(newRestriction);
 	}
 	
 	/**
