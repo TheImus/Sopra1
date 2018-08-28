@@ -119,6 +119,7 @@ public class TestDataFactory {
 		}
 		event.setAllTeams(teams);
 		event.setParticipants(part);
+		event.setInvited(part);
 		
 		return event;
 	}
@@ -216,7 +217,7 @@ public class TestDataFactory {
 		Person person = new Person();
 		person.setBirthDate(LocalDate.MIN);
 		person.setMailAddress("test@mail.com");
-		person.setName("Maax Mustermann");
+		person.setName("Marx Mustermann");
 		person.setPhoneNumber("0231/666999");
 		return person;
 	}

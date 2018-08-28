@@ -168,29 +168,35 @@ public class ConsistencyControllerTest {
 		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);
 		
-		assertEquals("Teamgröße ist größer als 3", warnings.get(0));							//check if team warning is correct (too  big)
+		assertTrue(warnings.contains("Teamgröße ist größer als 3"));
+		assertFalse(warnings.contains("In dem Team befindet sich nur eine Person"));							//check if team warning is correct (too  big)
 		
 		participants.get(0).setCourseWish(Course.STARTER);
 		participants.get(1).setCourseWish(Course.MAIN);
 		participants.get(2).setCourseWish(Course.STARTER);
 		
 		members.clear();
-		warnings.clear();
 		members.add(participants.get(0));
 		members.add(participants.get(1));
 		members.add(participants.get(2));
 		team1.setMembers(members);
 		team1.setHost(participants.get(0));
-		assertEquals(participants.get(0) + "hat anderen Wunschgang als " + participants.get(1), consistencyController.getWarnings(team1).get(1));
+		warnings = consistencyController.getWarnings(team1);
+		assertTrue(warnings.contains(participants.get(0) + "hat anderen Wunschgang als " + participants.get(1)));
 		
 		participants.get(0).setRestriction(restrictions);
 		rest.setName("Gemüse");
 		restrictions.add(rest);
 		participants.get(1).setRestriction(restrictions);
 		participants.get(2).setRestriction(restrictions);
+		team1.setMembers(members);
+		warnings = consistencyController.getWarnings(team1);
 		
+		System.out.println(restrictions.get(1));
+		System.out.println(team1.getMembers().toString());
 		assertEquals("folgende Restriktionen könnten Problematisch sein:" + restrictions.get(1) + "bitte einmal überprüfen für folgendes Team:" + team1.getMembers().toString(), consistencyController.getWarnings(team1));
-		
+		assertTrue(warnings.contains("folgende Restriktionen könnten Problematisch sein:" + restrictions.get(1) + "bitte einmal überprüfen für folgendes Team:" + team1.getMembers().toString()));
+
 		
 		assertEquals(team1, consistencyController.getInconsistentTeams());
 	}

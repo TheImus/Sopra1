@@ -1,5 +1,6 @@
 package view;
 
+import controller.WalkingDinnerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,6 +41,16 @@ public class TabGroupsController {
 
     @FXML
     private TextArea TextGuestTeam2;
+    
+    private WalkingDinnerController walkingDinnerController;
+    
+    public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+    
+    public WalkingDinnerController getWalkingDinnerController() {
+		return walkingDinnerController;
+	}
 
     @FXML
     void onGenerateTeams(ActionEvent event) {
