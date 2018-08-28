@@ -1,10 +1,10 @@
 package model;
-
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
-public class Schedule {
+public class Schedule implements Serializable{
 	
 	private EnumMap<Course, List<Group>> courses;
 	private Course currentCourse;
@@ -30,6 +30,10 @@ public class Schedule {
 	
 	public Course getCurrentCourse(){
 		return currentCourse;
+	}
+	public Course getCourse(Participant participantInHostGroup)
+	{
+		return null;
 	}
 
 }

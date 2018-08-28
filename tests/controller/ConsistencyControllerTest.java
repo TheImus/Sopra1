@@ -136,15 +136,9 @@ public class ConsistencyControllerTest {
 		
 		members.add(participants.get(0));									            // increase teamsize to 1
 		team1.setMembers(members);
-		//System.out.println(team1);
 		warnings = consistencyController.getWarnings(team1);							// check if size warning is correct (too small)
-		assertEquals("In dem Team befindet sich nur eine Person", warnings.get(0));
-		
-		
-		members.add(participants.get(0));									            // increase teamsize to 1
-		team1.setMembers(members);
-		warnings = consistencyController.getWarnings(team1);							// check if size warning is correct (too small)
-		assertEquals("Teamgröße ist kleiner als 2", warnings.get(0));
+		assertTrue(warnings.contains("In dem Team befindet sich nur eine Person"));
+		assertFalse(warnings.contains("kommt mehrmals im Team vor"));
 		
 		warnings.clear();
 		members.add(participants.get(0));																// increase teamsize to 3 with the same participant
@@ -152,9 +146,10 @@ public class ConsistencyControllerTest {
 		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);							// overwrite team warnings for new team
 		
-		assertEquals(participants.get(0) + "kommt mehrmals im Team vor", warnings.get(0));			// check if the same person is multiple times in the team
-		assertEquals(participants.get(0) + "kommt mehrmals im Team vor", warnings.get(1));
-		assertEquals(participants.get(0) + "kommt mehrmals im Team vor", warnings.get(2));
+		assertTrue(warnings.contains(participants.get(0).getPerson() + "kommt mehrmals im Team vor"));
+		assertTrue(warnings.contains(participants.get(0).getPerson() + "kommt mehrmals im Team vor"));
+		assertTrue(warnings.contains(participants.get(0).getPerson() + "kommt mehrmals im Team vor"));
+	
 		
 		members.clear();																		//delete members list
 		warnings.clear();
@@ -165,14 +160,15 @@ public class ConsistencyControllerTest {
 		team1.setHost(null);
 		warnings = consistencyController.getWarnings(team1);									//check if team has host
 		
-		assertEquals("Das Team besitzt keinen Host", warnings.get(0));
+		assertTrue(warnings.contains("kein Host vorhanden/gesetzt"));
+		
 		
 		members.add(participants.get(3));
-		team1.setMembers(members);
 		team1.setHost(members.get(0));
+		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);
 		
-		assertEquals("Teamgröße ist größer als 3", warnings.get(1));							//check if team warning is correct (too  big)
+		assertEquals("Teamgröße ist größer als 3", warnings.get(0));							//check if team warning is correct (too  big)
 		
 		participants.get(0).setCourseWish(Course.STARTER);
 		participants.get(1).setCourseWish(Course.MAIN);
@@ -185,7 +181,7 @@ public class ConsistencyControllerTest {
 		members.add(participants.get(2));
 		team1.setMembers(members);
 		team1.setHost(participants.get(0));
-		assertEquals(participants.get(0) + "hat anderen Wunschgang als " + participants.get(1), consistencyController.getWarnings(team1).get(0));
+		assertEquals(participants.get(0) + "hat anderen Wunschgang als " + participants.get(1), consistencyController.getWarnings(team1).get(1));
 		
 		participants.get(0).setRestriction(restrictions);
 		rest.setName("Gemüse");
@@ -223,7 +219,7 @@ public class ConsistencyControllerTest {
 	 * check if the list is not empty/null and check if the warnings are correct
 	 */
 	@Test
-	public void testGetWarningsGroup() {
+	/*public void testGetWarningsGroup() {
 
 		List<Team> teams = event.getAllTeams();
 		List<Team> guests = new ArrayList<Team>();
@@ -273,6 +269,96 @@ public class ConsistencyControllerTest {
 		warnings = consistencyController.getWarnings(group1);
 		assertNotNull(warnings);
 		
+	}*/
+	
+	/**
+	 * The method creates warning messages for each group, possible warnings:
+	 * 1. "Gruppe zu klein"
+	 * 2. "Gruppe zu groß"
+	 * 3. "kein Hostteam festgelegt"
+	 * 4. "keine Gastteams vorhanden"
+	 * 5. "Die Anzahl der Gastteams stimmt nicht"
+	 * 6. person.get(i) + " und" + person.get(j) + " kennen sich"
+	 * 7. "folgende Restriktionen könnten Problematisch sein:" + Restriction +  "bitte einmal überprüfen für folgende Gruppe:" + Gruppe
+	 * 8. TeamX "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
+	 * 9. TeamX "kommt in mehreren MAIN Gruppen vor, die andere Gruppe besteht aus: "
+	 * 10. TeamX "kommt in mehreren DESSERT Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
+	 */
+	public void testGetWarningsGroup() {
+		Group testGroup = new Group();
+		Team team1 = new Team();
+		Team team2 = new Team();
+		Team team3 = new Team();
+		Team team4 = new Team();
+		List<Team> guests = new ArrayList<Team>();
+		//test case - empty Group
+		List<String> currentWarning = consistencyController.getWarnings(testGroup);
+		assertTrue(currentWarning.contains("Gruppe zu klein"));
+		assertTrue(currentWarning.contains("kein Hostteam festgelegt"));
+		assertTrue(currentWarning.contains("keine Gastteams vorhanden"));
+		assertTrue(currentWarning.contains("Die Anzahl der Gastteams stimmt nicht"));
+
+
+		
+		//test case - Group with one Team as host
+		
+		testGroup.setHostTeam(team1);
+		currentWarning = consistencyController.getWarnings(testGroup);
+		assertTrue(currentWarning.contains("Gruppe zu klein"));
+		assertTrue(currentWarning.contains("keine Gastteams vorhanden"));
+		assertTrue(currentWarning.contains("Die Anzahl der Gastteams stimmt nicht"));
+		
+		assertFalse(currentWarning.contains("kein Hostteam festgelegt"));
+		
+		// test case - Group with one Team as host and one guest
+		guests.add(team2);
+		testGroup.setGuest(guests);
+		currentWarning = consistencyController.getWarnings(testGroup);
+		assertTrue(currentWarning.contains("Gruppe zu klein"));
+		assertTrue(currentWarning.contains("Die Anzahl der Gastteams stimmt nicht"));
+		
+		assertFalse(currentWarning.contains("kein Hostteam festgelegt"));
+		assertFalse(currentWarning.contains("keine Gastteams vorhanden"));
+		
+		//test case - Group with one Team as host and two guests
+		guests.add(team3);
+		testGroup.setGuest(guests);
+		currentWarning = consistencyController.getWarnings(testGroup);
+		
+		assertFalse(currentWarning.contains("Gruppe zu klein"));
+		assertFalse(currentWarning.contains("Die Anzahl der Gastteams stimmt nicht"));
+		assertFalse(currentWarning.contains("kein Hostteam festgelegt"));
+		assertFalse(currentWarning.contains("keine Gastteams vorhanden"));
+		
+		//test case Group with one Team as host and three guests
+		
+		guests.add(team4);
+		testGroup.setGuest(guests);
+		currentWarning = consistencyController.getWarnings(testGroup);
+		
+		assertFalse(currentWarning.contains("Gruppe zu klein"));
+		assertTrue(currentWarning.contains("Die Anzahl der Gastteams stimmt nicht"));
+		assertFalse(currentWarning.contains("kein Hostteam festgelegt"));
+		assertFalse(currentWarning.contains("keine Gastteams vorhanden"));
+		
+		//test case Group with Restrictions which are problematic between the teams
+		
+		testGroup = TestDataFactory.createTestGroup();
+		Restriction ih = TestDataFactory.createTestRestriction();
+		Restriction bah = TestDataFactory.createTestRestriction();
+		int i =0;
+		for(Participant p : testGroup.getParticipants()){
+			if(i== 0)
+				p.addRestriction(ih);
+			//else
+				//p.addRestriction(bah);
+			//i = i+1 % 2;
+			i++;
+		}
+		currentWarning = consistencyController.getWarnings(testGroup);
+		for(String s:currentWarning)
+			System.out.println(s);
+		assertTrue(currentWarning.contains("folgende Restriktionen könnten Problematisch sein:" + ih +  "bitte einmal überprüfen für folgende Gruppe:" + testGroup));
 	}
 
 	/**

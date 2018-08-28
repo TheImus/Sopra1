@@ -1,6 +1,6 @@
 package model;
-
-public enum Course {
+import java.io.Serializable;
+public enum Course implements Serializable {
 	STARTER,
 	MAIN,
 	DESSERT;
