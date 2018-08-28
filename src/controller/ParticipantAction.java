@@ -13,5 +13,6 @@ public enum ParticipantAction {
 		String result = action.substring(0,1).toUpperCase() + action.substring(1).toLowerCase();
 		
 		return result;
+		
 	}
 }
