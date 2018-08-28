@@ -153,8 +153,31 @@ public class ScheduleController {
 		if(leftParticipants.isEmpty()){
 			return teams;
 		}
+		for(Participant participant:leftParticipants){
+			teams = insertParticipantInFittingTeam(teams, participant);
+		}
 		return teams;
 		
+	}
+	
+	private ArrayList<Team> insertParticipantInFittingTeam(ArrayList<Team> teams, Participant participant){
+		int indexOfFittingTeam = 0;
+		int minimum = Integer.MAX_VALUE;
+		for(Team team:teams){
+			if(team.getSize()==2){
+				int amountOfSymDiff = Restriction.getSymmetricDifferenceForRestrictions(team.getRestrictions(), participant.getRestriction()).size();
+				if(amountOfSymDiff < minimum){
+					minimum = amountOfSymDiff;
+					indexOfFittingTeam = teams.indexOf(team);
+				}
+			}
+		}
+		Team fittingTeam = teams.get(indexOfFittingTeam);
+		List<Participant> members = fittingTeam.getMembers();
+		members.add(participant);
+		fittingTeam.setMembers(members);
+		teams.set(indexOfFittingTeam, fittingTeam);
+		return teams;
 	}
 	private Participant getLeftParticipantFromTeams(ArrayList<Team> teams){
 		for(Team team:teams){
