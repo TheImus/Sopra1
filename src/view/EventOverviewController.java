@@ -1,41 +1,39 @@
 package view;
 
+import java.util.List;
+
 import controller.WalkingDinnerController;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Event;
+import model.Participant;
 
 public class EventOverviewController {
 
-    @FXML
-    private GridPane MainPane;
-
-    @FXML
-    private Button BtnGenerateTeams;
-
-    @FXML
-    private ListView<?> ListTeams;
-
-    @FXML
-    private ListView<?> ListFreeParticipants;
-
-    @FXML
-    private ListView<?> ListSelectedTeams;
-
-    @FXML
-    private Button BtnDiscard;
-
-    @FXML
-    private Button BtnSave;
-    
-    @FXML
+	@FXML
     private BorderPane borderPaneOverview;
+
+    @FXML
+    private Button BtnNewFromTemplate;
+
+    @FXML
+    private Button BtnEdtiting;
+
+    @FXML
+    private ListView<Event> listEvent;
+
+    @FXML
+    private TextField searchEvent;
     
     private WalkingDinnerController walkingDinnerController;
     
@@ -46,9 +44,7 @@ public class EventOverviewController {
 
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
-	}
-
-    
+	}    
 
 
 	@FXML
@@ -64,6 +60,31 @@ public class EventOverviewController {
     @FXML
     void onSave(ActionEvent event) {
 
+    }
+    
+    public void refresh(){
+
+		List<Event> list = walkingDinnerController.getWalkingDinner().getEvents();
+		for(Event ev:list){
+			listEvent.getItems().add(ev);
+		}
+		
+    }
+    
+    public void init(){
+    	listEvent.setCellFactory(view ->
+		new ListCell<Event>() {
+			protected void updateItem(Event item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText("");
+		        } else {
+		            setText(item.getName() + " - " + item.getDate().toString());
+		        }
+		    }
+		}
+    			);
+    	refresh();
     }
     
     @FXML

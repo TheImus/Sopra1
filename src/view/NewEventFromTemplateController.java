@@ -1,5 +1,8 @@
 package view;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import controller.EventController;
 import controller.WalkingDinnerController;
 import javafx.event.ActionEvent;
@@ -69,13 +72,16 @@ public class NewEventFromTemplateController {
     	EventController eventController = walkingDinnerController.getEventController();
     	WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
     	Event currentEvent = new Event();
+    	walkingDinner.getEvents().add(currentEvent);
     	walkingDinner.setCurrentEvent(currentEvent);
     	eventController.setEventName(TextEventName.getText());
     	eventController.setEventDate(PickerDate.getValue());
     	eventController.setEventPlace(TextPlace.getText());
     	eventController.setDeadline(PickerDeadline.getValue());
     	eventController.setEventDescription(TextEventDetails.getText());
-    	//eventController.setCourseTime(Course.STARTER, Integer.valueOf(TextStarter.getText());
+    	eventController.setCourseTime(Course.STARTER, LocalTime.parse(TextStarter.getText()));
+    	eventController.setCourseTime(Course.MAIN, LocalTime.parse(TextMain.getText()));
+    	eventController.setCourseTime(Course.DESSERT, LocalTime.parse(TextDessert.getText()));
     	
     	try {    		
     		GridPane root = new GridPane();

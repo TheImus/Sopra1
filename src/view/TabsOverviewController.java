@@ -52,7 +52,7 @@ public class TabsOverviewController {
 			
 			TabEventController tabEventController = (TabEventController) loader.getController();
 			tabEventController.setWalkingDinnerController(walkingDinnerController);	
-			
+			tabEventController.refresh();
 			TabGeneral.setContent(root);
 			
 			GridPane root2 = new GridPane();
@@ -60,7 +60,7 @@ public class TabsOverviewController {
 			root2 = loader2.load();
 			
 			TabInviteViewController tabInviteViewController = (TabInviteViewController) loader2.getController();
-			tabInviteViewController.setWalkingDinnerController(walkingDinnerController);			
+			tabInviteViewController.setWalkingDinnerController(walkingDinnerController);
 			TabInvitation.setContent(root2);
 			
 			GridPane root3 = new GridPane();
@@ -97,7 +97,8 @@ public class TabsOverviewController {
 
     @FXML
     void onClose(ActionEvent event) {
-
+    	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), "beispielprojekt");
+    	
     }
 
 }

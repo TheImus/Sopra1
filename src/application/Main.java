@@ -1,8 +1,11 @@
 package application;
 	
+import java.util.List;
+
 import controller.WalkingDinnerController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.Event;
 import view.AdjustParticipantController;
 import view.EventOverviewController;
 import javafx.scene.Scene;
@@ -19,7 +22,7 @@ private WalkingDinnerController walkingDinnerController;
 	@Override
 	public void init() throws Exception {
 		walkingDinnerController = new WalkingDinnerController();
-		walkingDinnerController.loadModel("");
+		walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel("beispielprojekt"));
 	}
 
 	@Override	
@@ -34,7 +37,7 @@ private WalkingDinnerController walkingDinnerController;
 			}
 			EventOverviewController eventOverviewController = (EventOverviewController) loader.getController();
 			eventOverviewController.setWalkingDinnerController(walkingDinnerController);
-			
+			eventOverviewController.init();
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -44,6 +47,7 @@ private WalkingDinnerController walkingDinnerController;
 	}
 	
 	public static void main(String[] args) {
+		
 		launch(args);
 	}
 }
