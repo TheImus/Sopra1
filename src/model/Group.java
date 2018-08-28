@@ -2,8 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class Group {
+import java.io.Serializable;
+public class Group implements Serializable{
 
 	private Team hostTeam;
 
