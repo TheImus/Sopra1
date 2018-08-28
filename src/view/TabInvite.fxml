@@ -10,7 +10,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <GridPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TabInviteController">
+=======
+<GridPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TabInviteViewController">
+>>>>>>> branch 'master' of https://thwomp.cs.tu-dortmund.de/git/sopra19b/gruppe02/project1.git
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="200.0" />
@@ -60,15 +64,15 @@
       </GridPane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <buttons>
-          <Button fx:id="BtnCopyAddress" mnemonicParsing="false" onAction="#onCopyToClip" text="Adressen kopieren" />
-            <Button fx:id="BtnCopyEmail" mnemonicParsing="false" onAction="#onCopyToClipboard" text="E-Mail kopieren" />
+          <Button fx:id="BtnCopyAddress" mnemonicParsing="false" onAction="#onAddressesToClipboard" text="Adressen kopieren" />
+            <Button fx:id="BtnCopyEmail" mnemonicParsing="false" onAction="#onEMailToClipboard" text="E-Mail kopieren" />
             <Button fx:id="BtnSavePDF" mnemonicParsing="false" onAction="#onExportPDF" text="PDF speichern ..." />
         </buttons>
       </ButtonBar>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <buttons>
           <Button fx:id="BtnDispose" cancelButton="true" mnemonicParsing="false" onAction="#onDispose" text="Verwerfen" />
-            <Button fx:id="BtnSave" defaultButton="true" mnemonicParsing="false" text="Speichern" />
+            <Button fx:id="BtnSave" defaultButton="true" mnemonicParsing="false" onAction="#onSave" text="Speichern" />
         </buttons>
       </ButtonBar>
    </children>

@@ -31,5 +31,9 @@ public class Schedule implements Serializable{
 	public Course getCurrentCourse(){
 		return currentCourse;
 	}
+	public Course getCourse(Participant participantInHostGroup)
+	{
+		return null;
+	}
 
 }

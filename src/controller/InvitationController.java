@@ -176,7 +176,6 @@ public class InvitationController {
 			// delete if participant is not registered in this event
 			if (!participants.contains(participant)) {
 				invited.remove(participant);
-				System.out.println("Removed");
 			}
 		}
 	}
