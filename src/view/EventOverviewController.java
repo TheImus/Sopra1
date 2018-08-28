@@ -123,5 +123,26 @@ public class EventOverviewController {
     	
     }
     
+    @FXML
+    void OnEditing(ActionEvent event) {
+    	 Event currentEvent = listEvent.getSelectionModel().getSelectedItem();
+    	 walkingDinnerController.getWalkingDinner().setCurrentEvent(currentEvent);
+    	 try {
+ 			GridPane root = new GridPane();
+ 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
+ 			root = loader.load();
+ 			
+ 			TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
+ 			tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
+ 			tabsOverviewController.init();
+ 			Scene scene = new Scene(root);
+ 			
+ 			((Stage)borderPaneOverview.getScene().getWindow()).setScene(scene);
+ 			
+ 		} catch(Exception e) {
+ 			e.printStackTrace();
+ 		}
+    }
+    
 
 }

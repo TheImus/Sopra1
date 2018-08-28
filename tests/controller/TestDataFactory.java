@@ -120,7 +120,6 @@ public class TestDataFactory {
 		event.setAllTeams(teams);
 		event.setParticipants(part);
 		event.setInvited(part);
-		
 		return event;
 	}
 	

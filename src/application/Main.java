@@ -2,6 +2,7 @@ package application;
 	
 import java.util.List;
 
+import controller.TestDataFactory;
 import controller.WalkingDinnerController;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -20,9 +21,18 @@ private WalkingDinnerController walkingDinnerController;
 
 	
 	@Override
-	public void init() throws Exception {
+	public void init() throws Exception { //Beispielprojekt muss später ruas
 		walkingDinnerController = new WalkingDinnerController();
 		walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel("beispielprojekt"));
+		Event newEvent = TestDataFactory.createTestEvent();
+		newEvent.setName("TestEvent mit Schedule von Factory");
+		List<Event> evList = walkingDinnerController.getWalkingDinner().getEvents();
+		if(!evList.contains(newEvent)) {
+			evList.add(newEvent);
+		}
+		walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(),"beispielprojekt");
+		//walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel("beispielprojekt"));
+
 	}
 
 	@Override	
@@ -47,6 +57,7 @@ private WalkingDinnerController walkingDinnerController;
 	}
 	
 	public static void main(String[] args) {
+		
 		
 		launch(args);
 	}

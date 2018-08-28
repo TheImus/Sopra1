@@ -69,7 +69,8 @@ public class TabsOverviewController {
 			root3 = loader3.load();
 			
 			TabParticipantsController tabParticipantsController = (TabParticipantsController) loader3.getController();
-			tabParticipantsController.setWalkingDinnerController(walkingDinnerController);			
+			tabParticipantsController.setWalkingDinnerController(walkingDinnerController);	
+			tabParticipantsController.init();
 			TabParticipant.setContent(root3);
 			
 			GridPane root4 = new GridPane();
@@ -77,7 +78,8 @@ public class TabsOverviewController {
 			root4 = loader4.load();
 			
 			TabAdjustTeamsController tabAdjustTeamsController = (TabAdjustTeamsController) loader4.getController();
-			tabAdjustTeamsController.setWalkingDinnerController(walkingDinnerController);			
+			tabAdjustTeamsController.setWalkingDinnerController(walkingDinnerController);	
+			tabAdjustTeamsController.init();
 			TabTeams.setContent(root4);
 			
 			TabPane root5 = new TabPane();

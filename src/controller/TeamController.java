@@ -70,9 +70,18 @@ public class TeamController {
 		else {
 
 			if (team.getParticipants().size() == 1 || team.getParticipants().size() == 0) {
+				boolean find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
+				if(find) {
+					System.out.println("zu löschender participant in teilnehmerliste vorhanden");
+				}
 				team.setHost(null);
 				team.setMembers(new ArrayList<Participant>());
 				removeTeam(team);
+				System.out.println("einer, anzahl participants in dem team:" + team.getParticipants().size());
+				find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
+				if(find) {
+					System.out.println("zu löschender participant in teilnehmerliste vorhanden");
+				}
 				
 			} 
 			else if (team.getHost().equals(participant)) {
@@ -115,10 +124,16 @@ public class TeamController {
 				{
 					if(g.getHostTeam().equals(team))
 					{
-						g.setHostTeam(g.getGuest().get(0));
-						List<Team> tList = g.getGuest();
-						tList.remove(0);
-						g.setGuest(tList);
+						if(g.getGuest().size()>0) {
+							g.setHostTeam(g.getGuest().get(0));
+							List<Team> tList = g.getGuest();
+							tList.remove(0);
+							g.setGuest(tList);
+						}
+						else
+						{
+							g.setHostTeam(null);							
+						}
 					}
 					else
 					{
@@ -160,7 +175,8 @@ public class TeamController {
 	public List<Participant> getFreeParticipants() {
 		
 		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
-		List<Participant> list = currentEvent.getParticipants();
+		List<Participant> list = new ArrayList<>();
+		list.addAll(currentEvent.getParticipants());
 		Schedule currentSchedule = currentEvent.getSchedule();
 		Course[] courses = Course.values();
 		for(Course c:courses)
