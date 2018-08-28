@@ -1,12 +1,13 @@
 package view;
 
+import controller.WalkingDinnerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 
-public class TabAdjustTeam {
+public class TabAdjustTeamsController {
 
     @FXML
     private GridPane MainPane;
@@ -28,6 +29,16 @@ public class TabAdjustTeam {
 
     @FXML
     private Button BtnSave;
+    
+    private WalkingDinnerController walkingDinnerController;
+    
+    public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+    
+    public WalkingDinnerController getWalkingDinnerController() {
+		return walkingDinnerController;
+	}
 
     @FXML
     void onDiscard(ActionEvent event) {
