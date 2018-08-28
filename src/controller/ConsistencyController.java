@@ -37,7 +37,17 @@ public class ConsistencyController {
 		return walkingDinnerController;
 	}
 
-	
+	public List<String> getWarnings(){
+		List<String> warnings = new ArrayList<String>();
+		int size = walkingDinnerController.getGroupController().getAllGroups().size();
+		
+		if(size == 0)
+			warnings.add("Keine Gruppen im Event");
+		
+		if(size %3 != 0)
+			warnings.add("Die Anzahl der Gruppen ist kein Vielfaches von 3");
+		return warnings;
+	}
 	
 	/**
 	 * The method creates warning messages for each team
@@ -381,6 +391,8 @@ public class ConsistencyController {
 		
 		return warnings;
 	}
+	
+	
 	
 
 }
