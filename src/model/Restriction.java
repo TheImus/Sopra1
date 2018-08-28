@@ -1,9 +1,9 @@
 package model;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restriction {
+public class Restriction implements Serializable{
 
 	private String name;
 

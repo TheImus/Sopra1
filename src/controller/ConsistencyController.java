@@ -310,7 +310,7 @@ public class ConsistencyController {
 			warnings.add("Gruppe zu groß");
 		}
 		
-		if(group.getHostTeam().equals(null)) {											//checks if there is a host team
+		if(group.getHostTeam() == null) {											//checks if there is a host team
 			warnings.add("kein Hostteam festgelegt");
 		}
 			

@@ -5,4 +5,8 @@ public enum ParticipantAction {
 	UNREGISTER, 
 	REGISTER_NEW_PERSON, 
 	UPDATE_PARTICIPANT;
+	
+	public String getText(){
+		return null;
+	}
 }
