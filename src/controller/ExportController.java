@@ -23,16 +23,16 @@ public class ExportController {
 	public void exportParticipantData(List<Participant> participants, String fileName) {
 		try {
 			PrintWriter out = new PrintWriter(fileName);
-			out.println("START");
 			for(Participant participant : participants){
 				out.println("" + participant.getPerson().getName());
 				out.println("Your course times: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getCourseTimes());
-				out.println("You are hosting this: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getCourse(participant));
-				//out.println("You are a guest at the following events: " + );//TODO
+				out.println("You are hosting this: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getCourseToCook(participant));
+				out.println("You are a guest at the following events: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getAddresses(participant));//TODO
+				out.println();
 			}
 			out.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Could not create PrintWriter");
 			e.printStackTrace();
 		}
 	}
