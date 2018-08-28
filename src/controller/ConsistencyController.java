@@ -45,12 +45,14 @@ public class ConsistencyController {
 	 */
 	public List<String> getWarnings(Team team) {
 		
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
+		WalkingDinner wd = walkingDinnerController.getWalkingDinner();	
 		Event event = wd.getCurrentEvent();
+		ScheduleController schedule = walkingDinnerController.getScheduleController();
 		List<Team> allTeams = event.getAllTeams();
 	    List<String> warnings = new ArrayList<String>();
 	    List<Participant> members = team.getMembers();									// get all members of the team and save them in the list, they are participants currently
 		List<Person> membersAsPerson = new ArrayList<Person>();
+		//Map<Person,List<Person>> knownPersons = schedule.generateKnowingRelations();
 		
 	    warnings.addAll(TeamSizeWarnings(team));										//add all warnings with size issues
 		
@@ -66,13 +68,19 @@ public class ConsistencyController {
 			}		
 		}
 		
+		if(team.getHost() == null)
+		{
+			warnings.add("kein Host vorhanden/gesetzt");
+		}
+		
 		for(int i = 0; i < members.size()-1; i++){
 			if(!members.get(i).getCourseWish().equals(members.get(i+1).getCourseWish())){					//check if team members have same course wish
 				warnings.add(members.get(i) + "hat anderen Wunschgang als " + members.get(i+1));
 			}
 		}
-		
+		/*if(!knownPersons.isEmpty()){
 		warnings.addAll(knowingRelation(membersAsPerson));													//check knowing Relation
+		}*/
 		
 		if(getDifferentRestrictionsFor(team.getMembers()) != null) {			// check if there are any restrictions that don't match
 			System.out.println(getDifferentRestrictionsFor(team.getMembers()).toString());
@@ -114,7 +122,17 @@ public class ConsistencyController {
 
 	/**
 	 * The method creates warning messages for each group, possible warnings:
-	 * 1. restrictions not compatible 2. course not compatible etc..
+	 * 1. "Gruppe zu klein"
+	 * 2. "Gruppe zu groß"
+	 * 3. "kein Hostteam festgelegt"
+	 * 4. "keine Gastteams vorhanden"
+	 * 5. "Die Anzahl der Gastteams stimmt nicht"
+	 * 6. person.get(i) + " und" + person.get(j) + " kennen sich"
+	 * 7. "folgende Restriktionen könnten Problematisch sein:" + Restriction +  "bitte einmal überprüfen für folgende Gruppe:" + Gruppe
+	 * 8. TeamX "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
+	 * 9. TeamX "kommt in mehreren MAIN Gruppen vor, die andere Gruppe besteht aus: "
+	 * 10. TeamX "kommt in mehreren DESSERT Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
+	 * 
 	 * @param group name of a group object
 	 * @return Returns a list with all warnings for the group
 	 */
@@ -212,7 +230,7 @@ public class ConsistencyController {
 		List<String> warnings = new ArrayList<String>();						
 		
 		for(int i = 0; i<person.size()-1;i++) {		
-			System.out.println(knownPersons);
+			
 			knowingList = knownPersons.get(person.get(i));							//get the knowing relations for a person
 			for(int j = 1; j<person.size();j++) {														
 				if(knowingList.contains(person.get(j))){										//check if another person is in the knowing relations list
