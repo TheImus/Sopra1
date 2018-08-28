@@ -27,9 +27,6 @@ public class Participant implements Serializable{
 		this.courseWish = null;
 	}
 	
-	public static void setChanged(List<Participant> participants, boolean value) {
-
-	}
 
 	/**
 	 *  

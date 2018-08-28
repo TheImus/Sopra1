@@ -1,6 +1,8 @@
 package controller;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import model.Address;
 import model.Course;
 import model.Event;
@@ -131,4 +133,7 @@ public class ParticipantController {
 		return participant.createNewParticipant();
 	}
 	
+	public static void setChanged(List<Participant> participants, boolean value) {
+		for(Participant p : participants) p.setChangedSinceExport(value);
+	}
 }
