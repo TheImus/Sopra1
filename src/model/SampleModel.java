@@ -1,5 +1,5 @@
 package model;
-
-public class SampleModel {
+import java.io.Serializable;
+public class SampleModel implements Serializable{
 
 }

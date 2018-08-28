@@ -128,7 +128,7 @@ public class WalkingDinnerController implements Serializable {
 		}catch(IOException ioex){
 			System.err.println("Event couldn't be loaded");
 		}
-		return null;
+		return new WalkingDinner();
 
 	}
 

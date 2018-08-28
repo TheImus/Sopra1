@@ -2,8 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class Group {
+import java.io.Serializable;
+public class Group implements Serializable{
 
 	private Team hostTeam;
 
@@ -24,13 +24,13 @@ public class Group {
 	}
 
 	public List<Team> getTeams() {
+
 		List<Team> allTeams = new ArrayList<Team>(); 
 		if(hostTeam != null)
 			allTeams.add(hostTeam);
 		
 		allTeams.addAll(guest);
-		
-		
+
 		return allTeams;
 	}
 

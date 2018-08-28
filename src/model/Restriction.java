@@ -1,9 +1,9 @@
 package model;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restriction {
+public class Restriction implements Serializable{
 
 	private String name;
 
@@ -18,11 +18,12 @@ public class Restriction {
 		this.participant = new ArrayList<Participant>();
 	}
 
-	public void removeParticipant(Participant participant) {
-
+	public void removeParticipant(Participant oldParticipant) {
+		participant.remove(oldParticipant);
 	}
 
-	public void addParticipant(Participant participant) {
+	public void addParticipant(Participant newParticipant) {
+		participant.add(newParticipant);
 
 	}
 

@@ -37,6 +37,17 @@ public class ConsistencyController {
 		return walkingDinnerController;
 	}
 
+	public List<String> getWarnings(){
+		List<String> warnings = new ArrayList<String>();
+		int size = walkingDinnerController.getGroupController().getAllGroups().size();
+		
+		if(size == 0)
+			warnings.add("Keine Gruppen im Event");
+		
+		if(size %3 != 0)
+			warnings.add("Die Anzahl der Gruppen ist kein Vielfaches von 3");
+		return warnings;
+	}
 	
 	/**
 	 * The method creates warning messages for each team
@@ -45,13 +56,17 @@ public class ConsistencyController {
 	 */
 	public List<String> getWarnings(Team team) {
 		
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
-		Event event = wd.getCurrentEvent();
+		Event event = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		ScheduleController schedule = walkingDinnerController.getScheduleController();
 		List<Team> allTeams = event.getAllTeams();
 	    List<String> warnings = new ArrayList<String>();
 	    List<Participant> members = team.getMembers();									// get all members of the team and save them in the list, they are participants currently
 		List<Person> membersAsPerson = new ArrayList<Person>();
+		Map<Person,List<Person>> knownPersons = schedule.generateKnowingRelations();
 		
+		if(allTeams.size()%3 != 0)	{
+			warnings.add("Es gibt nicht genug Teams für eine neue Gruppe");
+		}
 	    warnings.addAll(TeamSizeWarnings(team));										//add all warnings with size issues
 		
 		for(int i = 0; i < team.getMembers().size(); i++){								// make all members to Persons and save them in a list
@@ -66,18 +81,29 @@ public class ConsistencyController {
 			}		
 		}
 		
+		if(team.getHost() == null)
+		{
+			warnings.add("kein Host vorhanden/gesetzt");
+		}
+		
 		for(int i = 0; i < members.size()-1; i++){
 			if(!members.get(i).getCourseWish().equals(members.get(i+1).getCourseWish())){					//check if team members have same course wish
 				warnings.add(members.get(i) + "hat anderen Wunschgang als " + members.get(i+1));
 			}
 		}
 		
+		try{
+		if(!knownPersons.isEmpty()){
 		warnings.addAll(knowingRelation(membersAsPerson));													//check knowing Relation
+		}
+		}catch(NullPointerException nullPointer){}
 		
-		if(getDifferentRestrictionsFor(team.getMembers()) != null) {			// check if there are any restrictions that don't match
-			System.out.println(getDifferentRestrictionsFor(team.getMembers()).toString());
+		List<Restriction> differentR = getDifferentRestrictionsFor(team.getMembers());
+		
+		if(differentR != null) {																			// check if there are any restrictions that don't match
+			
 			warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
-					getDifferentRestrictionsFor(team.getMembers()).toString() + 
+					differentR.toString() + 
 					"bitte einmal überprüfen für folgendes Team:" + team.getMembers().toString());
 		}	
 		
@@ -114,7 +140,17 @@ public class ConsistencyController {
 
 	/**
 	 * The method creates warning messages for each group, possible warnings:
-	 * 1. restrictions not compatible 2. course not compatible etc..
+	 * 1. "Gruppe zu klein"
+	 * 2. "Gruppe zu groß"
+	 * 3. "kein Hostteam festgelegt"
+	 * 4. "keine Gastteams vorhanden"
+	 * 5. "Die Anzahl der Gastteams stimmt nicht"
+	 * 6. person.get(i) + " und" + person.get(j) + " kennen sich"
+	 * 7. "folgende Restriktionen könnten Problematisch sein:" + Restriction +  "bitte einmal überprüfen für folgende Gruppe:" + Gruppe
+	 * 8. TeamX "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
+	 * 9. TeamX "kommt in mehreren MAIN Gruppen vor, die andere Gruppe besteht aus: "
+	 * 10. TeamX "kommt in mehreren DESSERT Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
+	 *
 	 * @param group name of a group object
 	 * @return Returns a list with all warnings for the group
 	 */
@@ -125,6 +161,7 @@ public class ConsistencyController {
 		List<Person> allPersonsInGroup = new ArrayList<Person>();						//List with all Persons in the group
 		
 		
+		
 		for(int i = 0; i<group.getTeams().size(); i++) {								//saves all participants in the group
 			allParticipantsInGroup.addAll(group.getTeams().get(i).getMembers());
 		}
@@ -133,11 +170,16 @@ public class ConsistencyController {
 			allPersonsInGroup.add(allParticipantsInGroup.get(i).getPerson());
 		}
 		warnings.addAll(GroupSizeWarnings(group));
-	    warnings.addAll(knowingRelation(allPersonsInGroup));							//checks if any persons in the group know each other
-	    
-	    if(getDifferentRestrictionsFor(allParticipantsInGroup) != null) {					// check if there are any restrictions that don't match
+		try{
+		if(!knowingRelation(allPersonsInGroup).isEmpty()){
+			warnings.addAll(knowingRelation(allPersonsInGroup)); 							//checks if any persons in the group know each other
+		}
+		}catch(NullPointerException nullPointer){}
+		
+	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
+	    if(differentR != null) {														// check if there are any restrictions that don't match
 			warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
-					getDifferentRestrictionsFor(allParticipantsInGroup).toString() + 
+					differentR.toString() + 
 					"bitte einmal überprüfen für folgende Gruppe:" + allParticipantsInGroup.toString());
 		}	
 	    
@@ -145,6 +187,7 @@ public class ConsistencyController {
 	    warnings.addAll(checkGroupCoursesMain(group));									//checks if any team in the group has another group with the same course (Main) already
 	    warnings.addAll(checkGroupCoursesDessert(group));								//checks if any team in the group has another group with the same course (Dessert) already
 		
+	    
 		return warnings;
 	}
 
@@ -188,14 +231,17 @@ public class ConsistencyController {
 				
 				if(!part.equals(others)) {														//make sure the participants are not the same
 					for(Restriction compareRestriction : restOfOthers) {						//check if any restrictions of the participant and other participant match
-						if(!rest.contains(compareRestriction)) {								//if they don't match add them to the list
+						if(!rest.contains(compareRestriction) && !notMatchingRestrictions.contains(compareRestriction)) {								//if they don't match add them to the list
+							
 							notMatchingRestrictions.add(compareRestriction);
 						}
 					}
 				}
 			}
 		}
-		
+//		System.out.println("");
+//		for(Restriction s : notMatchingRestrictions)
+//			System.out.print(s);
 		return notMatchingRestrictions;															//return all restrictions that don't match
 	}
 	
@@ -212,7 +258,7 @@ public class ConsistencyController {
 		List<String> warnings = new ArrayList<String>();						
 		
 		for(int i = 0; i<person.size()-1;i++) {		
-			System.out.println(knownPersons);
+			
 			knowingList = knownPersons.get(person.get(i));							//get the knowing relations for a person
 			for(int j = 1; j<person.size();j++) {														
 				if(knowingList.contains(person.get(j))){										//check if another person is in the knowing relations list
@@ -224,6 +270,11 @@ public class ConsistencyController {
 		return warnings;
 	}
 	
+	/**
+	 * help method
+	 * @param group
+	 * @return
+	 */
 	private List<String> checkGroupCoursesStarter(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
@@ -243,6 +294,11 @@ public class ConsistencyController {
 		return warnings;
 	}
 	
+	/**
+	 * help method
+	 * @param group
+	 * @return
+	 */
 	private List<String> checkGroupCoursesMain(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
@@ -262,6 +318,11 @@ public class ConsistencyController {
 		return warnings;
 	}
 	
+	/**
+	 * help method
+	 * @param group
+	 * @return
+	 */
 	private List<String> checkGroupCoursesDessert(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
@@ -280,6 +341,11 @@ public class ConsistencyController {
 		return warnings;
 	}
 	
+	/**
+	 * help method
+	 * @param group
+	 * @return
+	 */
 	private List<String> GroupSizeWarnings(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
@@ -292,7 +358,7 @@ public class ConsistencyController {
 			warnings.add("Gruppe zu groß");
 		}
 		
-		if(group.getHostTeam().equals(null)) {											//checks if there is a host team
+		if(group.getHostTeam() == null) {											//checks if there is a host team
 			warnings.add("kein Hostteam festgelegt");
 		}
 			
@@ -308,6 +374,11 @@ public class ConsistencyController {
 		return warnings;
 	}
 	
+	/**
+	 * help method
+	 * @param team
+	 * @return
+	 */
 	private List<String> TeamSizeWarnings(Team team)
 	{
 		List<String> warnings = new ArrayList<String>();
@@ -326,5 +397,8 @@ public class ConsistencyController {
 		
 		return warnings;
 	}
+	
+	
+	
 
 }
