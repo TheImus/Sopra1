@@ -17,7 +17,17 @@ public class WalkingDinner implements Serializable {
 	}
 
 	public List<Person> getPersons() {
-		return null;
+		List<Person> persontList=new ArrayList<>();
+		try {
+			events.forEach(event -> event.getInvited().forEach(participant -> {
+				if(!persontList.contains(participant.getPerson())) {
+					persontList.add(participant.getPerson());
+					}
+				}));
+			return persontList;
+		} catch (NullPointerException e) {
+			throw e;
+		}
 	}
 
 	public List<Event> getEvents() {

@@ -43,6 +43,10 @@ public class TestDataFactory {
 		for (int i = 1; i <= 2; i++) {
 			Event event = new Event();
 			event.setName("Event" + Integer.toString(i));
+			event.setEventDescription("wir machen dieses Jahr wieder ein tolles Walking Dinner. \\\\ "
+					+"Mit freundlichen Grüßen \\\\"
+					+"Ihr WD-Gott");
+				
 			walkingDinner.getEvents().add(event);
 		}
 	}
@@ -86,14 +90,6 @@ public class TestDataFactory {
 			if (i >= 24) {
 				event2.getInvited().add(participant);
 			}
-			
-			// add all the participants to the participant list
-			/*List<Participant> participants = event1.getParticipants();
-			participants.add(participant);
-			event1.setParticipants(participants);
-			participants = event2.getParticipants();
-			participants.add(participant);
-			event2.setParticipants(participants);*/
 		}
 		
 		// now editing event 2
@@ -244,31 +240,6 @@ public class TestDataFactory {
 	public static WalkingDinnerController createTestWalkingDinnerController(){
 		WalkingDinnerController walkingDinnerController = new WalkingDinnerController();
 		WalkingDinnerController wdc = walkingDinnerController;
-		
-		//link between the controller and WalkingDinnerController
-		EventPickerController eventPickerController = new EventPickerController(wdc);
-		EventController eventController = new EventController(wdc);
-		InvitationController invitationCotroller = new InvitationController(wdc);
-		RestrictionController restrictionController = new RestrictionController(wdc);
-		ParticipantController participantController = new ParticipantController(wdc);
-		ConsistencyController consistencyController = new ConsistencyController(wdc);
-		ParticipantActionController participantActionController = new ParticipantActionController(wdc);
-		GroupController groupController = new GroupController(wdc);
-		TeamController teamController = new TeamController(wdc);		
-		ExportController exportController = new ExportController(wdc);
-		ScheduleController scheduleController = new ScheduleController(wdc);
-		
-		wdc.setEventPickerController(eventPickerController);
-		wdc.setEventController(eventController);
-		wdc.setInvitationController(invitationCotroller);
-		wdc.setRestrictionController(restrictionController);
-		wdc.setParticipantController(participantController);
-		wdc.setConsistencyController(consistencyController);
-		wdc.setParticipantActionController(participantActionController);
-		wdc.setGroupController(groupController);
-		wdc.setTeamController(teamController);
-		wdc.setExportController(exportController);
-		wdc.setScheduleController(scheduleController);
 		
 		WalkingDinner walkingDinner = new WalkingDinner();
 		wdc.setWalkingDinner(walkingDinner);
