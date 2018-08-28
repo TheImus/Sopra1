@@ -115,5 +115,11 @@ public class Participant {
 		ArrayList<Restriction> symDiff = Restriction.getSymmetricDifferenceForRestrictions(participant1.getRestriction(), participant2.getRestriction());
 		return symDiff;
 	}
+	
+	public static ArrayList<Restriction> getRestrictionUnionForParticipants(Participant participant1,
+			Participant participant2){
+		ArrayList<Restriction> union = Restriction.getUnionForRestrictions(participant1.getRestriction(), participant2.getRestriction());
+		return union;
+	}
 
 }

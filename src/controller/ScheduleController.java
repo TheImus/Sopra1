@@ -80,7 +80,47 @@ public class ScheduleController {
 		teams.addAll(veganTeams);
 		teams.addAll(vegetarianTeams);
 		teams.addAll(otherTeams);
-		teams = resizeTeams(teams, leftOther);
+		ArrayList<Participant> leftParticipants = new ArrayList<Participant>();
+		if(leftOther != null){
+			leftParticipants.add(leftOther);
+		}
+		if(teams.size()%3==1){
+			if(otherTeams.size()>=1){
+			Team toResize = otherTeams.get(0);
+			leftParticipants.addAll(toResize.getParticipants());
+			}
+			else if(vegetarianTeams.size()>=1){
+				Team toResize = vegetarianTeams.get(0);
+				leftParticipants.addAll(toResize.getParticipants());
+			}
+			else{
+				assert(veganTeams.size()>1);
+				Team toResize = veganTeams.get(0);
+				leftParticipants.addAll(toResize.getParticipants());
+			}
+		}
+		if(teams.size()%3==2){
+			if(otherTeams.size()>=2){
+				Team toResize = otherTeams.get(0);
+				leftParticipants.addAll(toResize.getParticipants());
+				toResize = otherTeams.get(1);
+				leftParticipants.addAll(toResize.getParticipants());
+				}
+				else if(vegetarianTeams.size()>=2){
+					Team toResize = vegetarianTeams.get(0);
+					leftParticipants.addAll(toResize.getParticipants());
+					toResize = vegetarianTeams.get(1);
+					leftParticipants.addAll(toResize.getParticipants());
+				}
+				else{
+					assert(veganTeams.size()>2);
+					Team toResize = veganTeams.get(0);
+					leftParticipants.addAll(toResize.getParticipants());
+					toResize = veganTeams.get(1);
+					leftParticipants.addAll(toResize.getParticipants());
+				}
+		}
+		teams = resizeTeams(teams, leftParticipants);
 		return teams;
 	}
 
@@ -109,8 +149,12 @@ public class ScheduleController {
 		this.walkingDinnerController = walkingDinnerController;
 	}
 	
-	private ArrayList<Team> resizeTeams(ArrayList<Team> teams, Participant leftParticipant){
-		return null;
+	private ArrayList<Team> resizeTeams(ArrayList<Team> teams, ArrayList<Participant> leftParticipants){
+		if(leftParticipants.isEmpty()){
+			return teams;
+		}
+		return teams;
+		
 	}
 	private Participant getLeftParticipantFromTeams(ArrayList<Team> teams){
 		for(Team team:teams){
@@ -136,7 +180,7 @@ public class ScheduleController {
 	
 	private Integer[][] generateIrvingArrayForParticipants(ArrayList<Participant> participants){
 		//Generates an Array for Irving-Algorithm
-		if(participants!=null){
+		if(!participants.isEmpty()){
 			int n = participants.size();
 			if(n%2 == 1){
 				n++;
