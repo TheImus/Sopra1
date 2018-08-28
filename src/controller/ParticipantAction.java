@@ -7,6 +7,6 @@ public enum ParticipantAction {
 	UPDATE_PARTICIPANT;
 	
 	public String getText(){
-		return nul
+		return null;
 	}
 }
