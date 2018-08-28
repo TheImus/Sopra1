@@ -136,15 +136,9 @@ public class ConsistencyControllerTest {
 		
 		members.add(participants.get(0));									            // increase teamsize to 1
 		team1.setMembers(members);
-		//System.out.println(team1);
 		warnings = consistencyController.getWarnings(team1);							// check if size warning is correct (too small)
-		assertEquals("In dem Team befindet sich nur eine Person", warnings.get(0));
-		
-		
-		members.add(participants.get(0));									            // increase teamsize to 1
-		team1.setMembers(members);
-		warnings = consistencyController.getWarnings(team1);							// check if size warning is correct (too small)
-		assertEquals("Teamgröße ist kleiner als 2", warnings.get(0));
+		assertTrue(warnings.contains("In dem Team befindet sich nur eine Person"));
+		assertFalse(warnings.contains("kommt mehrmals im Team vor"));
 		
 		warnings.clear();
 		members.add(participants.get(0));																// increase teamsize to 3 with the same participant
@@ -152,9 +146,10 @@ public class ConsistencyControllerTest {
 		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);							// overwrite team warnings for new team
 		
-		assertEquals(participants.get(0) + "kommt mehrmals im Team vor", warnings.get(0));			// check if the same person is multiple times in the team
-		assertEquals(participants.get(0) + "kommt mehrmals im Team vor", warnings.get(1));
-		assertEquals(participants.get(0) + "kommt mehrmals im Team vor", warnings.get(2));
+		assertTrue(warnings.contains(participants.get(0).getPerson() + "kommt mehrmals im Team vor"));
+		assertTrue(warnings.contains(participants.get(0).getPerson() + "kommt mehrmals im Team vor"));
+		assertTrue(warnings.contains(participants.get(0).getPerson() + "kommt mehrmals im Team vor"));
+	
 		
 		members.clear();																		//delete members list
 		warnings.clear();
@@ -165,14 +160,15 @@ public class ConsistencyControllerTest {
 		team1.setHost(null);
 		warnings = consistencyController.getWarnings(team1);									//check if team has host
 		
-		assertEquals("Das Team besitzt keinen Host", warnings.get(0));
+		assertTrue(warnings.contains("kein Host vorhanden/gesetzt"));
+		
 		
 		members.add(participants.get(3));
-		team1.setMembers(members);
 		team1.setHost(members.get(0));
+		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);
 		
-		assertEquals("Teamgröße ist größer als 3", warnings.get(1));							//check if team warning is correct (too  big)
+		assertEquals("Teamgröße ist größer als 3", warnings.get(0));							//check if team warning is correct (too  big)
 		
 		participants.get(0).setCourseWish(Course.STARTER);
 		participants.get(1).setCourseWish(Course.MAIN);
@@ -185,7 +181,7 @@ public class ConsistencyControllerTest {
 		members.add(participants.get(2));
 		team1.setMembers(members);
 		team1.setHost(participants.get(0));
-		assertEquals(participants.get(0) + "hat anderen Wunschgang als " + participants.get(1), consistencyController.getWarnings(team1).get(0));
+		assertEquals(participants.get(0) + "hat anderen Wunschgang als " + participants.get(1), consistencyController.getWarnings(team1).get(1));
 		
 		participants.get(0).setRestriction(restrictions);
 		rest.setName("Gemüse");
