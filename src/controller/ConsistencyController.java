@@ -41,11 +41,9 @@ public class ConsistencyController {
 		List<String> warnings = new ArrayList<String>();
 		int size = walkingDinnerController.getGroupController().getAllGroups().size();
 		
-		if(size == 0)
-			warnings.add("Keine Gruppen im Event");
+		if(size == 0) warnings.add("Keine Gruppen im Event");
+		if(size %3 != 0)	warnings.add("Die Anzahl der Gruppen ist kein Vielfaches von 3");
 		
-		if(size %3 != 0)
-			warnings.add("Die Anzahl der Gruppen ist kein Vielfaches von 3");
 		return warnings;
 	}
 	
@@ -60,57 +58,48 @@ public class ConsistencyController {
 		ScheduleController schedule = walkingDinnerController.getScheduleController();
 		List<Team> allTeams = event.getAllTeams();
 	    List<String> warnings = new ArrayList<String>();
-	    List<Participant> members = team.getMembers();									// get all members of the team and save them in the list, they are participants currently
+	    List<Participant> members = team.getMembers();													// get all members of the team and save them in the list, they are participants currently
 		List<Person> membersAsPerson = new ArrayList<Person>();
 		Map<Person,List<Person>> knownPersons = schedule.generateKnowingRelations();
 		
-	    warnings.addAll(TeamSizeWarnings(team));										//add all warnings with size issues
-		
-		for(int i = 0; i < team.getMembers().size(); i++){								// make all members to Persons and save them in a list
+	    warnings.addAll(TeamSizeWarnings(team));														//add all warnings with size issues
+		for(int i = 0; i < team.getMembers().size(); i++){												// make all members to Persons and save them in a list
 			membersAsPerson.add(members.get(i).getPerson());
 		}
 		
 		for(int i = 0; i<membersAsPerson.size()-1;i++) {																				
 			for(int j = 1; j<membersAsPerson.size();j++) {														
-				if(membersAsPerson.get(i).equals(membersAsPerson.get(j))){									//check if a person is multiple times in the same team
+				if(membersAsPerson.get(i).equals(membersAsPerson.get(j))){								//check if a person is multiple times in the same team
 					warnings.add(membersAsPerson.get(i) + "kommt mehrmals im Team vor");	
 				}
 			}		
 		}
-		
-		if(team.getHost() == null)
-		{
-			warnings.add("kein Host vorhanden/gesetzt");
-		}
+	
+		if(team.getHost() == null) warnings.add("kein Host vorhanden/gesetzt");							//check if there is a host
 		
 		for(int i = 0; i < members.size()-1; i++){
-			if(!members.get(i).getCourseWish().equals(members.get(i+1).getCourseWish())){					//check if team members have same course wish
+			if(!members.get(i).getCourseWish().equals(members.get(i+1).getCourseWish())){				//check if team members have same course wish
 				warnings.add(members.get(i) + "hat anderen Wunschgang als " + members.get(i+1));
 			}
 		}
 		
 		try{
-		if(!knownPersons.isEmpty()){
-		warnings.addAll(knowingRelation(membersAsPerson));													//check knowing Relation
-		}
+		if(!knownPersons.isEmpty()) warnings.addAll(knowingRelation(membersAsPerson));													//check knowing Relation
 		}catch(NullPointerException nullPointer){}
 		
 		List<Restriction> differentR = getDifferentRestrictionsFor(team.getMembers());
-		
-		if(differentR != null) {																			// check if there are any restrictions that don't match
-			
+		if(differentR != null) {																		// check if there are any restrictions that don't match
 			warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
 					differentR.toString() + 
 					"bitte einmal überprüfen für folgendes Team:" + team.getMembers().toString());
 		}	
 		
-		for(int i = 0; i< allTeams.size(); i++){															// check if a member is in multiple (other) teams
+		for(int i = 0; i< allTeams.size(); i++){														// check if a member is in multiple (other) teams
 			if(!allTeams.get(i).equals(team)){
 				for(int j = 0; j < members.size(); j++){
-					if(allTeams.get(i).getMembers().contains(members.get(j))){
+					if(allTeams.get(i).getMembers().contains(members.get(j)))
 						warnings.add(members.get(j) + "kommt in mehreren Teams vor, das andere Team besteht aus: " + allTeams.get(i).getMembers());	
 					}	
-				}	
 			}
 		}
 		return warnings;
@@ -195,16 +184,13 @@ public class ConsistencyController {
 	public List<Group> getInconsistentGroups() {
 		
 		GroupController groupController = walkingDinnerController.getGroupController();					
-		
 		List<Group> allGroupsWithWarnings = new ArrayList<Group>();
 		List<Group> allGroups = groupController.getGroups();
 		
-		for(Group group : allGroups) {										//check for warnings for each team in event 
-																						
-			if(!getWarnings(group).isEmpty()) {												//if there are warnings add the group to the list
+		for(Group group : allGroups) {														//check for warnings for each team in event 																				
+			if(!getWarnings(group).isEmpty()) allGroupsWithWarnings.add(group); 												//if there are warnings add the group to the list
+				
 			
-				allGroupsWithWarnings.add(group);
-			}
 		}
 		return allGroupsWithWarnings;
 	}
@@ -229,7 +215,6 @@ public class ConsistencyController {
 				if(!part.equals(others)) {														//make sure the participants are not the same
 					for(Restriction compareRestriction : restOfOthers) {						//check if any restrictions of the participant and other participant match
 						if(!rest.contains(compareRestriction) && !notMatchingRestrictions.contains(compareRestriction)) {								//if they don't match add them to the list
-							
 							notMatchingRestrictions.add(compareRestriction);
 						}
 					}
@@ -260,7 +245,6 @@ public class ConsistencyController {
 				}
 			}		
 		}
-
 		return warnings;
 	}
 	
@@ -364,7 +348,6 @@ public class ConsistencyController {
 		{
 			warnings.add("Die Anzahl der Gastteams stimmt nicht");
 		}
-		
 		return warnings;
 	}
 	
@@ -388,11 +371,7 @@ public class ConsistencyController {
 		if(team.getMembers().size() > 3) {
 			warnings.add("Teamgröße ist größer als 3");
 		}
-		
 		return warnings;
 	}
-	
-	
-	
 
 }

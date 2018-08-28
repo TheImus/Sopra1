@@ -28,12 +28,10 @@ import model.WalkingDinner;
 public class ConsistencyControllerTest {
 	
 	private WalkingDinnerController walkingDinnerController;
-	private ConsistencyController consistencyController;		
+	private ConsistencyController consistencyController;	
+	private ScheduleController schedule;
+	private GroupController groupController;
 	private Team team1;
-	private Participant part1;
-	private Participant part2;
-	private Participant part3;
-	private Participant part4;
 	private Group group1;
 	private Event event;
 	
@@ -60,19 +58,11 @@ public class ConsistencyControllerTest {
 	public void setUp() throws Exception {
 		walkingDinnerController = TestDataFactory.createTestWalkingDinnerController();
 		consistencyController = walkingDinnerController.getConsistencyController();
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
+		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
+		schedule = walkingDinnerController.getScheduleController();
+		groupController = walkingDinnerController.getGroupController();
 		event = wd.getCurrentEvent();
 	
-		
-		part1 = new Participant();
-		part2 = new Participant();
-		part3 = new Participant();
-		part4 = new Participant();
-		
-		part1.createNewParticipant();
-		part2.createNewParticipant();
-		part3.createNewParticipant();
-		part4.createNewParticipant();
 		
 		//@SuppressWarnings("unused")
 		team1 = new Team();
@@ -122,9 +112,6 @@ public class ConsistencyControllerTest {
 		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);							// check if size warning is correct (too small)
 		
-		if(event.getAllTeams().size() %3 != 0){
-		assertTrue(warnings.contains("Es gibt nicht genug Teams für eine neue Gruppe"));
-		}
 		
 		assertTrue(warnings.contains("In dem Team befindet sich nur eine Person"));
 		assertFalse(warnings.contains("kommt mehrmals im Team vor"));
@@ -201,57 +188,6 @@ public class ConsistencyControllerTest {
 	 * check if the list is not empty/null and check if the warnings are correct
 	 */
 	@Test
-	/*public void testGetWarningsGroup() {
-
-		List<Team> teams = event.getAllTeams();
-		List<Team> guests = new ArrayList<Team>();
-		List<String> warnings = new ArrayList<String>();
-		
-		guests.add(teams.get(1));
-		guests.add(teams.get(2));
-		
-		group1 = new Group();
-		group1.setHostTeam(teams.get(0));
-		
-		warnings = consistencyController.getWarnings(group1);
-		assertEquals("Gruppe zu klein", warnings.get(0));
-		
-		guests.add(teams.get(3));
-		group1.setGuest(guests);
-		
-		warnings.clear();
-		warnings = consistencyController.getWarnings(group1);
-		assertEquals("Gruppe zu groß", warnings.get(0));
-		
-		guests.remove(2);
-		group1.setGuest(guests);
-		group1.setHostTeam(null);
-		warnings.clear();
-		
-		warnings = consistencyController.getWarnings(group1);
-		assertEquals("kein Hostteam festgelegt", warnings.get(0));
-		
-		group1.setGuest(null);
-		group1.setHostTeam(teams.get(0));
-		
-		warnings.clear();
-		warnings = consistencyController.getWarnings(group1);
-		assertEquals("keine Gastteams vorhanden", warnings.get(0));
-		
-		guests.clear();
-		guests.add(teams.get(1));
-		
-		group1.setGuest(guests);
-		warnings = consistencyController.getWarnings(group1);
-		assertEquals("Die Anzahl der Gastteams stimmt nicht", warnings.get(0));
-		
-		warnings.clear();
-		guests.add(teams.get(2));
-		group1.setGuest(guests);
-		warnings = consistencyController.getWarnings(group1);
-		assertNotNull(warnings);
-		
-	}*/
 	
 	/**
 	 * The method creates warning messages for each group, possible warnings:
@@ -378,13 +314,21 @@ public class ConsistencyControllerTest {
 	}
 	
 	/**
-	 * check if there are a right amount of group (teilbar durch 3)
+	 * check if there are a right amount of group (modulo 3)
 	 */
 	@Test
 	public void testGetWarnings(){
 		
+		List<String> warnings = new ArrayList<String>();
+		warnings = consistencyController.getWarnings(team1);
 		
+		if(groupController.getGroups().size() == 0){
+			assertTrue(warnings.contains("Keine Gruppen im Event"));
+			}
 		
+		if(groupController.getGroups().size() % 3 != 0){
+			assertTrue(warnings.contains("Die Anzahl der Gruppen ist kein Vielfaches von 3"));
+			}
 		
 	}
 
