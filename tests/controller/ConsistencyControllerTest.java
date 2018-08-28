@@ -270,6 +270,20 @@ public class ConsistencyControllerTest {
 		assertNotNull(warnings);
 		
 	}*/
+	
+	/**
+	 * The method creates warning messages for each group, possible warnings:
+	 * 1. "Gruppe zu klein"
+	 * 2. "Gruppe zu groß"
+	 * 3. "kein Hostteam festgelegt"
+	 * 4. "keine Gastteams vorhanden"
+	 * 5. "Die Anzahl der Gastteams stimmt nicht"
+	 * 6. person.get(i) + " und" + person.get(j) + " kennen sich"
+	 * 7. "folgende Restriktionen könnten Problematisch sein:" + Restriction +  "bitte einmal überprüfen für folgende Gruppe:" + Gruppe
+	 * 8. TeamX "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
+	 * 9. TeamX "kommt in mehreren MAIN Gruppen vor, die andere Gruppe besteht aus: "
+	 * 10. TeamX "kommt in mehreren DESSERT Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
+	 */
 	public void testGetWarningsGroup() {
 		Group testGroup = new Group();
 		Team team1 = new Team();
@@ -283,6 +297,8 @@ public class ConsistencyControllerTest {
 		assertTrue(currentWarning.contains("kein Hostteam festgelegt"));
 		assertTrue(currentWarning.contains("keine Gastteams vorhanden"));
 		assertTrue(currentWarning.contains("Die Anzahl der Gastteams stimmt nicht"));
+
+
 		
 		//test case - Group with one Team as host
 		
@@ -324,6 +340,25 @@ public class ConsistencyControllerTest {
 		assertTrue(currentWarning.contains("Die Anzahl der Gastteams stimmt nicht"));
 		assertFalse(currentWarning.contains("kein Hostteam festgelegt"));
 		assertFalse(currentWarning.contains("keine Gastteams vorhanden"));
+		
+		//test case Group with Restrictions which are problematic between the teams
+		
+		testGroup = TestDataFactory.createTestGroup();
+		Restriction ih = TestDataFactory.createTestRestriction();
+		Restriction bah = TestDataFactory.createTestRestriction();
+		int i =0;
+		for(Participant p : testGroup.getParticipants()){
+			if(i== 0)
+				p.addRestriction(ih);
+			//else
+				//p.addRestriction(bah);
+			//i = i+1 % 2;
+			i++;
+		}
+		currentWarning = consistencyController.getWarnings(testGroup);
+		for(String s:currentWarning)
+			System.out.println(s);
+		assertTrue(currentWarning.contains("folgende Restriktionen könnten Problematisch sein:" + ih +  "bitte einmal überprüfen für folgende Gruppe:" + testGroup));
 	}
 
 	/**
