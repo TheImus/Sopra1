@@ -6,6 +6,7 @@ package controller;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -94,6 +95,23 @@ public class ParticipantControllerTest {
 	public void testSetBirthDate() {
 		//participantController.setBirthDate(testDate);
 		//assertEquals(testDate, currentParticipant.getPerson().getBirthDate());
+	}
+	
+	@Test
+	public void testNewParticipantForEvent(){
+		WalkingDinnerController wdc = TestDataFactory.createTestWalkingDinnerController();
+		Participant p1 = TestDataFactory.createTestParticipant();
+		Participant p2 = TestDataFactory.createTestParticipant();
+		
+		Event currentEvent = wdc.getWalkingDinner().getCurrentEvent();
+		List<Participant> list = currentEvent.getInvited();
+		
+		list.add(p1);
+		
+		if(wdc.getParticipantController().newParticipantForEvent(p1) != p1) fail("Error1");
+		if(wdc.getParticipantController().newParticipantForEvent(p2) == p2) fail("Error2");
+		
+		
 	}
 
 	/**
