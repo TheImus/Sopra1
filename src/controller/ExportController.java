@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.List;
 import model.Participant;
 
@@ -14,12 +16,25 @@ public class ExportController {
 	}
 
 	/**
-	 * the method exports all data from all participants given by a List of participants into the file path
+	 * the method exports all individual data from all participants given by a List of participants into the file path
 	 * @param participant name of a list of all participants you want to export
 	 * @param fileName is the file path where you want to save the exported data
 	 */
-	public void exportParticipantData(List<Participant> participant, String fileName) {
-
+	public void exportParticipantData(List<Participant> participants, String fileName) {
+		try {
+			PrintWriter out = new PrintWriter("filename.txt");
+			out.println("START");
+			for(Participant participant : participants){
+				out.println(participant.getPerson().getName());
+				out.println(walkingDinnerController.getWalkingDinner().getCurrentEvent().getCourseTimes());
+				//out.println(walkingDinnerController.);
+				out.println();
+			}
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
