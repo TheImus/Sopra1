@@ -52,7 +52,7 @@ public class GroupControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		
+		/* old set up
 		wdc = new WalkingDinnerController();
 		WalkingDinner walkingDinner = new WalkingDinner();
 		Event currentEvent = new Event();
@@ -61,11 +61,10 @@ public class GroupControllerTest {
 		walkingDinner.setCurrentEvent(currentEvent);
 		groupController = new GroupController(wdc);
 		wdc.setGroupController(groupController);
-		
-		//dataFactory = new TestDataFactory();
+		*/
+		//new set up for factory test
 		wdc2 = TestDataFactory.createTestWalkingDinnerController();
 		testGroupController = wdc2.getGroupController();
-		//testGroupController = dataFactory
 	}
 
 	/**
@@ -80,21 +79,6 @@ public class GroupControllerTest {
 	 * testCase: Team = null should create an empty group , if team not null team should be included in the new group  
 	 */
 	@Test
-//	public void testCreateNewGroup() {
-//		Group testgroup = groupController.createNewGroup(null);
-//		assertNotNull("TestGruppe nicht erstellt",testgroup);
-//		assertTrue("Teamliste ist fehlerhaft",testgroup.getTeams().isEmpty());
-//		assertNull("HostTeam ist fehlerhaft",testgroup.getHostTeam());
-//		
-//		
-//		Team team = new Team();
-//		Group testgroup1 = groupController.createNewGroup(team);
-//		assertNotNull("Testgruppe leer",testgroup1);
-//		assertFalse("Team nicht vorhanden",testgroup1.getTeams().isEmpty());
-//		assertNull("HostTeam ist leer",testgroup1.getHostTeam());
-//		assertEquals("HostTeam nicht korrekt gesetzt",testgroup1.getHostTeam(), team);
-//		
-//	}
 	public void testCreateNewGroup(){
 		
 		//new Group without team
@@ -124,12 +108,12 @@ public class GroupControllerTest {
 		Group group = new Group();
 		Team team = new Team();
 		//team to Group
-		groupController.addTeamToGroup(team, group);
+		testGroupController.addTeamToGroup(team, group);
 		assertTrue("Team nicht in Gruppe", group.getTeams().contains(team));
 		
 		//Second team to group
 		Team team2 = new Team();
-		groupController.addTeamToGroup(team2, group);
+		testGroupController.addTeamToGroup(team2, group);
 		assertTrue("Team nicht in Gruppe", group.getTeams().contains(team));
 		assertTrue("Team2 nicht in Gruppe", group.getTeams().contains(team2));
 	}
@@ -148,27 +132,17 @@ public class GroupControllerTest {
 		Team team3 = new Team();
 		
 		//test case- Team is in the Group
-		groupController.addTeamToGroup(team, group);
-		groupController.addTeamToGroup(team2, group);
-		groupController.removeTeamFromGroup(team, group);
+		testGroupController.addTeamToGroup(team, group);
+		testGroupController.addTeamToGroup(team2, group);
+		testGroupController.removeTeamFromGroup(team, group);
 		assertFalse("Team in Gruppe", group.getTeams().contains(team));
 		assertTrue("Team2 nicht in Gruppe", group.getTeams().contains(team2));
 		
 		//Team is not in the Group
-		groupController.removeTeamFromGroup(team3, group);
+		testGroupController.removeTeamFromGroup(team3, group);
 		assertFalse("Team in Gruppe", group.getTeams().contains(team3));
 	}
-
-	/**
-	 * Test method for {@link controller.GroupController#getGuestTeams(model.Group)}.<br>
-	 * testCase: all teams from the group who are guest should be returned. <br>
-	 * If there are no guest groups, an empty list should be returned
-	 */
-	@Test
-	public void testGetGuestTeams() {
-		//fail("Not yet implemented");
-	}
-
+	
 	/**
 	 * Test method for {@link controller.GroupController#getHostingTeam(model.Group)}.<br>
 	 * testCase: the host team from model.Group should be returned.<br>
@@ -178,40 +152,13 @@ public class GroupControllerTest {
 	public void testGetHostingTeam() {
 		//test case - Group has no hosting team
 		Group group = new Group();
-		assertNull("Group hat ein Hosting Team",groupController.getHostingTeam(group));
+		assertNull("Group hat ein Hosting Team",testGroupController.getHostingTeam(group));
 		
 		
 		//test case - Group has a hosting team
 		Team team = new Team();
 		group.setHostTeam(team);
-		assertNotNull("Group hat keinen Hosting Team",groupController.getHostingTeam(group));
-	}
-
-	/**
-	 * Test method for {@link controller.GroupController#getCourse()}.
-	 * Test Case: getCourse should return the currentCourse
-	 */
-	@Test
-	public void testGetCourse() {
-		//fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link controller.GroupController#setCourse(model.Course)}.
-	 * test Case: currentCourse should be changed into the given course
-	 */
-	@Test
-	public void testSetCourse() {
-		//fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link controller.GroupController#getGroups()}.
-	 * test case: all groups of the event should be returned
-	 */
-	@Test
-	public void testGetGroups() {
-		//fail("Not yet implemented");
+		assertNotNull("Group hat keinen Hosting Team",testGroupController.getHostingTeam(group));
 	}
 
 	/**
@@ -219,11 +166,7 @@ public class GroupControllerTest {
 	 * test case: model.group should be removed from the currentEvent
 	 */
 	@Test
-	public void testRemoveGroup() {
-//		testGroupController.getWalkingDinnerController();
-//		testGroupController.addTeamToGroup(null, group);
-//		testGroupController.addTeamToGroup(null, group2);	
-		
+	public void testRemoveGroup() {	
 		//set up 
 		Group group = new Group();
 		Group group2 = new Group();
@@ -251,8 +194,8 @@ public class GroupControllerTest {
 	@Test
 	public void testGetWalkingDinnerController() {
 		WalkingDinnerController testWdc = new WalkingDinnerController();
-		groupController.setWalkingDinnerController(testWdc);
-		WalkingDinnerController currentWdc = groupController.getWalkingDinnerController();
+		testGroupController.setWalkingDinnerController(testWdc);
+		WalkingDinnerController currentWdc = testGroupController.getWalkingDinnerController();
 		assertNotEquals(wdc, currentWdc);
 	}
 
@@ -262,9 +205,10 @@ public class GroupControllerTest {
 	 */
 	@Test
 	public void testSetWalkingDinnerController() {
-		groupController.setWalkingDinnerController(wdc);
-		assertNotNull(groupController.getWalkingDinnerController());
-		assertEquals(groupController.getWalkingDinnerController(), wdc);
+		wdc = new WalkingDinnerController();
+		testGroupController.setWalkingDinnerController(wdc);
+		assertNotNull(testGroupController.getWalkingDinnerController());
+		assertEquals(testGroupController.getWalkingDinnerController(), wdc);
 	}
 
 }
