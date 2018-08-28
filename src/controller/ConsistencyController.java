@@ -83,7 +83,6 @@ public class ConsistencyController {
 		}*/
 		
 		if(getDifferentRestrictionsFor(team.getMembers()) != null) {			// check if there are any restrictions that don't match
-			System.out.println(getDifferentRestrictionsFor(team.getMembers()).toString());
 			warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
 					getDifferentRestrictionsFor(team.getMembers()).toString() + 
 					"bitte einmal überprüfen für folgendes Team:" + team.getMembers().toString());
