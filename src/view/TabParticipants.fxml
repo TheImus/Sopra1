@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -25,7 +27,26 @@
    <children>
       <Label graphicTextGap="6.0" text="Teilnehmerliste" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <ListView fx:id="participantList" prefHeight="213.0" prefWidth="573.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button fx:id="BtnExportParticipantData" mnemonicParsing="false" onAction="#onExportParticipantData" text="Teilnehmerdaten exportieren" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Button fx:id="BtnExportChanges" mnemonicParsing="false" onAction="#onExportChangedParticipantData" text="Änderungen exportieren" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Button fx:id="BtnExportParticipantData" mnemonicParsing="false" onAction="#onExportParticipantData" text="Teilnehmerdaten exportieren" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin></Button>
+      <Button fx:id="BtnExportChanges" mnemonicParsing="false" onAction="#onExportChangedParticipantData" text="Änderungen exportieren" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin></Button>
+      <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <buttons>
+          <Button fx:id="BtnCreateParticipant" mnemonicParsing="false" onAction="#onCreateParticipant" text="Teilnehmer erstellen" />
+            <Button fx:id="BtnAdjustParticipant" mnemonicParsing="false" onAction="#onAdjustParticipant" text="Teilnehmer bearbeiten">
+               <opaqueInsets>
+                  <Insets bottom="5.0" />
+               </opaqueInsets>
+            </Button>
+        </buttons>
+      </ButtonBar>
    </children>
 </GridPane>

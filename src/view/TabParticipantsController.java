@@ -16,6 +16,12 @@ public class TabParticipantsController {
     @FXML
     private Button BtnExportChanges;
     
+    @FXML
+    private Button BtnCreateParticipant;
+    
+    @FXML
+    private Button BtnAdjustParticipant;
+    
     private WalkingDinnerController walkingDinnerController;
     
     public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
@@ -34,6 +40,16 @@ public class TabParticipantsController {
     @FXML
     void onExportParticipantData(ActionEvent event) {
 
+    }
+    
+    @FXML
+    void onAdjustParticipant(ActionEvent event){
+    	
+    }
+    
+    @FXML
+    void onCreateParticipant(ActionEvent event){
+    	
     }
     
     
