@@ -70,6 +70,8 @@ public class TeamController {
 		else {
 
 			if (team.getParticipants().size() == 1 || team.getParticipants().size() == 0) {
+				team.setHost(null);
+				team.setMembers(new ArrayList<Participant>());
 				removeTeam(team);
 				
 			} 

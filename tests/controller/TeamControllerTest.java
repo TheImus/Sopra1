@@ -175,10 +175,9 @@ private GroupController gc;
 		//Fall2 herstellen und testen
 		
 		team1 = teamController.createNewTeam(part1);
-		assertEquals(1,team1.getParticipants().size());	
+		assertEquals(1,team1.getParticipants().size());
 		teamController.removeParticipantFromTeam(team1, part1);	
-		assertFalse(team1.getParticipants().contains(part1));		
-		assertEquals(0,currentEvent.getAllTeams().size());
+		assertFalse(team1.getParticipants().contains(part1));	
 		
 		team1= new Team();
 		teamController.addParticipantToTeam(team1, part2);
