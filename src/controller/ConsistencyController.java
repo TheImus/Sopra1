@@ -38,6 +38,7 @@ public class ConsistencyController {
 	}
 
 	
+	
 	/**
 	 * The method creates warning messages for each team
 	 * @param team name of a team object
@@ -45,15 +46,17 @@ public class ConsistencyController {
 	 */
 	public List<String> getWarnings(Team team) {
 		
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();	
-		Event event = wd.getCurrentEvent();
+		Event event = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 		ScheduleController schedule = walkingDinnerController.getScheduleController();
 		List<Team> allTeams = event.getAllTeams();
 	    List<String> warnings = new ArrayList<String>();
 	    List<Participant> members = team.getMembers();									// get all members of the team and save them in the list, they are participants currently
 		List<Person> membersAsPerson = new ArrayList<Person>();
-		//Map<Person,List<Person>> knownPersons = schedule.generateKnowingRelations();
+		Map<Person,List<Person>> knownPersons = schedule.generateKnowingRelations();
 		
+		if(allTeams.size()%3 != 0)	{
+			warnings.add("Es gibt nicht genug Teams für eine neue Gruppe");
+		}
 	    warnings.addAll(TeamSizeWarnings(team));										//add all warnings with size issues
 		
 		for(int i = 0; i < team.getMembers().size(); i++){								// make all members to Persons and save them in a list
@@ -78,14 +81,19 @@ public class ConsistencyController {
 				warnings.add(members.get(i) + "hat anderen Wunschgang als " + members.get(i+1));
 			}
 		}
-		/*if(!knownPersons.isEmpty()){
-		warnings.addAll(knowingRelation(membersAsPerson));													//check knowing Relation
-		}*/
 		
-		if(getDifferentRestrictionsFor(team.getMembers()) != null) {			// check if there are any restrictions that don't match
-			//System.out.println(getDifferentRestrictionsFor(team.getMembers()).toString());
+		try{
+		if(!knownPersons.isEmpty()){
+		warnings.addAll(knowingRelation(membersAsPerson));													//check knowing Relation
+		}
+		}catch(NullPointerException nullPointer){}
+		
+		List<Restriction> differentR = getDifferentRestrictionsFor(team.getMembers());
+		
+		if(differentR != null) {																			// check if there are any restrictions that don't match
+			
 			warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
-					getDifferentRestrictionsFor(team.getMembers()).toString() + 
+					differentR.toString() + 
 					"bitte einmal überprüfen für folgendes Team:" + team.getMembers().toString());
 		}	
 		
@@ -143,6 +151,7 @@ public class ConsistencyController {
 		List<Person> allPersonsInGroup = new ArrayList<Person>();						//List with all Persons in the group
 		
 		
+		
 		for(int i = 0; i<group.getTeams().size(); i++) {								//saves all participants in the group
 			allParticipantsInGroup.addAll(group.getTeams().get(i).getMembers());
 		}
@@ -151,11 +160,16 @@ public class ConsistencyController {
 			allPersonsInGroup.add(allParticipantsInGroup.get(i).getPerson());
 		}
 		warnings.addAll(GroupSizeWarnings(group));
-	    //warnings.addAll(knowingRelation(allPersonsInGroup));							//checks if any persons in the group know each other
-	    
-	    if(getDifferentRestrictionsFor(allParticipantsInGroup) != null) {					// check if there are any restrictions that don't match
+		try{
+		if(!knowingRelation(allPersonsInGroup).isEmpty()){
+			warnings.addAll(knowingRelation(allPersonsInGroup)); 							//checks if any persons in the group know each other
+		}
+		}catch(NullPointerException nullPointer){}
+		
+	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
+	    if(differentR != null) {														// check if there are any restrictions that don't match
 			warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
-					getDifferentRestrictionsFor(allParticipantsInGroup).toString() + 
+					differentR.toString() + 
 					"bitte einmal überprüfen für folgende Gruppe:" + allParticipantsInGroup.toString());
 		}	
 	    
@@ -163,6 +177,7 @@ public class ConsistencyController {
 	    warnings.addAll(checkGroupCoursesMain(group));									//checks if any team in the group has another group with the same course (Main) already
 	    warnings.addAll(checkGroupCoursesDessert(group));								//checks if any team in the group has another group with the same course (Dessert) already
 		
+	    
 		return warnings;
 	}
 
@@ -207,7 +222,7 @@ public class ConsistencyController {
 				if(!part.equals(others)) {														//make sure the participants are not the same
 					for(Restriction compareRestriction : restOfOthers) {						//check if any restrictions of the participant and other participant match
 						if(!rest.contains(compareRestriction) && !notMatchingRestrictions.contains(compareRestriction)) {								//if they don't match add them to the list
-							//System.out.println(restOfOthers);
+							
 							notMatchingRestrictions.add(compareRestriction);
 						}
 					}
@@ -245,6 +260,11 @@ public class ConsistencyController {
 		return warnings;
 	}
 	
+	/**
+	 * help method
+	 * @param group
+	 * @return
+	 */
 	private List<String> checkGroupCoursesStarter(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
@@ -264,6 +284,11 @@ public class ConsistencyController {
 		return warnings;
 	}
 	
+	/**
+	 * help method
+	 * @param group
+	 * @return
+	 */
 	private List<String> checkGroupCoursesMain(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
@@ -283,6 +308,11 @@ public class ConsistencyController {
 		return warnings;
 	}
 	
+	/**
+	 * help method
+	 * @param group
+	 * @return
+	 */
 	private List<String> checkGroupCoursesDessert(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
@@ -301,6 +331,11 @@ public class ConsistencyController {
 		return warnings;
 	}
 	
+	/**
+	 * help method
+	 * @param group
+	 * @return
+	 */
 	private List<String> GroupSizeWarnings(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
@@ -329,6 +364,11 @@ public class ConsistencyController {
 		return warnings;
 	}
 	
+	/**
+	 * help method
+	 * @param team
+	 * @return
+	 */
 	private List<String> TeamSizeWarnings(Team team)
 	{
 		List<String> warnings = new ArrayList<String>();
@@ -347,5 +387,6 @@ public class ConsistencyController {
 		
 		return warnings;
 	}
+	
 
 }
