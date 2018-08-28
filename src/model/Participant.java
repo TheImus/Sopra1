@@ -26,11 +26,13 @@ public class Participant implements Serializable{
 		this.address = new Address();
 		this.courseWish = null;
 	}
+
 	/* 
 	public static void setChanged(List<Participant> participants, boolean value) {
 
 	}
 	*/
+
 	/**
 	 *  
 	 */
