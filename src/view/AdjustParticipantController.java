@@ -79,7 +79,7 @@ import javafx.scene.input.MouseEvent;
 	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
 	    				super.updateItem(item, empty);
 	    				if (item != null) { 
-	    					setText(item.getText()); // TODO: Anderer Text hier
+	    					setText(item.getText(item)); // TODO: Anderer Text hier
 	    				} else {
 	    					setText("");
 	    				}
