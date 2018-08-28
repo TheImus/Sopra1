@@ -111,7 +111,7 @@ public class NewEventFromTemplateController {
 			
 			EventOverviewController eventOverviewController = (EventOverviewController) loader.getController();
 			eventOverviewController.setWalkingDinnerController(walkingDinnerController);
-			
+			eventOverviewController.refresh();
 			Scene scene = new Scene(root);
 			
 			

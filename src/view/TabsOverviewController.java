@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -98,6 +99,23 @@ public class TabsOverviewController {
     @FXML
     void onClose(ActionEvent event) {
     	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), "beispielprojekt");
+    	
+    	try {
+			BorderPane root = new BorderPane();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EventOverview.fxml"));
+			root = loader.load();
+			
+			EventOverviewController eventOverviewController = (EventOverviewController) loader.getController();
+			eventOverviewController.setWalkingDinnerController(walkingDinnerController);
+			eventOverviewController.refresh();
+			Scene scene = new Scene(root);
+			
+			
+			((Stage)gridPaneTabOverview.getScene().getWindow()).setScene(scene);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
     	
     }
 

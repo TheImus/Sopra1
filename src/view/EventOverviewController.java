@@ -64,7 +64,19 @@ public class EventOverviewController {
     
     public void refresh(){
 
-		List<Event> list = walkingDinnerController.getWalkingDinner().getEvents();
+    	listEvent.setCellFactory(view ->
+		new ListCell<Event>() {
+			protected void updateItem(Event item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText("");
+		        } else {
+		            setText(item.getName() + " - " + item.getDate().toString());
+		        }
+		    }
+		}
+    			);
+    	List<Event> list = walkingDinnerController.getWalkingDinner().getEvents();
 		for(Event ev:list){
 			listEvent.getItems().add(ev);
 		}
