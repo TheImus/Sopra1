@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-public class Event {
+import java.io.Serializable;
+public class Event implements Serializable{
 
 	private LocalDate date;
 

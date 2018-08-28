@@ -1,9 +1,9 @@
 package model;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Team {
+public class Team implements Serializable{
 
 	private Participant host;
 
