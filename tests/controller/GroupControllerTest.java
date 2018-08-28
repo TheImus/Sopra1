@@ -16,18 +16,14 @@ import org.junit.Test;
 import model.Course;
 import model.Event;
 import model.Group;
-import model.Schedule;
 import model.Team;
-import model.WalkingDinner;
 
 /**
  * @author sopr028
  *
  */
 public class GroupControllerTest {
-	
-	private GroupController groupController;
-	private WalkingDinnerController wdc;
+	//private WalkingDinnerController wdc;
 	
 	private GroupController testGroupController;
 	private WalkingDinnerController wdc2;
@@ -188,15 +184,22 @@ public class GroupControllerTest {
 	}
 
 	/**
-	 * Test method for {@link controller.GroupController#getWalkingDinnerController()}.
+	 * Test method for {@link controller.GroupController#	@Test
+	public void testSetWalkingDinnerController() {
+		wdc = new WalkingDinnerController();
+		testGroupController.setWalkingDinnerController(wdc);
+		assertNotNull(testGroupController.getWalkingDinnerController());
+		assertEquals(testGroupController.getWalkingDinnerController(), wdc);
+	}getWalkingDinnerController()}.
 	 * return walkingDinnerController
 	 */
 	@Test
 	public void testGetWalkingDinnerController() {
 		WalkingDinnerController testWdc = new WalkingDinnerController();
+		WalkingDinnerController oldController = testGroupController.getWalkingDinnerController();
 		testGroupController.setWalkingDinnerController(testWdc);
 		WalkingDinnerController currentWdc = testGroupController.getWalkingDinnerController();
-		assertNotEquals(wdc, currentWdc);
+		assertNotEquals(oldController, currentWdc);
 	}
 
 	/**
@@ -205,7 +208,12 @@ public class GroupControllerTest {
 	 */
 	@Test
 	public void testSetWalkingDinnerController() {
-		wdc = new WalkingDinnerController();
+		WalkingDinnerController wdc = new WalkingDinnerController();
+		WalkingDinnerController oldController =testGroupController.getWalkingDinnerController();
+		testGroupController.setWalkingDinnerController(null);
+		assertNotNull(testGroupController.getWalkingDinnerController());
+		assertEquals(testGroupController.getWalkingDinnerController(), oldController);
+		
 		testGroupController.setWalkingDinnerController(wdc);
 		assertNotNull(testGroupController.getWalkingDinnerController());
 		assertEquals(testGroupController.getWalkingDinnerController(), wdc);

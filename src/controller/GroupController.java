@@ -176,7 +176,8 @@ public class GroupController {
 	 * @param walkingDinnerController 
 	 */
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
-		this.walkingDinnerController = walkingDinnerController;
+		if(walkingDinnerController != null)
+			this.walkingDinnerController = walkingDinnerController;
 	}
 
 }
