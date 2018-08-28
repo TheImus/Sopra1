@@ -28,18 +28,10 @@ import controller.ParticipantController;
  */
 public class ParticipantControllerTest {
 	
-	Participant currentParticipant; 
-	ParticipantController participantController; 
 	WalkingDinner walkingDinner;
 	Event currentEvent;
-	String testName = "H";
-	//static LocalDate testDate = LocalDate.parse("24.12.2014");
-	Address testAddress;
-	String testMail = "test@test.com";
-	String testNumber = "99999999";
-	Course testPref = null;
-	String testWishes = "test";
-	
+	Participant currentParticipant;
+
 	
 	/**
 	 * @throws java.lang.Exception
@@ -63,12 +55,7 @@ public class ParticipantControllerTest {
 		walkingDinner = TestDataFactory.createSampleWalkingDinner();
 		currentEvent = TestDataFactory.createTestEvent();
 		currentParticipant = currentEvent.getCurrentParticipant();
-		
-		/*testAddress.setCity("Dortmund");
-		testAddress.setStreet("Waterstreet");
-		testAddress.setZipCode("44444");
-		//testAddress.setParticipant(currentParticipant);
-		testAddress.setAddressAdditional("test");*/
+
 	}
 
 	/**
@@ -76,25 +63,6 @@ public class ParticipantControllerTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-	}
-
-	/**
-	 * Test method for {@link controller.ParticipantController#setName(java.lang.String)}.
-	 */
-	@Test
-	public void testSetName() {
-		participantController.setName(testName);		
-		assertEquals(testName, currentParticipant.getPerson().getName());
-
-	}
-	
-	/**
-	 * Test method for {@link controller.ParticipantController#setBirthDate(java.time.LocalDate)}.
-	 */
-	@Test
-	public void testSetBirthDate() {
-		//participantController.setBirthDate(testDate);
-		//assertEquals(testDate, currentParticipant.getPerson().getBirthDate());
 	}
 	
 	@Test
@@ -112,66 +80,6 @@ public class ParticipantControllerTest {
 		if(wdc.getParticipantController().newParticipantForEvent(p2) == p2) fail("Error2");
 		
 		
-	}
-
-	/**
-	 * Test method for {@link controller.ParticipantController#setAddress(model.Address)}.
-	 */
-	@Test
-	public void testSetAddress() {
-		participantController.setAddress(testAddress);
-		assertEquals(testAddress, currentParticipant.getAddress());
-	}
-
-	/**
-	 * Test method for {@link controller.ParticipantController#setMail(java.lang.String)}.
-	 */
-	@Test
-	public void testSetMail() {
-		participantController.setMail(testMail);
-		assertEquals(testMail, currentParticipant.getPerson().getMailAddress());
-	}
-
-	/**
-	 * Test method for {@link controller.ParticipantController#setPhoneNumber(java.lang.String)}.
-	 */
-	@Test
-	public void testSetPhoneNumber() {
-		participantController.setPhoneNumber(testNumber);
-		assertEquals(testNumber, currentParticipant.getPerson().getPhoneNumber());
-	}
-
-	/**
-	 * Test method for {@link controller.ParticipantController#setWishes(java.lang.String)}.
-	 */
-	@Test
-	public void testSetWishes() {
-		participantController.setWishes(testWishes);
-		assertEquals(testWishes, currentParticipant.getSpecialNeeds());
-	}
-
-	/**
-	 * Test method for {@link controller.ParticipantController#setCoursePreference(model.Course)}.
-	 */
-	@Test
-	public void testSetCoursePreference() {
-		participantController.setCoursePreference(testPref);
-		assertEquals(testPref, currentParticipant.getCourseWish());
-	}
-
-	/**
-	 * Test method for {@link controller.ParticipantController#getWalkingDinnerController()}.
-	 */
-	@Test
-	public void testGetWalkingDinnerController() {
-	}
-
-	/**
-	 * Test method for {@link controller.ParticipantController#setWalkingDinnerController(controller.WalkingDinnerController)}.
-	 */
-	@Test
-	public void testSetWalkingDinnerController() {
-		fail("Not yet implemented");
 	}
 
 }

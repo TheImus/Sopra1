@@ -77,5 +77,17 @@ public class Restriction implements Serializable{
 		}
 		return symDiffList;
 	}
+	
+	public static ArrayList<Restriction> getUnionForRestrictions(List<Restriction> restrictionList1, 
+			List<Restriction> restrictionList2){
+		ArrayList<Restriction> unionList = new ArrayList<Restriction>();
+		unionList.addAll(restrictionList1);
+		for(Restriction restriction:restrictionList2){
+			if(!unionList.contains(restriction)){
+				unionList.add(restriction);
+			}
+		}
+		return unionList;
+	}
 
 }
