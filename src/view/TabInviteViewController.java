@@ -3,7 +3,9 @@ package view;
  * Sample Skeleton for 'TabInvite.fxml' Controller Class
  */
 
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -19,12 +21,16 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.Event;
 import model.Participant;
 
 public class TabInviteViewController {
 
-    @FXML // ResourceBundle that was given to the FXMLLoader
+	@FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
     @FXML // URL location of the FXML file that was given to the FXMLLoader
@@ -59,12 +65,22 @@ public class TabInviteViewController {
     
     private WalkingDinnerController walkingDinnerController;
     
+    private Stage stage; // Stage for save file dialog
+    
 	public WalkingDinnerController getWalkingDinnerController() {
 		return walkingDinnerController;
 	}
 
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
+	}
+	
+    public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 	
     /**
@@ -78,12 +94,14 @@ public class TabInviteViewController {
     	TreePastEvents.getRoot().getChildren().clear();
     	TreePastEvents.getRoot().getChildren().addAll(uninvitedTreeItems);
     	
-    	System.out.println(uninvited.size());
-    	
     	// get invited Participants
     	List<Participant> invited = getWalkingDinnerController().getWalkingDinner().getCurrentEvent().getInvited();
     	ListInvited.getItems().clear();
     	ListInvited.getItems().addAll(invited);
+    	// expand all tree nodes
+    	for (TreeItem<UninvitedTreeItemObject> item : TreePastEvents.getRoot().getChildren()) {
+    		item.setExpanded(true);
+    	}
     }
     
     
@@ -111,6 +129,7 @@ public class TabInviteViewController {
     	
     	ListInvited.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	
+    	// Uninvited participants
     	TreePastEvents.setRoot(new TreeItem<UninvitedTreeItemObject>(){
     		@Override
     		public String toString() {
@@ -118,14 +137,29 @@ public class TabInviteViewController {
     		}
     	});
     	TreePastEvents.setShowRoot(false);
-    	//TreePastEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    	TreePastEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	
+    	// draw
     	refresh();
+    }
+    
+
+    /**
+     * 
+     * @param content
+     */
+    private void setClipboardContent(String content) {
+    	Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putString(content);
+        clipboard.setContent(clipboardContent);
     }
 
     @FXML
     void onAddressesToClipboard(ActionEvent event) {
-    	
+    	ObservableList<Participant> selectedParticipants = ListInvited.getSelectionModel().getSelectedItems();
+    	String addresses = getWalkingDinnerController().getInvitationController().getAdressList(selectedParticipants);
+    	setClipboardContent(addresses);
     }
 
     @FXML
@@ -135,25 +169,61 @@ public class TabInviteViewController {
 
     @FXML
     void onEMailToClipboard(ActionEvent event) {
-    	
+    	ObservableList<Participant> selectedParticipants = ListInvited.getSelectionModel().getSelectedItems();
+    	String eMails = getWalkingDinnerController().getInvitationController().getEmailList(selectedParticipants);
+    	setClipboardContent(eMails);
     }
 
     @FXML
     void onExportPDF(ActionEvent event) {
+        if (this.stage == null) {
+        	throw new NullPointerException("Stage is not set!");
+        }
     	
+        FileChooser fileChooser = new FileChooser();
+        
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF-Dateien (*.pdf)", "*.pdf");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialFileName("Einladungen.pdf");
+        fileChooser.setTitle("Einladungen speichern");
+        
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(this.stage);
+        
+        if (file != null) {
+            try {
+            	String filename = file.getAbsolutePath();
+            	if (!file.getName().endsWith("pdf")) {
+            		filename += ".pdf";
+            	}
+            	getWalkingDinnerController().getInvitationController().exportPDF(filename);
+            	
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     @FXML
     void onInvite(ActionEvent event) {
     	List<TreeItem<UninvitedTreeItemObject>> invite = TreePastEvents.getSelectionModel().getSelectedItems();
+    	List<Participant> inviteList = new ArrayList<Participant>();
     	for (TreeItem<UninvitedTreeItemObject> item : invite) {
-    		System.out.println(item.toString());
+    		if (item != null && item.getValue() != null && item.getValue().isParticipant()) {
+    			inviteList.add(item.getValue().getParticipant());
+    		}
     	}
+    	
+    	getWalkingDinnerController().getInvitationController().invite(inviteList);
+    	
+    	refresh();
     }
 
     @FXML
     void onSave(ActionEvent event) {
-
+    	// TODO: ... ein allgemeines Speichen wäre deutlich sinnvoller
+    	WalkingDinnerController.saveModel(getWalkingDinnerController().getWalkingDinner(), "");
     }
 
     @FXML
@@ -208,15 +278,11 @@ public class TabInviteViewController {
     	public boolean isParticipant() {
     		return this.participant != null;
     	}
- 
     }
     
     private class UninvitedTreeItem extends TreeItem<UninvitedTreeItemObject> {
-    	private Event event;
-    	private Participant participant;
-    	
     	public UninvitedTreeItem(Event event, List<Participant> participants) {
-    		this.event = event;
+    		//this.event = event;
     		//this.setValue(event.getName());
     		this.setValue(new UninvitedTreeItemObject(event));
     		
@@ -228,10 +294,8 @@ public class TabInviteViewController {
     	}
     	
     	public UninvitedTreeItem(Participant participant) {
-    		this.participant = participant;
     		//this.setValue(participant.getPerson().getName());
     		this.setValue(new UninvitedTreeItemObject(participant));
     	}
- 
     }
 }

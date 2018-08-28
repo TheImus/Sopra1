@@ -88,7 +88,6 @@ public class InvitationController {
 	/**
 	 * Generate a comma separated List of the E-Mail Addresses of the 
 	 * participants in the mailList
-	 * 
 	 * For example:
 	 * 		"Hans Müller"<hans.mueller@gmx.de>;"Jochen Schweitzer"<info@jochenschweitzer.com>" ...
 	 * 
@@ -183,7 +182,6 @@ public class InvitationController {
 	/**
 	 * Returns a line separated list of addresses of the participants
 	 * for example:
-	 * 
 	 * Hans Müller
 	 * Bachstraße 34
 	 * 12345 Musterort
@@ -191,7 +189,6 @@ public class InvitationController {
 	 * Jochen Schweitzer
 	 * Schloßallee 1
 	 * 12345 Musterort 
-	 * 
 	 * @param participantList List of the participants which addresses should be returned 
 	 * @return Line separated list of addresses
 	 */
@@ -220,7 +217,6 @@ public class InvitationController {
 
 	/**
 	 * Exports a PDF document with all invitations 
-	 * 
 	 * for each invited participant there will be one page in the PDF document
 	 * 
 	 * @param fileName filename of the pdf document
