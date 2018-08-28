@@ -1,6 +1,9 @@
 package controller;
 
 import java.util.List;
+
+import model.Event;
+import model.Participant;
 import model.Restriction;
 
 public class RestrictionController {
@@ -16,11 +19,14 @@ public class RestrictionController {
 	}
 
 	/**
-	 * Create a new restriction and add it toe the list of restrictions.
+	 * Create a new restriction and add it to the list of restrictions.
 	 * @param restricton The restriction to be added
 	 */
 	public void addNewRestriction(String restriction) {
-
+		List<Restriction> restrictions = this.getEventRestrictions();
+		Restriction realRestriction = new Restriction();
+		realRestriction.setName(restriction);
+		restrictions.add(realRestriction);
 	}
 
 	/**
@@ -28,7 +34,11 @@ public class RestrictionController {
 	 * @return restrictions Restrictions of the currentEvent
 	 */
 	public List<Restriction> getEventRestrictions() {
-		return null;
+		return getCurrentEvent().getRestriction();
+	}
+	
+	private Event getCurrentEvent(){
+		return walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	}
 
 	/**
@@ -36,7 +46,11 @@ public class RestrictionController {
 	 * @param participantRestrictions New List of restrictions for currentParticipant
 	 */
 	public void setParticipantRestrictions(List<Restriction> participantRestrictions) {
-
+		Participant currentParticipant = getCurrentEvent().getCurrentParticipant();
+		currentParticipant.setRestriction(participantRestrictions);
+		for(Restriction restriction : participantRestrictions){
+			restriction.addParticipant(currentParticipant);
+		}
 	}
 
 	/**
@@ -44,7 +58,8 @@ public class RestrictionController {
 	 * @return participantRestrictions The list of restrictions of the currentParticipant
 	 */
 	public List<Restriction> getParticipantRestrictions() {
-		return null;
+		Participant currentParticipant = getCurrentEvent().getCurrentParticipant();
+		return currentParticipant.getRestriction();
 	}
 
 	/**
@@ -53,7 +68,7 @@ public class RestrictionController {
 	 * @param name The new name of the restriction
 	 */
 	public void renameRestriction(Restriction restriction, String name) {
-
+		restriction.setName(name);
 	}
 
 	/**

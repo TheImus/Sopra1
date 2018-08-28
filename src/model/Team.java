@@ -50,5 +50,20 @@ public class Team implements Serializable{
 		}
 		return members.size();
 	}
+	
+	public ArrayList<Restriction> getRestrictions(){
+		ArrayList<Restriction> restrictions = new ArrayList<Restriction>();
+		if(!members.isEmpty()){
+			restrictions.addAll(Participant.getRestrictionUnionForParticipants(host, members.get(0)));
+		}
+		else if(members.size()==2){
+			ArrayList<Restriction> subSet = Participant.getRestrictionUnionForParticipants(members.get(0), members.get(1));
+			restrictions.addAll(Restriction.getUnionForRestrictions(subSet, host.getRestriction()));
+		}
+		else if(host != null){
+			restrictions.addAll(host.getRestriction());
+		}
+		return restrictions;
+	}
 
 }
