@@ -62,18 +62,5 @@ public class Schedule implements Serializable{
 		}
 		return result;
 	}
-	
-	/*public Course getCourses(Participant participantInCourses)
-	{
-		for(Course course : Course.values()){
-			List<Group> groups = courses.get(course);
-			for(Group group : groups){
-				for(Team teams : group.getGuest()){
-					for()
-				}
-			}
-		}
-		return null;
-	}*/
 
 }
