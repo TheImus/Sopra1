@@ -18,7 +18,7 @@ public class ExportControllerTest {
 	@Test
 	public void testExportParticipantData() {
 		WalkingDinnerController wdc = TestDataFactory.createTestWalkingDinnerController();
-		wdc.getExportController().exportParticipantData(wdc.getWalkingDinner().getCurrentEvent().getParticipants(), null);
+		wdc.getExportController().exportParticipantData(wdc.getWalkingDinner().getCurrentEvent().getParticipants(), "Participants.txt");
 	}
 
 	/**

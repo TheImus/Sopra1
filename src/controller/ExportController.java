@@ -22,13 +22,13 @@ public class ExportController {
 	 */
 	public void exportParticipantData(List<Participant> participants, String fileName) {
 		try {
-			PrintWriter out = new PrintWriter("filename.txt");
+			PrintWriter out = new PrintWriter(fileName);
 			out.println("START");
 			for(Participant participant : participants){
-				out.println(participant.getPerson().getName());
-				out.println(walkingDinnerController.getWalkingDinner().getCurrentEvent().getCourseTimes());
-				//out.println(walkingDinnerController.);
-				out.println();
+				out.println("" + participant.getPerson().getName());
+				out.println("Your course times: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getCourseTimes());
+				out.println("You are hosting this: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getCourse(participant));
+				//out.println("You are a guest at the following events: " + );//TODO
 			}
 			out.close();
 		} catch (FileNotFoundException e) {
@@ -42,7 +42,7 @@ public class ExportController {
 	 * @param fileName is the file path where you want to save the exported data
 	 */
 	public void exportChangedParticipantData(String fileName) {
-
+		exportParticipantData(walkingDinnerController.getWalkingDinner().getCurrentEvent().getChangedParticipants(), fileName);
 	}
 
 	/**
