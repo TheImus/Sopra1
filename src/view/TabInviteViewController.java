@@ -118,6 +118,7 @@ public class TabInviteViewController {
     		}
     	});
     	TreePastEvents.setShowRoot(false);
+    	//TreePastEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	
     	refresh();
     }
