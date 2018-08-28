@@ -24,5 +24,9 @@ public class TabEventController {
     public WalkingDinnerController getWalkingDinnerController() {
 		return walkingDinnerController;
 	}
+    
+    public void refresh(){
+    	
+    }
 
 }
