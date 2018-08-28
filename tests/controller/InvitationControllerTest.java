@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -93,7 +94,29 @@ public class InvitationControllerTest {
 	 */
 	@Test
 	public void testGetUninvitedParticipants() {
-		fail("Not yet implemented");
+		eventPickerCtrl.modifyEvent(evt2);
+		
+		// participant 13-18 are missing in event 2
+		// they participated in event1, but they are not invited in event2
+		Map<Event, List<Participant>> uninvited = invitationCtrl.getUninvitedParticipants();
+		
+		// event should be event 1
+		assertEquals(uninvited.size(), 1); // should contain one event
+		
+		// this event has to be event 1
+		List<Participant> uninvitedEvent1 = uninvited.get(evt1);
+		assertEquals(uninvitedEvent1.size(), 6);
+		
+		// put the expected participants in a new list
+		List<Participant> expect = new ArrayList<Participant>();
+		for (int i = 12; i < 18; i++) {
+			expect.add(evt1.getParticipants().get(i));
+		}
+		
+		for (int i = 0; i < expect.size(); i++) {
+			assertEquals(expect.get(i), uninvitedEvent1.get(i));
+		}
+		
 	}
 
 	/**

@@ -43,6 +43,10 @@ public class TestDataFactory {
 		for (int i = 1; i <= 2; i++) {
 			Event event = new Event();
 			event.setName("Event" + Integer.toString(i));
+			event.setEventDescription("wir machen dieses Jahr wieder ein tolles Walking Dinner. \\\\ "
+					+"Mit freundlichen Grüßen \\\\"
+					+"Ihr WD-Gott");
+				
 			walkingDinner.getEvents().add(event);
 		}
 	}
@@ -86,14 +90,6 @@ public class TestDataFactory {
 			if (i >= 24) {
 				event2.getInvited().add(participant);
 			}
-			
-			// add all the participants to the participant list
-			/*List<Participant> participants = event1.getParticipants();
-			participants.add(participant);
-			event1.setParticipants(participants);
-			participants = event2.getParticipants();
-			participants.add(participant);
-			event2.setParticipants(participants);*/
 		}
 		
 		// now editing event 2
