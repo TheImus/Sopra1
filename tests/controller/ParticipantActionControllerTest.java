@@ -5,6 +5,7 @@ package controller;
 
 import static org.junit.Assert.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +15,20 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.sun.corba.se.spi.ior.MakeImmutable;
 import com.sun.webkit.ThemeClient;
 import com.sun.xml.internal.ws.db.glassfish.BridgeWrapper;
 
+import jdk.internal.cmm.SystemResourcePressureImpl;
 import jdk.nashorn.internal.ir.WithNode;
 import model.WalkingDinner;
+import model.Course;
 import model.Event;
 import model.Participant;
 import model.Person;
+import model.Schedule;
+import model.Team;
+import model.Group;
 
 
 /**
@@ -30,9 +37,8 @@ import model.Person;
  */
 public class ParticipantActionControllerTest {
     private ParticipantActionController participantActionController;
-	private Participant participant1= new Participant();
-	private Participant participant2= new Participant();
-	private Participant participant3= new Participant();
+    Participant currentParticipant;
+    Event currentEvent;
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -52,36 +58,21 @@ public class ParticipantActionControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		Person person1=new Person();
-		person1.setName("jin1");
-		Person person2=new Person();
-		person1.setName("jin2");
-		Person person3=new Person();
-		person1.setName("jin3");
-		Person person4=new Person();
-		person4.setName("jin1");
-		List<Person> personList=new ArrayList<>();
-		personList.add(person3);
-		personList.add(person2);
-		personList.add(person1);
-		personList.add(person4);
-		participant1.setPerson(person1);
-		participant2.setPerson(person2);
-		participant3.setPerson(person3);
-		List<Participant> participants=new ArrayList<>();
-		List<Participant> invitedList=new ArrayList<>();
-		participants.add(participant1);
-		invitedList.add(participant1);
-		invitedList.add(participant2);
-		Event currentEvent=new Event();
-		currentEvent.setParticipants(participants);
-		currentEvent.setInvited(invitedList);
-		WalkingDinner walkingDinner=new WalkingDinner();
-		walkingDinner.getEvents().add(currentEvent);
-		walkingDinner.setCurrentEvent(currentEvent);
-		WalkingDinnerController walkingDinnerController=new WalkingDinnerController();
-		walkingDinnerController.setWalkingDinner(walkingDinner);
+		
+		WalkingDinnerController walkingDinnerController=TestDataFactory.createTestWalkingDinnerController();
+        List<Participant> invited=walkingDinnerController.getWalkingDinner().getCurrentEvent().getInvited();
+        for (int i = 0; i < 6; i++) {
+			Participant participant = new Participant();
+			participant.getPerson().setName("Person"+Integer.toString(i));
+			participant.getPerson().setMailAddress("person"+Integer.toString(i)+"@example.com");
+			participant.getAddress().setStreet("Musterstraße " + Integer.toString(i));
+			participant.getAddress().setCity("Musterstadt");
+			participant.getAddress().setZipCode("12345");
+			invited.add(participant);
+        }
+        walkingDinnerController.getWalkingDinner().getCurrentEvent().setInvited(invited);
 		participantActionController=new ParticipantActionController(walkingDinnerController);
+		
 	}
 
 	/**
@@ -104,16 +95,22 @@ public class ParticipantActionControllerTest {
 		ParticipantAction unregtister = ParticipantAction.UNREGISTER;
 		ParticipantAction update = ParticipantAction.UPDATE_PARTICIPANT;
 		List<ParticipantAction> actions=new ArrayList<>();
-        Participant participant4=null;
-		participantActionController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent().setCurrentParticipant(participant4);
+        currentParticipant=null;
+        Event currentEvent=participantActionController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent();
+        currentEvent.setCurrentParticipant(currentParticipant);
 		participantActionController.getPossibleActions();
-		participantActionController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent().setCurrentParticipant(participant1);
+		currentParticipant=currentEvent.getParticipants().get(2);
+		participantActionController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent().setCurrentParticipant(currentParticipant);
 		actions=participantActionController.getPossibleActions();
-        assertTrue("testgetpossibleactions the participant1 is in the participant list ", actions.contains(unregtister) & actions.contains(update));
-        participantActionController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent().setCurrentParticipant(participant2);
+        assertTrue("testgetpossibleactions the participant1 is in the participant list ", actions.contains(unregtister));
+        assertTrue("testgetpossibleactions the participant1 is in the participant list ",  actions.contains(update));
+        currentParticipant=currentEvent.getInvited().get(currentEvent.getInvited().size()-1);
+        currentEvent.setCurrentParticipant(currentParticipant);
         actions=participantActionController.getPossibleActions();
-        assertTrue("testgetpossibleactions the participant2 isn't in the participant list but in the inventedlist ", actions.contains(register) & actions.contains(update));
-        participantActionController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent().setCurrentParticipant(participant3);
+        assertTrue("testgetpossibleactions the participant2 isn't in the participant list but in the inventedlist ", actions.contains(update));
+        assertTrue(actions.contains(register));
+        currentParticipant=new Participant();
+        currentEvent.setCurrentParticipant(currentParticipant);
         actions=participantActionController.getPossibleActions();
         assertTrue("testgetpossibleactions the participant3 isn't in any list ", actions.contains(register));
 	}
@@ -138,10 +135,36 @@ public class ParticipantActionControllerTest {
 	@Test
 	public void testUnregister() {
 		participantActionController.unregister(null);
-		participantActionController.unregister(participant1);
-		Event currentEvent=participantActionController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent();
-		assertTrue("remove the participant",!currentEvent.getParticipants().contains(participant1) & currentEvent.getInvited().contains(participant1));
-		currentEvent.getParticipants().add(participant1);
+		currentEvent=participantActionController.getWalkingDinnerController().getWalkingDinner().getCurrentEvent();
+		Schedule schedule=currentEvent.getSchedule();
+		List<Group> starter=schedule.getGroup(Course.STARTER);
+		List<Group> main=schedule.getGroup(Course.MAIN);
+		List<Group> dessert=schedule.getGroup(Course.DESSERT);
+		currentParticipant=currentEvent.getParticipants().get(2);
+		assertTrue("to make sure the participant in the invited list",currentEvent.getInvited().contains(currentParticipant));
+		assertTrue("to make sure the participant in one team",currentEvent.getAllTeams().stream().anyMatch(team -> team.getParticipants().contains(currentParticipant)));
+		assertTrue("to make sure the participant in starter",starter.stream().anyMatch(group -> group.getParticipants().contains(currentParticipant)));
+		participantActionController.unregister(currentParticipant);
+		assertTrue("remove the participant",!currentEvent.getParticipants().contains(currentParticipant));
+		assertTrue(currentEvent.getInvited().contains(currentParticipant));
+		assertTrue(!currentEvent.getAllTeams().stream().anyMatch(team -> team.getParticipants().contains(currentParticipant)));
+		assertTrue("test whether the participant in the starter",!starter.stream().anyMatch(group -> group.getParticipants().contains(currentParticipant)));
+		assertTrue("test whether the participant in the main",!main.stream().anyMatch(group -> group.getParticipants().contains(currentParticipant)));
+		assertTrue("test whether the participant in the dessert",!dessert.stream().anyMatch(group -> group.getParticipants().contains(currentParticipant)));
+		currentEvent.getParticipants().add(2, currentParticipant);
+		currentParticipant=currentEvent.getInvited().get(currentEvent.getInvited().size()-1);
+		assertTrue("to make sure the participant isn't in the participant list",!currentEvent.getParticipants().contains(currentParticipant));
+		assertTrue("to make sure the participant isn't in any team",!currentEvent.getAllTeams().stream().anyMatch(team -> team.getParticipants().contains(currentParticipant)));
+		assertTrue("to make sure the participant in starter",!starter.stream().anyMatch(group -> group.getParticipants().contains(currentParticipant)));
+		assertTrue("to make sure the participant in main",!main.stream().anyMatch(group -> group.getParticipants().contains(currentParticipant)));
+		assertTrue("to make sure the participant in dessert",!dessert.stream().anyMatch(group -> group.getParticipants().contains(currentParticipant)));
+        participantActionController.unregister(currentParticipant);
+        assertTrue(!currentEvent.getParticipants().contains(currentParticipant));
+		assertTrue(!currentEvent.getAllTeams().stream().anyMatch(team -> team.getParticipants().contains(currentParticipant)));
+		assertTrue("test whether the participant in the starter",!starter.stream().anyMatch(group -> group.getParticipants().contains(currentParticipant)));
+		assertTrue("test whether the participant in the main",!main.stream().anyMatch(group -> group.getParticipants().contains(currentParticipant)));
+		assertTrue("test whether the participant in the dessert",!dessert.stream().anyMatch(group -> group.getParticipants().contains(currentParticipant)));
+		
 	}
 
 	/**
@@ -167,8 +190,10 @@ public class ParticipantActionControllerTest {
 		participantActionController.searchPerson(null);
 		personList=participantActionController.searchPerson("");
 		assertTrue("test searchPerson With empty String", personList.stream().allMatch(person -> person.getName().equals("")));
-		personList=participantActionController.searchPerson("jin1");
-		assertTrue("test searchPerson",personList.stream().allMatch(person -> person.getName().equals("jin1")));
+		personList=participantActionController.searchPerson("Marx Mustermann");
+		assertTrue("test searchPerson",personList.stream().allMatch(person -> person.getName().equals("Marx Mustermann")));
+		personList=participantActionController.searchPerson("person1");
+		assertTrue("test searchPerson",personList.stream().allMatch(person -> person.getName().equals("person1")));
 		personList=participantActionController.searchPerson("jin");
 		assertTrue("test searchPerson",personList.stream().allMatch(person -> person.getName().equals("jin")));
 	     
