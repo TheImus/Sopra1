@@ -83,6 +83,7 @@ public class ConsistencyController {
 		}*/
 		
 		if(getDifferentRestrictionsFor(team.getMembers()) != null) {			// check if there are any restrictions that don't match
+			//System.out.println(getDifferentRestrictionsFor(team.getMembers()).toString());
 			warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
 					getDifferentRestrictionsFor(team.getMembers()).toString() + 
 					"bitte einmal überprüfen für folgendes Team:" + team.getMembers().toString());
@@ -131,7 +132,7 @@ public class ConsistencyController {
 	 * 8. TeamX "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
 	 * 9. TeamX "kommt in mehreren MAIN Gruppen vor, die andere Gruppe besteht aus: "
 	 * 10. TeamX "kommt in mehreren DESSERT Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
-	 * 
+	 *
 	 * @param group name of a group object
 	 * @return Returns a list with all warnings for the group
 	 */
@@ -150,7 +151,7 @@ public class ConsistencyController {
 			allPersonsInGroup.add(allParticipantsInGroup.get(i).getPerson());
 		}
 		warnings.addAll(GroupSizeWarnings(group));
-	    warnings.addAll(knowingRelation(allPersonsInGroup));							//checks if any persons in the group know each other
+	    //warnings.addAll(knowingRelation(allPersonsInGroup));							//checks if any persons in the group know each other
 	    
 	    if(getDifferentRestrictionsFor(allParticipantsInGroup) != null) {					// check if there are any restrictions that don't match
 			warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
@@ -205,14 +206,17 @@ public class ConsistencyController {
 				
 				if(!part.equals(others)) {														//make sure the participants are not the same
 					for(Restriction compareRestriction : restOfOthers) {						//check if any restrictions of the participant and other participant match
-						if(!rest.contains(compareRestriction)) {								//if they don't match add them to the list
+						if(!rest.contains(compareRestriction) && !notMatchingRestrictions.contains(compareRestriction)) {								//if they don't match add them to the list
+							//System.out.println(restOfOthers);
 							notMatchingRestrictions.add(compareRestriction);
 						}
 					}
 				}
 			}
 		}
-		
+//		System.out.println("");
+//		for(Restriction s : notMatchingRestrictions)
+//			System.out.print(s);
 		return notMatchingRestrictions;															//return all restrictions that don't match
 	}
 	
