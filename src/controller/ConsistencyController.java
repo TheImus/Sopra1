@@ -54,9 +54,6 @@ public class ConsistencyController {
 		List<Person> membersAsPerson = new ArrayList<Person>();
 		Map<Person,List<Person>> knownPersons = schedule.generateKnowingRelations();
 		
-		if(allTeams.size()%3 != 0)	{
-			warnings.add("Es gibt nicht genug Teams für eine neue Gruppe");
-		}
 	    warnings.addAll(TeamSizeWarnings(team));										//add all warnings with size issues
 		
 		for(int i = 0; i < team.getMembers().size(); i++){								// make all members to Persons and save them in a list
@@ -149,9 +146,7 @@ public class ConsistencyController {
 		List<String> warnings = new ArrayList<String>();								//return List with all warnings
 		List<Participant> allParticipantsInGroup = new ArrayList<Participant>();		//List with all participants in the group
 		List<Person> allPersonsInGroup = new ArrayList<Person>();						//List with all Persons in the group
-		
-		
-		
+
 		for(int i = 0; i<group.getTeams().size(); i++) {								//saves all participants in the group
 			allParticipantsInGroup.addAll(group.getTeams().get(i).getMembers());
 		}
@@ -159,7 +154,9 @@ public class ConsistencyController {
 		for(int i = 0; i<allParticipantsInGroup.size(); i++) {							//saves all participants in the group as persons
 			allPersonsInGroup.add(allParticipantsInGroup.get(i).getPerson());
 		}
+		
 		warnings.addAll(GroupSizeWarnings(group));
+		
 		try{
 		if(!knowingRelation(allPersonsInGroup).isEmpty()){
 			warnings.addAll(knowingRelation(allPersonsInGroup)); 							//checks if any persons in the group know each other
@@ -229,9 +226,6 @@ public class ConsistencyController {
 				}
 			}
 		}
-//		System.out.println("");
-//		for(Restriction s : notMatchingRestrictions)
-//			System.out.print(s);
 		return notMatchingRestrictions;															//return all restrictions that don't match
 	}
 	
