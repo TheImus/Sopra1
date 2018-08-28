@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Event;
 import model.WalkingDinner;
 
 public class TabInvitationViewControl extends Application {
@@ -18,6 +19,8 @@ public class TabInvitationViewControl extends Application {
 		wdController = new WalkingDinnerController();
 		WalkingDinner walkingDinner = TestDataFactory.createSampleWalkingDinner();
 		wdController.setWalkingDinner(walkingDinner);
+		//Event evt1 = wdController.getWalkingDinner().getEvents().get(0);
+		//wdController.getEventPickerController().modifyEvent(evt1);			
 	}
 
 	@Override

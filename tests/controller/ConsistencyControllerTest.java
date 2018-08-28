@@ -324,6 +324,7 @@ public class ConsistencyControllerTest {
 		assertFalse(currentWarning.contains("keine Gastteams vorhanden"));
 		
 		//test case Group with Restrictions which are problematic between the teams
+
 		
 		testGroup = TestDataFactory.createTestGroup();
 		Restriction ih = TestDataFactory.createTestRestriction();
@@ -341,6 +342,7 @@ public class ConsistencyControllerTest {
 		for(String s:currentWarning)
 			//System.out.println(s);
 		assertTrue(currentWarning.contains("folgende Restriktionen könnten Problematisch sein:" + ih +  "bitte einmal überprüfen für folgende Gruppe:" + testGroup));
+
 	}
 
 	/**

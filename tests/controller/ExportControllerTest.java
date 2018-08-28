@@ -2,7 +2,13 @@ package controller;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
+
+import controller.ExportController;
+
+import model.Participant;
 
 public class ExportControllerTest {
 
@@ -11,7 +17,8 @@ public class ExportControllerTest {
 	 */
 	@Test
 	public void testExportParticipantData() {
-		fail("Not yet implemented");
+		WalkingDinnerController wdc = TestDataFactory.createTestWalkingDinnerController();
+		wdc.getExportController().exportParticipantData(wdc.getWalkingDinner().getCurrentEvent().getParticipants(), "Participants.txt");
 	}
 
 	/**

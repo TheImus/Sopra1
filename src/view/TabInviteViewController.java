@@ -5,7 +5,9 @@ package view;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import controller.WalkingDinnerController;
 import javafx.collections.ObservableList;
@@ -17,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import model.Event;
 import model.Participant;
 
 public class TabInviteViewController {
@@ -28,7 +31,7 @@ public class TabInviteViewController {
     private URL location;
 
     @FXML // fx:id="TreePastEvents"
-    private TreeView<?> TreePastEvents; // Value injected by FXMLLoader
+    private TreeView<UninvitedTreeItemObject> TreePastEvents; // Value injected by FXMLLoader
 
     @FXML // fx:id="ListInvited"
     private ListView<Participant> ListInvited; // Value injected by FXMLLoader
@@ -69,6 +72,13 @@ public class TabInviteViewController {
      */
     public void refresh() {
     	// get uninvited Participants
+    	Map<Event, List<Participant>> uninvited = getWalkingDinnerController().getInvitationController().getUninvitedParticipants(); 
+    	List<UninvitedTreeItem> uninvitedTreeItems = uninvited.entrySet().stream().map(
+    			x -> new UninvitedTreeItem(x.getKey(), x.getValue())).collect(Collectors.toList());
+    	TreePastEvents.getRoot().getChildren().clear();
+    	TreePastEvents.getRoot().getChildren().addAll(uninvitedTreeItems);
+    	
+    	System.out.println(uninvited.size());
     	
     	// get invited Participants
     	List<Participant> invited = getWalkingDinnerController().getWalkingDinner().getCurrentEvent().getInvited();
@@ -101,6 +111,15 @@ public class TabInviteViewController {
     	
     	ListInvited.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	
+    	TreePastEvents.setRoot(new TreeItem<UninvitedTreeItemObject>(){
+    		@Override
+    		public String toString() {
+    			return "Root";
+    		}
+    	});
+    	TreePastEvents.setShowRoot(false);
+    	//TreePastEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    	
     	refresh();
     }
 
@@ -126,7 +145,10 @@ public class TabInviteViewController {
 
     @FXML
     void onInvite(ActionEvent event) {
-
+    	List<TreeItem<UninvitedTreeItemObject>> invite = TreePastEvents.getSelectionModel().getSelectedItems();
+    	for (TreeItem<UninvitedTreeItemObject> item : invite) {
+    		System.out.println(item.toString());
+    	}
     }
 
     @FXML
@@ -154,15 +176,62 @@ public class TabInviteViewController {
         assert BtnSave != null : "fx:id=\"BtnSave\" was not injected: check your FXML file 'TabInvite.fxml'.";
     }
 
-    public class InvitedEntry {
-    	private String text;
+    
+    private class UninvitedTreeItemObject {
+    	private Event event;
+    	private Participant participant;
     	
-    	public InvitedEntry(String text) {
-    		this.text = text;
+    	public UninvitedTreeItemObject(Event event) {
+    		this.event = event;
     	}
     	
-    	public String getText() {
-    		return this.text;
+    	public UninvitedTreeItemObject(Participant participant) {
+    		this.participant = participant;
     	}
+    	
+    	@Override 
+    	public String toString() {
+    		if (this.event != null) {
+    			return this.event.getName();
+    		}
+    		if (this.participant != null) {
+    			return this.participant.getPerson().getName();
+    		}
+    		
+    		return "";
+    	}
+    	
+    	public Participant getParticipant() {
+    		return this.participant;
+    	}
+    	
+    	public boolean isParticipant() {
+    		return this.participant != null;
+    	}
+ 
+    }
+    
+    private class UninvitedTreeItem extends TreeItem<UninvitedTreeItemObject> {
+    	private Event event;
+    	private Participant participant;
+    	
+    	public UninvitedTreeItem(Event event, List<Participant> participants) {
+    		this.event = event;
+    		//this.setValue(event.getName());
+    		this.setValue(new UninvitedTreeItemObject(event));
+    		
+    		this.getChildren().clear();
+    		List<UninvitedTreeItem> newItems = participants.stream().map(
+    				p -> new UninvitedTreeItem(p)).collect(Collectors.toList());
+    		this.getChildren().addAll(newItems);
+    		
+    	}
+    	
+    	public UninvitedTreeItem(Participant participant) {
+    		this.participant = participant;
+    		//this.setValue(participant.getPerson().getName());
+    		this.setValue(new UninvitedTreeItemObject(participant));
+    	}
+ 
     }
 }

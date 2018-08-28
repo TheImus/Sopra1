@@ -18,11 +18,12 @@ public class Restriction implements Serializable{
 		this.participant = new ArrayList<Participant>();
 	}
 
-	public void removeParticipant(Participant participant) {
-
+	public void removeParticipant(Participant oldParticipant) {
+		participant.remove(oldParticipant);
 	}
 
-	public void addParticipant(Participant participant) {
+	public void addParticipant(Participant newParticipant) {
+		participant.add(newParticipant);
 
 	}
 

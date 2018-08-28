@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.datatransfer.FlavorTable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,12 +8,12 @@ import model.WalkingDinner;
 import model.Event;
 import model.Participant;
 import model.Person;
+import model.Team;
 
 public class ParticipantActionController {
 
 	private WalkingDinnerController walkingDinnerController;
 
-	
 	public ParticipantActionController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
 	}
@@ -57,7 +58,8 @@ public class ParticipantActionController {
 	 * This method add the participant into the participantlist and the
 	 * invitedlist of the current event if he or she is not in the invitedlist.
 	 * 
-	 * @param participant is the participant,who is got from database through search.
+	 * @param participant
+	 *            is the participant,who is got from database through search.
 	 */
 	public void register(Participant participant) {
 		try {
@@ -77,15 +79,30 @@ public class ParticipantActionController {
 	}
 
 	/**
-	 * This method delete the participant from the participantlist of the event.
+	 * This method delete the participant from the participantlist and the team, which contain the participant, of the event.
 	 * 
 	 * @param participant is the participant, who wants to quite the current event.
 	 */
 	public void unregister(Participant participant) {
 		try {
+			
 			Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+			TeamController teamController = walkingDinnerController.getTeamController();
 			List<Participant> participantList = currentEvent.getParticipants();
-			participantList.remove(participant);
+			if(participantList.contains(participant))
+			{
+				participantList.remove(participant);
+				List<Team> teamList = currentEvent.getAllTeams();
+				for (Team team : teamList) {
+					if (team.getParticipants().contains(participant)) {
+						teamController.removeParticipantFromTeam(team, participant);
+						if (team.getParticipants().size() == 0) {
+							teamController.removeTeam(team);
+						}
+					}
+				}
+			}
+			
 		} catch (NullPointerException e) {
 			throw e;
 		}
@@ -94,10 +111,11 @@ public class ParticipantActionController {
 	/**
 	 * This method creates a participant object, which contain the information
 	 * of the new person,who is not in the database. Then the created
-	 * participant is added in participantlist and invitedlist in current event and return
-	 * the participant.
+	 * participant is added in participantlist and invitedlist in current event
+	 * and return the participant.
 	 * 
-	 * @return the Participant, who has the information of the new person and is willing to attend the current event.
+	 * @return the Participant, who has the information of the new person and is
+	 *         willing to attend the current event.
 	 */
 	public Participant registerNewPerson() {
 		Person newPerson = new Person();
@@ -107,6 +125,7 @@ public class ParticipantActionController {
 			Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 			currentEvent.setCurrentParticipant(newParticipant);
 			currentEvent.getParticipants().add(newParticipant);
+			currentEvent.getInvited().add(newParticipant);
 			return newParticipant;
 		} catch (NullPointerException e) {
 			throw e;
@@ -114,9 +133,11 @@ public class ParticipantActionController {
 	}
 
 	/**
-	 * This method return the people in the database, who have the same name as the input.
+	 * This method return the people in the database, who have the same name as
+	 * the input.
 	 * 
-	 * @param name is the name of a person.
+	 * @param name
+	 *            is the name of a person.
 	 * @return Personlist ,in the list there are the people, whose name equals
 	 *         to the parameter.
 	 */
