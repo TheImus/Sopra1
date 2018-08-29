@@ -118,6 +118,7 @@ public class EventOverviewController {
     void onNewEvent(ActionEvent event){
     	try {
     		walkingDinnerController.getWalkingDinner().setCurrentEvent(null);
+
 			GridPane root = new GridPane();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NewEventFromTemplate.fxml"));
 			root = loader.load();
@@ -127,7 +128,20 @@ public class EventOverviewController {
 			
 			Scene scene = new Scene(root);
 			
-			((Stage)borderPaneOverview.getScene().getWindow()).setScene(scene);
+			if (StageContainer.createNewEventStage == null)
+			{
+	    		StageContainer.createNewEventStage = new Stage();
+			}
+
+    		StageContainer.createNewEventStage.setScene(scene);
+			newEventFromTemplateController.refresh();
+			
+			//((Stage)borderPaneOverview.getScene().getWindow()).setScene(scene);
+			
+			StageContainer.createNewEventStage.show();
+			
+			//((Stage)borderPaneOverview.getScene().getWindow()).hide();
+			StageContainer.primaryStage.hide();
 			
 		} catch(Exception e) {
 			e.printStackTrace();

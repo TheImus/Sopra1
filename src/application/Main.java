@@ -7,11 +7,10 @@ import controller.WalkingDinnerController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Event;
-import view.AdjustParticipantController;
 import view.EventOverviewController;
+import view.StageContainer;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.fxml.FXMLLoader;
 
 
@@ -51,6 +50,7 @@ private WalkingDinnerController walkingDinnerController;
 			eventOverviewController.init();
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			StageContainer.primaryStage = primaryStage;
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
