@@ -87,7 +87,8 @@ public class TabsOverviewController {
 			root5 = loader5.load();
 			
 			TabGroupsController tabGroupsController = (TabGroupsController) loader5.getController();
-			tabGroupsController.setWalkingDinnerController(walkingDinnerController);			
+			tabGroupsController.setWalkingDinnerController(walkingDinnerController);	
+			tabGroupsController.init();
 			TabGroups.setContent(root5);
 			
 			
