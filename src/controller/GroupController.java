@@ -114,6 +114,21 @@ public class GroupController {
 	public Team getHostingTeam(Group group) {
 		return group.getHostTeam();
 	}
+	
+	/**
+	 * Set a hosting team of the group
+	 * ONLY if the current team is member of this group
+	 * this method does not add a new hosting team to this group
+	 */
+	public void setHostingTeam(Group group, Team team) {
+		if (group.getGuest().contains(team)) {
+			group.getGuest().remove(team);
+			
+			// add the hostTeam 
+			group.getGuest().add(group.getHostTeam());
+			group.setHostTeam(team);
+		}
+	}
 
 	/**
 	 * returns the course which is currently selected
@@ -164,7 +179,9 @@ public class GroupController {
 		
 		Schedule schedule = getWalkingDinnerController().getWalkingDinner().getCurrentEvent().getSchedule();
 		//get Groups from the three schedule lists
-		List<Group> allGroups = schedule.getGroup(Course.STARTER);
+		List<Group> allGroups = new ArrayList<Group>();
+		
+		allGroups.addAll(schedule.getGroup(Course.STARTER));
 		allGroups.addAll(schedule.getGroup(Course.MAIN));
 		allGroups.addAll(schedule.getGroup(Course.DESSERT));
 		
