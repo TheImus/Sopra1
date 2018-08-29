@@ -18,6 +18,7 @@ public class ConsistencyController {
 	
 	private final int zero = 0;
 	private final int one = 1;
+	private final int two = 2;
 	private final int three = 3;
 
 	private WalkingDinnerController walkingDinnerController;
@@ -304,7 +305,7 @@ public class ConsistencyController {
 			warnings.add("keine Gastteams vorhanden");
 		}
 		
-		if(group.getGuest().size() != 2)												//checks if there are the correct amount of guest teams
+		if(group.getGuest().size() != two)												//checks if there are the correct amount of guest teams
 		{
 			warnings.add("Die Anzahl der Gastteams stimmt nicht");
 		}
