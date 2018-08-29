@@ -79,7 +79,12 @@ public class GroupController {
 		List<Team> workingList = group.getTeams();
 		if(workingList.contains(team)){
 			if(group.getHostTeam().equals(team)){
-				group.setHostTeam(group.getGuest().get(0));
+				if(group.getGuest().size()>0){
+					group.setHostTeam(group.getGuest().get(0));
+					group.getGuest().remove(group.getGuest().get(0));	
+				}
+				else group.setHostTeam(null);
+				
 			}
 			else{
 				List<Team> guests = group.getGuest();
