@@ -271,7 +271,6 @@ public class ConsistencyController {
 	 */
 	private List<String> knowingRelation(List<Person> person)
 	{
-		ScheduleController schedule = walkingDinnerController.getScheduleController();
 		Map<Person,List<Person>> knownPersons = generateKnowingRelationsWithoutCurrentEvent();			//get map with all knowing relations for each person
 		List<Person> knowingList = new ArrayList<Person>();
 		List<String> warnings = new ArrayList<String>();						
