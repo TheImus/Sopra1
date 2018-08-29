@@ -46,12 +46,12 @@
             </TitledPane>
             <TitledPane animated="false" collapsible="false" text="Ausgewähltes Team" GridPane.rowIndex="2">
                <content>
-                  <ListView fx:id="ListSelectedTeams" onDragDetected="#OnDragDetectedSelected" onDragDone="#OnDragDoneSelected" onDragDropped="#OnDragDroppedSelected" onDragEntered="#OnDragEnteredSelected" onDragExited="#OnDragExitedSelected" onDragOver="#OnDragOverSelected" onMouseDragEntered="#OnMouseDragEnteredSelected" onMouseDragExited="#OnMouseDragExitedSelected" />
+                  <ListView fx:id="ListSelectedTeams"  />
                </content>
             </TitledPane>
             <TitledPane animated="false" collapsible="false" text="Freie Teilnehmer" GridPane.rowIndex="4">
                <content>
-                  <ListView fx:id="ListFreeParticipants" onDragDetected="#OnDragDetectedTeam" onDragDone="#OnDragDoneTeam" onDragDropped="#OnDragDroppedTeam" onDragEntered="#OnDragEnteredTeam" onDragExited="#OnDragExitedTeam" onDragOver="#OnDragOverTeam" onMouseDragEntered="#OnMouseDragEnteredTeam" onMouseDragExited="#OnMouseDragExitedTeam" />
+                  <ListView fx:id="ListFreeParticipants"  />
                </content>
             </TitledPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="3" />

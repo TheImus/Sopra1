@@ -75,7 +75,8 @@ public class TabAdjustTeamsController {
     	Participant forNewTeam = ListFreeParticipants.getSelectionModel().getSelectedItem();
     	if(forNewTeam!=null){
     		Team newTeam = teamController.createNewTeam(forNewTeam);
-    		System.out.println(newTeam.getHost().getPerson().getName());
+    		selectedTeam = newTeam;
+    		ListTeams.getSelectionModel().select(selectedTeam);
     	}
     	refresh();
     }
@@ -236,80 +237,5 @@ public class TabAdjustTeamsController {
     	refresh();
     }
 
-    @FXML
-    void OnDragDetectedTeam(MouseEvent event) {
-    	System.out.println("OnDragDetectedTeam");
-    }
-
-    @FXML
-    void OnDragDoneSelected(DragEvent event) {
-    	System.out.println("OnDragDoneSelected");
-    }
-
-    @FXML
-    void OnDragDoneTeam(DragEvent event) {
-    	System.out.println("OnDragDoneTeam");
-    }
-
-    @FXML
-    void OnDragDroppedSelected(DragEvent event) {
-    	System.out.println("OnDragDroppedSelected");
-    }
-
-    @FXML
-    void OnDragDroppedTeam(DragEvent event) {
-    	System.out.println("OnDragDroppedTeam");
-    }
-
-    @FXML
-    void OnDragEnteredSelected(DragEvent event) {
-    	System.out.println("OnDragEnteredSelected");
-    }
-
-    @FXML
-    void OnDragEnteredTeam(DragEvent event) {
-    	System.out.println("OnDragEnteredTeam");
-    }
-
-    @FXML
-    void OnDragExitedSelected(DragEvent event) {
-    	System.out.println("OnDragExitedSelected");
-    }
-
-    @FXML
-    void OnDragExitedTeam(DragEvent event) {
-    	System.out.println("OnDragExitedTeam");
-    }
-
-    @FXML
-    void OnDragOverSelected(DragEvent event) {
-    	System.out.println("OnDragOverSelected");    	
-    }
-
-    @FXML
-    void OnDragOverTeam(DragEvent event) {
-    	System.out.println("OnDragOverTeam");
-    }
-
-
-    @FXML
-    void OnMouseDragEnteredSelected(MouseDragEvent event) {
-    	System.out.println("OnMouseDragEnteredSelected");
-    }
-
-    @FXML
-    void OnMouseDragEnteredTeam(MouseDragEvent event) {
-    	System.out.println("OnMouseDragEnteredTeam");
-    }
-
-    @FXML
-    void OnMouseDragExitedSelected(MouseDragEvent event) {
-    	System.out.println("OnMouseDragExitedSelected");
-    }
-
-    @FXML
-    void OnMouseDragExitedTeam(MouseDragEvent event) {
-    	System.out.println("OnMouseDragExitedTeam");
-    }
-
+    
 }
