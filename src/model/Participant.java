@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
-public class Participant implements Serializable{
+public class Participant implements Serializable, IrvingMatchable{
 
 	private String specialNeeds;
 
@@ -77,7 +77,8 @@ public class Participant implements Serializable{
 		this.changedSinceExport = changedSinceExport;
 	}
 
-	public List<Restriction> getRestriction() {
+	@Override
+	public List<Restriction> getRestrictions() {
 		return restriction;
 	}
 
@@ -110,19 +111,19 @@ public class Participant implements Serializable{
 	}
 	
 	public static ArrayList<Restriction> getRestrictionIntersectionForParticipants(Participant participant1, Participant participant2){
-		ArrayList<Restriction> restrictionIntersection = Restriction.getIntersectionForRestrictions(participant1.getRestriction(), participant2.getRestriction());
+		ArrayList<Restriction> restrictionIntersection = Restriction.getIntersectionForRestrictions(participant1.getRestrictions(), participant2.getRestrictions());
 		return restrictionIntersection;
 	}
 	
 	public static ArrayList<Restriction> getRestrictionSymmetricDifferenceForParticipants(Participant participant1,
 			Participant participant2){
-		ArrayList<Restriction> symDiff = Restriction.getSymmetricDifferenceForRestrictions(participant1.getRestriction(), participant2.getRestriction());
+		ArrayList<Restriction> symDiff = Restriction.getSymmetricDifferenceForRestrictions(participant1.getRestrictions(), participant2.getRestrictions());
 		return symDiff;
 	}
 	
 	public static ArrayList<Restriction> getRestrictionUnionForParticipants(Participant participant1,
 			Participant participant2){
-		ArrayList<Restriction> union = Restriction.getUnionForRestrictions(participant1.getRestriction(), participant2.getRestriction());
+		ArrayList<Restriction> union = Restriction.getUnionForRestrictions(participant1.getRestrictions(), participant2.getRestrictions());
 		return union;
 	}
 

@@ -131,7 +131,7 @@ import model.Restriction;
 	    		Course courseWish = currentParticipant.getCourseWish();
 	    		CbWishCourse.setValue(courseWish.toString());
 	    		
-	    		List<Restriction> restrictions = currentParticipant.getRestriction();
+	    		List<Restriction> restrictions = currentParticipant.getRestrictions();
 	    		//LvRestrictions = (ListView) restrictions;
 	    		
 	    	}	

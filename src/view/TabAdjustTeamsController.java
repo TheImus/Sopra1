@@ -2,6 +2,7 @@ package view;
 
 import java.util.List;
 
+import controller.ConsistencyController;
 import controller.TeamController;
 import controller.WalkingDinnerController;
 import javafx.event.ActionEvent;
@@ -12,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseDragEvent;
@@ -22,6 +25,8 @@ import model.Participant;
 import model.Team;
 
 public class TabAdjustTeamsController {
+	
+	private ConsistencyController consistencyController; 
 	
 	private TeamController teamController;
 	
@@ -44,6 +49,9 @@ public class TabAdjustTeamsController {
 
     @FXML
     private Button BtnAddToTeam;
+    
+    @FXML
+    private TextArea TextWarnings;
 
     @FXML
     private Button BtnRemoveFromTeam;
@@ -92,7 +100,11 @@ public class TabAdjustTeamsController {
     
     @FXML
     void onBtnSetHosting(ActionEvent event) {
-
+    	Participant participant = ListSelectedTeams.getSelectionModel().getSelectedItem();
+    	if(participant!=null){
+        	teamController.setHost(selectedTeam, participant);    		
+    	}
+    	refresh();
     }
     
     
@@ -108,6 +120,7 @@ public class TabAdjustTeamsController {
     	if (walkingDinnerController == null) {
     		throw new NullPointerException();
     	}
+    	consistencyController = walkingDinnerController.getConsistencyController(); 
     	
     	// set cell factory for invited list
     	ListFreeParticipants.setCellFactory(view ->
@@ -211,6 +224,8 @@ public class TabAdjustTeamsController {
     		ListTeams.getSelectionModel().select(currentTeam);
     	}
     	
+    	List<Team> warningTeams = consistencyController.getInconsistentTeams();
+    	
     	ListTeams.setCellFactory(view ->
 		new ListCell<Team>() {
 			protected void updateItem(Team item, boolean empty) {
@@ -226,6 +241,9 @@ public class TabAdjustTeamsController {
 			        	}
 			        	res = res.substring(0, res.length()-2);
 			            setText(res);
+			        }
+			        if(warningTeams.contains(item)){
+			        	this.setStyle("-fx-background-color: #dede00;");
 			        }
 			    }
 			}
@@ -253,8 +271,13 @@ public class TabAdjustTeamsController {
     		List<Participant> selectedParts =  selectedTeam.getParticipants();
     		ListSelectedTeams.getItems().clear();
         	ListSelectedTeams.getItems().addAll(selectedParts);	
+        	String warning = "";
+        	for(String s: consistencyController.getWarnings(selectedTeam))
+        	{
+        		warning += s + "\n";
+        	}
+        	TextWarnings.setText(warning);
     	}  
-    	
     	
     }
 

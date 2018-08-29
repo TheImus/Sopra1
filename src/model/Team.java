@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Team implements Serializable{
+public class Team implements Serializable, IrvingMatchable{
 
 	private Participant host;
 
@@ -51,6 +51,7 @@ public class Team implements Serializable{
 		return members.size();
 	}
 	
+	@Override
 	public ArrayList<Restriction> getRestrictions(){
 		ArrayList<Restriction> restrictions = new ArrayList<Restriction>();
 		if(!members.isEmpty()){
@@ -58,12 +59,13 @@ public class Team implements Serializable{
 		}
 		else if(members.size()==2){
 			ArrayList<Restriction> subSet = Participant.getRestrictionUnionForParticipants(members.get(0), members.get(1));
-			restrictions.addAll(Restriction.getUnionForRestrictions(subSet, host.getRestriction()));
+			restrictions.addAll(Restriction.getUnionForRestrictions(subSet, host.getRestrictions()));
 		}
 		else if(host != null){
-			restrictions.addAll(host.getRestriction());
+			restrictions.addAll(host.getRestrictions());
 		}
 		return restrictions;
 	}
+
 
 }

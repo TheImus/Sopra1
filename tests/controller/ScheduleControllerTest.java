@@ -89,7 +89,7 @@ public class ScheduleControllerTest {
 			int vegetarian = 0;
 			int meat = 0;
 			for(Participant participant : participants){
-				for(Restriction restriction : participant.getRestriction()){
+				for(Restriction restriction : participant.getRestrictions()){
 					if(restriction.isPermanent()){
 						if(restriction.getName().equals("Vegan")){
 							vegan++;

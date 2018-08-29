@@ -347,5 +347,9 @@ public class WalkingDinnerController implements Serializable {
 	public void setErrorAUI(ErrorAUI errorAUI) {
 		this.errorAUI = errorAUI;
 	}
+	
+	public void newWalkingDinner(){
+		this.setWalkingDinner(new WalkingDinner());
+	}
 
 }

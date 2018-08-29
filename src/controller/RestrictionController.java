@@ -67,7 +67,7 @@ public class RestrictionController {
 	 */
 	public List<Restriction> getParticipantRestrictions() {
 		Participant currentParticipant = getCurrentEvent().getCurrentParticipant();
-		return currentParticipant.getRestriction();
+		return currentParticipant.getRestrictions();
 	}
 
 	/**
