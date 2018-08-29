@@ -1,5 +1,7 @@
 package model;
 import java.io.Serializable;
+
+import controller.ParticipantAction;
 public enum Course implements Serializable {
 	STARTER,
 	MAIN,

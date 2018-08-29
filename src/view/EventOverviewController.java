@@ -63,7 +63,8 @@ public class EventOverviewController {
     }
     
     public void refresh(){
-
+    	
+    	walkingDinnerController.getWalkingDinner().setCurrentEvent(null);
     	listEvent.setCellFactory(view ->
 		new ListCell<Event>() {
 			protected void updateItem(Event item, boolean empty) {
@@ -102,6 +103,7 @@ public class EventOverviewController {
     @FXML
     void onNewEvent(ActionEvent event){
     	try {
+    		walkingDinnerController.getWalkingDinner().setCurrentEvent(null);
 			GridPane root = new GridPane();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NewEventFromTemplate.fxml"));
 			root = loader.load();
@@ -120,6 +122,15 @@ public class EventOverviewController {
     
     @FXML
     void onSearchEventName(ActionEvent event){
+    	
+
+    	listEvent.getItems().clear();
+    	
+    	List<Event> list = walkingDinnerController.getWalkingDinner().getEvents();
+		for(Event ev:list){
+			if(ev.getName().contains(searchEvent.getText()))
+			listEvent.getItems().add(ev);
+		}	
     	
     }
     

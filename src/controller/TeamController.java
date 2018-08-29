@@ -71,22 +71,24 @@ public class TeamController {
 
 			if (team.getParticipants().size() == 1 || team.getParticipants().size() == 0) {
 				boolean find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
-				if(find) {
-					System.out.println("zu löschender participant in teilnehmerliste vorhanden");
-				}
+				
 				team.setHost(null);
 				team.setMembers(new ArrayList<Participant>());
 				removeTeam(team);
-				System.out.println("einer, anzahl participants in dem team:" + team.getParticipants().size());
+				deleteTeamFromEvent(team);
 				find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
-				if(find) {
-					System.out.println("zu löschender participant in teilnehmerliste vorhanden");
-				}
+				
 				
 			} 
 			else if (team.getHost().equals(participant)) {
-				team.setHost(team.getMembers().get(0));
+				/*team.setHost(team.getMembers().get(0));
 				List<Participant> list = team.getMembers();
+				list.remove(0);
+				team.setMembers(list);
+				*/
+				System.out.println("Host: " + participant.getPerson().getName());
+				List<Participant> list = team.getMembers();
+				team.setHost(team.getMembers().get(0));
 				list.remove(0);
 				team.setMembers(list);
 			}
@@ -146,6 +148,10 @@ public class TeamController {
 		}
 
 	}
+	
+	public void deleteTeamFromEvent(Team team){
+		walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams().remove(team);
+	}
 
 	/**
 	 * getter method for private attribute getWalkingDinnerController
@@ -177,23 +183,33 @@ public class TeamController {
 		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 		List<Participant> list = new ArrayList<>();
 		list.addAll(currentEvent.getParticipants());
-		Schedule currentSchedule = currentEvent.getSchedule();
-		Course[] courses = Course.values();
-		for(Course c:courses)
-		{
-			List<Group> groupList = currentSchedule.getGroup(c);
-			for(Group g:groupList)
+		for(Team t: walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams()){
+			List<Participant> partList = t.getParticipants();
+			for(Participant p:partList)
 			{
-				List<Participant> partList = g.getParticipants();
-				for(Participant p:partList)
+				if(list.contains(p))
 				{
-					if(list.contains(p))
-					{
-						list.remove(p);
-					}
+					list.remove(p);
 				}
 			}
-		}		
+		}
+//		Schedule currentSchedule = currentEvent.getSchedule();
+//		Course[] courses = Course.values();
+//		for(Course c:courses)
+//		{
+//			List<Group> groupList = currentSchedule.getGroup(c);
+//			for(Group g:groupList)
+//			{
+//				List<Participant> partList = g.getParticipants();
+//				for(Participant p:partList)
+//				{
+//					if(list.contains(p))
+//					{
+//						list.remove(p);
+//					}
+//				}
+//			}
+//		}		
 		return list;
 	}
 

@@ -1,65 +1,273 @@
 package view;
 
+import java.util.List;
+
 import controller.WalkingDinnerController;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.Group;
+import javafx.scene.shape.SVGPath;
+import model.Course;
+import model.Team;
 
+/**
+ * 
+ * @author Fabian Kemper
+ *
+ */
 public class TabGroupsController {
+	
+	private model.Group selectedGroup;
+	
+	private WalkingDinnerController walkingDinnerController;
 
     @FXML
-    private Button BtnGenerateTeams;
+    private ComboBox<Course> cbCourse;
 
     @FXML
-    private Button BtnSave;
+    private Button BtnSetAsCooking;
 
     @FXML
-    private Button BtnCancel;
+    private ListView<SelectedGroupTeam> ListSelectedGroup;
 
     @FXML
-    private Tab TabStarter;
-
-    @FXML
-    private Tab TabMain;
-
-    @FXML
-    private Tab TabDesert;
-
-    @FXML
-    private TextArea TextTeams;
-
-    @FXML
-    private TextArea TextFreeTeams;
-
-    @FXML
-    private TextArea TestHostTeams;
-
-    @FXML
-    private TextArea TextGuestTeam;
-
-    @FXML
-    private TextArea TextGuestTeam2;
+    private ListView<model.Group> ListGroups;
     
-    private WalkingDinnerController walkingDinnerController;
-    
-    public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
-		this.walkingDinnerController = walkingDinnerController;
-	}
-    
-    public WalkingDinnerController getWalkingDinnerController() {
-		return walkingDinnerController;
-	}
+    @FXML
+    private ListView<Team> ListFreeTeams;
 
     @FXML
-    void onGenerateTeams(ActionEvent event) {
+    private Button BtnAddTeamToGroup;
+
+    @FXML
+    private Button BtnRemoveTeamFromGroup;
+    
+    @FXML
+    private Button BtnCreateNewGroup;
+
+    @FXML
+    void onBtnAddTeamToGroup(ActionEvent event) {
 
     }
 
     @FXML
-    void onSave(ActionEvent event) {
+    void onBtnRemoveTeamFromGroup(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onBtnSetCooking(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void onBtnCreateNewGroup(ActionEvent event) {
+    	
+    }
+
+	public WalkingDinnerController getWalkingDinnerController() {
+		return walkingDinnerController;
+	}
+
+	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+	
+    /**
+     * Initializes TabGroups
+     */
+    public void init() {
+    	// Select course
+    	walkingDinnerController.getGroupController().setCourse(Course.STARTER);
+    	
+		// Group overview
+    	ListGroups.setCellFactory(cell -> new ListCell<model.Group>() {
+    		protected void updateItem(model.Group item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText("");
+		        } else {
+		        	Team hostingTeam = item.getHostTeam();
+		        	if (hostingTeam == null || hostingTeam.getHost() == null) {
+		        		setText(hostingTeam.getHost().getPerson().getName());
+		        	} else {
+		        		setText("(Kein Gastgeber)");
+		        	}
+		        }
+		    }
+    	});
+
+    	ListGroups.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<model.Group>() {
+    	    @Override
+    	    public void changed(ObservableValue<? extends model.Group> observable, model.Group oldValue, model.Group newValue) {
+    	        System.out.println("Selected group: " + newValue);
+    	        selectedGroup = newValue;
+    	        
+    	        refreshSelectedGroup();
+    	    }
+    	});
+    	
+    	ListSelectedGroup.setCellFactory(list -> {
+    		ListCell<SelectedGroupTeam> cell = new ListCell<SelectedGroupTeam>() {
+    			@Override
+    			protected void updateItem(SelectedGroupTeam item, boolean empty) {
+    				super.updateItem(item, empty);
+    				//setText(empty ? null : item);
+    			}
+    		};
+    		
+    		if (cell.getItem().isHost) {
+    			cell.setStyle("-fx-text-fill: red;");
+    		} 
+    		
+    		//BooleanBinding invalid = Bindings.createBooleanBinding(
+				//() -> it, 
+			//);
+    		
+    		return cell;
+    	});
+    	
+    	// Selected Group List
+    	/*ListSelectedGroup.setCellFactory(list -> {
+            // usual list cell:
+            ListCell<String> cell = new ListCell<String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(empty ? null : item);
+                }
+            };
+
+            BooleanBinding invalid = Bindings.createBooleanBinding(
+                    () -> errorList.contains(new Integer(cell.getIndex())), cell.indexProperty(), cell.itemProperty(),
+                    errorList);
+
+            invalid.addListener((obs, wasInvalid, isNowInvalid) -> {
+                if (isNowInvalid) {
+                    cell.setStyle("-fx-text-fill:red;");
+                } else {
+                    cell.setStyle("");
+                }
+            });
+
+            return cell;
+        });*/
+
+    	
+    	
+    	// Wonderful svg graphic in button ... it works!
+		SVGPath path1 = new SVGPath();
+		path1.setContent("M394.667,384H74.75c-5.885,0-10.656,4.771-10.667,10.656l-0.042,31.104c-0.01,11.635,4.51,22.573,12.729,30.802"
+			+	"c8.229,8.24,19.156,12.771,30.792,12.771h254.25c24,0,43.521-19.521,43.521-43.521v-31.146"
+			+	"C405.333,388.771,400.563,384,394.667,384z");
+		
+		SVGPath path2 = new SVGPath();
+		path2.setContent("M352,42.667c-6.531,0-13.24,0.656-20.344,1.979C307.25,16.187,272.271,0,234.667,0c-70.583,0-128,57.417-128,128"
+			+	"c0,5.885-4.781,10.667-10.667,10.667c-5.885,0-10.667-4.781-10.667-10.667c0-23.094,5.313-45.438,15.792-66.406"
+			+	"c1.865-3.729,1.385-8.198-1.219-11.448c-2.604-3.229-6.865-4.667-10.906-3.677C36.594,59.542,0,106.229,0,160"
+			+	"c0,44.333,25,84.635,64.25,104.562l-0.115,87.427c0,2.823,1.115,5.542,3.115,7.552c2.01,2,4.719,3.125,7.552,3.125h319.865"
+			+	"c5.896,0,10.667-4.771,10.667-10.667v-87.594c39.104-19.979,64-60.219,64-104.406C469.333,95.302,416.698,42.667,352,42.667z"
+			+	"M156.104,296.25c-1.99,1.625-4.385,2.417-6.76,2.417c-3.083,0-6.146-1.333-8.26-3.896c-3.521-4.302-34.417-42.76-34.417-70.771"
+			+	"c0-5.896,4.771-10.667,10.667-10.667c5.896,0,10.667,4.771,10.667,10.667c0,15.438,18.146,43.292,29.583,57.229"
+			+	"C161.312,285.792,160.656,292.51,156.104,296.25z M245.333,288c0,5.896-4.771,10.667-10.667,10.667S224,293.896,224,288v-64"
+			+	"c0-5.896,4.771-10.667,10.667-10.667s10.667,4.771,10.667,10.667V288z M328.25,294.771c-2.115,2.563-5.167,3.896-8.25,3.896"
+			+	"c-2.385,0-4.781-0.792-6.76-2.417c-4.552-3.74-5.219-10.458-1.49-15.01c11.438-13.969,29.583-41.854,29.583-57.24"
+			+	"c0-5.896,4.771-10.667,10.667-10.667c5.896,0,10.667,4.771,10.667,10.667C362.667,252.01,331.771,290.469,328.25,294.771z");
+		
+		Group svgGraphic = new javafx.scene.Group(path1, path2);
+		
+		Bounds bounds = svgGraphic.getBoundsInParent();
+		double scale = Math.min(20/bounds.getWidth(), 20 / bounds.getHeight());
+		svgGraphic.setScaleX(scale);
+		svgGraphic.setScaleY(scale);
+
+		BtnSetAsCooking.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+		BtnSetAsCooking.setGraphic(svgGraphic);
+		
+		refreshAll();
+    }
+    
+    /**
+     * Refresh all
+     */
+    private void refreshAll() {
+    	refreshGroupList();
+    	refreshSelectedGroup();
+    	refreshFreeTeams();
+    }
+    
+    /**
+     * Refreshes group list
+     */
+    private void refreshGroupList() {
+    	// fill groups list
+    	ListGroups.getItems().clear();
+    	List<model.Group> groups = walkingDinnerController.getGroupController().getGroups();
+    	if (groups == null) {
+    		System.out.println("WELCHER DULLY SCHMEISST NULL?");
+    	}
+    	ListGroups.getItems().addAll(groups);
+    }
+    
+    
+    private void refreshSelectedGroup() {
+    	ListSelectedGroup.getItems().clear();
+    	if (selectedGroup != null) {
+    		//List<Team> teams = walkingDinnerController.getGroupController().getHostingTeam(group)
+    		//ListSelectedGroup.getItems().addAll(c)
+    	}
+    }
+    
+    
+    private void refreshFreeTeams() {
+    	
+    }
+    
+    
+    /** 
+     * 
+     * @author Fabian Kemper
+     *
+     */
+    private class SelectedGroupTeam extends Team {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		private boolean isHost;
+    	private Team team;
+    	
+    	public boolean isHost() {
+			return isHost;
+		}
+
+		public void setHost(boolean isHost) {
+			this.isHost = isHost;
+		}
+
+		public Team getTeam() {
+			return team;
+		}
+
+		public void setTeam(Team team) {
+			this.team = team;
+		}
+    	
+    	public SelectedGroupTeam(Team team, boolean isHost) {
+    		this.isHost = isHost;
+    		this.team = team;
+    	}
     }
 
 }

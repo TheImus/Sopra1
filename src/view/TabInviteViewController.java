@@ -28,6 +28,11 @@ import javafx.stage.Stage;
 import model.Event;
 import model.Participant;
 
+/**
+ * 
+ * @author Fabian Kemper
+ *
+ */
 public class TabInviteViewController {
 
 	@FXML // ResourceBundle that was given to the FXMLLoader
@@ -138,7 +143,6 @@ public class TabInviteViewController {
     	});
     	TreePastEvents.setShowRoot(false);
     	TreePastEvents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    	
     	// draw
     	refresh();
     }

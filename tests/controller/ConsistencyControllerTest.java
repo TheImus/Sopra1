@@ -167,7 +167,7 @@ public class ConsistencyControllerTest {
 
 	/**
 	 * Test method for {@link controller.ConsistencyController#getInconsistentTeams()}.
-	 * check if the list is correct and not null (contains all teams with warnings)
+	 * check if the method gives all teams that have warnings
 	 */
 	@Test
 	public void testGetInconsistentTeams() {
@@ -185,23 +185,9 @@ public class ConsistencyControllerTest {
 
 	/**
 	 * Test method for {@link controller.ConsistencyController#getWarnings(model.Group)}.
-	 * check if the list is not empty/null and check if the warnings are correct
+	 * check if all warning cases are correct in the method GetWarningsGroup
 	 */
 	@Test
-	
-	/**
-	 * The method creates warning messages for each group, possible warnings:
-	 * 1. "Gruppe zu klein"
-	 * 2. "Gruppe zu groß"
-	 * 3. "kein Hostteam festgelegt"
-	 * 4. "keine Gastteams vorhanden"
-	 * 5. "Die Anzahl der Gastteams stimmt nicht"
-	 * 6. person.get(i) + " und" + person.get(j) + " kennen sich"
-	 * 7. "folgende Restriktionen könnten Problematisch sein:" + Restriction +  "bitte einmal überprüfen für folgende Gruppe:" + Gruppe
-	 * 8. TeamX "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
-	 * 9. TeamX "kommt in mehreren MAIN Gruppen vor, die andere Gruppe besteht aus: "
-	 * 10. TeamX "kommt in mehreren DESSERT Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
-	 */
 	public void testGetWarningsGroup() {
 		Group testGroup = new Group();
 		Team team1 = new Team();
@@ -258,8 +244,7 @@ public class ConsistencyControllerTest {
 		assertTrue(currentWarning.contains("Die Anzahl der Gastteams stimmt nicht"));
 		assertFalse(currentWarning.contains("kein Hostteam festgelegt"));
 		assertFalse(currentWarning.contains("keine Gastteams vorhanden"));
-		
-		//test case Schedule
+
 	}
 
 	/**
