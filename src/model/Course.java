@@ -6,7 +6,6 @@ public enum Course implements Serializable {
 	STARTER,
 	MAIN,
 	DESSERT;
-	
 	public String toString(){
 		if 		(this.equals(STARTER)){
 			return "Vorspeise";
