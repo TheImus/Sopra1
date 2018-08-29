@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 	import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -68,6 +69,12 @@ import model.Restriction;
 	    private ComboBox<String> CbSearchBox;
 
 	    @FXML
+	    private Button BtnEdit;
+	    
+	    @FXML
+	    private Button BtnDelete;
+	    
+	    @FXML
 	    private Button BtnCancel;
 	    
 	    @FXML
@@ -107,13 +114,15 @@ import model.Restriction;
 	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
 	    				super.updateItem(item, empty);
 	    				if (item != null) { 
-	    					setText(item.getText(item)); 
+	    					setText(item.getText()); 
 	    				} else {
 	    					setText("");
 	    				}
 	    				
 	    			}
 	    		});
+	    	
+	    	LvRestrictions.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 	    	
     		CheckBox alcohol = new CheckBox();
     		alcohol.setText("Kein Alkohol");
@@ -171,6 +180,64 @@ import model.Restriction;
 	   			e.printStackTrace();
 	   		}
 	    }
+	    
+	    @FXML
+	    void onEditRestriction(ActionEvent event) {
+	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    	List<Restriction> restrList = currentEvent.getRestriction();
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	List<Restriction> participantRestrictions = currentParticipant.getRestrictions();
+	    	
+	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
+	    	
+	    	String newName = EdRestriction.getText();
+	    	cb.setText(newName);
+	    	
+	    	EdRestriction.clear();
+	    	
+	    	for(Restriction restr : restrList) {
+	    		if(restr.getName().equals(cb.getText())) {
+	    			restr.setName(newName);
+	    		}
+	    	}
+	    	
+	    	for(Restriction restr : participantRestrictions) {
+	    		if(restr.getName().equals(cb.getText())) {
+	    			restr.setName(newName);
+	    		}
+	    	}
+	    	
+	    }
+	    
+	    @FXML
+	    void onDeleteRestriction(ActionEvent event) {
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
+	    	String restrName = cb.getText();
+
+	    	
+    		Restriction restr = new Restriction();
+    		
+    		if(!restr.isPermanent()) {
+    			
+	    		restr.setName(restrName);
+	    		currentParticipant.removeRestriction(restr);
+	    		LvRestrictions.getItems().remove(cb);
+	    		
+				deleteRestrictionFromEvent(restr);
+    		}
+
+	 
+	    }
+	    
+	    void deleteRestrictionFromEvent(Restriction restriction) {
+	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    	List<Restriction> restrList = currentEvent.getRestriction();
+
+	    	if(restrList.contains(restriction)) {
+	    		restrList.remove(restriction);
+	    	}
+	    }
 
 	    @FXML
 	    void OnCreateNewRestriction(ActionEvent event) {
@@ -196,6 +263,7 @@ import model.Restriction;
 			    	LvRestrictions.getItems().add(newRestriction);
 		    	}
 	    	}
+	    	EdRestriction.clear();
 	    }
 	    
 	    boolean checkIfRestrictionAlreadyExists(String name) {
