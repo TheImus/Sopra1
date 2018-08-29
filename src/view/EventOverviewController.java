@@ -89,6 +89,8 @@ public class EventOverviewController {
 		for(Event ev:list){
 			listEvent.getItems().add(ev);
 		}
+		BtnEdtiting.setDisable(true);
+    	BtnRemoveEvent.setDisable(true);
 		
     }
     
@@ -107,8 +109,7 @@ public class EventOverviewController {
 		}
     			);
     	refresh();
-    	BtnEdtiting.setDisable(true);
-    	BtnRemoveEvent.setDisable(true);
+    	
 
 
     }
