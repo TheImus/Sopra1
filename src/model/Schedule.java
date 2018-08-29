@@ -20,6 +20,19 @@ public class Schedule implements Serializable{
 		return courses.get(course);
 	}
 	
+	public Group getGroup(Participant participant, Course course) {
+		List<Group> courseGroups = getGroup(course);
+		for(Group group : courseGroups){
+			List<Participant> participants = group.getParticipants();
+			for(Participant testParticipant : participants){
+				if(testParticipant.equals(participant)){
+					return group;
+				}
+			}
+		}
+		return null;
+	}
+	
 	public void setGroup(Course course, List<Group> groups) {
 		this.courses.put(course, groups);
 	}

@@ -49,6 +49,18 @@ public class Event implements Serializable{
 		this.registrationDeadline = this.date.minusWeeks(1); // deadline one week before
 		this.participants = new ArrayList<Participant>();
 		this.restriction = new ArrayList<Restriction>();
+		Restriction vegan = new Restriction();
+		vegan.setName("Vegan");
+		vegan.setPermanent(true);
+		this.restriction.add(vegan);
+		Restriction vegetarian = new Restriction();
+		vegetarian.setName("Vegetarian");
+		vegetarian.setPermanent(true);
+		this.restriction.add(vegetarian);
+		Restriction noAlcohol = new Restriction();
+		noAlcohol.setName("noAlcohol");
+		noAlcohol.setPermanent(true);
+		this.restriction.add(noAlcohol);
 		this.schedule = new Schedule();
 		this.invited = new ArrayList<Participant>();
 		this.currentParticipant = null;
@@ -119,6 +131,31 @@ public class Event implements Serializable{
 
 	public List<Participant> getParticipants() {
 		return participants;
+	}
+	
+	public Participant getParticipantForPerson(Person person){
+		for(Participant participant : participants){
+			if(participant.getPerson().equals(person)){
+				return participant;
+			}
+		}
+		return null;
+	}
+	
+	public void addNewKnowingPersons(List<Person> personList, Participant participant){
+		Course[] courses = Course.values();
+		for(Course course : courses){
+			Group courseGroup = schedule.getGroup(participant, course);
+			if(courseGroup != null){
+				List<Participant> participantList = courseGroup.getParticipants();
+				for(Participant participantFromGroup : participantList){
+					Person actualPerson = participantFromGroup.getPerson();
+					if(!personList.contains(actualPerson)){
+						personList.add(actualPerson);
+					}
+				}
+			}
+		}
 	}
 
 	public void setParticipants(List<Participant> participants) {

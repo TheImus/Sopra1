@@ -2,9 +2,7 @@ package controller;
 
 import java.util.List;
 
-import model.Event;
-import model.Participant;
-import model.Restriction;
+import model.*;
 
 public class RestrictionController {
 	
@@ -46,15 +44,25 @@ public class RestrictionController {
 	 * @param participantRestrictions New List of restrictions for currentParticipant
 	 */
 	public void setParticipantRestrictions(List<Restriction> participantRestrictions) {
-		Participant currentParticipant = getCurrentEvent().getCurrentParticipant();
-		currentParticipant.setRestriction(participantRestrictions);
-		for(Restriction restriction : participantRestrictions){
-			restriction.addParticipant(currentParticipant);
+		Event currentEvent = getCurrentEvent();
+		Participant currentParticipant = currentEvent.getCurrentParticipant();
+		List<Restriction> restrictions = currentEvent.getRestriction();
+		for(Restriction restriction : restrictions){
+			if(participantRestrictions.contains(restriction)){
+				restriction.addParticipant(currentParticipant);
+			}
+			else{
+				restriction.removeParticipant(currentParticipant);
+				if(restriction.getParticipant().isEmpty()){
+					restrictions.remove(restriction);
+				}
+			}
 		}
+		currentEvent.setRestriction(restrictions);	
 	}
 
 	/**
-	 * Return a list of the restrictions of the currentParticipant
+	 * Returns a list of the restrictions of the currentParticipant
 	 * @return participantRestrictions The list of restrictions of the currentParticipant
 	 */
 	public List<Restriction> getParticipantRestrictions() {
