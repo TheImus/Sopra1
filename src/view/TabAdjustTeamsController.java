@@ -117,6 +117,7 @@ public class TabAdjustTeamsController {
 	}
     
     public void init() {
+    	System.out.println("Init Groups before");
     	if (walkingDinnerController == null) {
     		throw new NullPointerException();
     	}
@@ -208,6 +209,7 @@ public class TabAdjustTeamsController {
 		BtnSetHosting.setTooltip(new Tooltip("Als Gastgeber setzen"));
 		
     	refresh();
+    	System.out.println("finish init groups");
     }
     
     public void refresh() {

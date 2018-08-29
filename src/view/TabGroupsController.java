@@ -67,7 +67,11 @@ public class TabGroupsController {
     
     @FXML
     void onBtnAddTeamToGroup(ActionEvent event) {
-
+    	Team selectedTeam = ListFreeTeams.getSelectionModel().getSelectedItem();
+    	if (selectedTeam != null && selectedGroup != null) {
+    		walkingDinnerController.getGroupController().addTeamToGroup(selectedTeam, selectedGroup);
+    		refreshAll();
+    	}
     }
 
     @FXML
@@ -84,19 +88,23 @@ public class TabGroupsController {
 
     @FXML
     void onBtnSetCooking(ActionEvent event) {
-    	SelectedGroupTeam selected = ListSelectedGroup.getSelectionModel().getSelectedItem();
-
-    	ListSelectedGroup.getItems().clear();
-    	List<SelectedGroupTeam> teams = addFromGroup(this.selectedGroup);
-    	ListSelectedGroup.getItems().addAll(teams);
+    	SelectedGroupTeam selectedTeam = ListSelectedGroup.getSelectionModel().getSelectedItem();
     	
-    	ListSelectedGroup.getSelectionModel().select(selected);
+    	// swap the selected team with host
+    	if (selectedTeam != null && selectedGroup != null && selectedTeam.getTeam() != null) {
+    		Team team = selectedTeam.getTeam();
+    		walkingDinnerController.getGroupController().setHostingTeam(selectedGroup, team);
+    		refreshSelectedGroupList();
+    	}
     }
     
     @FXML
     void onBtnCreateNewGroup(ActionEvent event) {
-    	
-    	refreshAll();
+    	Team selectedTeam = ListFreeTeams.getSelectionModel().getSelectedItem();
+    	if (selectedTeam != null) {
+    		walkingDinnerController.getGroupController().createNewGroup(selectedTeam);
+        	refreshAll();
+    	}
     }
     
     @FXML
@@ -204,7 +212,7 @@ public class TabGroupsController {
     	    @Override
     	    public void changed(ObservableValue<? extends model.Group> observable, model.Group oldValue, model.Group newValue) {
     	        selectedGroup = newValue;
-    	        refreshSelectedGroup();
+    	        refreshSelectedGroupList();
     	        refreshWarnings();
     	    }
     	});
@@ -228,10 +236,10 @@ public class TabGroupsController {
     						}
     					}
     					
-    					if (item.isHost) {
+    					/*if (item.isHost) {
         					//this.setStyle("-fx-text-fill: red;");
-    						this.setStyle("-fx-background-color: #dede00;");
-    					}
+    						//this.setStyle("-fx-background-color: #dede00;");
+    					}*/
     				} else {
     					setText("");
     				}
@@ -309,7 +317,7 @@ public class TabGroupsController {
      */
     private void refreshAll() {
     	refreshGroupList();
-    	refreshSelectedGroup();
+    	refreshSelectedGroupList();
     	refreshFreeTeams();
     	refreshWarnings();
     }
@@ -319,7 +327,7 @@ public class TabGroupsController {
      */
     private void refreshGroupList() {
     	// Save selected group and the id
-    	int selectionIndex = ListGroups.getSelectionModel().getSelectedIndex();
+    	//int selectionIndex = ListGroups.getSelectionModel().getSelectedIndex();
     	model.Group selectedGroup = ListGroups.getSelectionModel().getSelectedItem();
     	
     	// fill groups list
@@ -334,7 +342,7 @@ public class TabGroupsController {
     	// reset selected group, if group empty
     	if (this.selectedGroup != null && selectedGroup.getTeams() != null && selectedGroup.getTeams().size() == 0) {
     		this.selectedGroup = null;
-    		refreshSelectedGroup();
+    		refreshSelectedGroupList();
     		refreshWarnings();
     	} else {
     		ListGroups.getSelectionModel().select(selectedGroup);
@@ -342,7 +350,7 @@ public class TabGroupsController {
     }
     
     
-    private void refreshSelectedGroup() {
+    private void refreshSelectedGroupList() {
     	ListSelectedGroup.getItems().clear();
     	List<SelectedGroupTeam> teams = addFromGroup(this.selectedGroup);
     	ListSelectedGroup.getItems().addAll(teams);
@@ -413,6 +421,12 @@ public class TabGroupsController {
     	}
     }
     
+    /** 
+     * Generate a List of teams for team controller
+     * 
+     * @param group
+     * @return
+     */
     public List<SelectedGroupTeam> addFromGroup(model.Group group) {
 		List<SelectedGroupTeam> result = new ArrayList<SelectedGroupTeam>();
 		
