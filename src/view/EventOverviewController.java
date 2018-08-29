@@ -57,6 +57,8 @@ public class EventOverviewController {
     
     private WalkingDinnerController walkingDinnerController;
     
+
+    
     public WalkingDinnerController getWalkingDinnerController() {
 		return walkingDinnerController;
 	}
@@ -105,6 +107,7 @@ public class EventOverviewController {
     }
     
     public void init(){
+    	listEvent.getItems().clear();
     	listEvent.setCellFactory(view ->
 		new ListCell<Event>() {
 			protected void updateItem(Event item, boolean empty) {
@@ -204,7 +207,10 @@ public class EventOverviewController {
             		filename += ".wdf";
             	}
             	
-            	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), filename);
+            	//walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), filename);
+            	
+            	walkingDinnerController.newWalkingDinner();
+            	walkingDinnerController.getWalkingDinner().setFileName(filename);
             	
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -216,21 +222,68 @@ public class EventOverviewController {
 
     @FXML
     void onMenuOpenFile(ActionEvent event) {
+    	
+    	FileChooser fileChooser = new FileChooser();
+    	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(),walkingDinnerController.getWalkingDinner().getFileName());
+    	File file = fileChooser.showOpenDialog(null);
 
+    	walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel(file.getPath()));
+    	walkingDinnerController.getWalkingDinner().setFileName(file.getPath());
+    	
+    	init();
+            	
+    
     }
+    
+    
 
     @FXML
     void onMenuQuit(ActionEvent event) {
-
+    	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(),walkingDinnerController.getWalkingDinner().getFileName());
+    	System.exit(0);
     }
 
     @FXML
     void onMenuSaveFile(ActionEvent event) {
+    	
+    	if(walkingDinnerController.getWalkingDinner().getFileName().equals(""))
+    		onMenuSaveFileAs(event);
+    	else
+    	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), walkingDinnerController.getWalkingDinner().getFileName());
 
     }
 
     @FXML
     void onMenuSaveFileAs(ActionEvent event) {
+    	
+
+    	FileChooser fileChooser = new FileChooser();
+        
+        //Set extension filter
+        //FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF-Dateien (*.pdf)", "*.pdf");
+        //fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialFileName("walkingDinner.wdf");
+        fileChooser.setTitle("Walking Dinner speichern");
+        
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(null);
+        
+        if (file != null) {
+            try {
+            	String filename = file.getAbsolutePath();
+            	if (!file.getName().endsWith("wdf")) {
+            		filename += ".wdf";
+            	}
+            	
+            	walkingDinnerController.getWalkingDinner().setFileName(filename);
+            	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), walkingDinnerController.getWalkingDinner().getFileName());
+            	
+            	
+            	
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
     }
 
