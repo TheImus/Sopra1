@@ -232,10 +232,10 @@ public class ConsistencyController {
 		List<Restriction> notMatchingRestrictions = new ArrayList<Restriction>();				//create list to save all restrictions that don't match
 	   
 		for(Participant part : participants) {													//iterate through the list for every participant
-			List<Restriction> rest = part.getRestriction();										//get all restrictions for the actual participant
+			List<Restriction> rest = part.getRestrictions();										//get all restrictions for the actual participant
 			
 			for(Participant others : participants) {											//iterate again for comparison
-				List<Restriction> restOfOthers = others.getRestriction();						//get all restrictions for the other participant
+				List<Restriction> restOfOthers = others.getRestrictions();						//get all restrictions for the other participant
 				
 				if(!part.equals(others)) {														//make sure the participants are not the same
 					for(Restriction compareRestriction : restOfOthers) {						//check if any restrictions of the participant and other participant match

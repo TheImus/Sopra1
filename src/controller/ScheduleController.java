@@ -212,7 +212,7 @@ public class ScheduleController {
 		//minimum search for team with least SymmetricDifference of Restrictions
 		for(Team team:teams){
 			if(team.getSize()==2){
-				int amountOfSymDiff = Restriction.getSymmetricDifferenceForRestrictions(team.getRestrictions(), participant.getRestriction()).size();
+				int amountOfSymDiff = Restriction.getSymmetricDifferenceForRestrictions(team.getRestrictions(), participant.getRestrictions()).size();
 				if(amountOfSymDiff < minimum){
 					minimum = amountOfSymDiff;
 					indexOfFittingTeam = teams.indexOf(team);
