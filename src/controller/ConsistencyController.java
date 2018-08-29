@@ -63,7 +63,8 @@ public class ConsistencyController {
 		Map<Person,List<Person>> knownPersons = schedule.generateKnowingRelations();
 		
 	    warnings.addAll(TeamSizeWarnings(team));														//add all warnings with size issues
-		for(int i = 0; i < team.getMembers().size(); i++){												// make all members to Persons and save them in a list
+		
+	    for(int i = 0; i < team.getMembers().size(); i++){												// make all members to Persons and save them in a list
 			membersAsPerson.add(members.get(i).getPerson());
 		}
 		
@@ -145,7 +146,9 @@ public class ConsistencyController {
 		List<String> warnings = new ArrayList<String>();								//return List with all warnings
 		List<Participant> allParticipantsInGroup = new ArrayList<Participant>();		//List with all participants in the group
 		List<Person> allPersonsInGroup = new ArrayList<Person>();						//List with all Persons in the group
-
+		GroupController gc = walkingDinnerController.getGroupController();
+		gc.setCourse(Course.STARTER);
+		
 		for(int i = 0; i<group.getTeams().size(); i++) {								//saves all participants in the group
 			allParticipantsInGroup.addAll(group.getTeams().get(i).getMembers());
 		}
@@ -169,11 +172,12 @@ public class ConsistencyController {
 					"bitte einmal überprüfen für folgende Gruppe:" + allParticipantsInGroup.toString());
 		}	
 	    
-	    warnings.addAll(checkGroupCoursesStarter(group));								//checks if any team in the group has another group with the same course (Starter) already
-	    warnings.addAll(checkGroupCoursesMain(group));									//checks if any team in the group has another group with the same course (Main) already
-	    warnings.addAll(checkGroupCoursesDessert(group));								//checks if any team in the group has another group with the same course (Dessert) already
+	    warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Starter) already
+	    gc.setCourse(Course.MAIN);
+	    warnings.addAll(checkGroupCourses(group));									//checks if any team in the group has another group with the same course (Main) already
+	    gc.setCourse(Course.DESSERT);
+	    warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Dessert) already
 		
-	    
 		return warnings;
 	}
 
@@ -249,15 +253,14 @@ public class ConsistencyController {
 	}
 	
 	/**
-	 * help method
+	 * help method to get the warnings of a group in a course
 	 * @param group
-	 * @return
+	 * @return warnings list of warnings
 	 */
-	private List<String> checkGroupCoursesStarter(Group group)
+	private List<String> checkGroupCourses(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
 		GroupController gc = walkingDinnerController.getGroupController();
-		gc.setCourse(Course.STARTER);
 	
 		for(int i = 0; i< gc.getGroups().size(); i++){
 			if(!gc.getGroups().get(i).equals(group)){
@@ -269,53 +272,6 @@ public class ConsistencyController {
 			}
 			
 		}			
-		return warnings;
-	}
-	
-	/**
-	 * help method
-	 * @param group
-	 * @return
-	 */
-	private List<String> checkGroupCoursesMain(Group group)
-	{
-		List<String> warnings = new ArrayList<String>();
-		GroupController gc = walkingDinnerController.getGroupController();
-		gc.setCourse(Course.MAIN);
-		
-		for(int i = 0; i< gc.getGroups().size(); i++){
-			if(!gc.getGroups().get(i).equals(group)){
-				for(int j = 0; j < group.getTeams().size();j++){
-					if(gc.getGroups().get(i).getTeams().contains(group.getTeams().get(j))){
-						warnings.add(group.getTeams().get(j) + "kommt in mehreren MAIN Gruppen vor, die andere Gruppe besteht aus: " + gc.getGroups().get(i).getTeams());	
-					}
-				}
-			}
-			
-		}
-		return warnings;
-	}
-	
-	/**
-	 * help method
-	 * @param group
-	 * @return
-	 */
-	private List<String> checkGroupCoursesDessert(Group group)
-	{
-		List<String> warnings = new ArrayList<String>();
-		GroupController gc = walkingDinnerController.getGroupController();
-		gc.setCourse(Course.DESSERT);
-
-		for(int i = 0; i< gc.getGroups().size(); i++){
-			if(!gc.getGroups().get(i).equals(group)){
-				for(int j = 0; j < group.getTeams().size();j++){
-					if(gc.getGroups().get(i).getTeams().contains(group.getTeams().get(j))){
-						warnings.add(group.getTeams().get(j) + "kommt in mehreren DESSERT Gruppen vor, die andere Gruppe besteht aus: " + gc.getGroups().get(i).getTeams());	
-					}
-				}
-			}	
-		}
 		return warnings;
 	}
 	
