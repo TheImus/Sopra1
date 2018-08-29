@@ -16,6 +16,9 @@ import model.WalkingDinner;
 
 public class ConsistencyController {
 	
+	private final int zero = 0;
+	private final int one = 1;
+	private final int three = 3;
 
 	private WalkingDinnerController walkingDinnerController;
 	
@@ -282,10 +285,8 @@ public class ConsistencyController {
 	 */
 	private List<String> GroupSizeWarnings(Group group)
 	{
-		List<String> warnings = new ArrayList<String>();
 		int groupSize = group.getTeams().size();
-		final int three = 3;
-		
+		List<String> warnings = new ArrayList<String>();
 		
 		if(groupSize < three){												//checks if group size is below 3
 			warnings.add("Gruppe zu klein");
@@ -319,15 +320,15 @@ public class ConsistencyController {
 	{
 		List<String> warnings = new ArrayList<String>();
 		
-		if(team.getMembers().size() == 0) {												// check teamsize and save warning in list if the size is not correct
+		if(team.getMembers().size() == zero) {												// check teamsize and save warning in list if the size is not correct
 			warnings.add("Das Team ist leer und kann gelöscht werden");
 		}
 		
-		if(team.getMembers().size() == 1) {												
+		if(team.getMembers().size() == one) {												
 			warnings.add("In dem Team befindet sich nur eine Person");
 		}
 		
-		if(team.getMembers().size() > 3) {
+		if(team.getMembers().size() > three) {
 			warnings.add("Teamgröße ist größer als 3");
 		}
 		return warnings;
