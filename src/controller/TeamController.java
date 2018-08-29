@@ -235,5 +235,14 @@ public class TeamController {
 		
 		return list;
 	}
+	
+	public void setHost(Team team, Participant participant){
+		if(team.getMembers().contains(participant))
+		{
+			team.getMembers().add(team.getHost());
+			team.setHost(participant);
+			team.getMembers().remove(participant);
+		}
+	}
 
 }
