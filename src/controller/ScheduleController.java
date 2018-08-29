@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import model.*;
 
@@ -31,7 +32,44 @@ public class ScheduleController {
 	 * @return Returns a valid Group-Schedule for a course with reference to the knowing-Relation and therefore other courses
 	 */
 	public ArrayList<Group> generateGroups() {
+		//Get all restrictions
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		ArrayList<IrvingMatchable> teams = new ArrayList<IrvingMatchable>();
+		teams.addAll(currentEvent.getAllTeams());
+		assert(teams.size()%3 == 0);	
+		Map<Person, List<Person>> knowingMap = generateKnowingRelations();
+		List<Restriction> restrictionsWithoutKnowing = currentEvent.getRestriction();
+		List<Restriction> restrictions = generateRestrictionsFromMap(knowingMap);
+		restrictions.addAll(restrictionsWithoutKnowing);
+		currentEvent.setRestriction(restrictions);
+		HashMap<IrvingMatchable, IrvingMatchable> groupMap = irvingAlgorithmus(teams);
+		ArrayList<Group> groups = generateGroupsFromMap(groupMap, teams);
+		currentEvent.setRestriction(restrictionsWithoutKnowing);
+		return groups;
+	}
+
+	private List<Restriction> generateRestrictionsFromMap(Map<Person, List<Person>> knowingMap) {
+		// TODO Auto-generated method stub
 		return null;
+	}
+
+	private ArrayList<Group> generateGroupsFromMap(HashMap<IrvingMatchable, IrvingMatchable> groupMap,
+			ArrayList<IrvingMatchable> teams) {
+		ArrayList<Group> groups = new ArrayList<Group>();
+		int targetGroupAmount = teams.size()/3;
+		ListIterator<IrvingMatchable> teamIterator = teams.listIterator();
+		while(teamIterator.hasNext()){
+			IrvingMatchable team = teamIterator.next();
+		}/**
+		for(IrvingMatchable team:teams){
+			IrvingMatchable guest = groupMap.get(team);
+			Group group = new Group();
+			group.setHostTeam((Team)team);
+			ArrayList<Team> guests = new ArrayList<Team>();
+			guests.add((Team)guest);
+			group.setGuest(guests);
+		}*/
+		return groups;
 	}
 
 	/**
@@ -103,15 +141,18 @@ public class ScheduleController {
 			if(otherTeams.size()>=1){
 			Team toResize = otherTeams.get(0);
 			leftParticipants.addAll(toResize.getParticipants());
+			teams.remove(toResize);
 			}
 			else if(vegetarianTeams.size()>=1){
 				Team toResize = vegetarianTeams.get(0);
 				leftParticipants.addAll(toResize.getParticipants());
+				teams.remove(toResize);
 			}
 			else{
 				assert(veganTeams.size()>1);
 				Team toResize = veganTeams.get(0);
 				leftParticipants.addAll(toResize.getParticipants());
+				teams.remove(toResize);
 			}
 		}
 		//Case, that there are two team too much
@@ -121,27 +162,32 @@ public class ScheduleController {
 			if(otherTeams.size()>=2){
 				Team toResize = otherTeams.get(0);
 				leftParticipants.addAll(toResize.getParticipants());
+				teams.remove(toResize);
 				toResize = otherTeams.get(1);
 				leftParticipants.addAll(toResize.getParticipants());
+				teams.remove(toResize);
 				}
 				else if(vegetarianTeams.size()>=2){
 					Team toResize = vegetarianTeams.get(0);
 					leftParticipants.addAll(toResize.getParticipants());
+					teams.remove(toResize);
 					toResize = vegetarianTeams.get(1);
 					leftParticipants.addAll(toResize.getParticipants());
+					teams.remove(toResize);
 				}
 				else{
 					assert(veganTeams.size()>2);
 					Team toResize = veganTeams.get(0);
 					leftParticipants.addAll(toResize.getParticipants());
+					teams.remove(toResize);
 					toResize = veganTeams.get(1);
 					leftParticipants.addAll(toResize.getParticipants());
+					teams.remove(toResize);
 				}
 		}
 		//Resize all teams with the left participants
 		teams = resizeTeams(teams, leftParticipants);
-		currentEvent.setAllTeams(teams);
-		
+		currentEvent.setAllTeams(teams);		
 		return teams;
 	}
 
@@ -198,6 +244,7 @@ public class ScheduleController {
 		for(Participant participant:leftParticipants){
 			teams = insertParticipantInFittingTeam(teams, participant);
 		}
+		assert(teams.size()%3==0);
 		return teams;
 	}
 	
@@ -253,14 +300,18 @@ public class ScheduleController {
 	 */
 	private ArrayList<Team> generateTeamsFromMap(HashMap<IrvingMatchable, IrvingMatchable> participantMap, ArrayList<IrvingMatchable> participants){
 		ArrayList<Team> teams = new ArrayList<Team>();
+		ArrayList<Participant> alreadyScheduled = new ArrayList<Participant>();
 		for(IrvingMatchable participant:participants){
-			IrvingMatchable partner = participantMap.get(participant);
-			Team team = new Team();
-			team.setHost((Participant)participant);
-			ArrayList<Participant> members = new ArrayList<Participant>();
-			members.add((Participant)partner);
-			team.setMembers(members);
-			teams.add(team);
+			if(!alreadyScheduled.contains(participant)){
+				IrvingMatchable partner = participantMap.get(participant);
+				Team team = new Team();
+				team.setHost((Participant)participant);
+				ArrayList<Participant> members = new ArrayList<Participant>();
+				members.add((Participant)partner);
+				team.setMembers(members);
+				teams.add(team);
+				alreadyScheduled.add((Participant)partner);
+			}
 		}
 		return teams;
 	}
@@ -270,7 +321,7 @@ public class ScheduleController {
 	 * @param participants
 	 * @return irvingArray
 	 */
-	private Integer[][] generateIrvingArray(ArrayList<IrvingMatchable> entities){
+	private Integer[][] generateIrvingArray(List<IrvingMatchable> entities){
 		//Generates an Array for Irving-Algorithm
 		if(!entities.isEmpty()){
 			int n = entities.size();
@@ -341,7 +392,7 @@ public class ScheduleController {
 	 * @param participants
 	 * @return HashMap - which describes teams
 	 */
-	private HashMap<IrvingMatchable, IrvingMatchable> irvingAlgorithmus(ArrayList<IrvingMatchable> entities){
+	private HashMap<IrvingMatchable, IrvingMatchable> irvingAlgorithmus(List<IrvingMatchable> entities){
 		Integer[][] irvingArray = generateIrvingArray(entities);
 		ArrayList<ArrayList<Integer>> entityLists = irvingArrayToLists(irvingArray);
 		//Phase1 of Irving-Algorithm
