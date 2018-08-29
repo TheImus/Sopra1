@@ -51,6 +51,7 @@ public class Team implements Serializable, IrvingMatchable{
 		return members.size();
 	}
 	
+	@Override
 	public ArrayList<Restriction> getRestrictions(){
 		ArrayList<Restriction> restrictions = new ArrayList<Restriction>();
 		if(!members.isEmpty()){
@@ -66,10 +67,5 @@ public class Team implements Serializable, IrvingMatchable{
 		return restrictions;
 	}
 
-	@Override
-	public ArrayList<Restriction> getRestrictionSymmetricDifference(IrvingMatchable entity1, IrvingMatchable entity2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

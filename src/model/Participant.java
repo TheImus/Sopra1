@@ -77,6 +77,7 @@ public class Participant implements Serializable, IrvingMatchable{
 		this.changedSinceExport = changedSinceExport;
 	}
 
+	@Override
 	public List<Restriction> getRestrictions() {
 		return restriction;
 	}
@@ -124,12 +125,6 @@ public class Participant implements Serializable, IrvingMatchable{
 			Participant participant2){
 		ArrayList<Restriction> union = Restriction.getUnionForRestrictions(participant1.getRestrictions(), participant2.getRestrictions());
 		return union;
-	}
-
-	@Override
-	public ArrayList<Restriction> getRestrictionSymmetricDifference(IrvingMatchable participant1, IrvingMatchable participant2) {
-		ArrayList<Restriction> symDiff = Restriction.getSymmetricDifferenceForRestrictions(participant1.getRestrictions(), participant2.getRestrictions());
-		return symDiff;
 	}
 
 }
