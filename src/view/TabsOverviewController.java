@@ -125,9 +125,7 @@ public class TabsOverviewController {
 
     
     @FXML
-    void onCloseTabsOverview(ActionEvent event) {
-    	WalkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), "beispielprojekt");
-    	
+    void onCloseTabsOverview(ActionEvent event) {    	
     	try {
 			BorderPane root = new BorderPane();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EventOverview.fxml"));
