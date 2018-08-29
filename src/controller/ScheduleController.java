@@ -149,6 +149,13 @@ public class ScheduleController {
 	 * @return Returns a Map which relates each Participant (as Person) to all Persons he has met in WalkingDinners
 	 */
 	public Map<Person, List<Person>> generateKnowingRelations() {
+		HashMap<Person, List<Person>> knowingMap = new HashMap<Person, List<Person>>();
+		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
+		List<Person> personList = walkingDinner.getPersons();
+		List<Event> eventList = walkingDinner.getEvents();
+		for(Person person:personList){
+			
+		}
 		return null;
 	}
 
@@ -362,13 +369,15 @@ public class ScheduleController {
 			Integer participant1 = participantLists.indexOf(participantList);
 			assert(participantList.size() == 1);
 			Integer participant2 = participantList.get(0);
-			if(participants.size() < participant2){
+			if(participants.size() <= participant2){
 				teamMemberIndexMap.put(participants.get((int)participant1), participants.get((int)participant1));
 			}
-			if(participants.size() < participant1){
+			else if(participants.size() <= participant1){
 				teamMemberIndexMap.put(participants.get((int)participant2), participants.get((int)participant2));
 			}
-			teamMemberIndexMap.put(participants.get((int)participant1), participants.get((int)participant2));
+			else{
+				teamMemberIndexMap.put(participants.get((int)participant1), participants.get((int)participant2));
+			}
 		}
 		return teamMemberIndexMap;
 	}
