@@ -19,10 +19,12 @@ public class Restriction implements Serializable{
 	}
 
 	public void removeParticipant(Participant oldParticipant) {
+		oldParticipant.removeRestriction(this);
 		participant.remove(oldParticipant);
 	}
 
 	public void addParticipant(Participant newParticipant) {
+		newParticipant.addRestriction(this);
 		participant.add(newParticipant);
 
 	}
