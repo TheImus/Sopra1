@@ -119,7 +119,9 @@ public class TestDataFactory {
 		}
 		event.setAllTeams(teams);
 		event.setParticipants(part);
-		event.setInvited(part);
+		List<Participant> copyPart=new ArrayList<>();
+		copyPart.addAll(part);
+		event.setInvited(copyPart);
 		
 		return event;
 	}
