@@ -164,6 +164,7 @@ public class ScheduleController {
 			knowingMap.put(person, knowingList);
 		}
 		return knowingMap;
+		
 	}
 
 	/**
