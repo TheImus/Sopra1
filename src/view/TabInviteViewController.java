@@ -64,12 +64,6 @@ public class TabInviteViewController {
 
     @FXML // fx:id="BtnSavePDF"
     private Button BtnSavePDF; // Value injected by FXMLLoader
-
-    @FXML // fx:id="BtnDispose"
-    private Button BtnDispose; // Value injected by FXMLLoader
-
-    @FXML // fx:id="BtnSave"
-    private Button BtnSave; // Value injected by FXMLLoader
     
     private WalkingDinnerController walkingDinnerController;
     
@@ -160,11 +154,6 @@ public class TabInviteViewController {
     }
 
     @FXML
-    void onDispose(ActionEvent event) {
-    	refresh();
-    }
-
-    @FXML
     void onEMailToClipboard(ActionEvent event) {
     	ObservableList<Participant> selectedParticipants = ListInvited.getSelectionModel().getSelectedItems();
     	String eMails = getWalkingDinnerController().getInvitationController().getEmailList(selectedParticipants);
@@ -214,12 +203,6 @@ public class TabInviteViewController {
     }
 
     @FXML
-    void onSave(ActionEvent event) {
-    	// TODO: ... ein allgemeines Speichen wäre deutlich sinnvoller
-    	WalkingDinnerController.saveModel(getWalkingDinnerController().getWalkingDinner(), "");
-    }
-
-    @FXML
     void onUninvite(ActionEvent event) {
     	ObservableList<Participant> uninviteParticipants = ListInvited.getSelectionModel().getSelectedItems();
     	getWalkingDinnerController().getInvitationController().uninvite(uninviteParticipants);
@@ -235,8 +218,6 @@ public class TabInviteViewController {
         assert BtnCopyAddress != null : "fx:id=\"BtnCopyAddress\" was not injected: check your FXML file 'TabInvite.fxml'.";
         assert BtnCopyEmail != null : "fx:id=\"BtnCopyEmail\" was not injected: check your FXML file 'TabInvite.fxml'.";
         assert BtnSavePDF != null : "fx:id=\"BtnSavePDF\" was not injected: check your FXML file 'TabInvite.fxml'.";
-        assert BtnDispose != null : "fx:id=\"BtnDispose\" was not injected: check your FXML file 'TabInvite.fxml'.";
-        assert BtnSave != null : "fx:id=\"BtnSave\" was not injected: check your FXML file 'TabInvite.fxml'.";
     }
 
     
