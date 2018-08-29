@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import controller.WalkingDinnerController;
+
 import java.io.Serializable;
 public class Event implements Serializable{
 
@@ -174,11 +177,8 @@ public class Event implements Serializable{
 	}
 	
 	public Team getTeam(Participant part){
-		Group group = getGroup(part);
-		if(group==null){
-			return null;
-		}
-		for(Team t:group.getTeams()){
+		
+		for(Team t:allTeams){
 			if(t.getParticipants().contains(part)){	
 				return t;
 			}

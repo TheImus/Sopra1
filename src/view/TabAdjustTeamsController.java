@@ -50,17 +50,23 @@ public class TabAdjustTeamsController {
 
     @FXML
     void OnBtnAddToTeam(ActionEvent event) {
-    	Participant selected = ListFreeParticipants.getSelectionModel().getSelectedItem();
-    	Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
-    	teamController.addParticipantToTeam(selectedTeam, selected);
-    	refresh();
+    	if(selectedTeam.getParticipants().size()>0){
+    		Participant selected = ListFreeParticipants.getSelectionModel().getSelectedItem();
+    		if(selected!=null){
+    			Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
+    			teamController.addParticipantToTeam(selectedTeam, selected);
+    			refresh();
+    		}
+    	}
     }
 
     @FXML
     void OnBtnRemoveFromTeam(ActionEvent event) {
     	Participant selected = ListSelectedTeams.getSelectionModel().getSelectedItem();
     	//Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
-    	teamController.removeParticipantFromTeam(selectedTeam, selected);
+    	if(selected!=null){
+    		teamController.removeParticipantFromTeam(selectedTeam, selected);
+    	}	
     	refresh();
     }	
     
@@ -68,7 +74,8 @@ public class TabAdjustTeamsController {
     void onNewTeam(ActionEvent event) {
     	Participant forNewTeam = ListFreeParticipants.getSelectionModel().getSelectedItem();
     	if(forNewTeam!=null){
-    		teamController.createNewTeam(forNewTeam);
+    		Team newTeam = teamController.createNewTeam(forNewTeam);
+    		System.out.println(newTeam.getHost().getPerson().getName());
     	}
     	refresh();
     }
@@ -96,11 +103,7 @@ public class TabAdjustTeamsController {
 			        if (empty || item == null) {
 			            setText("");
 			        } else {
-			        	String res = item.getPerson().getName();
-			        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item)!=null)
-			        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item).getHost().equals(item)){
-			        		res += " (host) ";
-			        	}
+			        	String res = item.getPerson().getName();			        	
 			            setText(res);
 			        }
 			    }
@@ -114,8 +117,10 @@ public class TabAdjustTeamsController {
 		            setText("");
 		        } else {
 		        	String res = item.getPerson().getName();
-		        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item).getHost().equals(item)){
-		        		res += " (host) ";
+		        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item)!=null){
+		        		if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item).getHost().equals(item)){
+		        			res += " (host) ";
+		        		}
 		        	}
 		            setText(res);
 		        }
@@ -148,39 +153,16 @@ public class TabAdjustTeamsController {
     	List<Participant> partList = teamController.getFreeParticipants();
     	ListFreeParticipants.getItems().clear();
     	ListFreeParticipants.getItems().addAll(partList);
-//    	for(Participant p: partList) {
-//    		if(!ListFreeParticipants.getItems().contains(p))
-//    		{
-//    			ListFreeParticipants.getItems().add(p);
-//    		}
-//    	}
-//    	for(Participant p:ListFreeParticipants.getItems()){
-//    		if(!partList.contains(p)){
-//    			ListFreeParticipants.getItems().remove(p);
-//    		}
-//    	}
-    	
     	
     	List<Team> teamList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams();
-    	//ListTeams.getItems().remove(0, ListTeams.getItems().size());
-    	//ListTeams.getItems().addAll(teamList);
+    	
     	Team currentTeam = ListTeams.getSelectionModel().getSelectedItem();
     	ListTeams.getItems().clear();
     	ListTeams.getItems().addAll(teamList);
     	if (currentTeam != null) {
     		ListTeams.getSelectionModel().select(currentTeam);
     	}
-    	/*for(Team t: teamList) {
-    		if(!ListTeams.getItems().contains(t))
-    		{
-    			ListTeams.getItems().add(t);
-    		} 
-    	}
-    	for(Team t: ListTeams.getItems()){
-    		if(!teamList.contains(t)){
-    			ListTeams.getItems().remove(t);
-    		}
-    	}*/
+    	
     	ListTeams.setCellFactory(view ->
 		new ListCell<Team>() {
 			protected void updateItem(Team item, boolean empty) {
@@ -190,28 +172,50 @@ public class TabAdjustTeamsController {
 			        } else {
 			        	String res = "";
 			        	for(Participant p:item.getParticipants()) {
+			        		if(p!=null){
 			        		res += p.getPerson().getName();
-			        		res += " - ";
+			        		res += " - "; }
 			        	}
 			        	res = res.substring(0, res.length()-2);
 			            setText(res);
 			        }
 			    }
 			}
-		);    	
+		);  
+    	
+    	ListSelectedTeams.setCellFactory(view ->
+		new ListCell<Participant>() {
+			protected void updateItem(Participant item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText("");
+		        } else {
+		        	String res = item.getPerson().getName();
+		        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item)!=null){
+		        		if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item).getHost().equals(item)){
+		        			res += " (host) ";
+		        		}
+		        	}
+		            setText(res);
+		        }
+		    }
+		});
     	selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
     	if(selectedTeam!=null) {
     		List<Participant> selectedParts =  selectedTeam.getParticipants();
-    		ListSelectedTeams.getItems().remove(0, ListSelectedTeams.getItems().size());
+    		ListSelectedTeams.getItems().clear();
         	ListSelectedTeams.getItems().addAll(selectedParts);	
-    	}    	
+    	}  
+    	
+    	
     }
 
     
 
     @FXML
     void onGenerateTeams(ActionEvent event) {
-    	
+    	walkingDinnerController.getScheduleController().generateTeams();
+    	refresh();
     }
 
     
