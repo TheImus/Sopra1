@@ -7,15 +7,14 @@ public enum Course implements Serializable {
 	MAIN,
 	DESSERT;
 	
-	public String getText(Course course){
-		if(course.equals(STARTER)){
+	public String toString(){
+		if 		(this.equals(STARTER)){
 			return "Vorspeise";
+		}else if(this.equals(MAIN)){
+			return "Hauptgang";
+		}else if(this.equals(DESSERT)){
+			return "Nachspeise";
 		}
-		if(course.equals(MAIN)){
-			return "Hautpgang";
-		}
-		else{
-			return "Nachtisch";
-		}
+		return "Unbekannter Gang";
 	}
 }
