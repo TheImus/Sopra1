@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.WalkingDinnerController;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -64,7 +62,15 @@ public class TabGroupsController {
 
     @FXML
     void onBtnRemoveTeamFromGroup(ActionEvent event) {
-
+    	SelectedGroupTeam selectedTeam = ListSelectedGroup.getSelectionModel().getSelectedItem();
+    	if (selectedTeam != null && selectedGroup != null) {
+    		Team team = selectedTeam.getTeam();
+    		walkingDinnerController.getGroupController().removeTeamFromGroup(team, selectedGroup);
+    		
+    		// refresh
+    		refreshFreeTeams();
+    		refreshSelectedGroup();
+    	}
     }
 
     @FXML
@@ -158,7 +164,17 @@ public class TabGroupsController {
     		return cell;
     	});
 
-    	
+    	// Free Teams
+    	ListFreeTeams.setCellFactory(list -> new ListCell<Team>() {
+    		protected void updateItem(Team item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText("");
+		        } else {
+		        	setText("NOT IMPLEMENTED");
+		        }
+		    }
+    	});
     	
     	// Wonderful svg graphic in button ... it works!
 		SVGPath path1 = new SVGPath();
@@ -227,11 +243,15 @@ public class TabGroupsController {
     
     
     private void refreshFreeTeams() {
-    	
+    	ListFreeTeams.getItems().clear();
+    	List<Team> teams = walkingDinnerController.getTeamController().getFreeTeams();
+    	ListFreeTeams.getItems().addAll(teams);
     }
     
     
     /** 
+     * Helper class to distinguish between 
+     * hosting team and guest team in groups
      * 
      * @author Fabian Kemper
      *
