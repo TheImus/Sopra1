@@ -63,7 +63,8 @@ public class EventOverviewController {
     }
     
     public void refresh(){
-
+    	
+    	walkingDinnerController.getWalkingDinner().setCurrentEvent(null);
     	listEvent.setCellFactory(view ->
 		new ListCell<Event>() {
 			protected void updateItem(Event item, boolean empty) {
