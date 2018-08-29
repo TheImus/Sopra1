@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="GridPaneAdjustParticipant" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdjustParticipantController">
+<GridPane fx:id="GridPaneAdjustParticipant" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdjustParticipantController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -99,6 +99,8 @@
         <buttons>
             <TextField fx:id="EdRestriction" />
           <Button fx:id="BtnNewRestriction" mnemonicParsing="false" onAction="#OnCreateNewRestriction" text="Neue Einschränkung" />
+            <Button fx:id="BtnEdit" mnemonicParsing="false" onAction="#onEditRestriction" text="Bearbeiten" />
+            <Button fx:id="BtnDelete" mnemonicParsing="false" onAction="#onDeleteRestriction" text="Löschen" />
         </buttons>
       </ButtonBar>
       <ListView fx:id="LvRestrictions" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
