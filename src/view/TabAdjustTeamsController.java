@@ -19,6 +19,8 @@ import model.Team;
 public class TabAdjustTeamsController {
 	
 	private TeamController teamController;
+	
+	private Team selectedTeam;
 
     @FXML
     private GridPane MainPane;
@@ -36,10 +38,37 @@ public class TabAdjustTeamsController {
     private ListView<Participant> ListSelectedTeams;
 
     @FXML
-    private Button BtnDiscard;
+    private Button BtnAddToTeam;
 
     @FXML
-    private Button BtnSave;
+    private Button BtnRemoveFromTeam;
+
+    @FXML
+    private Button BtnNewTeam;
+
+    @FXML
+    void OnBtnAddToTeam(ActionEvent event) {
+    	Participant selected = ListFreeParticipants.getSelectionModel().getSelectedItem();
+    	Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
+    	teamController.addParticipantToTeam(selectedTeam, selected);
+    	refresh();
+    }
+
+    @FXML
+    void OnBtnRemoveFromTeam(ActionEvent event) {
+    	Participant selected = ListSelectedTeams.getSelectionModel().getSelectedItem();
+    	//Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
+    	teamController.removeParticipantFromTeam(selectedTeam, selected);
+    	System.out.println("leute in team: " + selectedTeam.getParticipants().size());
+    	System.out.println("anzahl Teilnehmer nach loeschen: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().size());
+    	System.out.println("anzahl freie Teilnehmer nach loeschen: " + walkingDinnerController.getTeamController().getFreeParticipants().size());
+    	refresh();
+    }	
+    
+    @FXML
+    void onNewTeam(ActionEvent event) {
+
+    }
     
     private WalkingDinnerController walkingDinnerController;
     
@@ -110,30 +139,69 @@ public class TabAdjustTeamsController {
     			ListFreeParticipants.getItems().add(p);
     		}
     	}
+    	for(Participant p:ListFreeParticipants.getItems()){
+    		if(!partList.contains(p)){
+    			ListFreeParticipants.getItems().remove(p);
+    		}
+    	}
+    	
+    	
+    	System.out.println("anzahl teams in event: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams().size());
+    	
     	List<Team> teamList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams();
+    	//ListTeams.getItems().remove(0, ListTeams.getItems().size());
+    	//ListTeams.getItems().addAll(teamList);
+    	Team currentTeam = ListTeams.getSelectionModel().getSelectedItem();
+    	ListTeams.getItems().clear();
     	ListTeams.getItems().addAll(teamList);
-    	Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
+    	if (currentTeam != null) {
+    		ListTeams.getSelectionModel().select(currentTeam);
+    	}
+    	/*for(Team t: teamList) {
+    		if(!ListTeams.getItems().contains(t))
+    		{
+    			ListTeams.getItems().add(t);
+    		} 
+    	}
+    	for(Team t: ListTeams.getItems()){
+    		if(!teamList.contains(t)){
+    			ListTeams.getItems().remove(t);
+    		}
+    	}*/
+    	ListTeams.setCellFactory(view ->
+		new ListCell<Team>() {
+			protected void updateItem(Team item, boolean empty) {
+			        super.updateItem(item, empty);
+			        if (empty || item == null) {
+			            setText("");
+			        } else {
+			        	String res = "";
+			        	for(Participant p:item.getParticipants()) {
+			        		res += p.getPerson().getName();
+			        		res += " - ";
+			        	}
+			            setText(res);
+			        }
+			    }
+			}
+		);    	
+    	selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
     	if(selectedTeam!=null) {
     		List<Participant> selectedParts =  selectedTeam.getParticipants();
     		ListSelectedTeams.getItems().remove(0, ListSelectedTeams.getItems().size());
         	ListSelectedTeams.getItems().addAll(selectedParts);	
-    	}
+        	System.out.println("host: " + selectedTeam.getHost().getPerson().getName());
+    	}    	
     }
 
-    @FXML
-    void onDiscard(ActionEvent event) {
-
-    }
+    
 
     @FXML
     void onGenerateTeams(ActionEvent event) {
     	
     }
 
-    @FXML
-    void onSave(ActionEvent event) {
-
-    }
+    
     
     @FXML
     void OnMouseClickedinListTeam(MouseEvent event) {
