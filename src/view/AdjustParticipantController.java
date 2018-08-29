@@ -211,13 +211,28 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onDeleteRestriction(ActionEvent event) {
+	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    	List<Restriction> restrList = currentEvent.getRestriction();
+
 	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
 	    	String restrName = cb.getText();
 
-	    	
-    		Restriction restr = new Restriction();
     		
+    		for(Restriction restr : restrList) {
+    			if (restr.getName().equals(restrName)) {
+    				
+    	    		restr.setName(restrName);
+    	    		currentParticipant.removeRestriction(restr);
+    	    		LvRestrictions.getItems().remove(cb);
+    	    		
+    				//deleteRestrictionFromEvent(restr);
+    	    		
+    	    		restrList.remove(restr);
+    			}
+    		}
+    		
+    		/*
     		if(!restr.isPermanent()) {
     			
 	    		restr.setName(restrName);
@@ -225,11 +240,12 @@ import model.Restriction;
 	    		LvRestrictions.getItems().remove(cb);
 	    		
 				deleteRestrictionFromEvent(restr);
-    		}
+    		}*/
 
 	 
 	    }
 	    
+	    /*
 	    void deleteRestrictionFromEvent(Restriction restriction) {
 	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	    	List<Restriction> restrList = currentEvent.getRestriction();
@@ -237,7 +253,7 @@ import model.Restriction;
 	    	if(restrList.contains(restriction)) {
 	    		restrList.remove(restriction);
 	    	}
-	    }
+	    }*/
 
 	    @FXML
 	    void OnCreateNewRestriction(ActionEvent event) {
