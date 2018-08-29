@@ -20,6 +20,7 @@ import javafx.scene.Group;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
 import model.Course;
+import model.Participant;
 import model.Team;
 
 /**
@@ -77,8 +78,7 @@ public class TabGroupsController {
     		walkingDinnerController.getGroupController().removeTeamFromGroup(team, selectedGroup);
     		
     		// refresh
-    		refreshFreeTeams();
-    		refreshSelectedGroup();
+    		refreshAll();
     	}
     }
 
@@ -96,6 +96,7 @@ public class TabGroupsController {
     @FXML
     void onBtnCreateNewGroup(ActionEvent event) {
     	
+    	refreshAll();
     }
     
     @FXML
@@ -150,15 +151,26 @@ public class TabGroupsController {
 		            setText("");
 		        } else {
 		        	Team hostingTeam = item.getHostTeam();
-		        	if (hostingTeam == null || hostingTeam.getHost() == null) {
-		        		setText(hostingTeam.getHost().getPerson().getName());
+		        	if (hostingTeam != null) {
+		        		setText(hostingTeam.getHost().getPerson().getName() + "'s Gruppe");
+		        		/*String desc = "";
+		        		List<Participant> participants = hostingTeam.getParticipants();
+		        		for (int i = 0; i < participants.size(); i++) {
+		        			desc += participants.get(i).getPerson().getName();
+		        			if (i != participants.size() - 1) {
+		        				desc += " - ";
+		        			}
+		        		}
+		        		setText(desc);*/
+		        		
 		        		// check consistency
 		        		if (walkingDinnerController.getConsistencyController().getWarnings(item).size() > 0) {
-		        			this.setStyle("-fx-background-color: #dede00;");
+		        			setStyle("-fx-background-color: #dede00;");
 		        		}
-		        		this.setStyle("-fx-background-color: #dede00;");
+		        		
 		        	} else {
 		        		setText("(Kein Gastgeber)");
+		        		this.setStyle("-fx-background-color: #dede00;");
 		        	}
 		        }
 		    }
@@ -187,9 +199,9 @@ public class TabGroupsController {
     					
     					if (team != null) {
     						if (item.isHost) {
-    							setText(team.getHost().getPerson().getName() + " (Gastgeber)");
+    							setText(team.getHost().getPerson().getName() + "'s Team (Gastgeber)");
     						} else {
-    							setText(team.getHost().getPerson().getName());
+    							setText(team.getHost().getPerson().getName() + "'s Team (Gast)");
     						}
     					}
     					
@@ -213,7 +225,22 @@ public class TabGroupsController {
 		        if (empty || item == null) {
 		            setText("");
 		        } else {
-		        	setText("NOT IMPLEMENTED");
+		        	// host first, then members
+		        	String desc = "";
+		        	Participant host = item.getHost();
+		        	List<Participant> members = item.getMembers();
+		        	
+		        	if (host != null) {
+		        		desc += host.getPerson().getName();
+		        	} else {
+		        		desc += "NULL";
+		        	}
+		        	
+		        	for (Participant member : members) {
+		        		desc += " - " + member.getPerson().getName();
+		        	}
+		        	
+		        	setText(desc);
 		        }
 		    }
     	});
@@ -268,13 +295,28 @@ public class TabGroupsController {
      * Refreshes group list
      */
     private void refreshGroupList() {
+    	// Save selected group and the id
+    	int selectionIndex = ListGroups.getSelectionModel().getSelectedIndex();
+    	model.Group selectedGroup = ListGroups.getSelectionModel().getSelectedItem();
+    	
     	// fill groups list
+    	System.out.println("Clear Group");
     	ListGroups.getItems().clear();
     	List<model.Group> groups = walkingDinnerController.getGroupController().getGroups();
     	if (groups == null) {
     		System.out.println("WELCHER DULLY SCHMEISST NULL?");
     	}
     	ListGroups.getItems().addAll(groups);
+    	
+    	// reset selected group, if group empty
+    	/*
+    	if (this.selectedGroup != null && selectedGroup.getTeams() != null && selectedGroup.getTeams().size() == 0) {
+    		this.selectedGroup = null;
+    		refreshSelectedGroup();
+    		refreshWarnings();
+    	} else {
+    		//ListGroups.getSelectionModel().select(selectedGroup);
+    	}*/
     }
     
     
@@ -296,7 +338,6 @@ public class TabGroupsController {
     	TextWarninungs.clear();
     	
     	if (selectedGroup != null) {
-    		System.out.println("Clear warnings");
     		List<String> warnings = walkingDinnerController.getConsistencyController().getWarnings(selectedGroup);
     		
     		String warningText = "";
