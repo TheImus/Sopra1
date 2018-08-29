@@ -17,7 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Event;
 import model.Participant;
-
+import javafx.scene.control.MenuItem;
 public class EventOverviewController {
 
 	@FXML
@@ -28,12 +28,30 @@ public class EventOverviewController {
 
     @FXML
     private Button BtnEdtiting;
+    
+    @FXML
+    private Button BtnRemoveEvent;
 
     @FXML
     private ListView<Event> listEvent;
 
     @FXML
     private TextField searchEvent;
+    
+    @FXML
+    private MenuItem MenuNewFile;
+
+    @FXML
+    private MenuItem MenuOpenFile;
+
+    @FXML
+    private MenuItem MenuSaveFile;
+
+    @FXML
+    private MenuItem MenuSaveFileAs;
+
+    @FXML
+    private MenuItem MenuQuit;
     
     private WalkingDinnerController walkingDinnerController;
     
@@ -154,6 +172,37 @@ public class EventOverviewController {
  			e.printStackTrace();
  		}
     }
+    
+    @FXML
+    void onMenuNewFile(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onMenuOpenFile(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onMenuQuit(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onMenuSaveFile(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onMenuSaveFileAs(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onRemoveEvent(ActionEvent event) {
+
+    }
+
     
 
 }
