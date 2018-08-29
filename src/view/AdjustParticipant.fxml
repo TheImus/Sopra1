@@ -3,14 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -49,7 +47,6 @@
             <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Suche" translateX="-8.0" GridPane.halignment="RIGHT" />
             <Label text="Name" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <Label text="Geburtstag" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <Label text="Straße" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
@@ -74,7 +71,6 @@
             </HBox>
             <TextField fx:id="EdAddressExtra" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="CbWishCourse" onMouseClicked="#OnWishCourseClicked" prefWidth="200.0" promptText="Gang" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox fx:id="CbSearchBox" editable="true" onMouseClicked="#OnSearchBoxClicked" prefHeight="26.0" prefWidth="203.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <ButtonBar maxHeight="55.0" minHeight="55.0" prefHeight="55.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -83,17 +79,6 @@
             <ComboBox fx:id="CbAction" onAction="#OnParticipantActionSelected" onMouseClicked="#OnParticipantAction" prefWidth="150.0" promptText="Weiter" />
         </buttons>
       </ButtonBar>
-      <ScrollPane fx:id="SpRestrictionList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-        <content>
-          <AnchorPane>
-               <children>
-                  <CheckBox fx:id="CheckBoxNoAlkohol" layoutX="5.0" layoutY="5.0" mnemonicParsing="false" onAction="#OnNoAlkoholSelected" text="Kein Alkohol" />
-                  <CheckBox fx:id="CheckBoxVegetarian" layoutX="5.0" layoutY="35.0" mnemonicParsing="false" onAction="#OnVegetarianSelected" text="Vegetarisch" />
-                  <CheckBox fx:id="CheckBoxVegan" layoutX="5.0" layoutY="65.0" mnemonicParsing="false" onAction="#OnVeganSelected" text="Vegan" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
       <Label text="Einschränkungen" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets bottom="5.0" top="10.0" />
@@ -116,5 +101,6 @@
           <Button fx:id="BtnNewRestriction" mnemonicParsing="false" onAction="#OnCreateNewRestriction" text="Neue Einschränkung" />
         </buttons>
       </ButtonBar>
+      <ListView fx:id="LvRestrictions" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
 </GridPane>
