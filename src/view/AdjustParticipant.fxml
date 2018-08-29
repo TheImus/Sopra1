@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="GridPaneAdjustParticipant" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdjustParticipantController">
+<GridPane fx:id="GridPaneAdjustParticipant" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdjustParticipantController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -64,7 +64,7 @@
                </GridPane.margin>
             </TextArea>
             <TextField fx:id="EdName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="EdStreet" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
                   <TextField fx:id="EdZipCode" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" translateY="2.0" />
@@ -74,7 +74,7 @@
             </HBox>
             <TextField fx:id="EdAddressExtra" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="CbWishCourse" onMouseClicked="#OnWishCourseClicked" prefWidth="200.0" promptText="Gang" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox fx:id="CbSearchBox" editable="true" onMouseClicked="#OnSearchBoxClicked" prefHeight="26.0" prefWidth="203.0" promptText="Lupe" GridPane.columnIndex="1" />
+            <ComboBox fx:id="CbSearchBox" editable="true" onMouseClicked="#OnSearchBoxClicked" prefHeight="26.0" prefWidth="203.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <ButtonBar maxHeight="55.0" minHeight="55.0" prefHeight="55.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -83,7 +83,7 @@
             <ComboBox fx:id="CbAction" onAction="#OnParticipantActionSelected" onMouseClicked="#OnParticipantAction" prefWidth="150.0" promptText="Weiter" />
         </buttons>
       </ButtonBar>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <ScrollPane fx:id="SpRestrictionList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <content>
           <AnchorPane>
                <children>
@@ -112,7 +112,8 @@
       </Label>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
         <buttons>
-          <Button fx:id="BtnNewRestriction" mnemonicParsing="false" onAction="#OnCreateNewRestriction" text="Neu" />
+            <TextField fx:id="EdRestriction" />
+          <Button fx:id="BtnNewRestriction" mnemonicParsing="false" onAction="#OnCreateNewRestriction" text="Neue Einschränkung" />
         </buttons>
       </ButtonBar>
    </children>
