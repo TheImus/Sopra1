@@ -123,6 +123,8 @@ public class EventOverviewController {
 		}
     			);
     	refresh();
+    	BtnEdtiting.setDisable(true);
+    	BtnRemoveEvent.setDisable(true);
 
 
     }
@@ -295,11 +297,28 @@ public class EventOverviewController {
     @FXML
     void onMouseClick(MouseEvent event) {
     	Event currentEvent = listEvent.getSelectionModel().getSelectedItem();
+    	System.out.println("hallo");
     	if(currentEvent != null)
     		BtnEdtiting.setDisable(false);
     	else
     		BtnEdtiting.setDisable(true);
 
+    }
+    
+    @FXML
+    void onMouseClicked(MouseEvent event){
+    	Event currentEvent = listEvent.getSelectionModel().getSelectedItem();
+    	System.out.println("hallo");
+    	if(currentEvent != null){
+    		BtnEdtiting.setDisable(false);
+    		BtnRemoveEvent.setDisable(false);
+    		}
+    	else{
+    		BtnEdtiting.setDisable(true);
+    		BtnRemoveEvent.setDisable(true);
+    	}
+    		
+    	
     }
 
   

@@ -25,7 +25,7 @@
             </ButtonBar>
          </bottom>
          <center>
-            <ListView fx:id="listEvent" blendMode="DARKEN" prefHeight="320.0" prefWidth="494.0" BorderPane.alignment="CENTER" />
+            <ListView fx:id="listEvent" blendMode="DARKEN" onMouseClicked="#onMouseClicked" prefHeight="320.0" prefWidth="494.0" BorderPane.alignment="CENTER" />
          </center>
          <left>
             <Pane prefWidth="15.0" BorderPane.alignment="CENTER" />
