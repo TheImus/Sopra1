@@ -45,6 +45,10 @@ public class Schedule implements Serializable{
 		return currentCourse;
 	}
 	
+	public EnumMap<Course, List<Group>> getCourses(){
+		return courses;
+	}
+	
 	public Course getCourseToCook(Participant participantInHostGroup)
 	{
 		for(Course course : Course.values()){
@@ -58,16 +62,16 @@ public class Schedule implements Serializable{
 		return null;
 	}
 	
-	public List<Address> getAddresses(Participant participant)
+	public List<String> getAddresses(Participant participant)
 	{
-		List<Address> result = new ArrayList<>();
+		List<String> result = new ArrayList<>();
 		for(Course course : Course.values()){
 			List<Group> groups = courses.get(course);
 			for(Group group : groups){
 				for(Team teams : group.getGuest()){
 					for(Participant part : teams.getMembers()){
 						if(part == participant){
-							result.add(group.getHostTeam().getHost().getAddress());
+							result.add(group.getHostTeam().getHost().getAddress().toString() + " für " + course.toString());
 						}
 					}
 				}

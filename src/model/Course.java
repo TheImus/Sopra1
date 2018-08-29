@@ -8,12 +8,12 @@ public enum Course implements Serializable {
 	DESSERT;
 	public String toString(){
 		if 		(this.equals(STARTER)){
-			return "Starter";
+			return "Vorspeise";
 		}else if(this.equals(MAIN)){
-			return "Main";
+			return "Hauptgang";
 		}else if(this.equals(DESSERT)){
-			return "Dessert";
+			return "Nachspeise";
 		}
-		return "Unknown Course";
+		return "Unbekannter Gang";
 	}
 }
