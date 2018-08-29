@@ -154,9 +154,16 @@ public class ScheduleController {
 		List<Person> personList = walkingDinner.getPersons();
 		List<Event> eventList = walkingDinner.getEvents();
 		for(Person person:personList){
-			
+			ArrayList<Person> knowingList = new ArrayList<Person>();
+			for(Event event:eventList){
+				Participant participant = event.getParticipantForPerson(person);
+				if(participant != null){
+					event.addNewKnowingPersons(knowingList, participant);
+				}
+			}
+			knowingMap.put(person, knowingList);
 		}
-		return null;
+		return knowingMap;
 	}
 
 	/**

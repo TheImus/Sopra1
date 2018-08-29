@@ -129,6 +129,31 @@ public class Event implements Serializable{
 	public List<Participant> getParticipants() {
 		return participants;
 	}
+	
+	public Participant getParticipantForPerson(Person person){
+		for(Participant participant : participants){
+			if(participant.getPerson().equals(person)){
+				return participant;
+			}
+		}
+		return null;
+	}
+	
+	public void addNewKnowingPersons(List<Person> personList, Participant participant){
+		Course[] courses = Course.values();
+		for(Course course : courses){
+			Group courseGroup = schedule.getGroup(participant, course);
+			if(courseGroup != null){
+				List<Participant> participantList = courseGroup.getParticipants();
+				for(Participant participantFromGroup : participantList){
+					Person actualPerson = participantFromGroup.getPerson();
+					if(!personList.contains(actualPerson)){
+						personList.add(actualPerson);
+					}
+				}
+			}
+		}
+	}
 
 	public void setParticipants(List<Participant> participants) {
 		this.participants = participants;
