@@ -56,20 +56,48 @@ public class ScheduleController {
 	private ArrayList<Group> generateGroupsFromMap(HashMap<IrvingMatchable, IrvingMatchable> groupMap,
 			ArrayList<IrvingMatchable> teams) {
 		ArrayList<Group> groups = new ArrayList<Group>();
-		int targetGroupAmount = teams.size()/3;
-		ListIterator<IrvingMatchable> teamIterator = teams.listIterator();
-		while(teamIterator.hasNext()){
-			IrvingMatchable team = teamIterator.next();
-		}/**
+		//int targetGroupAmount = teams.size()/3;
+		ArrayList<IrvingMatchable> alreadyScheduled = new ArrayList<IrvingMatchable>();
+		IrvingMatchable toSchedule = null;
 		for(IrvingMatchable team:teams){
-			IrvingMatchable guest = groupMap.get(team);
-			Group group = new Group();
-			group.setHostTeam((Team)team);
-			ArrayList<Team> guests = new ArrayList<Team>();
-			guests.add((Team)guest);
-			group.setGuest(guests);
-		}*/
+			if(!alreadyScheduled.contains(team)){
+				IrvingMatchable guest = groupMap.get(team);
+				Group group = new Group();
+				group.setHostTeam((Team)team);
+				ArrayList<Team> guests = new ArrayList<Team>();
+				guests.add((Team)guest);
+				alreadyScheduled.add(guest);
+				if(toSchedule != null){
+					guest = toSchedule;
+					toSchedule = null;
+				}
+				else{
+					guest = findMatchingTeamIn(teams, team);
+					toSchedule = groupMap.get(guest);
+				}
+				guests.add((Team)guest);
+				alreadyScheduled.add(guest);
+				alreadyScheduled.add(team);
+				group.setGuest(guests);
+			}
+		}
 		return groups;
+	}
+
+	private IrvingMatchable findMatchingTeamIn(ArrayList<IrvingMatchable> teams, IrvingMatchable team) {
+		int indexOfFittingTeam = 0;
+		int minimum = Integer.MAX_VALUE;
+		//minimum search for team with least SymmetricDifference of Restrictions
+		for(IrvingMatchable testTeam:teams){
+			int amountOfSymDiff = Restriction.getSymmetricDifferenceForRestrictions(testTeam.getRestrictions(), team.getRestrictions()).size();
+			if(amountOfSymDiff < minimum){
+				minimum = amountOfSymDiff;
+				indexOfFittingTeam = teams.indexOf(testTeam);
+			}
+		}
+		//get the fitting team
+		IrvingMatchable fittingTeam = teams.get(indexOfFittingTeam);
+		return fittingTeam;
 	}
 
 	/**
