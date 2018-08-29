@@ -145,6 +145,11 @@ public class InvitationController {
 				// create new participant for this event 
 				participantController.newParticipantForEvent(participant);
 				currentEvent.getInvited().add(participant); // new participant
+				
+				// TODO: Test, THIS SHOULD NEVER HAPPEN
+				if (currentEvent.getParticipants().contains(participant)) {
+					System.out.println("Invite a participant, who is already participating");
+				}
 			}
 		}
 	}

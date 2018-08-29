@@ -65,6 +65,10 @@ public class TabGroupsController {
     @FXML
     private TextArea TextWarninungs;
     
+    /**
+     * Add the selected group of FreeTeams to the current selected Group
+     * @param event
+     */
     @FXML
     void onBtnAddTeamToGroup(ActionEvent event) {
     	Team selectedTeam = ListFreeTeams.getSelectionModel().getSelectedItem();
@@ -73,7 +77,11 @@ public class TabGroupsController {
     		refreshAll();
     	}
     }
-
+    
+    /**
+     * Removes the selected Group from the selected group  
+     * @param event
+     */
     @FXML
     void onBtnRemoveTeamFromGroup(ActionEvent event) {
     	SelectedGroupTeam selectedTeam = ListSelectedGroup.getSelectionModel().getSelectedItem();
@@ -86,6 +94,10 @@ public class TabGroupsController {
     	}
     }
 
+    /**
+     * Set the selected Team to be the host of the course
+     * @param event
+     */
     @FXML
     void onBtnSetCooking(ActionEvent event) {
     	SelectedGroupTeam selectedTeam = ListSelectedGroup.getSelectionModel().getSelectedItem();
@@ -98,6 +110,10 @@ public class TabGroupsController {
     	}
     }
     
+    /**
+     * Create a new cooking group from the current selected free team
+     * @param event
+     */
     @FXML
     void onBtnCreateNewGroup(ActionEvent event) {
     	Team selectedTeam = ListFreeTeams.getSelectionModel().getSelectedItem();
@@ -108,12 +124,20 @@ public class TabGroupsController {
     }
     
     @FXML
+    /**
+     * Generates a schedule for groups for the current event
+     * @param event
+     */
     void onBtnGenerateGroups(ActionEvent event) {
     	walkingDinnerController.getScheduleController().generateGroups();
     	refreshAll();
     }
     
     @FXML
+    /**
+     * Change the Course the be shown
+     * @param event
+     */
     void onCbCourseChange(ActionEvent event) {
     	Course course = cbCourse.getSelectionModel().getSelectedItem();
     	if (course != null) {
@@ -310,6 +334,18 @@ public class TabGroupsController {
 		BtnSetAsCooking.setTooltip(new Tooltip("Als Kochendes Team setzen"));
 		
 		refreshAll();
+    }
+    
+    
+    /** 
+     * Re-Initializes this tab, call to fast-reset this tab
+     */
+    public void reInit() {
+    	// Select course
+    	walkingDinnerController.getGroupController().setCourse(Course.STARTER);
+    	cbCourse.getSelectionModel().select(0);
+    	
+    	refreshAll();
     }
     
     /**

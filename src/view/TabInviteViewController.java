@@ -113,7 +113,14 @@ public class TabInviteViewController {
 			        if (empty || item == null) {
 			            setText("");
 			        } else {
-			            setText(item.getPerson().getName());
+			        	// check if the person is registered for this event, show this in invited list)
+			        	List<Participant> participants = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants();
+			        	if ( participants.contains(item) ) {
+			        		setText(item.getPerson().getName() + " (angemeldet)");
+			        	} else {
+			        		setText(item.getPerson().getName());
+			        	}
+			            //setText(item.getPerson().getName());
 			        }
 			    }
 			}
