@@ -129,7 +129,12 @@ public class TabParticipantsController {
     @FXML
     void onAdjustParticipant(ActionEvent event){
     	 try {
-  			GridPane root = new GridPane();
+  			Participant currPart = participantList.getSelectionModel().getSelectedItem();
+  			if(currPart!=null){
+  				walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(currPart);
+  			}
+    		 
+    		GridPane root = new GridPane();
   			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdjustParticipant.fxml"));
   			root = loader.load();
   			
