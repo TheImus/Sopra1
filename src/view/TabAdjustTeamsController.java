@@ -279,7 +279,10 @@ public class TabAdjustTeamsController {
         		warning += s + "\n";
         	}
         	TextWarnings.setText(warning);
-    	}  
+    	} 
+    	else {
+    		ListSelectedTeams.getItems().clear();
+    	}
     	
     }
 
@@ -300,16 +303,7 @@ public class TabAdjustTeamsController {
     	refresh();
     }
     
-    @FXML
-    void OnDragDetectedSelected(MouseEvent event) {
-    	System.out.println("OnDragDetectedSelected");
-    	System.out.println("free participants vorher:" + teamController.getFreeParticipants().size() );
-    	Participant selected = ListSelectedTeams.getSelectionModel().getSelectedItem();
-    	Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
-    	teamController.removeParticipantFromTeam(selectedTeam, selected);
-    	System.out.println("free participants nachher:" + teamController.getFreeParticipants().size() );
-    	refresh();
-    }
+   
 
     
 }
