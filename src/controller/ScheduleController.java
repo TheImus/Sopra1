@@ -141,6 +141,7 @@ public class ScheduleController {
 		//Resize all teams with the left participants
 		teams = resizeTeams(teams, leftParticipants);
 		currentEvent.setAllTeams(teams);
+		
 		return teams;
 	}
 
