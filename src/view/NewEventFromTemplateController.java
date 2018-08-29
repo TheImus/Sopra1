@@ -71,7 +71,6 @@ public class NewEventFromTemplateController {
     @FXML
     void onCreateEvent(ActionEvent event) {		//Fehlerbehandlung fuer falsche Eingabe fehlt noch
     	
-    	
     	boolean passed =true;
     	
     	EventController eventController = walkingDinnerController.getEventController();
@@ -92,11 +91,11 @@ public class NewEventFromTemplateController {
     			throw new Exception();
     	}
     	catch(IllegalArgumentException e){
-    		TextEventName.setStyle("-fx-background-color: orange;");
+    		TextEventName.setStyle("-fx-border-color: orange;");
     		passed=false;
     	}
     	catch(Exception e){
-    		TextEventName.setStyle("-fx-background-color: red;");
+    		TextEventName.setStyle("-fx-border-color: red;");
     		passed=false;
     	}
     	
@@ -107,7 +106,7 @@ public class NewEventFromTemplateController {
     			throw new Exception();
     	}
     	catch(Exception e){
-    		TextPlace.setStyle("-fx-background-color: red;");
+    		TextPlace.setStyle("-fx-border-color: red;");
     		passed=false;
     	}
     	
@@ -118,7 +117,7 @@ public class NewEventFromTemplateController {
     		eventController.setEventDescription(TextEventDetails.getText());
     	}
     	catch(Exception e){
-    		TextEventDetails.setStyle("-fx-background-color: red;");
+    		TextEventDetails.setStyle("-fx-border-color: red;");
     		passed=false;
     	}
     	
@@ -131,24 +130,33 @@ public class NewEventFromTemplateController {
     		PickerDate.setStyle("-fx-background-color: white;");
     		if(PickerDate.getValue() == null)
     			throw new Exception();
+
     		eventController.setEventDate(PickerDate.getValue());
-    		
     	}
     	catch(Exception e){
     		PickerDate.setStyle("-fx-background-color: red;");
+
     		passed=false;
     	}
     	
     	try{
     		PickerDeadline.setStyle("-fx-background-color: white;");
     		if(PickerDeadline.getValue() == null)
-    			throw new Exception();
+    			throw new IllegalArgumentException("kein Value");
+    		if(PickerDeadline.getValue().isAfter(PickerDate.getValue()))
+    			throw new Exception("Zeit");
     		eventController.setDeadline(PickerDeadline.getValue());
     	}
-    	catch(Exception e){
+    	catch(IllegalArgumentException e){
     		PickerDeadline.setStyle("-fx-background-color: red;");
     		passed=false;
     	}
+    	catch(Exception e){
+    		
+    		PickerDeadline.setStyle("-fx-background-color: orange;");	
+    		passed=false;
+    	}
+    	
     	
     	
     	//time things
@@ -157,25 +165,34 @@ public class NewEventFromTemplateController {
     		eventController.setCourseTime(Course.STARTER, LocalTime.parse(TextStarter.getText()));
     	}
     	catch(Exception e){
-    		TextStarter.setStyle("-fx-background-color: red;");
+    		TextStarter.setStyle("-fx-border-color: red;");
     		passed=false;
     	}
     	
     	try{
     		TextMain.setStyle("-fx-background-color: white;");
+    		if(LocalTime.parse(TextStarter.getText()).isAfter(LocalTime.parse(TextMain.getText()))) 
+    			throw new Exception("Zeit");
     		eventController.setCourseTime(Course.MAIN, LocalTime.parse(TextMain.getText()));
     	}
     	catch(Exception e){
-    		TextMain.setStyle("-fx-background-color: red;");
+    		TextMain.setStyle("-fx-border-color: red;");
+    		if(e.getMessage().equals("Zeit"))
+    			TextMain.setStyle("-fx-border-color: orange;");
     		passed=false;
     	}
     	
     	try{
     		TextDessert.setStyle("-fx-background-color: white;");
+    		if(LocalTime.parse(TextMain.getText()).isAfter(LocalTime.parse(TextDessert.getText()))&& 
+    				LocalTime.parse(TextStarter.getText()).isAfter(LocalTime.parse(TextDessert.getText()))) 
+    			throw new Exception("Zeit");
     		eventController.setCourseTime(Course.DESSERT, LocalTime.parse(TextDessert.getText()));
     	}
-    	catch(Exception e){
-    		TextDessert.setStyle("-fx-background-color: red;");
+    	catch(Exception e){    		
+    		TextDessert.setStyle("-fx-border-color: red;");
+    		if(e.getMessage().equals("Zeit"))
+    			TextDessert.setStyle("-fx-border-color: orange;");
     		passed=false;
     	}
     	
