@@ -3,34 +3,61 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane fx:id="borderPaneOverview" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EventOverviewController">
-   <bottom>
-      <ButtonBar prefHeight="55.0" BorderPane.alignment="CENTER">
-        <buttons>
-          <Button fx:id="BtnNewFromTemplate" mnemonicParsing="false" onAction="#onNewEvent" text="Neues Event" translateX="-15.0" />
-            <Button fx:id="BtnEdtiting" minWidth="42.0" mnemonicParsing="false" onAction="#OnEditing" prefHeight="26.0" text="Bearbeiten" textAlignment="CENTER" translateX="-15.0" />
-        </buttons>
-      </ButtonBar>
-   </bottom>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EventOverviewController">
    <center>
-      <ListView fx:id="listEvent" blendMode="DARKEN" prefHeight="320.0" prefWidth="494.0" BorderPane.alignment="CENTER" />
+      <BorderPane fx:id="borderPaneOverview" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <bottom>
+            <ButtonBar buttonOrder="" prefHeight="55.0" BorderPane.alignment="CENTER">
+              <buttons>
+                <Button fx:id="BtnNewFromTemplate" mnemonicParsing="false" onAction="#onNewEvent" text="Neues Event" translateX="-15.0" />
+                  <Button fx:id="BtnEdtiting" minWidth="42.0" mnemonicParsing="false" onAction="#OnEditing" prefHeight="26.0" text="Bearbeiten" textAlignment="CENTER" translateX="-15.0" />
+                  <Button fx:id="BtnRemoveEvent" mnemonicParsing="false" onAction="#onRemoveEvent" text="Event löschen" translateX="-15.0" />
+              </buttons>
+            </ButtonBar>
+         </bottom>
+         <center>
+            <ListView fx:id="listEvent" blendMode="DARKEN" prefHeight="320.0" prefWidth="494.0" BorderPane.alignment="CENTER" />
+         </center>
+         <left>
+            <Pane prefWidth="15.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefWidth="15.0" BorderPane.alignment="CENTER" />
+         </right>
+         <top>
+            <ToolBar prefHeight="45.0" prefWidth="200.0" rotate="180.0" BorderPane.alignment="CENTER">
+               <items>
+                  <TextField fx:id="searchEvent" onAction="#onSearchEventName" promptText="Suche" rotate="180.0" translateX="10.0" translateY="-2.0" />
+               </items>
+            </ToolBar>
+         </top>
+      </BorderPane>
    </center>
-   <left>
-      <Pane prefWidth="15.0" BorderPane.alignment="CENTER" />
-   </left>
-   <right>
-      <Pane prefWidth="15.0" BorderPane.alignment="CENTER" />
-   </right>
    <top>
-      <ToolBar prefHeight="45.0" prefWidth="200.0" rotate="180.0" BorderPane.alignment="CENTER">
-         <items>
-            <TextField fx:id="searchEvent" onAction="#onSearchEventName" promptText="Suche" rotate="180.0" translateX="10.0" translateY="-2.0" />
-         </items>
-      </ToolBar>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Datei">
+            <items>
+                  <MenuItem fx:id="MenuNewFile" mnemonicParsing="false" onAction="#onMenuNewFile" text="Neu" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="MenuOpenFile" mnemonicParsing="false" onAction="#onMenuOpenFile" text="Öffnen ..." />
+                  <MenuItem fx:id="MenuSaveFile" mnemonicParsing="false" onAction="#onMenuSaveFile" text="Speichern" />
+                  <MenuItem fx:id="MenuSaveFileAs" mnemonicParsing="false" onAction="#onMenuSaveFileAs" text="Speichern unter ..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem fx:id="MenuQuit" mnemonicParsing="false" onAction="#onMenuQuit" text="Beenden" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </top>
 </BorderPane>
