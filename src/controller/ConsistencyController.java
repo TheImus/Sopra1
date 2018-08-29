@@ -59,28 +59,14 @@ public class ConsistencyController {
 	public List<String> getWarnings(Team team) {
 		
 		Event event = walkingDinnerController.getWalkingDinner().getCurrentEvent();
-		ScheduleController schedule = walkingDinnerController.getScheduleController();
 		List<Team> allTeams = event.getAllTeams();
 	    List<String> warnings = new ArrayList<String>();
 	    List<Participant> members = team.getMembers();													// get all members of the team and save them in the list, they are participants currently
-		List<Person> membersAsPerson = new ArrayList<Person>();
-		Map<Person,List<Person>> knownPersons = schedule.generateKnowingRelations();
 		
-	    warnings.addAll(TeamSizeWarnings(team));														//add all warnings with size issues
 		
-	    for(int i = 0; i < team.getMembers().size(); i++){												// make all members to Persons and save them in a list
-			membersAsPerson.add(members.get(i).getPerson());
-		}
+	    warnings.addAll(teamSizeWarnings(team));														//add all warnings with size issues
 		
-		for(int i = 0; i<membersAsPerson.size()-1;i++) {																				
-			for(int j = 1; j<membersAsPerson.size();j++) {														
-				if(membersAsPerson.get(i).equals(membersAsPerson.get(j))){								//check if a person is multiple times in the same team
-					warnings.add(membersAsPerson.get(i) + "kommt mehrmals im Team vor");	
-				}
-			}		
-		}
-	
-		if(team.getHost() == null) warnings.add("kein Host vorhanden/gesetzt");							//check if there is a host
+	    warnings.addAll(sameMemberAndKnowingWarnings(team));
 		
 		for(int i = 0; i < members.size()-1; i++){
 			if(!members.get(i).getCourseWish().equals(members.get(i+1).getCourseWish())){				//check if team members have same course wish
@@ -88,9 +74,7 @@ public class ConsistencyController {
 			}
 		}
 		
-		try{
-		if(!knownPersons.isEmpty()) warnings.addAll(knowingRelation(membersAsPerson));													//check knowing Relation
-		}catch(NullPointerException nullPointer){}
+		if(team.getHost() == null) warnings.add("kein Host vorhanden/gesetzt");							//check if there is a host
 		
 		List<Restriction> differentR = getDifferentRestrictionsFor(team.getMembers());
 		if(differentR != null) {																		// check if there are any restrictions that don't match
@@ -107,6 +91,41 @@ public class ConsistencyController {
 					}	
 			}
 		}
+		return warnings;
+	}
+
+	/**
+	 * @param team
+	 * @param warnings
+	 * @param members
+	 * @param membersAsPerson
+	 * @param knownPersons
+	 */
+	private List<String> sameMemberAndKnowingWarnings(Team team) {
+		
+		
+		List<String> warnings = new ArrayList<String>();
+		ScheduleController schedule = walkingDinnerController.getScheduleController();
+		Map<Person,List<Person>> knownPersons = schedule.generateKnowingRelations();
+		List<Participant> members = team.getMembers();
+		List<Person> membersAsPerson = new ArrayList<Person>();	
+		
+		for(int i = 0; i < team.getMembers().size(); i++){												// make all members to Persons and save them in a list
+			membersAsPerson.add(members.get(i).getPerson());
+		}
+		
+		for(int i = 0; i<membersAsPerson.size()-1;i++) {																				
+			for(int j = 1; j<membersAsPerson.size();j++) {														
+				if(membersAsPerson.get(i).equals(membersAsPerson.get(j))){								//check if a person is multiple times in the same team
+					warnings.add(membersAsPerson.get(i) + "kommt mehrmals im Team vor");	
+				}
+			}		
+		}
+		
+		try{
+			if(!knownPersons.isEmpty()) warnings.addAll(knowingRelation(membersAsPerson));				//check knowing Relation
+			}catch(NullPointerException nullPointer){}
+		
 		return warnings;
 	}
 	
@@ -161,7 +180,7 @@ public class ConsistencyController {
 			allPersonsInGroup.add(allParticipantsInGroup.get(i).getPerson());
 		}
 		
-		warnings.addAll(GroupSizeWarnings(group));
+		warnings.addAll(groupSizeWarnings(group));
 		
 		try{
 		if(!knowingRelation(allPersonsInGroup).isEmpty()){
@@ -284,7 +303,7 @@ public class ConsistencyController {
 	 * @param group
 	 * @return
 	 */
-	private List<String> GroupSizeWarnings(Group group)
+	private List<String> groupSizeWarnings(Group group)
 	{
 		int groupSize = group.getTeams().size();
 		List<String> warnings = new ArrayList<String>();
@@ -317,7 +336,7 @@ public class ConsistencyController {
 	 * @param team
 	 * @return
 	 */
-	private List<String> TeamSizeWarnings(Team team)
+	private List<String> teamSizeWarnings(Team team)
 	{
 		List<String> warnings = new ArrayList<String>();
 		
