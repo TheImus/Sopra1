@@ -216,6 +216,7 @@ public class EventOverviewController {
                 System.out.println(e.getMessage());
             }
         }
+        init();
     }
     	
     

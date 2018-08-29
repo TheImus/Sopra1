@@ -41,11 +41,6 @@ public class Participant implements Serializable, IrvingMatchable{
 		restriction.remove(oldRestriction);
 	}
 
-	@Override
-	public String toString(){
-		return person.getName();
-	}
-	
 	public void addRestriction(Restriction newRestriction) {
 		changedSinceExport = true;
 		restriction.add(newRestriction);
