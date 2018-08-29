@@ -48,6 +48,8 @@ public class ScheduleController {
 		*/
 		ArrayList<Group> groups = greedyGroups(teams);
 		currentEvent.setRestriction(restrictionsWithoutKnowing);
+		//System.out.println("There are "+teams.size()+" teams.");
+		//System.out.println("There are "+groups.size()+" groups.");
 		return groups;
 	}
 	
