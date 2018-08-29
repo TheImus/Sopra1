@@ -17,14 +17,15 @@ public class Team implements Serializable, IrvingMatchable{
 
 	public List<Participant> getParticipants() {
 		List<Participant> list = new ArrayList<>();
+		if(host!=null)
+		{
+			list.add(host);
+		}	
 		for(Participant p:members)
 		{
 			list.add(p);
 		}
-		if(host!=null)
-		{
-			list.add(host);
-		}		
+			
 		return list;
 	}
 
