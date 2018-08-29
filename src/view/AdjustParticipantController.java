@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 	import javafx.scene.control.ComboBox;
 	import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 	import javafx.scene.control.TextField;
@@ -34,6 +35,9 @@ import model.Restriction;
 
 	    @FXML
 	    private DatePicker DateBirthday;
+	    
+	    @FXML
+	    private ListView LvRestrictions;
 
 	    @FXML
 	    private TextArea EdSpecialWished;
@@ -127,7 +131,8 @@ import model.Restriction;
 	    		Course courseWish = currentParticipant.getCourseWish();
 	    		CbWishCourse.setValue(courseWish.toString());
 	    		
-	    		
+	    		List<Restriction> restrictions = currentParticipant.getRestriction();
+	    		//LvRestrictions = (ListView) restrictions;
 	    		
 	    	}	
 	    }
