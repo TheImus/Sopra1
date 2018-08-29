@@ -46,6 +46,18 @@ public class Event implements Serializable{
 		this.registrationDeadline = this.date.minusWeeks(1); // deadline one week before
 		this.participants = new ArrayList<Participant>();
 		this.restriction = new ArrayList<Restriction>();
+		Restriction vegan = new Restriction();
+		vegan.setName("Vegan");
+		vegan.setPermanent(true);
+		this.restriction.add(vegan);
+		Restriction vegetarian = new Restriction();
+		vegetarian.setName("Vegetarian");
+		vegetarian.setPermanent(true);
+		this.restriction.add(vegetarian);
+		Restriction noAlcohol = new Restriction();
+		noAlcohol.setName("noAlcohol");
+		noAlcohol.setPermanent(true);
+		this.restriction.add(noAlcohol);
 		this.schedule = new Schedule();
 		this.invited = new ArrayList<Participant>();
 		this.currentParticipant = null;
