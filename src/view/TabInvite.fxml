@@ -19,7 +19,6 @@
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="300.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <GridPane GridPane.columnIndex="1">
@@ -63,12 +62,6 @@
           <Button fx:id="BtnCopyAddress" mnemonicParsing="false" onAction="#onAddressesToClipboard" text="Adressen kopieren" />
             <Button fx:id="BtnCopyEmail" mnemonicParsing="false" onAction="#onEMailToClipboard" text="E-Mail kopieren" />
             <Button fx:id="BtnSavePDF" mnemonicParsing="false" onAction="#onExportPDF" text="PDF speichern ..." />
-        </buttons>
-      </ButtonBar>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-        <buttons>
-          <Button fx:id="BtnDispose" cancelButton="true" mnemonicParsing="false" onAction="#onDispose" text="Verwerfen" />
-            <Button fx:id="BtnSave" defaultButton="true" mnemonicParsing="false" onAction="#onSave" text="Speichern" />
         </buttons>
       </ButtonBar>
    </children>
