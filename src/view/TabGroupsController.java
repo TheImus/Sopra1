@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import controller.WalkingDinnerController;
@@ -15,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.Group;
 import javafx.scene.shape.SVGPath;
 import model.Course;
@@ -67,7 +69,13 @@ public class TabGroupsController {
 
     @FXML
     void onBtnSetCooking(ActionEvent event) {
+    	SelectedGroupTeam selected = ListSelectedGroup.getSelectionModel().getSelectedItem();
 
+    	ListSelectedGroup.getItems().clear();
+    	List<SelectedGroupTeam> teams = addFromGroup(this.selectedGroup);
+    	ListSelectedGroup.getItems().addAll(teams);
+    	
+    	ListSelectedGroup.getSelectionModel().select(selected);
     }
     
     @FXML
@@ -117,51 +125,38 @@ public class TabGroupsController {
     	    }
     	});
     	
+    	
+    	// Selected Group ... showing teams
     	ListSelectedGroup.setCellFactory(list -> {
     		ListCell<SelectedGroupTeam> cell = new ListCell<SelectedGroupTeam>() {
     			@Override
     			protected void updateItem(SelectedGroupTeam item, boolean empty) {
     				super.updateItem(item, empty);
-    				//setText(empty ? null : item);
+    				
+    				System.out.println(item);
+    				if (!empty && item != null) {
+    					Team team = item.getTeam();
+    					
+    					if (team != null) {
+    						if (item.isHost) {
+    							setText(team.getHost().getPerson().getName() + " (Gastgeber)");
+    						} else {
+    							setText(team.getHost().getPerson().getName());
+    						}
+    					}
+    					
+    					if (item.isHost) {
+        					//this.setStyle("-fx-text-fill: red;");
+    						this.setStyle("-fx-background-color: #ccc;");
+    					}
+    				} else {
+    					setText("");
+    				}
     			}
     		};
-    		
-    		if (cell.getItem().isHost) {
-    			cell.setStyle("-fx-text-fill: red;");
-    		} 
-    		
-    		//BooleanBinding invalid = Bindings.createBooleanBinding(
-				//() -> it, 
-			//);
-    		
+
     		return cell;
     	});
-    	
-    	// Selected Group List
-    	/*ListSelectedGroup.setCellFactory(list -> {
-            // usual list cell:
-            ListCell<String> cell = new ListCell<String>() {
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setText(empty ? null : item);
-                }
-            };
-
-            BooleanBinding invalid = Bindings.createBooleanBinding(
-                    () -> errorList.contains(new Integer(cell.getIndex())), cell.indexProperty(), cell.itemProperty(),
-                    errorList);
-
-            invalid.addListener((obs, wasInvalid, isNowInvalid) -> {
-                if (isNowInvalid) {
-                    cell.setStyle("-fx-text-fill:red;");
-                } else {
-                    cell.setStyle("");
-                }
-            });
-
-            return cell;
-        });*/
 
     	
     	
@@ -184,15 +179,19 @@ public class TabGroupsController {
 			+	"c-2.385,0-4.781-0.792-6.76-2.417c-4.552-3.74-5.219-10.458-1.49-15.01c11.438-13.969,29.583-41.854,29.583-57.24"
 			+	"c0-5.896,4.771-10.667,10.667-10.667c5.896,0,10.667,4.771,10.667,10.667C362.667,252.01,331.771,290.469,328.25,294.771z");
 		
+		// assemble graphic with a group
 		Group svgGraphic = new javafx.scene.Group(path1, path2);
 		
+		// get size of svg graph and scale it down to 20x20 pixels
 		Bounds bounds = svgGraphic.getBoundsInParent();
 		double scale = Math.min(20/bounds.getWidth(), 20 / bounds.getHeight());
 		svgGraphic.setScaleX(scale);
 		svgGraphic.setScaleY(scale);
 
+		// assign graphic to button
 		BtnSetAsCooking.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 		BtnSetAsCooking.setGraphic(svgGraphic);
+		BtnSetAsCooking.setTooltip(new Tooltip("Als Kochendes Team setzen"));
 		
 		refreshAll();
     }
@@ -222,10 +221,8 @@ public class TabGroupsController {
     
     private void refreshSelectedGroup() {
     	ListSelectedGroup.getItems().clear();
-    	if (selectedGroup != null) {
-    		//List<Team> teams = walkingDinnerController.getGroupController().getHostingTeam(group)
-    		//ListSelectedGroup.getItems().addAll(c)
-    	}
+    	List<SelectedGroupTeam> teams = addFromGroup(this.selectedGroup);
+    	ListSelectedGroup.getItems().addAll(teams);
     }
     
     
@@ -248,10 +245,12 @@ public class TabGroupsController {
 		private boolean isHost;
     	private Team team;
     	
-    	public boolean isHost() {
+    	@SuppressWarnings("unused")
+		public boolean isHost() {
 			return isHost;
 		}
-
+    	
+    	@SuppressWarnings("unused")
 		public void setHost(boolean isHost) {
 			this.isHost = isHost;
 		}
@@ -260,6 +259,7 @@ public class TabGroupsController {
 			return team;
 		}
 
+		@SuppressWarnings("unused")
 		public void setTeam(Team team) {
 			this.team = team;
 		}
@@ -269,5 +269,18 @@ public class TabGroupsController {
     		this.team = team;
     	}
     }
+    
+    public List<SelectedGroupTeam> addFromGroup(model.Group group) {
+		List<SelectedGroupTeam> result = new ArrayList<SelectedGroupTeam>();
+		
+		if (group != null && group.getHostTeam() != null) {
+			result.add(new SelectedGroupTeam(group.getHostTeam(), true));
+    		for (int i = 0; i < group.getGuest().size(); i++) {
+    			result.add(new SelectedGroupTeam(group.getGuest().get(i), false));
+    		}
+		}
+		
+		return result;
+	}
 
 }
