@@ -123,6 +123,15 @@ public class EventOverviewController {
     @FXML
     void onSearchEventName(ActionEvent event){
     	
+
+    	listEvent.getItems().clear();
+    	
+    	List<Event> list = walkingDinnerController.getWalkingDinner().getEvents();
+		for(Event ev:list){
+			if(ev.getName().contains(searchEvent.getText()))
+			listEvent.getItems().add(ev);
+		}	
+    	
     }
     
     @FXML

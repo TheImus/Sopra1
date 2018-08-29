@@ -39,17 +39,24 @@ public class WalkingDinnerControllerTest {
 	 */
 	@Test
 	public void testSaveModel() {
+		
+		// Save a model and load it immediately 
 		WalkingDinnerController.saveModel(walkingDinner,"test");
 		WalkingDinner walkingDinnerLoad = WalkingDinnerController.loadModel("test");
 		
-		
+		/* Create two Participant Lists
+		 * One for the persons of the original model 
+		 * One for the persons of the loaded model
+		*/
 		ArrayList<Participant> personsOriginal = new ArrayList<>();
 		ArrayList<Participant> personsLoad = new ArrayList<>();
 		
+		//Fill the original List with all Participants of the model
 		for(Event e : walkingDinner.getEvents()){
 			personsOriginal.addAll(e.getParticipants());
 		}
 		
+		//Fill the load list with all Participants of the loaded model
 		for(Event e : walkingDinnerLoad.getEvents()){
 			personsLoad.addAll(e.getParticipants());
 		}
@@ -90,15 +97,22 @@ public class WalkingDinnerControllerTest {
 	 */
 	@Test
 	public void testLoadModel() {
+		// load a model 
 		WalkingDinner walkingDinnerLoad = WalkingDinnerController.loadModel("test");
 		
+		/* Create two Participant Lists
+		 * One for the persons of the original model 
+		 * One for the persons of the loaded model
+		*/
 		ArrayList<Participant> personsOriginal = new ArrayList<>();
 		ArrayList<Participant> personsLoad = new ArrayList<>();
 		
+		//Fill the original List with all Participants of the model
 		for(Event e : walkingDinner.getEvents()){
 			personsOriginal.addAll(e.getParticipants());
 		}
 		
+		//Fill the load list with all Participants of the loaded model
 		for(Event e : walkingDinnerLoad.getEvents()){
 			personsLoad.addAll(e.getParticipants());
 		}
