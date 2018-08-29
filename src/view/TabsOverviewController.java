@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -13,6 +14,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Event;
 
 public class TabsOverviewController {
 
@@ -45,6 +47,9 @@ public class TabsOverviewController {
 
     @FXML
     private MenuItem MenuItemClose;
+    
+    @FXML
+    private Label LabelEventName;
 
    
     
@@ -60,6 +65,11 @@ public class TabsOverviewController {
 
     public void init(){
     	try {
+    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+    		if(currentEvent!=null){
+    			LabelEventName.setText(currentEvent.getName() + " - " + currentEvent.getDate().toString());
+    		}
+    		
 			GridPane root = new GridPane();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabEvent.fxml"));
 			root = loader.load();
@@ -115,9 +125,7 @@ public class TabsOverviewController {
 
     
     @FXML
-    void onCloseTabsOverview(ActionEvent event) {
-    	WalkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), "beispielprojekt");
-    	
+    void onCloseTabsOverview(ActionEvent event) {    	
     	try {
 			BorderPane root = new BorderPane();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EventOverview.fxml"));

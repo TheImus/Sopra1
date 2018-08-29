@@ -25,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Course;
+import model.Event;
 import model.Participant;
 import model.Restriction;
 
@@ -37,7 +38,7 @@ import model.Restriction;
 	    private DatePicker DateBirthday;
 	    
 	    @FXML
-	    private ListView LvRestrictions;
+	    private ListView<CheckBox> LvRestrictions;
 
 	    @FXML
 	    private TextArea EdSpecialWished;
@@ -113,6 +114,21 @@ import model.Restriction;
 	    				
 	    			}
 	    		});
+	    	
+    		CheckBox alcohol = new CheckBox();
+    		alcohol.setText("Kein Alkohol");
+    		
+    		CheckBox vegetarian = new CheckBox();
+    		vegetarian.setText("Vegetarier");
+    	
+    		CheckBox vegan = new CheckBox();
+    		vegan.setText("Vegan");
+    		
+    		
+    		LvRestrictions.getItems().add(alcohol);
+    		LvRestrictions.getItems().add(vegetarian);
+    		LvRestrictions.getItems().add(vegan);
+	    	
 	    	refresh();
 	    	
 	    }
@@ -131,8 +147,6 @@ import model.Restriction;
 	    		Course courseWish = currentParticipant.getCourseWish();
 	    		CbWishCourse.setValue(courseWish.toString());
 	    		
-	    		List<Restriction> restrictions = currentParticipant.getRestrictions();
-	    		//LvRestrictions = (ListView) restrictions;
 	    		
 	    	}	
 	    }
@@ -160,22 +174,59 @@ import model.Restriction;
 
 	    @FXML
 	    void OnCreateNewRestriction(ActionEvent event) {
+	    	
 	    	String restrictionName = EdRestriction.getText();
-	    	Restriction restriction = new Restriction();
-	    	restriction.setName(restrictionName);
+	    	if(!restrictionName.isEmpty()) {
+	    		
+	    		if(!checkIfRestrictionAlreadyExists(restrictionName)) {
+			    	Restriction restriction = new Restriction();
+			    	restriction.setName(restrictionName);
+			    	
+			    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+			    	currentParticipant.addRestriction(restriction);
+			    	restriction.addParticipant(currentParticipant);
+			    
+			    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+			    	List<Restriction> eventRestrictionList = currentEvent.getRestriction();
+			    	eventRestrictionList.add(restriction);
+			    	currentEvent.setRestriction(eventRestrictionList);
+			    	
+			    	CheckBox newRestriction = new CheckBox();
+			    	newRestriction.setText(restrictionName);
+			    	LvRestrictions.getItems().add(newRestriction);
+		    	}
+	    	}
+	    }
+	    
+	    boolean checkIfRestrictionAlreadyExists(String name) {
+	    	List<Restriction> restrictionList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getRestriction();
 	    	
-	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
-	    	currentParticipant.addRestriction(restriction);
-	    	restriction.addParticipant(currentParticipant);
+	    	for(Restriction restr : restrictionList) {
+	    		if (restr.getName().equals(name)) {
+	    			return true;
+	    		}
+	    	}
 	    	
-	    	CheckBox newRestriction = new CheckBox();
-	    	newRestriction.setId(restrictionName);
-	    	//SpRestrictionList.addChild(newRestriction);
+	    	return false;
 	    }
 
 	    @FXML
 	    void OnNoAlkoholSelected(ActionEvent event) {
 	    	//Fill the original List with all Participants of the model
+	    	Restriction alcohol = new Restriction();
+	    	alcohol.setName("Kein Alkohol");
+	    	alcohol.setPermanent(true);
+	    	
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	currentParticipant.addRestriction(alcohol);
+	    	alcohol.addParticipant(currentParticipant);
+	    	
+	    	
+	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    	List<Restriction> eventRestrictionList = currentEvent.getRestriction();
+	    	eventRestrictionList.add(alcohol);
+	    	currentEvent.setRestriction(eventRestrictionList);
+	    	
 	    }
 
 	    @FXML
@@ -190,53 +241,49 @@ import model.Restriction;
 
 	    @FXML
 	    void OnVeganSelected(ActionEvent event) {
+	    	Restriction vegan = new Restriction();
+	    	vegan.setName("Vegan");
+	    	vegan.setPermanent(true);
 	    	
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	currentParticipant.addRestriction(vegan);
+	    	vegan.addParticipant(currentParticipant);
+	    	
+	    	
+	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    	List<Restriction> eventRestrictionList = currentEvent.getRestriction();
+	    	eventRestrictionList.add(vegan);
+	    	currentEvent.setRestriction(eventRestrictionList);
 	    }
 
 	    @FXML
 	    void OnVegetarianSelected(ActionEvent event) {
-
+	    	Restriction vegetarian = new Restriction();
+	    	vegetarian.setName("Vegetarier");
+	    	vegetarian.setPermanent(true);
+	    	
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	currentParticipant.addRestriction(vegetarian);
+	    	vegetarian.addParticipant(currentParticipant);
+	    	
+	    	
+	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    	List<Restriction> eventRestrictionList = currentEvent.getRestriction();
+	    	eventRestrictionList.add(vegetarian);
+	    	currentEvent.setRestriction(eventRestrictionList);
 	    }
 	    
 	    @FXML
 	    void OnWishCourseClicked(MouseEvent event) {
 	    	CbWishCourse.getItems().addAll("Vorspeise","Hauptspeise","Nachspeise");
 	    }
-	    
-	    @FXML
-	    void OnSearchBoxClicked(MouseEvent event) {
-	    	List<Participant> participantList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants();
-	    	String search = CbSearchBox.getEditor().getText();
-	    	
-	    	for(Participant part : participantList){
-	    		if(part.getPerson().getName().equals(search)){
-	    			//return part;
-	    		}
-	    	}
-	    	
-	    	
-	    }
-	    
-	    
+	    	    
 	    boolean isValidZipCode(){
 	    	String zipCode = EdZipCode.getText();
 	    	Pattern validZipCode = Pattern.compile("\\b\\d{5}\\b");
 	    	
 	    	return validZipCode.matcher(zipCode).matches();
 	    }
-
-	    boolean checkIfParticipantIsLoaded(){
-	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
-	    	return currentParticipant == null;
-	    }
-	    
-	    /*
-	    public void start(Stage stage){
-	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
-	    	if(!(checkIfParticipantIsLoaded())){
-	    		EdName.setText(currentParticipant.getPerson().getName());
-	    	}
-	    }*/
 
 	}
 
