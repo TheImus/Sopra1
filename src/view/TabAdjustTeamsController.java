@@ -288,6 +288,7 @@ public class TabAdjustTeamsController {
     @FXML
     void onGenerateTeams(ActionEvent event) {
     	walkingDinnerController.getScheduleController().generateTeams();
+    	selectedTeam = null;
     	refresh();
     }
 

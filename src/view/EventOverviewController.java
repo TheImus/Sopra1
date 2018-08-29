@@ -69,22 +69,6 @@ public class EventOverviewController {
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
 	}    
-
-
-	@FXML
-    void onDiscard(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onGenerateTeams(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onSave(ActionEvent event) {
-
-    }
     
     public void refresh(){
     	
