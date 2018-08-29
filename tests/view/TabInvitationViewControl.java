@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.Event;
 import model.WalkingDinner;
 
 public class TabInvitationViewControl extends Application {
@@ -41,6 +40,7 @@ public class TabInvitationViewControl extends Application {
 			
 			primaryStage.setScene(scene);
 			tabViewController.init();
+			tabViewController.setStage(primaryStage);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

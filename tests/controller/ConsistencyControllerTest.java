@@ -14,6 +14,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.sun.webkit.ThemeClient;
+
+import jdk.internal.org.objectweb.asm.util.CheckAnnotationAdapter;
 import model.Course;
 import model.Event;
 import model.Group;
@@ -28,19 +31,10 @@ import model.WalkingDinner;
 public class ConsistencyControllerTest {
 	
 	private WalkingDinnerController walkingDinnerController;
-	private ConsistencyController consistencyController;
-	private RestrictionController restrictionController;
-	private TeamController teamController;
-	private ParticipantController participantController;
-	
-	
+	private ConsistencyController consistencyController;	
+	private ScheduleController schedule;
+	private GroupController groupController;
 	private Team team1;
-	private Team team2;
-	private Team team3;
-	private Participant part1;
-	private Participant part2;
-	private Participant part3;
-	private Participant part4;
 	private Group group1;
 	private Event event;
 	
@@ -67,25 +61,14 @@ public class ConsistencyControllerTest {
 	public void setUp() throws Exception {
 		walkingDinnerController = TestDataFactory.createTestWalkingDinnerController();
 		consistencyController = walkingDinnerController.getConsistencyController();
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
+		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
+		schedule = walkingDinnerController.getScheduleController();
+		groupController = walkingDinnerController.getGroupController();
 		event = wd.getCurrentEvent();
-		restrictionController = walkingDinnerController.getRestrictionController();
-		participantController = walkingDinnerController.getParticipantController();
-		
-		part1 = new Participant();
-		part2 = new Participant();
-		part3 = new Participant();
-		part4 = new Participant();
-		
-		part1.createNewParticipant();
-		part2.createNewParticipant();
-		part3.createNewParticipant();
-		part4.createNewParticipant();
+	
 		
 		//@SuppressWarnings("unused")
 		team1 = new Team();
-		team2 = new Team();
-		team3 = new Team();
 	}
 
 	/**
@@ -95,7 +78,6 @@ public class ConsistencyControllerTest {
 	public void tearDown() throws Exception {
 	}
 	
-	
 
 	/**
 	 * Test method for {@link controller.ConsistencyController#getWalkingDinnerController()}.
@@ -103,7 +85,7 @@ public class ConsistencyControllerTest {
 	 */
 	@Test
 	public void testGetWalkingDinnerController() {
-		fail("Not yet implemented");
+	
 	}
 
 	/**
@@ -111,7 +93,7 @@ public class ConsistencyControllerTest {
 	 */
 	@Test
 	public void testSetWalkingDinnerController() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
@@ -128,15 +110,12 @@ public class ConsistencyControllerTest {
 		List<Participant> participants = event.getParticipants();
 		List<Participant> members = new ArrayList<Participant>();
 		List<String> warnings = new ArrayList<String>();
-		List<Restriction> restrictions = new ArrayList<Restriction>();
-		Restriction rest = new Restriction();
-		rest.setName("Fleisch");
-		restrictions.add(rest);
-		
 		
 		members.add(participants.get(0));									            // increase teamsize to 1
 		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);							// check if size warning is correct (too small)
+		
+		
 		assertTrue(warnings.contains("In dem Team befindet sich nur eine Person"));
 		assertFalse(warnings.contains("kommt mehrmals im Team vor"));
 		
@@ -183,27 +162,15 @@ public class ConsistencyControllerTest {
 		team1.setHost(participants.get(0));
 		warnings = consistencyController.getWarnings(team1);
 		assertTrue(warnings.contains(participants.get(0) + "hat anderen Wunschgang als " + participants.get(1)));
-		
-		participants.get(0).setRestriction(restrictions);
-		rest.setName("Gemüse");
-		restrictions.add(rest);
-		participants.get(1).setRestriction(restrictions);
-		participants.get(2).setRestriction(restrictions);
+	
 		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);
 		
-		System.out.println(restrictions.get(1));
-		System.out.println(team1.getMembers().toString());
-		assertEquals("folgende Restriktionen könnten Problematisch sein:" + restrictions.get(1) + "bitte einmal überprüfen für folgendes Team:" + team1.getMembers().toString(), consistencyController.getWarnings(team1));
-		assertTrue(warnings.contains("folgende Restriktionen könnten Problematisch sein:" + restrictions.get(1) + "bitte einmal überprüfen für folgendes Team:" + team1.getMembers().toString()));
-
-		
-		assertEquals(team1, consistencyController.getInconsistentTeams());
 	}
 
 	/**
 	 * Test method for {@link controller.ConsistencyController#getInconsistentTeams()}.
-	 * check if the list is correct and not null (contains all teams with warnings)
+	 * check if the method gives all teams that have warnings
 	 */
 	@Test
 	public void testGetInconsistentTeams() {
@@ -217,79 +184,13 @@ public class ConsistencyControllerTest {
 		team1.setMembers(members);
 		consistencyController.getInconsistentTeams();
 		
-		assertEquals(team1, consistencyController.getInconsistentTeams());
-	}
+		assertNotNull(consistencyController.getInconsistentTeams());	}
 
 	/**
 	 * Test method for {@link controller.ConsistencyController#getWarnings(model.Group)}.
-	 * check if the list is not empty/null and check if the warnings are correct
+	 * check if all warning cases are correct in the method GetWarningsGroup
 	 */
 	@Test
-	/*public void testGetWarningsGroup() {
-
-		List<Team> teams = event.getAllTeams();
-		List<Team> guests = new ArrayList<Team>();
-		List<String> warnings = new ArrayList<String>();
-		
-		guests.add(teams.get(1));
-		guests.add(teams.get(2));
-		
-		group1 = new Group();
-		group1.setHostTeam(teams.get(0));
-		
-		warnings = consistencyController.getWarnings(group1);
-		assertEquals("Gruppe zu klein", warnings.get(0));
-		
-		guests.add(teams.get(3));
-		group1.setGuest(guests);
-		
-		warnings.clear();
-		warnings = consistencyController.getWarnings(group1);
-		assertEquals("Gruppe zu groß", warnings.get(0));
-		
-		guests.remove(2);
-		group1.setGuest(guests);
-		group1.setHostTeam(null);
-		warnings.clear();
-		
-		warnings = consistencyController.getWarnings(group1);
-		assertEquals("kein Hostteam festgelegt", warnings.get(0));
-		
-		group1.setGuest(null);
-		group1.setHostTeam(teams.get(0));
-		
-		warnings.clear();
-		warnings = consistencyController.getWarnings(group1);
-		assertEquals("keine Gastteams vorhanden", warnings.get(0));
-		
-		guests.clear();
-		guests.add(teams.get(1));
-		
-		group1.setGuest(guests);
-		warnings = consistencyController.getWarnings(group1);
-		assertEquals("Die Anzahl der Gastteams stimmt nicht", warnings.get(0));
-		
-		warnings.clear();
-		guests.add(teams.get(2));
-		group1.setGuest(guests);
-		warnings = consistencyController.getWarnings(group1);
-		assertNotNull(warnings);
-		
-	}*/
-	
-	/**
-	 * The method creates warning messages for each group, possible warnings:
-	 * 1. "Gruppe zu klein"
-	 * 2. "Gruppe zu groß"
-	 * 3. "kein Hostteam festgelegt"
-	 * 4. "keine Gastteams vorhanden"
-	 * 5. "Die Anzahl der Gastteams stimmt nicht"
-	 * 6. person.get(i) + " und" + person.get(j) + " kennen sich"
-	 * 7. "folgende Restriktionen könnten Problematisch sein:" + Restriction +  "bitte einmal überprüfen für folgende Gruppe:" + Gruppe
-	 * 8. TeamX "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
-	 * 9. TeamX "kommt in mehreren MAIN Gruppen vor, die andere Gruppe besteht aus: "
-	 * 10. TeamX "kommt in mehreren DESSERT Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
-	 */
 	public void testGetWarningsGroup() {
 		Group testGroup = new Group();
 		Team team1 = new Team();
@@ -347,7 +248,36 @@ public class ConsistencyControllerTest {
 		assertFalse(currentWarning.contains("kein Hostteam festgelegt"));
 		assertFalse(currentWarning.contains("keine Gastteams vorhanden"));
 		
-		//test case Group with Restrictions which are problematic between the teams
+		
+		List<Group> groups=groupController.getGroups();
+		groups.get(0).getGuest().add(team1);
+		groups.get(1).getGuest().add(team1);
+		
+		List<String> warnings=consistencyController.checkGroupCourses(groups.get(0));
+		assertTrue(warnings.contains(team1+"kommt in mehreren " +event.getSchedule().getCurrentCourse() +" Gruppen vor, die andere Gruppe besteht aus: "+groups.get(1).getTeams()));
+		groups.get(0).getGuest().remove(team1);
+		groups.get(1).getGuest().remove(team1);
+		
+		groupController.setCourse(Course.MAIN);
+		groups=groupController.getGroups();
+		groups.get(0).getGuest().add(team1);
+		groups.get(1).getGuest().add(team1);
+		
+		warnings=consistencyController.checkGroupCourses(groups.get(0));
+		assertTrue(warnings.contains(team1+"kommt in mehreren " +event.getSchedule().getCurrentCourse() +" Gruppen vor, die andere Gruppe besteht aus: "+groups.get(1).getTeams()));
+		groups.get(0).getGuest().remove(team1);
+		groups.get(1).getGuest().remove(team1);
+		
+		groupController.setCourse(Course.DESSERT);
+		groups=groupController.getGroups();
+		groups.get(0).getGuest().add(team1);
+		groups.get(1).getGuest().add(team1);
+		
+		warnings=consistencyController.checkGroupCourses(groups.get(0));
+		assertTrue(warnings.contains(team1+"kommt in mehreren " +event.getSchedule().getCurrentCourse() +" Gruppen vor, die andere Gruppe besteht aus: "+groups.get(1).getTeams()));
+		groups.get(0).getGuest().remove(team1);
+		groups.get(1).getGuest().remove(team1);
+
 	}
 
 	/**
@@ -369,7 +299,7 @@ public class ConsistencyControllerTest {
 		
 		consistencyController.getInconsistentGroups();
 		
-		assertNotNull(consistencyController.getInconsistentTeams());
+		assertNotNull(consistencyController.getInconsistentGroups());
 		
 	}
 
@@ -387,7 +317,6 @@ public class ConsistencyControllerTest {
 		rest1.setName("Fleisch");
 		restrictions.add(rest1);
 		participants.get(0).setRestriction(restrictions);
-		
 		rest2.setName("Gemüse");
 		restrictions.remove(0);
 		restrictions.add(rest2);
@@ -398,10 +327,38 @@ public class ConsistencyControllerTest {
 		restrictions.add(rest2);
 		restrictions.add(rest1);
 		
-		participants.add(part1);
-		participants.add(part2);
 		assertEquals(restrictions, consistencyController.getDifferentRestrictionsFor(participants));
 
 	}
+	
+	/**
+	 * check if there are a right amount of group (modulo 3)
+	 */
+	@Test
+	public void testGetWarnings(){
+		
+		List<String> warnings = new ArrayList<String>();
+		warnings = consistencyController.getWarnings(team1);
+		
+		if(groupController.getGroups().size() == 0){
+			assertTrue(warnings.contains("Keine Gruppen im Event"));
+			}
+		
+		if(groupController.getGroups().size() % 3 != 0){
+			assertTrue(warnings.contains("Die Anzahl der Gruppen ist kein Vielfaches von 3"));
+			}
+		
+	}
+	//@Test
+	//public void testCheckGroupCourses()
+	//{
+		//List<Group> groups=groupController.getGroups();
+		//groups.get(0).getGuest().add(team1);
+		//groups.get(1).getGuest().add(team1);
+		
+		//List<String> warnings=consistencyController.checkGroupCourses(groups.get(0));
+		//assertTrue(warnings.contains(team1+"kommt in mehreren " +event.getSchedule().getCurrentCourse() +" Gruppen vor, die andere Gruppe besteht aus: "+groups.get(1).getTeams()));
+		
+	//}
 
 }

@@ -8,7 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 	import javafx.fxml.FXML;
-	import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 	import javafx.scene.control.CheckBox;
 	import javafx.scene.control.ComboBox;
 	import javafx.scene.control.DatePicker;
@@ -16,6 +18,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TextArea;
 	import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 	public class AdjustParticipantController {
 
@@ -61,6 +65,9 @@ import javafx.scene.input.MouseEvent;
 	    @FXML
 	    private Button BtnNewRestriction;
 	    
+	    @FXML
+	    private GridPane GridPaneAdjustParticipant;
+	    
 	    private WalkingDinnerController walkingDinnerController;
 	    
 	    public WalkingDinnerController getWalkingDinnerController() {
@@ -79,7 +86,7 @@ import javafx.scene.input.MouseEvent;
 	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
 	    				super.updateItem(item, empty);
 	    				if (item != null) { 
-	    					setText(item.getText(item)); // TODO: Anderer Text hier
+	    					setText(item.getText(item)); 
 	    				} else {
 	    					setText("");
 	    				}
@@ -92,7 +99,21 @@ import javafx.scene.input.MouseEvent;
 
 	    @FXML
 	    void OnCancel(ActionEvent event) {
-
+	    	 try {
+	   			GridPane root = new GridPane();
+	   			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
+	   			root = loader.load();
+	   			
+	   			TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
+	   			tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
+	   			tabsOverviewController.init();
+	   			Scene scene = new Scene(root);
+	   			
+	   			((Stage)GridPaneAdjustParticipant.getScene().getWindow()).setScene(scene);
+	   			
+	   		} catch(Exception e) {
+	   			e.printStackTrace();
+	   		}
 	    }
 
 	    @FXML

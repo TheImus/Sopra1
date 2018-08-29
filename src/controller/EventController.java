@@ -2,10 +2,16 @@ package controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import model.Course;
 import model.Event;
+import model.Group;
+import model.Participant;
+import model.Person;
+import model.Team;
 
 public class EventController {
 	
@@ -30,11 +36,46 @@ public class EventController {
 	 */
 	public void setEventName(String name) {
 		for(Event event : walkingDinnerController.getWalkingDinner().getEvents()){
-			if(event.getName().equals(name)){
-				throw new IllegalArgumentException("Eventname '" + name + "' already exists.");
-			}
+			if(event.getName().equals(name)) throw new IllegalArgumentException("Eventname '" + name + "' already exists.");
 		}
 		getCurrentEvent().setName(name);
+	}
+
+	@Deprecated
+	public void addNewKnowingPersons(List<Participant> toList, Participant knownBy) {//TODO i think this does not make sense at all
+		Map<Person, List<Person>> knowingRelation = walkingDinnerController.getScheduleController().generateKnowingRelations();
+		
+		List<Person> knowing = knowingRelation.get(knownBy);
+		List<Person> knowing2 = new ArrayList<Person>();
+		for(Participant p : toList){
+			knowing2.add(p.getPerson());
+		}
+		
+		knowing.addAll(knowing2);
+		knowingRelation.put(knownBy.getPerson(), knowing);
+	}
+
+	public Group getGroup(Participant participant, Course course) {
+		for(Group group : walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getGroup(course)){
+			for(Team team : group.getTeams()){
+				if(team.getMembers().contains(participant)) return group;
+			}
+		}
+		return null;
+	}
+
+	public Participant getParticipantFromPerson(Person person) {
+		for(Participant participant : walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants()){
+			if(participant.getPerson().equals(person)) return participant;
+		}
+		return null;
+	}
+
+	public Team getTeam(Participant participant) {
+		for(Team team : walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams()){
+			if(team.getMembers().contains(participant)) return team;
+		}
+		return null;
 	}
 
 	/**

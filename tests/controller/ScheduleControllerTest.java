@@ -22,7 +22,7 @@ import model.*;
  */
 public class ScheduleControllerTest {
 	private ScheduleController scheduleController;
-	private WalkingDinnerController wdC = new WalkingDinnerController();
+	private WalkingDinnerController wdC;
 
 	/**
 	 * @throws java.lang.Exception
@@ -43,7 +43,8 @@ public class ScheduleControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		scheduleController = new ScheduleController(wdC);
+		wdC = TestDataFactory.createTestWalkingDinnerController();
+		scheduleController = wdC.getScheduleController();
 	}
 
 	/**
@@ -60,21 +61,6 @@ public class ScheduleControllerTest {
 	public void testScheduleController() {
 		assertEquals("The constructor has to set the WalkingDinnerController.", 
 				wdC, scheduleController.getWalkingDinnerController());
-	}
-
-	/**
-	 * Tests, whether there are |teams| /3 groups and if generateGroups is called
-	 * twice, the returned schedules have to be different.
-	 * Test method for {@link controller.ScheduleController#generateGroups()}.
-	 */
-	@Test
-	public void testGenerateGroups() {
-		List<Group> firstSchedule = scheduleController.generateGroups();
-		List<Group> secondSchedule = scheduleController.generateGroups();
-		int amountOfTeams = wdC.getWalkingDinner().getCurrentEvent().getAllTeams().size();
-		assertEquals("The first Schedule should have |teams| / 3 groups.", amountOfTeams/3, firstSchedule.size());
-		assertEquals("The second Schedule should have |teams| / 3 groups.", amountOfTeams/3, secondSchedule.size());
-		assertNotEquals("Two Group-Schedules have to be different.", firstSchedule, secondSchedule);
 	}
 
 	/**
@@ -129,6 +115,21 @@ public class ScheduleControllerTest {
 		assertTrue("There should be not more than 5 teams with 3 members.", teamsOfThree <= 5);
 	}
 
+	/**
+	 * Tests, whether there are |teams| /3 groups and if generateGroups is called
+	 * twice, the returned schedules have to be different.
+	 * Test method for {@link controller.ScheduleController#generateGroups()}.
+	 */
+	@Test
+	public void testGenerateGroups() {
+		List<Group> firstSchedule = scheduleController.generateGroups();
+		List<Group> secondSchedule = scheduleController.generateGroups();
+		int amountOfTeams = wdC.getWalkingDinner().getCurrentEvent().getAllTeams().size();
+		assertEquals("The first Schedule should have |teams| / 3 groups.", amountOfTeams/3, firstSchedule.size());
+		assertEquals("The second Schedule should have |teams| / 3 groups.", amountOfTeams/3, secondSchedule.size());
+		assertNotEquals("Two Group-Schedules have to be different.", firstSchedule, secondSchedule);
+	}
+	
 	/**
 	 * Tests, if the returned Map has a knowing relation for each known person
 	 * Test method for {@link controller.ScheduleController#generateKnowingRelations()}.

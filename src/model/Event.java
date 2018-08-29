@@ -54,27 +54,16 @@ public class Event implements Serializable{
 	}
 
 	public List<Participant> getChangedParticipants() {
-		return null;
+		List<Participant> changedOnes = new ArrayList<Participant>();
+		for(Participant participant : participants)
+			if(participant.isChangedSinceExport())
+				changedOnes.add(participant);
+		return changedOnes;
 	}
 
-	public void resetChangedParticipants() {
-
-	}
-
-	public void addNewKnowingPersons(List<Participant> toList, Participant knownBy) {
-
-	}
-
-	public Group getGroup(Participant participant, Course course) {
-		return null;
-	}
-
-	public Participant getParticipantFromPerson(Person person) {
-		return null;
-	}
-
-	public Team getTeam(Participant participant) {
-		return null;
+	public void resetChangedParticipants() throws Exception {
+		//TODO
+		throw new Exception("Event.resethangedParticipants is not implemented yet.");
 	}
 
 	public LocalDate getDate() {

@@ -44,7 +44,9 @@ public class RestrictionControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		restrictionController = new RestrictionController(wdC);
+		//restrictionController = new RestrictionController(wdC);
+		wdC = TestDataFactory.createTestWalkingDinnerController();
+		restrictionController = wdC.getRestrictionController();
 	}
 
 	/**

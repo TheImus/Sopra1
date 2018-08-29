@@ -122,7 +122,8 @@ public class TestDataFactory {
 		List<Participant> copyPart=new ArrayList<>();
 		copyPart.addAll(part);
 		event.setInvited(copyPart);
-		
+
+		event.setInvited(part);
 		return event;
 	}
 	

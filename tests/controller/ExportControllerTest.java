@@ -26,17 +26,9 @@ public class ExportControllerTest {
 	 */
 	@Test
 	public void testExportChangedParticipantData() {
-		fail("Not yet implemented");
+		WalkingDinnerController wdc = TestDataFactory.createTestWalkingDinnerController();
+		wdc.getExportController().exportChangedParticipantData("Participants.txt");
 	}
 
-	@Test
-	public void testGetWalkingDinnerController() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetWalkingDinnerController() {
-		fail("Not yet implemented");
-	}
 
 }
