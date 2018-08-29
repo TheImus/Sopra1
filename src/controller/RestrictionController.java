@@ -62,7 +62,7 @@ public class RestrictionController {
 	}
 
 	/**
-	 * Return a list of the restrictions of the currentParticipant
+	 * Returns a list of the restrictions of the currentParticipant
 	 * @return participantRestrictions The list of restrictions of the currentParticipant
 	 */
 	public List<Restriction> getParticipantRestrictions() {
