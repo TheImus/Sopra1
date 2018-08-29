@@ -197,7 +197,6 @@ public class ScheduleController {
 			teams = insertParticipantInFittingTeam(teams, participant);
 		}
 		return teams;
-		
 	}
 	
 	/**
