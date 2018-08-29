@@ -3,6 +3,7 @@ package controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -11,19 +12,17 @@ import model.Participant;
 public class ExportController {
 
 	private WalkingDinnerController walkingDinnerController;
-	private String filename;
-	private Path tmpDir;
 	
 	
 	public ExportController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
-		try {
-			tmpDir = Files.createTempDirectory("");
+		/*try {
+			//tmpDir = Files.createTempDirectory("");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			//path = //System.getProperty("user.home")
-		}
+		}*/
 	}
 	
 	//public void export()
@@ -38,8 +37,8 @@ public class ExportController {
 			PrintWriter out = new PrintWriter(fileName);
 			for(Participant participant : participants){
 				out.println("" + participant.getPerson().getName());
-				out.println("Your course times: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getCourseTimes());
-				out.println("You are hosting this: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getCourseToCook(participant));
+				out.println("Course times: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getCourseTimes());
+				out.println("You are hosting this: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getCourseToCook(participant).toString());
 				out.println("You are a guest at the following events: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getAddresses(participant));//TODO
 				out.println();
 			}
