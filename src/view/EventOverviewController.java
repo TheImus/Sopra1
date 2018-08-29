@@ -105,6 +105,8 @@ public class EventOverviewController {
 		for(Event ev:list){
 			listEvent.getItems().add(ev);
 		}
+		BtnEdtiting.setDisable(true);
+    	BtnRemoveEvent.setDisable(true);
 		
     }
     
@@ -123,8 +125,7 @@ public class EventOverviewController {
 		}
     			);
     	refresh();
-    	BtnEdtiting.setDisable(true);
-    	BtnRemoveEvent.setDisable(true);
+    	
 
 
     }
@@ -294,16 +295,7 @@ public class EventOverviewController {
 
     }
     
-    @FXML
-    void onMouseClick(MouseEvent event) {
-    	Event currentEvent = listEvent.getSelectionModel().getSelectedItem();
-    	System.out.println("hallo");
-    	if(currentEvent != null)
-    		BtnEdtiting.setDisable(false);
-    	else
-    		BtnEdtiting.setDisable(true);
 
-    }
     
     @FXML
     void onMouseClicked(MouseEvent event){

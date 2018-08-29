@@ -84,8 +84,8 @@ public class GroupController {
 					group.getGuest().remove(group.getGuest().get(0));	
 				}
 				else {
-					group.setHostTeam(null);
 					removeGroup(group);
+					group.setHostTeam(null);
 				}
 				
 			}
