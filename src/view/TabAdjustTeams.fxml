@@ -66,12 +66,12 @@
                 <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="BtnAddToTeam" mnemonicParsing="false" onAction="#OnBtnAddToTeam" prefWidth="100.0" text="↥" GridPane.columnIndex="1">
+                  <Button fx:id="BtnAddToTeam" mnemonicParsing="false" onAction="#OnBtnAddToTeam" prefWidth="60.0" text="↥" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets right="7.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button fx:id="BtnRemoveFromTeam" mnemonicParsing="false" onAction="#OnBtnRemoveFromTeam" prefWidth="100.0" text="↧" GridPane.columnIndex="2">
+                  <Button fx:id="BtnRemoveFromTeam" mnemonicParsing="false" onAction="#OnBtnRemoveFromTeam" prefWidth="60.0" text="↧" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets left="7.0" />
                      </GridPane.margin>
