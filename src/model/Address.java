@@ -36,6 +36,10 @@ public class Address implements Serializable {
 		return result;
 	}
 	
+	public String toString(){
+		return this.street + ", " + this.addressAdditional;
+	}
+	
 	public String getStreet() {
 		return street;
 	}

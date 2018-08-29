@@ -103,6 +103,7 @@ public class EventOverviewController {
     @FXML
     void onNewEvent(ActionEvent event){
     	try {
+    		walkingDinnerController.getWalkingDinner().setCurrentEvent(null);
 			GridPane root = new GridPane();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NewEventFromTemplate.fxml"));
 			root = loader.load();

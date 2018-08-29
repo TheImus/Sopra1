@@ -3,6 +3,8 @@ package view;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.sun.prism.paint.Color;
+
 import controller.EventController;
 import controller.WalkingDinnerController;
 import javafx.event.ActionEvent;
@@ -69,37 +71,138 @@ public class NewEventFromTemplateController {
     @FXML
     void onCreateEvent(ActionEvent event) {		//Fehlerbehandlung fuer falsche Eingabe fehlt noch
     	
+    	
+    	boolean passed =true;
+    	
     	EventController eventController = walkingDinnerController.getEventController();
     	WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
-    	Event currentEvent = new Event();
-    	walkingDinner.getEvents().add(currentEvent);
+    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+    	if(currentEvent == null){
+    		currentEvent = new Event();
+    		walkingDinner.getEvents().add(currentEvent);
+    	}
     	walkingDinner.setCurrentEvent(currentEvent);
-    	eventController.setEventName(TextEventName.getText());
-    	eventController.setEventDate(PickerDate.getValue());
-    	eventController.setEventPlace(TextPlace.getText());
-    	eventController.setDeadline(PickerDeadline.getValue());
-    	eventController.setEventDescription(TextEventDetails.getText());
-    	eventController.setCourseTime(Course.STARTER, LocalTime.parse(TextStarter.getText()));
-    	eventController.setCourseTime(Course.MAIN, LocalTime.parse(TextMain.getText()));
-    	eventController.setCourseTime(Course.DESSERT, LocalTime.parse(TextDessert.getText()));
+    	 
     	
-    	try {    		
-    		GridPane root = new GridPane();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
-			root = loader.load();
-			
-			TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
-			tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
-			
-			Scene scene = new Scene(root);
-			
-			tabsOverviewController.init();
-			
-			((Stage)gridPaneNewEvent.getScene().getWindow()).setScene(scene);
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+    	// check of free text
+    	try{
+    		TextEventName.setStyle("-fx-background-color: white;");
+    		eventController.setEventName(TextEventName.getText());
+    		if(TextEventName.getText().equals(""))
+    			throw new Exception();
+    	}
+    	catch(IllegalArgumentException e){
+    		TextEventName.setStyle("-fx-background-color: orange;");
+    		passed=false;
+    	}
+    	catch(Exception e){
+    		TextEventName.setStyle("-fx-background-color: red;");
+    		passed=false;
+    	}
+    	
+    	try{
+    		TextPlace.setStyle("-fx-background-color: white;");
+    		eventController.setEventPlace(TextPlace.getText());
+    		if(TextPlace.getText().equals(""))
+    			throw new Exception();
+    	}
+    	catch(Exception e){
+    		TextPlace.setStyle("-fx-background-color: red;");
+    		passed=false;
+    	}
+    	
+    	try{
+    		TextEventDetails.setStyle("-fx-background-color: white;");
+    		if(TextEventDetails.getText().equals(""))
+    			throw new Exception();
+    		eventController.setEventDescription(TextEventDetails.getText());
+    	}
+    	catch(Exception e){
+    		TextEventDetails.setStyle("-fx-background-color: red;");
+    		passed=false;
+    	}
+    	
+    	
+     	
+    	
+    	//date things
+    	
+    	try{
+    		PickerDate.setStyle("-fx-background-color: white;");
+    		if(PickerDate.getValue() == null)
+    			throw new Exception();
+    		eventController.setEventDate(PickerDate.getValue());
+    		
+    	}
+    	catch(Exception e){
+    		PickerDate.setStyle("-fx-background-color: red;");
+    		passed=false;
+    	}
+    	
+    	try{
+    		PickerDeadline.setStyle("-fx-background-color: white;");
+    		if(PickerDeadline.getValue() == null)
+    			throw new Exception();
+    		eventController.setDeadline(PickerDeadline.getValue());
+    	}
+    	catch(Exception e){
+    		PickerDeadline.setStyle("-fx-background-color: red;");
+    		passed=false;
+    	}
+    	
+    	
+    	//time things
+    	try{
+    		TextStarter.setStyle("-fx-background-color: white;");
+    		eventController.setCourseTime(Course.STARTER, LocalTime.parse(TextStarter.getText()));
+    	}
+    	catch(Exception e){
+    		TextStarter.setStyle("-fx-background-color: red;");
+    		passed=false;
+    	}
+    	
+    	try{
+    		TextMain.setStyle("-fx-background-color: white;");
+    		eventController.setCourseTime(Course.MAIN, LocalTime.parse(TextMain.getText()));
+    	}
+    	catch(Exception e){
+    		TextMain.setStyle("-fx-background-color: red;");
+    		passed=false;
+    	}
+    	
+    	try{
+    		TextDessert.setStyle("-fx-background-color: white;");
+    		eventController.setCourseTime(Course.DESSERT, LocalTime.parse(TextDessert.getText()));
+    	}
+    	catch(Exception e){
+    		TextDessert.setStyle("-fx-background-color: red;");
+    		passed=false;
+    	}
+    	
+    	
+    	
+    	
+    	
+    	if(passed){
+	    	try {
+	    		
+	    		GridPane root = new GridPane();
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
+				root = loader.load();
+				
+				TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
+				tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
+				
+				Scene scene = new Scene(root);
+				
+				tabsOverviewController.init();
+				
+				((Stage)gridPaneNewEvent.getScene().getWindow()).setScene(scene);
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+    	}
     }
 
     @FXML
@@ -121,6 +224,23 @@ public class NewEventFromTemplateController {
 			e.printStackTrace();
 		}
 
+    }
+    
+    public void refresh(){
+    	if(walkingDinnerController.getWalkingDinner().getCurrentEvent() != null){
+    		BtnCreateEvent.setText("Änderungen Speichern");
+    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+    		TextEventName.setText(currentEvent.getName());
+    		PickerDate.setValue(currentEvent.getDate());
+    		TextPlace.setText(currentEvent.getCity());
+    		PickerDeadline.setValue(currentEvent.getRegistrationDeadline());
+    		TextEventDetails.setText(currentEvent.getEventDescription());
+    		TextStarter.setText(currentEvent.getCourseTimes().get(Course.STARTER).toString());
+    		TextMain.setText(currentEvent.getCourseTimes().get(Course.MAIN).toString());
+    		TextDessert.setText(currentEvent.getCourseTimes().get(Course.DESSERT).toString());
+    
+    		
+    	}
     }
 
 }
