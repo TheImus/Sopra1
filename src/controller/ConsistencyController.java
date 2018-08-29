@@ -59,24 +59,18 @@ public class ConsistencyController {
 	 */
 	public List<String> getWarnings(Team team) {
 		
-		Event event = walkingDinnerController.getWalkingDinner().getCurrentEvent();
-		List<Team> allTeams = event.getAllTeams();
 	    List<String> warnings = new ArrayList<String>();
-	    List<Participant> members = team.getParticipants();													// get all members of the team and save them in the list, they are participants currently
-		
+	    List<Participant> members = team.getParticipants();												// get all members of the team and save them in the list, they are participants currently
 		
 	    warnings.addAll(teamSizeWarnings(team));														//add all warnings with size issues
-		
-	    warnings.addAll(sameMemberAndKnowingWarnings(team));
+		warnings.addAll(multipleMemberAndKnowingWarnings(team));											//adds warning if same if there is a knowing relation or if same participant multiple times in team
 		
 		for(int i = 0; i < members.size()-1; i++){
 			if(!members.get(i).getCourseWish().equals(members.get(i+1).getCourseWish())){				//check if team members have same course wish
 				warnings.add(members.get(i).getPerson().getName() + "hat anderen Wunschgang als " + members.get(i+1).getPerson().getName());
 			}
 		}
-		
 		if(team.getHost() == null) warnings.add("kein Host vorhanden/gesetzt");							//check if there is a host
-		
 		List<Restriction> differentR = getDifferentRestrictionsFor(team.getParticipants());
 		if(differentR.size() >0 ) {																		// check if there are any restrictions that don't match
 			String newWarning = "";
@@ -89,23 +83,6 @@ public class ConsistencyController {
 			}
 			warnings.add(newWarning);
 		}	
-		
-		for(int i = 0; i< allTeams.size(); i++){														// check if a member is in multiple (other) teams
-			if(!allTeams.get(i).equals(team)){
-				for(int j = 0; j < members.size(); j++){
-					if(allTeams.get(i).getParticipants().contains(members.get(j))){
-						String newWarning = "";
-						newWarning+= members.get(j).getPerson().getName() + "kommt in mehreren Teams vor, das andere Team besteht aus: \n" ;
-						for(Participant p : allTeams.get(i).getParticipants())
-						{
-							newWarning += p.getPerson().getName() + "\n";
-						}
-						warnings.add(newWarning);
-						//warnings.add(members.get(j).getPerson().getName() + "kommt in mehreren Teams vor, das andere Team besteht aus: " + allTeams.get(i).getParticipants());	
-					}	
-				}
-			}
-		}
 		return warnings;
 	}
 
@@ -114,19 +91,19 @@ public class ConsistencyController {
 	 * the same member is multiple times in one team
 	 * @param team for which the warnings are created
 	 */
-	private List<String> sameMemberAndKnowingWarnings(Team team) {
-		
+	private List<String> multipleMemberAndKnowingWarnings(Team team) {
 		
 		List<String> warnings = new ArrayList<String>();
 		ScheduleController schedule = walkingDinnerController.getScheduleController();
+		Event event = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 		Map<Person,List<Person>> knownPersons = schedule.generateKnowingRelations();
+		List<Team> allTeams = event.getAllTeams();
 		List<Participant> members = team.getParticipants();
 		List<Person> membersAsPerson = new ArrayList<Person>();	
 		
 		for(int i = 0; i < team.getParticipants().size(); i++){												// make all members to Persons and save them in a list
 			membersAsPerson.add(members.get(i).getPerson());
 		}
-		
 		for(int i = 0; i<membersAsPerson.size()-1;i++) {																				
 			for(int j = i+1; j<membersAsPerson.size();j++) {														
 				if(membersAsPerson.get(i).equals(membersAsPerson.get(j))){								//check if a person is multiple times in the same team
@@ -134,7 +111,20 @@ public class ConsistencyController {
 				}
 			}		
 		}
-		
+		for(int i = 0; i< allTeams.size(); i++){														// check if a member is in multiple (other) teams
+			if(!allTeams.get(i).equals(team)){
+				for(int j = 0; j < members.size(); j++){
+					if(allTeams.get(i).getParticipants().contains(members.get(j))){
+						String newWarning = "";
+						newWarning+= members.get(j).getPerson().getName() + "kommt in mehreren Teams vor, das andere Team besteht aus: \n" ;
+						for(Participant p : allTeams.get(i).getParticipants()){
+							newWarning += p.getPerson().getName() + "\n";
+						}
+						warnings.add(newWarning);
+					}	
+				}
+			}
+		}
 		try{
 			if(!knownPersons.isEmpty()) warnings.addAll(knowingRelation(membersAsPerson));				//check knowing Relation
 			}catch(NullPointerException nullPointer){}
@@ -227,10 +217,8 @@ public class ConsistencyController {
 		List<Group> allGroupsWithWarnings = new ArrayList<Group>();
 		List<Group> allGroups = groupController.getGroups();
 		
-		for(Group group : allGroups) {														//check for warnings for each team in event 																				
-			if(!getWarnings(group).isEmpty()) allGroupsWithWarnings.add(group); 												//if there are warnings add the group to the list
-				
-			
+		for(Group group : allGroups) {																			//check for warnings for each group in event 																				
+			if(!getWarnings(group).isEmpty()) allGroupsWithWarnings.add(group); 								//if there are warnings add the group to the list
 		}
 		return allGroupsWithWarnings;
 	}
@@ -386,7 +374,5 @@ public class ConsistencyController {
 		return knowingMap;
 		
 	}
-	
-	
 
 }
