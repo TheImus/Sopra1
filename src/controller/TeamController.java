@@ -72,21 +72,28 @@ public class TeamController {
 			if (team.getParticipants().size() == 1 || team.getParticipants().size() == 0) {
 				boolean find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
 				if(find) {
-					System.out.println("zu löschender participant in teilnehmerliste vorhanden");
+					System.out.println("zu lï¿½schender participant in teilnehmerliste vorhanden");
 				}
 				team.setHost(null);
 				team.setMembers(new ArrayList<Participant>());
 				removeTeam(team);
+				deleteTeamFromEvent(team);
 				System.out.println("einer, anzahl participants in dem team:" + team.getParticipants().size());
 				find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
 				if(find) {
-					System.out.println("zu löschender participant in teilnehmerliste vorhanden");
+					System.out.println("zu lï¿½schender participant in teilnehmerliste vorhanden");
 				}
 				
 			} 
 			else if (team.getHost().equals(participant)) {
-				team.setHost(team.getMembers().get(0));
+				/*team.setHost(team.getMembers().get(0));
 				List<Participant> list = team.getMembers();
+				list.remove(0);
+				team.setMembers(list);
+				*/
+				System.out.println("Host: " + participant.getPerson().getName());
+				List<Participant> list = team.getMembers();
+				team.setHost(team.getMembers().get(0));
 				list.remove(0);
 				team.setMembers(list);
 			}
@@ -145,6 +152,10 @@ public class TeamController {
 			}
 		}
 
+	}
+	
+	public void deleteTeamFromEvent(Team team){
+		walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams().remove(team);
 	}
 
 	/**

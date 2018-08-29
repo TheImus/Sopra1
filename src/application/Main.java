@@ -21,9 +21,10 @@ private WalkingDinnerController walkingDinnerController;
 
 	
 	@Override
-	public void init() throws Exception { //Beispielprojekt muss später ruas
-		walkingDinnerController = new WalkingDinnerController();
-		walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel("beispielprojekt"));
+	public void init() throws Exception { //Beispielprojekt muss spï¿½ter ruas
+		//walkingDinnerController = new WalkingDinnerController();
+		walkingDinnerController = TestDataFactory.createTestWalkingDinnerController();
+		//walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel("beispielprojekt"));
 		Event newEvent = TestDataFactory.createTestEvent();
 		newEvent.setName("TestEvent mit Schedule von Factory");
 		List<Event> evList = walkingDinnerController.getWalkingDinner().getEvents();

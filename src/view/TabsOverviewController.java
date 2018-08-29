@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -82,12 +81,13 @@ public class TabsOverviewController {
 			tabAdjustTeamsController.init();
 			TabTeams.setContent(root4);
 			
-			TabPane root5 = new TabPane();
+			GridPane root5 = new GridPane();
 			FXMLLoader loader5 = new FXMLLoader(getClass().getResource("/view/TabGroups.fxml"));
 			root5 = loader5.load();
 			
 			TabGroupsController tabGroupsController = (TabGroupsController) loader5.getController();
-			tabGroupsController.setWalkingDinnerController(walkingDinnerController);			
+			tabGroupsController.setWalkingDinnerController(walkingDinnerController);	
+			tabGroupsController.init();
 			TabGroups.setContent(root5);
 			
 			
@@ -100,7 +100,7 @@ public class TabsOverviewController {
 
     @FXML
     void onClose(ActionEvent event) {
-    	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), "beispielprojekt");
+    	WalkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), "beispielprojekt");
     	
     	try {
 			BorderPane root = new BorderPane();
