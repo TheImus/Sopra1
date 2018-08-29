@@ -152,18 +152,7 @@ public class ConsistencyController {
 	}
 
 	/**
-	 * The method creates warning messages for each group, possible warnings:
-	 * 1. "Gruppe zu klein"
-	 * 2. "Gruppe zu groß"
-	 * 3. "kein Hostteam festgelegt"
-	 * 4. "keine Gastteams vorhanden"
-	 * 5. "Die Anzahl der Gastteams stimmt nicht"
-	 * 6. person.get(i) + " und" + person.get(j) + " kennen sich"
-	 * 7. "folgende Restriktionen könnten Problematisch sein:" + Restriction +  "bitte einmal überprüfen für folgende Gruppe:" + Gruppe
-	 * 8. TeamX "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
-	 * 9. TeamX "kommt in mehreren MAIN Gruppen vor, die andere Gruppe besteht aus: "
-	 * 10. TeamX "kommt in mehreren DESSERT Gruppen vor, die andere Gruppe besteht aus: " TeamsXYZ
-	 *
+	 * The method creates warning messages for each group
 	 * @param group name of a group object
 	 * @return Returns a list with all warnings for the group
 	 */
