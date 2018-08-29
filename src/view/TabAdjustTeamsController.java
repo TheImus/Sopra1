@@ -61,9 +61,6 @@ public class TabAdjustTeamsController {
     	Participant selected = ListSelectedTeams.getSelectionModel().getSelectedItem();
     	//Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
     	teamController.removeParticipantFromTeam(selectedTeam, selected);
-    	System.out.println("leute in team: " + selectedTeam.getParticipants().size());
-    	System.out.println("anzahl Teilnehmer nach loeschen: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().size());
-    	System.out.println("anzahl freie Teilnehmer nach loeschen: " + walkingDinnerController.getTeamController().getFreeParticipants().size());
     	refresh();
     }	
     
@@ -100,6 +97,7 @@ public class TabAdjustTeamsController {
 			            setText("");
 			        } else {
 			        	String res = item.getPerson().getName();
+			        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item)!=null)
 			        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item).getHost().equals(item)){
 			        		res += " (host) ";
 			        	}
@@ -162,8 +160,6 @@ public class TabAdjustTeamsController {
 //    		}
 //    	}
     	
-    	
-    	System.out.println("anzahl teams in event: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams().size());
     	
     	List<Team> teamList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams();
     	//ListTeams.getItems().remove(0, ListTeams.getItems().size());

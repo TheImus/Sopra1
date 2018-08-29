@@ -194,7 +194,6 @@ public class TestDataFactory {
 		participant.setCourseWish(Course.MAIN);
 		Person person = createTestPerson();
 		participant.setPerson(person);
-		System.out.println("erstelle Person mit namen: " + participant.getPerson().getName());
 		participant.setSpecialNeeds("I don't want to do this.");
 		return participant;
 	}
@@ -220,7 +219,6 @@ public class TestDataFactory {
 		person.setMailAddress("test@mail.com");
 		person.setName("Marx" + (numOfPeople) + " Mustermann");
 		numOfPeople++;
-		System.out.println(numOfPeople);
 		person.setPhoneNumber("0231/666999");
 		return person;
 	}

@@ -71,18 +71,13 @@ public class TeamController {
 
 			if (team.getParticipants().size() == 1 || team.getParticipants().size() == 0) {
 				boolean find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
-				if(find) {
-					System.out.println("zu l�schender participant in teilnehmerliste vorhanden");
-				}
+				
 				team.setHost(null);
 				team.setMembers(new ArrayList<Participant>());
 				removeTeam(team);
 				deleteTeamFromEvent(team);
-				System.out.println("einer, anzahl participants in dem team:" + team.getParticipants().size());
 				find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
-				if(find) {
-					System.out.println("zu l�schender participant in teilnehmerliste vorhanden");
-				}
+				
 				
 			} 
 			else if (team.getHost().equals(participant)) {
