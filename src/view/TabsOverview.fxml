@@ -21,12 +21,12 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <MenuBar>
+      <MenuBar fx:id="MenuBarTabOberview">
         <menus>
-          <Menu mnemonicParsing="false" text="Event">
+          <Menu fx:id="MenuTabsOverview" mnemonicParsing="false" text="Event">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Speichern" />
-              <MenuItem mnemonicParsing="false" text="Schließen" />
+                  <MenuItem fx:id="MenuItemSave" mnemonicParsing="false" onAction="#onSaveTabsOverview" text="Speichern" />
+              <MenuItem fx:id="MenuItemClose" mnemonicParsing="false" onAction="#onCloseTabsOverview" text="Schließen" />
             </items>
           </Menu>
         </menus>

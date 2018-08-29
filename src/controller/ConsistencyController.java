@@ -61,7 +61,7 @@ public class ConsistencyController {
 		Event event = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 		List<Team> allTeams = event.getAllTeams();
 	    List<String> warnings = new ArrayList<String>();
-	    List<Participant> members = team.getMembers();													// get all members of the team and save them in the list, they are participants currently
+	    List<Participant> members = team.getParticipants();													// get all members of the team and save them in the list, they are participants currently
 		
 		
 	    warnings.addAll(teamSizeWarnings(team));														//add all warnings with size issues

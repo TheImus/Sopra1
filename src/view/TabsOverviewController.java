@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -30,9 +33,20 @@ public class TabsOverviewController {
     
     @FXML
     private Tab TabGroups;
+    
+    @FXML
+    private MenuBar MenuBarTabOberview;
 
     @FXML
-    private Button BtnClose;
+    private Menu MenuTabsOverview;
+
+    @FXML
+    private MenuItem MenuItemSave;
+
+    @FXML
+    private MenuItem MenuItemClose;
+
+   
     
     private WalkingDinnerController walkingDinnerController;
     
@@ -99,8 +113,9 @@ public class TabsOverviewController {
     }
 
 
+    
     @FXML
-    void onClose(ActionEvent event) {
+    void onCloseTabsOverview(ActionEvent event) {
     	WalkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), "beispielprojekt");
     	
     	try {
@@ -119,7 +134,12 @@ public class TabsOverviewController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-    	
     }
+
+    @FXML
+    void onSaveTabsOverview(ActionEvent event) {
+    	WalkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), "beispielprojekt");
+    }
+
 
 }
