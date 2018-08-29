@@ -35,11 +35,14 @@ public class EventController {
 	 * @throws IllegalArgumentException
 	 */
 	public void setEventName(String name) {
+		if(getCurrentEvent() != null & name.equals(getCurrentEvent().getName()))
+			return ;
 		for(Event event : walkingDinnerController.getWalkingDinner().getEvents()){
 			if(event.getName().equals(name)) throw new IllegalArgumentException("Eventname '" + name + "' already exists.");
 		}
 		getCurrentEvent().setName(name);
 	}
+	
 
 	@Deprecated
 	public void addNewKnowingPersons(List<Participant> toList, Participant knownBy) {//TODO i think this does not make sense at all

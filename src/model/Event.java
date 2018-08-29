@@ -162,6 +162,30 @@ public class Event implements Serializable{
 		}
 	}
 	
+	public Group getGroup(Participant part){
+		for(Course c: Course.values()){
+			for(Group g: schedule.getGroup(c)){				
+				if(g.getParticipants().contains(part)){
+					return g;	
+				}				
+			}
+		}		
+		return null;
+	}
+	
+	public Team getTeam(Participant part){
+		Group group = getGroup(part);
+		if(group==null){
+			return null;
+		}
+		for(Team t:group.getTeams()){
+			if(t.getParticipants().contains(part)){	
+				return t;
+			}
+		}
+		return null;
+	}
+	
 	
 	
 

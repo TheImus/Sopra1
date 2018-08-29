@@ -74,7 +74,7 @@ public class TabParticipantsController {
     }
     
     public void refresh() {
-    	participantList.getItems().remove(0, participantList.getItems().size());
+    	participantList.getItems().clear();
     	List<Participant> list = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants();
     	participantList.getItems().addAll(list);
     }
@@ -82,25 +82,43 @@ public class TabParticipantsController {
     private ExportController getExportController(){
     	return this.walkingDinnerController.getExportController();
     }
-
+    
+    
     @FXML
-    void onExportChangedParticipantData(ActionEvent event) {//TODO
+    void onExportChangedParticipantData(ActionEvent event) {
     	ExportController exportController = this.getExportController();
+    	try{
     	
-    	
-    	FileChooser fileChooser = new FileChooser();
-        //Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text-Dateien (*.txt)", "*.txt");
-        fileChooser.getExtensionFilters().add(extFilter);
-        fileChooser.setInitialFileName("Changed_Participants.txt");
-        fileChooser.setTitle("Geänderte Teilnehmerdaten speichern");
-        
-        //Show save file dialog
-        File file = fileChooser.showSaveDialog(this.stage);
-        
-    	
-    	exportController.exportChangedParticipantData(file.getName());
+	    	FileChooser fileChooser = new FileChooser();
+	        //Set extension filter
+	        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text-Dateien (*.txt)", "*.txt");
+	        fileChooser.getExtensionFilters().add(extFilter);
+	        fileChooser.setInitialFileName("Changed_Participants.txt");
+	        fileChooser.setTitle("Teilnehmerdaten speichern");
+	        
+	        //Show save file dialog
+	        File file = fileChooser.showSaveDialog(this.stage);
+	        
+	        if (file != null) {
+	            try {
+	            	String filename = file.getAbsolutePath();
+	            	if (!file.getName().endsWith("txt")) {
+	            		filename += ".txt";
+	            	}
+	            	exportController.exportChangedParticipantData(filename);
+	            	
+	            } catch (Exception e) {
+	                System.out.println(e.getMessage());
+	            }
+	        }
+	    	
+	    	
+    	}catch(Exception e){
+    		System.out.println(e.toString());
+    	}
+    	//exportController.exportParticipantData(participants, fileName);
     }
+    
 
     @FXML
     void onExportParticipantData(ActionEvent event) {//TODO exportParticipantData
@@ -112,14 +130,26 @@ public class TabParticipantsController {
 	        //Set extension filter
 	        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text-Dateien (*.txt)", "*.txt");
 	        fileChooser.getExtensionFilters().add(extFilter);
-	        fileChooser.setInitialFileName("All_Participants.txt");
+	        fileChooser.setInitialFileName("Selected_Participants.txt");
 	        fileChooser.setTitle("Teilnehmerdaten speichern");
 	        
 	        //Show save file dialog
 	        File file = fileChooser.showSaveDialog(this.stage);
 	        
+	        if (file != null) {
+	            try {
+	            	String filename = file.getAbsolutePath();
+	            	if (!file.getName().endsWith("txt")) {
+	            		filename += ".txt";
+	            	}
+	            	exportController.exportParticipantData(selectedParticipants, filename);
+	            	
+	            } catch (Exception e) {
+	                System.out.println(e.getMessage());
+	            }
+	        }
 	    	
-	    	exportController.exportParticipantData(selectedParticipants, file.getName());
+	    	
     	}catch(Exception e){
     		System.out.println(e.toString());
     	}
@@ -145,16 +175,16 @@ public class TabParticipantsController {
   			
   			((Stage)GridPaneParticipants.getScene().getWindow()).setScene(scene);
   			
+    		
   		} catch(Exception e) {
   			e.printStackTrace();
   		}
+    	 
     }
     
     @FXML
     void onCreateParticipant(ActionEvent event){
     	 try {
-    		Participant currPart = participantList.getSelectionModel().getSelectedItem();
-    		walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(currPart);
    			GridPane root = new GridPane();
    			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdjustParticipant.fxml"));
    			root = loader.load();

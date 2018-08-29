@@ -1,6 +1,8 @@
 package view;
 
 	import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import controller.ParticipantAction;
 import controller.WalkingDinnerController;
@@ -15,20 +17,30 @@ import javafx.scene.control.Button;
 	import javafx.scene.control.ComboBox;
 	import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 	import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Course;
+import model.Participant;
+import model.Restriction;
 
 	public class AdjustParticipantController {
+		
+		@FXML
+		private ScrollPane SpRestrictionList;
 
 	    @FXML
 	    private DatePicker DateBirthday;
 
 	    @FXML
 	    private TextArea EdSpecialWished;
-
+	    
+	    @FXML
+	    private TextField EdStreet;
+	    
 	    @FXML
 	    private TextField EdName;
 
@@ -40,6 +52,9 @@ import javafx.stage.Stage;
 
 	    @FXML
 	    private TextField EdAddressExtra;
+	    
+	    @FXML
+	    private TextField EdRestriction;
 
 	    @FXML
 	    private ComboBox<String> CbWishCourse;
@@ -81,6 +96,7 @@ import javafx.stage.Stage;
 
 	    
 	    public void init(){
+	    	//Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 	    	CbAction.setCellFactory(actions ->
 	    		new ListCell<ParticipantAction>() {
 	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
@@ -93,6 +109,27 @@ import javafx.stage.Stage;
 	    				
 	    			}
 	    		});
+	    	refresh();
+	    	
+	    }
+	    
+	    public void refresh(){
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	if(currentParticipant!=null){
+	    		EdName.setText(currentParticipant.getPerson().getName());
+	    		EdZipCode.setText(currentParticipant.getAddress().getZipCode());
+	    		EdAddressExtra.setText(currentParticipant.getAddress().getAddressAdditional());
+	    		EdSpecialWished.setText(currentParticipant.getSpecialNeeds());
+	    		EdPlace.setText(currentParticipant.getAddress().getCity());
+	    		EdStreet.setText(currentParticipant.getAddress().getStreet());
+	    		DateBirthday.setValue(currentParticipant.getPerson().getBirthDate());
+	    		
+	    		Course courseWish = currentParticipant.getCourseWish();
+	    		CbWishCourse.setValue(courseWish.toString());
+	    		
+	    		
+	    		
+	    	}	
 	    }
 	    
 	    
@@ -118,12 +155,22 @@ import javafx.stage.Stage;
 
 	    @FXML
 	    void OnCreateNewRestriction(ActionEvent event) {
+	    	String restrictionName = EdRestriction.getText();
+	    	Restriction restriction = new Restriction();
+	    	restriction.setName(restrictionName);
 	    	
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	currentParticipant.addRestriction(restriction);
+	    	restriction.addParticipant(currentParticipant);
+	    	
+	    	CheckBox newRestriction = new CheckBox();
+	    	newRestriction.setId(restrictionName);
+	    	//SpRestrictionList.addChild(newRestriction);
 	    }
 
 	    @FXML
 	    void OnNoAlkoholSelected(ActionEvent event) {
-	    	
+	    	//Fill the original List with all Participants of the model
 	    }
 
 	    @FXML
@@ -138,7 +185,7 @@ import javafx.stage.Stage;
 
 	    @FXML
 	    void OnVeganSelected(ActionEvent event) {
-
+	    	
 	    }
 
 	    @FXML
@@ -153,13 +200,39 @@ import javafx.stage.Stage;
 	    
 	    @FXML
 	    void OnSearchBoxClicked(MouseEvent event) {
+	    	List<Participant> participantList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants();
+	    	String search = CbSearchBox.getEditor().getText();
+	    	
+	    	for(Participant part : participantList){
+	    		if(part.getPerson().getName().equals(search)){
+	    			//return part;
+	    		}
+	    	}
 	    	
 	    	
 	    }
+	    
+	    
+	    boolean isValidZipCode(){
+	    	String zipCode = EdZipCode.getText();
+	    	Pattern validZipCode = Pattern.compile("\\b\\d{5}\\b");
+	    	
+	    	return validZipCode.matcher(zipCode).matches();
+	    }
 
+	    boolean checkIfParticipantIsLoaded(){
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	return currentParticipant == null;
+	    }
+	    
+	    /*
+	    public void start(Stage stage){
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	if(!(checkIfParticipantIsLoaded())){
+	    		EdName.setText(currentParticipant.getPerson().getName());
+	    	}
+	    }*/
 
-
-		
 	}
 
 

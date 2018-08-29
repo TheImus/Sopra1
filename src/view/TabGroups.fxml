@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -23,6 +24,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="NEVER" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="NEVER" />
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="15.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
@@ -49,23 +51,26 @@
             <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="BtnSetAsCooking" contentDisplay="TEXT_ONLY" mnemonicParsing="false" onAction="#onBtnSetCooking" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="1">
+            <Button fx:id="BtnSetAsCooking" contentDisplay="TEXT_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnSetCooking" prefHeight="50.0" prefWidth="50.0" text="A" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="15.0" />
                </GridPane.margin>
             </Button>
             <TitledPane collapsible="false" prefHeight="200.0" prefWidth="200.0" text="Augewählte Gruppe">
                <content>
-                  <ListView fx:id="ListSelectedGroup" prefHeight="200.0" prefWidth="200.0" />
+                  <ListView fx:id="ListSelectedGroup" minHeight="50.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" />
                </content></TitledPane>
          </children>
       </GridPane>
       <TitledPane collapsible="false" prefHeight="200.0" prefWidth="200.0" text="Gruppen" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <content>
-            <ListView fx:id="ListGroups" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="ListGroups" minHeight="50.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" />
          </content>
       </TitledPane>
-      <TitledPane fx:id="ListFreeTeams" collapsible="false" prefHeight="200.0" prefWidth="200.0" text="Freie Teams" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <TitledPane collapsible="false" prefHeight="200.0" prefWidth="200.0" text="Freie Teams" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <content>
+            <ListView fx:id="ListFreeTeams" minHeight="50.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" />
+         </content></TitledPane>
       <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -89,5 +94,10 @@
             </Button>
          </children>
       </GridPane>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+        <buttons>
+          <Button fx:id="BtnCreateNewGroup" mnemonicParsing="false" onAction="#onBtnCreateNewGroup" text="Neue Gruppe" />
+        </buttons>
+      </ButtonBar>
    </children>
 </GridPane>

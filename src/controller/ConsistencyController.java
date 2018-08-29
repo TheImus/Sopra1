@@ -95,11 +95,9 @@ public class ConsistencyController {
 	}
 
 	/**
-	 * @param team
-	 * @param warnings
-	 * @param members
-	 * @param membersAsPerson
-	 * @param knownPersons
+	 * the method creates 2 warnings: if there are any members in a team that know each other or if
+	 * the same member is multiple times in one team
+	 * @param team for which the warnings are created
 	 */
 	private List<String> sameMemberAndKnowingWarnings(Team team) {
 		
