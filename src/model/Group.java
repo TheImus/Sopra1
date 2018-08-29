@@ -18,7 +18,7 @@ public class Group implements Serializable{
 		List<Team> allTeams = getTeams();
 		List<Participant> participantList = new ArrayList<Participant>();
 		for(Team t: allTeams){
-			participantList.addAll(t.getMembers());
+			participantList.addAll(t.getParticipants());
 		}
 		return participantList;
 	}

@@ -62,7 +62,7 @@ public class TabEventController {
 			}
 			NewEventFromTemplateController newEventFromTemplateController = (NewEventFromTemplateController) loader.getController();
 			newEventFromTemplateController.setWalkingDinnerController(walkingDinnerController);
-			
+			newEventFromTemplateController.refresh();
 			Scene scene = new Scene(root);
 			
 			((Stage)GridPaneTabEvent.getScene().getWindow()).setScene(scene);
