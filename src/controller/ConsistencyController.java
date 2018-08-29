@@ -282,12 +282,12 @@ public class ConsistencyController {
 	{
 		List<String> warnings = new ArrayList<String>();
 		GroupController groupController = walkingDinnerController.getGroupController();
-		Event event = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		
 		for(int i = 0; i< groupController.getGroups().size(); i++){
 			if(!groupController.getGroups().get(i).equals(group)){
 				for(int j = 0; j < group.getTeams().size();j++){
 					if(groupController.getGroups().get(i).getTeams().contains(group.getTeams().get(j))){
-						warnings.add(group.getTeams().get(j)+"kommt in mehreren "+event.getSchedule().getCurrentCourse()+" Gruppen vor, die andere Gruppe besteht aus: "+groupController.getGroups().get(i).getTeams());	
+						warnings.add(group.getTeams().get(j)+"kommt in mehreren "+groupController.getCourse()+" Gruppen vor, die andere Gruppe besteht aus: "+groupController.getGroups().get(i).getTeams());	
 					}
 				}
 			}
