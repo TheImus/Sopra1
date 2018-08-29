@@ -12,10 +12,13 @@ public class WalkingDinner implements Serializable {
 
 	private Event currentEvent;
 	
+	private String fileName;
+	
 	
 	public WalkingDinner() {
 		this.events = new ArrayList<Event>();
 		this.currentEvent = null;
+		this.fileName = "";
 	}
 
 	public List<Person> getPersons() {
@@ -30,6 +33,14 @@ public class WalkingDinner implements Serializable {
 		} catch (NullPointerException e) {
 			throw e;
 		}
+	}
+	
+	public String getFileName(){
+		return fileName;
+	}
+	
+	public void setFileName(String fileName){
+		this.fileName = fileName;
 	}
 
 	public List<Event> getEvents() {
