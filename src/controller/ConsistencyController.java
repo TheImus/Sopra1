@@ -283,12 +283,13 @@ public class ConsistencyController {
 	private List<String> GroupSizeWarnings(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
+		int groupSize = group.getTeams().size();
 		
-		if(group.getTeams().size() < 3){												//checks if group size is below 3
+		if(groupSize < 3){												//checks if group size is below 3
 			warnings.add("Gruppe zu klein");
 		}
 		
-		if(group.getTeams().size() > 3){												//checks if group size is more than 3
+		if(groupSize > 3){												//checks if group size is more than 3
 			warnings.add("Gruppe zu groß");
 		}
 		
