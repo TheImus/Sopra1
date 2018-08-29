@@ -125,7 +125,7 @@ import model.Restriction;
 	    		DateBirthday.setValue(currentParticipant.getPerson().getBirthDate());
 	    		
 	    		Course courseWish = currentParticipant.getCourseWish();
-	    		CbWishCourse.setValue(courseWish.getText(courseWish));
+	    		CbWishCourse.setValue(courseWish.toString());
 	    		
 	    		
 	    		
