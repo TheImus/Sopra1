@@ -40,7 +40,7 @@
          </rowConstraints>
          <children>
             <Label text="Gang" />
-            <ComboBox fx:id="cbCourse" prefWidth="150.0" translateX="50.0" />
+            <ComboBox fx:id="cbCourse" onAction="#onCbCourseChange" prefWidth="150.0" translateX="50.0" />
             <Button fx:id="BtnGenerateGroups" mnemonicParsing="false" onAction="#onBtnGenerateGroups" text="Gruppen generieren" GridPane.columnIndex="1" />
          </children>
       </GridPane>
