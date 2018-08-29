@@ -40,7 +40,7 @@ public class TabInvitationViewControl extends Application {
 			
 			primaryStage.setScene(scene);
 			tabViewController.init();
-			tabViewController.setStage(primaryStage);
+			//tabViewController.setStage(primaryStage);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
