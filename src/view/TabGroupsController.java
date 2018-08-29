@@ -14,9 +14,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.Group;
 import javafx.scene.shape.SVGPath;
+import javafx.util.Callback;
 import model.Course;
 import model.Team;
 
@@ -56,6 +58,13 @@ public class TabGroupsController {
     private Button BtnCreateNewGroup;
 
     @FXML
+    private Button BtnGenerateGroups;
+
+
+    @FXML
+    private TextArea TextWarninungs;
+    
+    @FXML
     void onBtnAddTeamToGroup(ActionEvent event) {
 
     }
@@ -88,6 +97,13 @@ public class TabGroupsController {
     void onBtnCreateNewGroup(ActionEvent event) {
     	
     }
+    
+    @FXML
+    void onBtnGenerateGroups(ActionEvent event) {
+    	walkingDinnerController.getScheduleController().generateGroups();
+    	refreshAll();
+    }
+
 
 	public WalkingDinnerController getWalkingDinnerController() {
 		return walkingDinnerController;
@@ -104,6 +120,28 @@ public class TabGroupsController {
     	// Select course
     	walkingDinnerController.getGroupController().setCourse(Course.STARTER);
     	
+    	// Hole Gänge
+    	Callback<ListView<Course>, ListCell<Course>> cellFactory = new Callback<ListView<Course>, ListCell<Course>>() {
+    	    @Override
+    	    public ListCell<Course> call(ListView<Course> l) {
+    	        return new ListCell<Course>() {
+    	            @Override
+    	            protected void updateItem(Course item, boolean empty) {
+    	                super.updateItem(item, empty);
+    	                if (item == null || empty) {
+    	                    setGraphic(null);
+    	                } else {
+    	                    //setText(item.getId()+"    "+item.getName());
+    	                }
+    	            }
+    	        };
+    	    }
+    	};
+    	
+    	// Just set the button cell here:
+    	cbCourse.setButtonCell(cellFactory.call(null));
+    	cbCourse.setCellFactory(cellFactory);
+    	
 		// Group overview
     	ListGroups.setCellFactory(cell -> new ListCell<model.Group>() {
     		protected void updateItem(model.Group item, boolean empty) {
@@ -114,6 +152,11 @@ public class TabGroupsController {
 		        	Team hostingTeam = item.getHostTeam();
 		        	if (hostingTeam == null || hostingTeam.getHost() == null) {
 		        		setText(hostingTeam.getHost().getPerson().getName());
+		        		// check consistency
+		        		if (walkingDinnerController.getConsistencyController().getWarnings(item).size() > 0) {
+		        			this.setStyle("-fx-background-color: #dede00;");
+		        		}
+		        		this.setStyle("-fx-background-color: #dede00;");
 		        	} else {
 		        		setText("(Kein Gastgeber)");
 		        	}
@@ -121,13 +164,13 @@ public class TabGroupsController {
 		    }
     	});
 
+    	// this function is called, when you click on the group in the group overview
     	ListGroups.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<model.Group>() {
     	    @Override
     	    public void changed(ObservableValue<? extends model.Group> observable, model.Group oldValue, model.Group newValue) {
-    	        System.out.println("Selected group: " + newValue);
     	        selectedGroup = newValue;
-    	        
     	        refreshSelectedGroup();
+    	        refreshWarnings();
     	    }
     	});
     	
@@ -139,7 +182,6 @@ public class TabGroupsController {
     			protected void updateItem(SelectedGroupTeam item, boolean empty) {
     				super.updateItem(item, empty);
     				
-    				System.out.println(item);
     				if (!empty && item != null) {
     					Team team = item.getTeam();
     					
@@ -153,7 +195,7 @@ public class TabGroupsController {
     					
     					if (item.isHost) {
         					//this.setStyle("-fx-text-fill: red;");
-    						this.setStyle("-fx-background-color: #ccc;");
+    						this.setStyle("-fx-background-color: #dede00;");
     					}
     				} else {
     					setText("");
@@ -219,6 +261,7 @@ public class TabGroupsController {
     	refreshGroupList();
     	refreshSelectedGroup();
     	refreshFreeTeams();
+    	refreshWarnings();
     }
     
     /**
@@ -246,6 +289,23 @@ public class TabGroupsController {
     	ListFreeTeams.getItems().clear();
     	List<Team> teams = walkingDinnerController.getTeamController().getFreeTeams();
     	ListFreeTeams.getItems().addAll(teams);
+    }
+    
+    
+    private void refreshWarnings() {
+    	TextWarninungs.clear();
+    	
+    	if (selectedGroup != null) {
+    		System.out.println("Clear warnings");
+    		List<String> warnings = walkingDinnerController.getConsistencyController().getWarnings(selectedGroup);
+    		
+    		String warningText = "";
+    		for (String line : warnings) {
+    			warningText += line + "\n";
+    		}
+    		
+    		TextWarninungs.setText(warningText);
+    	}
     }
     
     
