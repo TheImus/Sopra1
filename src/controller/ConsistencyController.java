@@ -95,11 +95,9 @@ public class ConsistencyController {
 	}
 
 	/**
-	 * @param team
-	 * @param warnings
-	 * @param members
-	 * @param membersAsPerson
-	 * @param knownPersons
+	 * the method creates 2 warnings: if there are any members in a team that know each other or if
+	 * the same member is multiple times in one team
+	 * @param team for which the warnings are created
 	 */
 	private List<String> sameMemberAndKnowingWarnings(Team team) {
 		
@@ -289,7 +287,7 @@ public class ConsistencyController {
 			if(!groupController.getGroups().get(i).equals(group)){
 				for(int j = 0; j < group.getTeams().size();j++){
 					if(groupController.getGroups().get(i).getTeams().contains(group.getTeams().get(j))){
-						warnings.add(group.getTeams().get(j) + "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " + groupController.getGroups().get(i).getTeams());	
+						warnings.add(group.getTeams().get(j) + "kommt in mehreren " + groupController.getCourse() + " Gruppen vor, die andere Gruppe besteht aus: " + groupController.getGroups().get(i).getTeams());	
 					}
 				}
 			}

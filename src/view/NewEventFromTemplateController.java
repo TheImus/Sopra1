@@ -91,19 +91,23 @@ public class NewEventFromTemplateController {
     		if(TextEventName.getText().equals(""))
     			throw new Exception();
     	}
+    	catch(IllegalArgumentException e){
+    		TextEventName.setStyle("-fx-background-color: orange;");
+    		passed=false;
+    	}
     	catch(Exception e){
     		TextEventName.setStyle("-fx-background-color: red;");
     		passed=false;
     	}
     	
     	try{
-    		TextEventName.setStyle("-fx-background-color: white;");
-    		eventController.setEventName(TextEventName.getText());
-    		if(TextEventName.getText().equals(""))
+    		TextPlace.setStyle("-fx-background-color: white;");
+    		eventController.setEventPlace(TextPlace.getText());
+    		if(TextPlace.getText().equals(""))
     			throw new Exception();
     	}
     	catch(Exception e){
-    		TextEventName.setStyle("-fx-background-color: red;");
+    		TextPlace.setStyle("-fx-background-color: red;");
     		passed=false;
     	}
     	
