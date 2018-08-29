@@ -61,6 +61,8 @@ public class TabsOverviewController {
 			
 			TabInviteViewController tabInviteViewController = (TabInviteViewController) loader2.getController();
 			tabInviteViewController.setWalkingDinnerController(walkingDinnerController);
+			//tabInviteViewController.setStage((Stage) gridPaneTabOverview.getScene().getWindow());
+			tabInviteViewController.init();
 			TabInvitation.setContent(root2);
 			
 			GridPane root3 = new GridPane();
