@@ -104,6 +104,16 @@ public class TabGroupsController {
     	walkingDinnerController.getScheduleController().generateGroups();
     	refreshAll();
     }
+    
+    @FXML
+    void onCbCourseChange(ActionEvent event) {
+    	Course course = cbCourse.getSelectionModel().getSelectedItem();
+    	if (course != null) {
+    		walkingDinnerController.getGroupController().setCourse(course);
+    		refreshAll();
+    	}
+    }
+
 
 
 	public WalkingDinnerController getWalkingDinnerController() {
@@ -132,12 +142,25 @@ public class TabGroupsController {
     	                if (item == null || empty) {
     	                    setGraphic(null);
     	                } else {
-    	                    //setText(item.getId()+"    "+item.getName());
+    	                    switch (item) {
+	    	                    case STARTER: 
+	    	                    	setText("Vorspeise"); break;
+	    	                    case MAIN:
+	    	                    	setText("Hauptspeise"); break;
+	    	                    case DESSERT:
+	    	                    	setText("Nachtisch"); break;
+    	                    }
     	                }
     	            }
     	        };
     	    }
     	};
+    	
+    	for (Course course : Course.values()) {
+    		cbCourse.getItems().add(course);
+    	}
+    	cbCourse.getSelectionModel().select(0);
+    	
     	
     	// Just set the button cell here:
     	cbCourse.setButtonCell(cellFactory.call(null));
@@ -309,14 +332,13 @@ public class TabGroupsController {
     	ListGroups.getItems().addAll(groups);
     	
     	// reset selected group, if group empty
-    	/*
     	if (this.selectedGroup != null && selectedGroup.getTeams() != null && selectedGroup.getTeams().size() == 0) {
     		this.selectedGroup = null;
     		refreshSelectedGroup();
     		refreshWarnings();
     	} else {
-    		//ListGroups.getSelectionModel().select(selectedGroup);
-    	}*/
+    		ListGroups.getSelectionModel().select(selectedGroup);
+    	}
     }
     
     
