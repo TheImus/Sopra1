@@ -44,15 +44,15 @@ public class ScheduleController {
 		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 		List<Restriction> restrictions = currentEvent.getRestriction();
 		//Order Participants to vegan, vegetarian and others
-		ArrayList<Participant> vegans = new ArrayList<Participant>();
-		ArrayList<Participant> vegetarians = new ArrayList<Participant>();
-		ArrayList<Participant> others = new ArrayList<Participant>();
+		ArrayList<IrvingMatchable> vegans = new ArrayList<IrvingMatchable>();
+		ArrayList<IrvingMatchable> vegetarians = new ArrayList<IrvingMatchable>();
+		ArrayList<IrvingMatchable> others = new ArrayList<IrvingMatchable>();
 		others.addAll(currentEvent.getParticipants());
 		for(Restriction restriction:restrictions){
 			if(restriction.getName().equals("Vegan")){
 				vegans.addAll(restriction.getParticipant());
 				if(!vegans.isEmpty()){
-					for(Participant vegan:vegans){
+					for(IrvingMatchable vegan:vegans){
 						others.remove(vegan);
 					}
 				}
@@ -60,14 +60,14 @@ public class ScheduleController {
 			if(restriction.getName().equals("Vegetarian")){
 				vegetarians.addAll(restriction.getParticipant());
 				if(!vegetarians.isEmpty()){
-					for(Participant vegetarian:vegetarians){
+					for(IrvingMatchable vegetarian:vegetarians){
 						others.remove(vegetarian);
 					}
 				}
 			}
 		}
 		//Compute Teams with Irving-Algorithm
-		HashMap<Participant, Participant> veganMap = irvingAlgorithmusForParticipants(vegans);
+		HashMap<IrvingMatchable, IrvingMatchable> veganMap = irvingAlgorithmus(vegans);
 		ArrayList<Team> veganTeams = generateTeamsFromMap(veganMap, vegans);
 		//If |participants| is not even, then there will be one left, which will be returned as a Team with himself as Host and member
 		Participant leftVegan = getLeftParticipantFromTeams(veganTeams);
@@ -76,14 +76,14 @@ public class ScheduleController {
 			vegetarians.add(leftVegan);
 		}		
 		//The same as above with vegetarians
-		HashMap<Participant, Participant> vegetarianMap = irvingAlgorithmusForParticipants(vegetarians);
+		HashMap<IrvingMatchable, IrvingMatchable> vegetarianMap = irvingAlgorithmus(vegetarians);
 		ArrayList<Team> vegetarianTeams = generateTeamsFromMap(vegetarianMap, vegetarians);
 		Participant leftVegetarian = getLeftParticipantFromTeams(vegetarianTeams);
 		if(leftVegetarian != null){
 			others.add(leftVegetarian);
 		}		
 		//and the others
-		HashMap<Participant, Participant> otherMap = irvingAlgorithmusForParticipants(others);
+		HashMap<IrvingMatchable, IrvingMatchable> otherMap = irvingAlgorithmus(others);
 		ArrayList<Team> otherTeams = generateTeamsFromMap(otherMap, others);
 		Participant leftOther = getLeftParticipantFromTeams(otherTeams);
 		//add all teams to one list
@@ -249,14 +249,14 @@ public class ScheduleController {
 	 * @param participants - all participants related in the Map
 	 * @return teams of participants computed from the map
 	 */
-	private ArrayList<Team> generateTeamsFromMap(HashMap<Participant, Participant> participantMap, ArrayList<Participant> participants){
+	private ArrayList<Team> generateTeamsFromMap(HashMap<IrvingMatchable, IrvingMatchable> participantMap, ArrayList<IrvingMatchable> participants){
 		ArrayList<Team> teams = new ArrayList<Team>();
-		for(Participant participant:participants){
-			Participant partner = participantMap.get(participant);
+		for(IrvingMatchable participant:participants){
+			IrvingMatchable partner = participantMap.get(participant);
 			Team team = new Team();
-			team.setHost(participant);
+			team.setHost((Participant)participant);
 			ArrayList<Participant> members = new ArrayList<Participant>();
-			members.add(partner);
+			members.add((Participant)partner);
 			team.setMembers(members);
 			teams.add(team);
 		}
@@ -268,10 +268,10 @@ public class ScheduleController {
 	 * @param participants
 	 * @return irvingArray
 	 */
-	private Integer[][] generateIrvingArrayForParticipants(ArrayList<Participant> participants){
+	private Integer[][] generateIrvingArray(ArrayList<IrvingMatchable> entities){
 		//Generates an Array for Irving-Algorithm
-		if(!participants.isEmpty()){
-			int n = participants.size();
+		if(!entities.isEmpty()){
+			int n = entities.size();
 			//The Irving-Algorithm needs an even amount of participants
 			if(n%2 == 1){
 				n++;
@@ -279,13 +279,13 @@ public class ScheduleController {
 			Integer[][] dynArray = new Integer[n][n];
 			//Rows and Columns are indexed over participants and the entries are the SymmetricDifferences of Restrictions 
 			//for these participants
-			for(Participant participant1:participants){
-				for(Participant participant2:participants){
-					int i = participants.indexOf(participant1);
-					int j = participants.indexOf(participant2);
+			for(IrvingMatchable entity1:entities){
+				for(IrvingMatchable entity2:entities){
+					int i = entities.indexOf(entity1);
+					int j = entities.indexOf(entity2);
 					if(i < n && j < n && i>=0 && j >= 0){
 						if(i != j){
-							dynArray[i][j] = new Integer(Participant.getRestrictionSymmetricDifferenceForParticipants(participant1, participant2).size());
+							dynArray[i][j] = new Integer(IrvingMatchable.getRestrictionSymmetricDifference(entity1, entity2).size());
 						}
 						else{
 							dynArray[i][j] = Integer.MAX_VALUE;
@@ -294,7 +294,7 @@ public class ScheduleController {
 				}
 			}
 			//If we have an odd amount of participants, we have to add one with worst values, just for the algorithm
-			if(n > participants.size()){
+			if(n > entities.size()){
 				for(int i = 0; i < n; i++){
 					assert(dynArray[i][n-1] == null);
 					assert(dynArray[n-1][i] == null);
@@ -339,18 +339,18 @@ public class ScheduleController {
 	 * @param participants
 	 * @return HashMap - which describes teams
 	 */
-	private HashMap<Participant, Participant> irvingAlgorithmusForParticipants(ArrayList<Participant> participants){
-		Integer[][] irvingArray = generateIrvingArrayForParticipants(participants);
-		ArrayList<ArrayList<Integer>> participantLists = irvingArrayToLists(irvingArray);
+	private HashMap<IrvingMatchable, IrvingMatchable> irvingAlgorithmus(ArrayList<IrvingMatchable> entities){
+		Integer[][] irvingArray = generateIrvingArray(entities);
+		ArrayList<ArrayList<Integer>> entityLists = irvingArrayToLists(irvingArray);
 		//Phase1 of Irving-Algorithm
-		for(ArrayList<Integer> participantList:participantLists){
-			assert(!participantList.isEmpty());
-			Integer proposalToIndex = participantList.get(0);
-			ArrayList<Integer> proposalList = participantLists.get((int)proposalToIndex);
-			Integer removeFromHere = proposalList.indexOf(participantLists.indexOf(participantList));
+		for(ArrayList<Integer> entityList:entityLists){
+			assert(!entityList.isEmpty());
+			Integer proposalToIndex = entityList.get(0);
+			ArrayList<Integer> proposalList = entityLists.get((int)proposalToIndex);
+			Integer removeFromHere = proposalList.indexOf(entityLists.indexOf(entityList));
 			List<Integer> toRemove = proposalList.subList(removeFromHere+1, proposalList.size());
 			for(Integer removed:toRemove){
-				boolean rightMethod = participantLists.get(removed).remove((Object)proposalToIndex);
+				boolean rightMethod = entityLists.get(removed).remove((Object)proposalToIndex);
 				assert(rightMethod);
 			}
 			proposalList.removeAll(toRemove);
@@ -358,32 +358,32 @@ public class ScheduleController {
 		}
 		boolean stable = true;
 		//The Phase1-Lists are a stable matching, if all list have size 1
-		for(ArrayList<Integer> participantList:participantLists){
-			assert(!participantList.isEmpty());
-			stable = participantList.size() == 1;
+		for(ArrayList<Integer> entityList:entityLists){
+			assert(!entityList.isEmpty());
+			stable = entityList.size() == 1;
 		}
 		//Otherwise go on with Phase2 of Irving-Algorithm
 		while(!stable){
-			participantLists = irvingPhase2(participantLists);
-			for(ArrayList<Integer> participantList:participantLists){
-				assert(!participantList.isEmpty());
-				stable = participantList.size() == 1;
+			entityLists = irvingPhase2(entityLists);
+			for(ArrayList<Integer> entityList:entityLists){
+				assert(!entityList.isEmpty());
+				stable = entityList.size() == 1;
 			}
 		}	
 		//create a Map from participantLists
-		HashMap<Participant, Participant> teamMemberIndexMap = new HashMap<Participant, Participant>();
-		for(ArrayList<Integer> participantList:participantLists){
-			Integer participant1 = participantLists.indexOf(participantList);
-			assert(participantList.size() == 1);
-			Integer participant2 = participantList.get(0);
-			if(participants.size() <= participant2){
-				teamMemberIndexMap.put(participants.get((int)participant1), participants.get((int)participant1));
+		HashMap<IrvingMatchable, IrvingMatchable> teamMemberIndexMap = new HashMap<IrvingMatchable, IrvingMatchable>();
+		for(ArrayList<Integer> entityList:entityLists){
+			Integer entity1 = entityLists.indexOf(entityList);
+			assert(entityList.size() == 1);
+			Integer entity2 = entityList.get(0);
+			if(entities.size() <= entity2){
+				teamMemberIndexMap.put(entities.get((int)entity1), entities.get((int)entity1));
 			}
-			else if(participants.size() <= participant1){
-				teamMemberIndexMap.put(participants.get((int)participant2), participants.get((int)participant2));
+			else if(entities.size() <= entity1){
+				teamMemberIndexMap.put(entities.get((int)entity2), entities.get((int)entity2));
 			}
 			else{
-				teamMemberIndexMap.put(participants.get((int)participant1), participants.get((int)participant2));
+				teamMemberIndexMap.put(entities.get((int)entity1), entities.get((int)entity2));
 			}
 		}
 		return teamMemberIndexMap;
