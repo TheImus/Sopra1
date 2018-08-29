@@ -59,7 +59,7 @@ public class TabParticipantsController {
     }
     
     public void refresh() {
-    	participantList.getItems().remove(0, participantList.getItems().size());
+    	participantList.getItems().clear();
     	List<Participant> list = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants();
     	participantList.getItems().addAll(list);
     }

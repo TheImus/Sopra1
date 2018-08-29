@@ -60,6 +60,8 @@ public class TabAdjustTeamsController {
     	//Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
     	teamController.removeParticipantFromTeam(selectedTeam, selected);
     	System.out.println("leute in team: " + selectedTeam.getParticipants().size());
+    	System.out.println("anzahl Teilnehmer nach loeschen: " + walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().size());
+    	System.out.println("anzahl freie Teilnehmer nach loeschen: " + walkingDinnerController.getTeamController().getFreeParticipants().size());
     	refresh();
     }	
     
@@ -149,7 +151,13 @@ public class TabAdjustTeamsController {
     	List<Team> teamList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams();
     	//ListTeams.getItems().remove(0, ListTeams.getItems().size());
     	//ListTeams.getItems().addAll(teamList);
-    	for(Team t: teamList) {
+    	Team currentTeam = ListTeams.getSelectionModel().getSelectedItem();
+    	ListTeams.getItems().clear();
+    	ListTeams.getItems().addAll(teamList);
+    	if (currentTeam != null) {
+    		ListTeams.getSelectionModel().select(currentTeam);
+    	}
+    	/*for(Team t: teamList) {
     		if(!ListTeams.getItems().contains(t))
     		{
     			ListTeams.getItems().add(t);
@@ -159,7 +167,7 @@ public class TabAdjustTeamsController {
     		if(!teamList.contains(t)){
     			ListTeams.getItems().remove(t);
     		}
-    	}
+    	}*/
     	ListTeams.setCellFactory(view ->
 		new ListCell<Team>() {
 			protected void updateItem(Team item, boolean empty) {
@@ -182,6 +190,7 @@ public class TabAdjustTeamsController {
     		List<Participant> selectedParts =  selectedTeam.getParticipants();
     		ListSelectedTeams.getItems().remove(0, ListSelectedTeams.getItems().size());
         	ListSelectedTeams.getItems().addAll(selectedParts);	
+        	System.out.println("host: " + selectedTeam.getHost().getPerson().getName());
     	}    	
     }
 

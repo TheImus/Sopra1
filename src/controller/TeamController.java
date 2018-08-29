@@ -86,8 +86,14 @@ public class TeamController {
 				
 			} 
 			else if (team.getHost().equals(participant)) {
-				team.setHost(team.getMembers().get(0));
+				/*team.setHost(team.getMembers().get(0));
 				List<Participant> list = team.getMembers();
+				list.remove(0);
+				team.setMembers(list);
+				*/
+				System.out.println("Host: " + participant.getPerson().getName());
+				List<Participant> list = team.getMembers();
+				team.setHost(team.getMembers().get(0));
 				list.remove(0);
 				team.setMembers(list);
 			}
