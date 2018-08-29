@@ -112,8 +112,8 @@ public class ConsistencyController {
 	 */
 	public List<Team> getInconsistentTeams() {
 		
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();					
-		Event event = wd.getCurrentEvent();
+		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();					
+		Event event = walkingDinner.getCurrentEvent();
 		List<Team> allTeamsWithWarnings = new ArrayList<Team>();
 		
 		for(Team team : event.getAllTeams()) {											//check for warnings for each team in event 
@@ -146,8 +146,8 @@ public class ConsistencyController {
 		List<String> warnings = new ArrayList<String>();								//return List with all warnings
 		List<Participant> allParticipantsInGroup = new ArrayList<Participant>();		//List with all participants in the group
 		List<Person> allPersonsInGroup = new ArrayList<Person>();						//List with all Persons in the group
-		GroupController gc = walkingDinnerController.getGroupController();
-		gc.setCourse(Course.STARTER);
+		GroupController groupController = walkingDinnerController.getGroupController();
+		groupController.setCourse(Course.STARTER);
 		
 		for(int i = 0; i<group.getTeams().size(); i++) {								//saves all participants in the group
 			allParticipantsInGroup.addAll(group.getTeams().get(i).getMembers());
@@ -173,9 +173,9 @@ public class ConsistencyController {
 		}	
 	    
 	    warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Starter) already
-	    gc.setCourse(Course.MAIN);
+	    groupController.setCourse(Course.MAIN);
 	    warnings.addAll(checkGroupCourses(group));									//checks if any team in the group has another group with the same course (Main) already
-	    gc.setCourse(Course.DESSERT);
+	    groupController.setCourse(Course.DESSERT);
 	    warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Dessert) already
 		
 		return warnings;
@@ -260,13 +260,13 @@ public class ConsistencyController {
 	private List<String> checkGroupCourses(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
-		GroupController gc = walkingDinnerController.getGroupController();
+		GroupController groupController = walkingDinnerController.getGroupController();
 	
-		for(int i = 0; i< gc.getGroups().size(); i++){
-			if(!gc.getGroups().get(i).equals(group)){
+		for(int i = 0; i< groupController.getGroups().size(); i++){
+			if(!groupController.getGroups().get(i).equals(group)){
 				for(int j = 0; j < group.getTeams().size();j++){
-					if(gc.getGroups().get(i).getTeams().contains(group.getTeams().get(j))){
-						warnings.add(group.getTeams().get(j) + "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " + gc.getGroups().get(i).getTeams());	
+					if(groupController.getGroups().get(i).getTeams().contains(group.getTeams().get(j))){
+						warnings.add(group.getTeams().get(j) + "kommt in mehreren STARTER Gruppen vor, die andere Gruppe besteht aus: " + groupController.getGroups().get(i).getTeams());	
 					}
 				}
 			}
