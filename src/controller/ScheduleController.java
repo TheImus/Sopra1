@@ -42,21 +42,71 @@ public class ScheduleController {
 		List<Restriction> restrictions = generateRestrictionsFromMap(knowingMap);
 		restrictions.addAll(restrictionsWithoutKnowing);
 		currentEvent.setRestriction(restrictions);
+		/**
 		HashMap<IrvingMatchable, IrvingMatchable> groupMap = irvingAlgorithmus(teams);
 		ArrayList<Group> groups = generateGroupsFromMap(groupMap, teams);
+		*/
+		ArrayList<Group> groups = greedyGroups(teams);
 		currentEvent.setRestriction(restrictionsWithoutKnowing);
 		return groups;
 	}
+	
+	private ArrayList<Group> greedyGroups(ArrayList<IrvingMatchable> teams){
+		ArrayList<Group> groups = new ArrayList<Group>();
+		assert(teams.size()%3==0);
+		ArrayList<IrvingMatchable> alreadyScheduled = new ArrayList<IrvingMatchable>();
+		ArrayList<IrvingMatchable> toSchedule = new ArrayList<IrvingMatchable>();
+		toSchedule.addAll(teams);
+		for(IrvingMatchable team:teams){
+			if(!alreadyScheduled.contains(team)){
+				toSchedule.remove(team);
+				alreadyScheduled.add(team);
+				IrvingMatchable guest = findMatchingTeamIn(toSchedule,team);
+				Group group = new Group();
+				group.setHostTeam((Team)team);
+				ArrayList<Team> guests = new ArrayList<Team>();
+				guests.add((Team)guest);
+				toSchedule.remove(guest);
+				alreadyScheduled.add(guest);
+				guest = findMatchingTeamIn(toSchedule, team);
+				guests.add((Team)guest);
+				toSchedule.remove(guest);
+				alreadyScheduled.add(guest);
+				group.setGuest(guests);
+				groups.add(group);
+			}
+		}
+		return groups;
+	}
 
-	private List<Restriction> generateRestrictionsFromMap(Map<Person, List<Person>> knowingMap) {
-		// TODO Auto-generated method stub
-		return null;
+	private ArrayList<Restriction> generateRestrictionsFromMap(Map<Person, List<Person>> knowingMap) {
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		List<Participant> participants = currentEvent.getParticipants();
+		int restrictionCounter = 0;
+		ArrayList<Restriction> restrictions = new ArrayList<Restriction>();
+		for(Participant participant:participants){
+			Person participantAsPerson = participant.getPerson();
+			List<Person> knownPersons = knowingMap.get(participantAsPerson);
+			ArrayList<Participant> knownParticipants = new ArrayList<>();
+			if(knownPersons != null){
+				for(Person person:knownPersons){
+					knownParticipants.add(currentEvent.getParticipantForPerson(person));
+				}
+			}
+			Restriction restriction = new Restriction();
+			restriction.setName("knowingRestriction"+restrictionCounter);
+			restrictions.add(restriction);
+			restrictionCounter++;
+			for(Participant knownParticipant:knownParticipants){
+				restriction.addParticipant(knownParticipant);
+			}
+		}
+		return restrictions;
 	}
 
 	private ArrayList<Group> generateGroupsFromMap(HashMap<IrvingMatchable, IrvingMatchable> groupMap,
 			ArrayList<IrvingMatchable> teams) {
 		ArrayList<Group> groups = new ArrayList<Group>();
-		//int targetGroupAmount = teams.size()/3;
 		ArrayList<IrvingMatchable> alreadyScheduled = new ArrayList<IrvingMatchable>();
 		IrvingMatchable toSchedule = null;
 		for(IrvingMatchable team:teams){
