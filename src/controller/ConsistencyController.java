@@ -186,18 +186,18 @@ public class ConsistencyController {
 		}
 		}catch(NullPointerException nullPointer){}
 		
+		 warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Starter) already
+		 groupController.setCourse(Course.MAIN);
+		 warnings.addAll(checkGroupCourses(group));									//checks if any team in the group has another group with the same course (Main) already
+		 groupController.setCourse(Course.DESSERT);
+		 warnings.addAll(checkGroupCourses(group));	
+		    
 	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
 	    if(differentR != null) {														// check if there are any restrictions that don't match
 			warnings.add("folgende Restriktionen könnten Problematisch sein:" + 
 					differentR.toString() + 
 					"bitte einmal überprüfen für folgende Gruppe:" + allParticipantsInGroup.toString());
 		}	
-	    
-	    warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Starter) already
-	    groupController.setCourse(Course.MAIN);
-	    warnings.addAll(checkGroupCourses(group));									//checks if any team in the group has another group with the same course (Main) already
-	    groupController.setCourse(Course.DESSERT);
-	    warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Dessert) already
 		
 		return warnings;
 	}
@@ -278,16 +278,16 @@ public class ConsistencyController {
 	 * @param group
 	 * @return warnings list of warnings
 	 */
-	private List<String> checkGroupCourses(Group group)
+	public List<String> checkGroupCourses(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
 		GroupController groupController = walkingDinnerController.getGroupController();
-	
+		
 		for(int i = 0; i< groupController.getGroups().size(); i++){
 			if(!groupController.getGroups().get(i).equals(group)){
 				for(int j = 0; j < group.getTeams().size();j++){
 					if(groupController.getGroups().get(i).getTeams().contains(group.getTeams().get(j))){
-						warnings.add(group.getTeams().get(j) + "kommt in mehreren " + groupController.getCourse() + " Gruppen vor, die andere Gruppe besteht aus: " + groupController.getGroups().get(i).getTeams());	
+						warnings.add(group.getTeams().get(j)+"kommt in mehreren "+groupController.getCourse()+" Gruppen vor, die andere Gruppe besteht aus: "+groupController.getGroups().get(i).getTeams());	
 					}
 				}
 			}

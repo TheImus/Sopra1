@@ -14,6 +14,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.sun.webkit.ThemeClient;
+
+import jdk.internal.org.objectweb.asm.util.CheckAnnotationAdapter;
 import model.Course;
 import model.Event;
 import model.Group;
@@ -244,6 +247,36 @@ public class ConsistencyControllerTest {
 		assertTrue(currentWarning.contains("Die Anzahl der Gastteams stimmt nicht"));
 		assertFalse(currentWarning.contains("kein Hostteam festgelegt"));
 		assertFalse(currentWarning.contains("keine Gastteams vorhanden"));
+		
+		
+		List<Group> groups=groupController.getGroups();
+		groups.get(0).getGuest().add(team1);
+		groups.get(1).getGuest().add(team1);
+		
+		List<String> warnings=consistencyController.checkGroupCourses(groups.get(0));
+		assertTrue(warnings.contains(team1+"kommt in mehreren " +event.getSchedule().getCurrentCourse() +" Gruppen vor, die andere Gruppe besteht aus: "+groups.get(1).getTeams()));
+		groups.get(0).getGuest().remove(team1);
+		groups.get(1).getGuest().remove(team1);
+		
+		groupController.setCourse(Course.MAIN);
+		groups=groupController.getGroups();
+		groups.get(0).getGuest().add(team1);
+		groups.get(1).getGuest().add(team1);
+		
+		warnings=consistencyController.checkGroupCourses(groups.get(0));
+		assertTrue(warnings.contains(team1+"kommt in mehreren " +event.getSchedule().getCurrentCourse() +" Gruppen vor, die andere Gruppe besteht aus: "+groups.get(1).getTeams()));
+		groups.get(0).getGuest().remove(team1);
+		groups.get(1).getGuest().remove(team1);
+		
+		groupController.setCourse(Course.DESSERT);
+		groups=groupController.getGroups();
+		groups.get(0).getGuest().add(team1);
+		groups.get(1).getGuest().add(team1);
+		
+		warnings=consistencyController.checkGroupCourses(groups.get(0));
+		assertTrue(warnings.contains(team1+"kommt in mehreren " +event.getSchedule().getCurrentCourse() +" Gruppen vor, die andere Gruppe besteht aus: "+groups.get(1).getTeams()));
+		groups.get(0).getGuest().remove(team1);
+		groups.get(1).getGuest().remove(team1);
 
 	}
 
@@ -316,5 +349,16 @@ public class ConsistencyControllerTest {
 			}
 		
 	}
+	//@Test
+	//public void testCheckGroupCourses()
+	//{
+		//List<Group> groups=groupController.getGroups();
+		//groups.get(0).getGuest().add(team1);
+		//groups.get(1).getGuest().add(team1);
+		
+		//List<String> warnings=consistencyController.checkGroupCourses(groups.get(0));
+		//assertTrue(warnings.contains(team1+"kommt in mehreren " +event.getSchedule().getCurrentCourse() +" Gruppen vor, die andere Gruppe besteht aus: "+groups.get(1).getTeams()));
+		
+	//}
 
 }
