@@ -161,7 +161,7 @@ public class ConsistencyControllerTest {
 		team1.setMembers(members);
 		team1.setHost(participants.get(0));
 		warnings = consistencyController.getWarnings(team1);
-		assertTrue(warnings.contains(participants.get(0) + "hat anderen Wunschgang als " + participants.get(1)));
+		assertTrue(warnings.contains(participants.get(0).getPerson().getName() + "hat anderen Wunschgang als " + participants.get(1).getPerson().getName()));
 	
 		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);

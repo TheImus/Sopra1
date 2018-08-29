@@ -71,7 +71,7 @@ public class ConsistencyController {
 		
 		for(int i = 0; i < members.size()-1; i++){
 			if(!members.get(i).getCourseWish().equals(members.get(i+1).getCourseWish())){				//check if team members have same course wish
-				warnings.add(members.get(i) + "hat anderen Wunschgang als " + members.get(i+1));
+				warnings.add(members.get(i).getPerson().getName() + "hat anderen Wunschgang als " + members.get(i+1).getPerson().getName());
 			}
 		}
 		
