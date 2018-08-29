@@ -286,6 +286,7 @@ public class ScheduleController {
 	private Participant getLeftParticipantFromTeams(ArrayList<Team> teams){
 		for(Team team:teams){
 			if(team.getMembers().contains(team.getHost())){
+				teams.remove(team);
 				return team.getHost();
 			}
 		}
