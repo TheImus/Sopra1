@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.oracle.xmlns.internal.webservices.jaxws_databinding.ExistingAnnotationsType;
+
 public class WalkingDinner implements Serializable {
 
 	private List<Event> events;
