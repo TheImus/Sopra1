@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.util.List;
 
 import controller.WalkingDinnerController;
@@ -14,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Event;
 import model.Participant;
@@ -172,11 +174,45 @@ public class EventOverviewController {
  			e.printStackTrace();
  		}
     }
+      
+    @FXML
+    void onRemoveEvent(ActionEvent event) {
+    	Event currentEvent = listEvent.getSelectionModel().getSelectedItem();
+    	walkingDinnerController.getEventController().deleteEvent(currentEvent);
+    	listEvent.getItems().clear();
+    	refresh();
+    }
     
     @FXML
     void onMenuNewFile(ActionEvent event) {
-
+    	
+    	FileChooser fileChooser = new FileChooser();
+        
+        //Set extension filter
+        //FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF-Dateien (*.pdf)", "*.pdf");
+        //fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialFileName("walkingDinner.wdf");
+        fileChooser.setTitle("Walking Dinner speichern");
+        
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(null);
+        
+        if (file != null) {
+            try {
+            	String filename = file.getAbsolutePath();
+            	if (!file.getName().endsWith("wdf")) {
+            		filename += ".wdf";
+            	}
+            	
+            	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), filename);
+            	
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
+    	
+    
 
     @FXML
     void onMenuOpenFile(ActionEvent event) {
@@ -198,10 +234,7 @@ public class EventOverviewController {
 
     }
 
-    @FXML
-    void onRemoveEvent(ActionEvent event) {
-
-    }
+  
 
     
 
