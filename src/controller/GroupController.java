@@ -83,7 +83,10 @@ public class GroupController {
 					group.setHostTeam(group.getGuest().get(0));
 					group.getGuest().remove(group.getGuest().get(0));	
 				}
-				else group.setHostTeam(null);
+				else {
+					group.setHostTeam(null);
+					removeGroup(group);
+				}
 				
 			}
 			else{
