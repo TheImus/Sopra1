@@ -4,62 +4,73 @@ import controller.WalkingDinnerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import model.Course;
+import model.Group;
+import model.Team;
 
 public class TabGroupsController {
+	
+	private WalkingDinnerController walkingDinnerController;
 
     @FXML
-    private Button BtnGenerateTeams;
+    private ComboBox<Course> cbCourse;
 
     @FXML
-    private Button BtnSave;
+    private Button BtnSetAsCooking;
 
     @FXML
-    private Button BtnCancel;
+    private ListView<Team> ListSelectedGroup;
 
     @FXML
-    private Tab TabStarter;
+    private ListView<Group> ListGroups;
 
     @FXML
-    private Tab TabMain;
+    private TitledPane ListFreeTeams;
 
     @FXML
-    private Tab TabDesert;
+    private Button BtnAddTeamToGroup;
 
     @FXML
-    private TextArea TextTeams;
+    private Button BtnRemoveTeamFromGroup;
 
     @FXML
-    private TextArea TextFreeTeams;
-
-    @FXML
-    private TextArea TestHostTeams;
-
-    @FXML
-    private TextArea TextGuestTeam;
-
-    @FXML
-    private TextArea TextGuestTeam2;
-    
-    private WalkingDinnerController walkingDinnerController;
-    
-    public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
-		this.walkingDinnerController = walkingDinnerController;
-	}
-    
-    public WalkingDinnerController getWalkingDinnerController() {
-		return walkingDinnerController;
-	}
-
-    @FXML
-    void onGenerateTeams(ActionEvent event) {
+    void onBtnAddTeamToGroup(ActionEvent event) {
 
     }
 
     @FXML
-    void onSave(ActionEvent event) {
+    void onBtnRemoveTeamFromGroup(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onBtnSetCooking(ActionEvent event) {
+
+    }
+
+	public WalkingDinnerController getWalkingDinnerController() {
+		return walkingDinnerController;
+	}
+
+	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
+		this.walkingDinnerController = walkingDinnerController;
+	}
+	
+    /**
+     * Initializes TabGroups
+     */
+    public void init() {
+		Image image = new Image(getClass().getResourceAsStream("/view/chef.svg"));
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+    	
+    	//BtnSetAsCooking.setGraphic(value);
+		BtnSetAsCooking.setGraphic(imageView);
     }
 
 }
