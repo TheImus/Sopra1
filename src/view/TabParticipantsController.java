@@ -77,6 +77,9 @@ public class TabParticipantsController {
     @FXML
     void onAdjustParticipant(ActionEvent event){
     	 try {
+    		Participant currPart = participantList.getSelectionModel().getSelectedItem();
+     		walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(currPart);
+   			
   			GridPane root = new GridPane();
   			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdjustParticipant.fxml"));
   			root = loader.load();
@@ -88,6 +91,7 @@ public class TabParticipantsController {
   			
   			((Stage)GridPaneParticipants.getScene().getWindow()).setScene(scene);
   			
+    		
   		} catch(Exception e) {
   			e.printStackTrace();
   		}
@@ -96,8 +100,6 @@ public class TabParticipantsController {
     @FXML
     void onCreateParticipant(ActionEvent event){
     	 try {
-    		Participant currPart = participantList.getSelectionModel().getSelectedItem();
-    		walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(currPart);
    			GridPane root = new GridPane();
    			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdjustParticipant.fxml"));
    			root = loader.load();
