@@ -23,8 +23,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import model.Event;
 import model.Participant;
 
@@ -35,6 +35,9 @@ import model.Participant;
  */
 public class TabInviteViewController {
 
+    @FXML
+    private GridPane BaseGrid;
+	
 	@FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -70,22 +73,12 @@ public class TabInviteViewController {
     
     private WalkingDinnerController walkingDinnerController;
     
-    private Stage stage; // Stage for save file dialog
-    
 	public WalkingDinnerController getWalkingDinnerController() {
 		return walkingDinnerController;
 	}
 
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
-	}
-	
-    public Stage getStage() {
-		return stage;
-	}
-
-	public void setStage(Stage stage) {
-		this.stage = stage;
 	}
 	
     /**
@@ -180,10 +173,6 @@ public class TabInviteViewController {
 
     @FXML
     void onExportPDF(ActionEvent event) {
-        if (this.stage == null) {
-        	throw new NullPointerException("Stage is not set!");
-        }
-    	
         FileChooser fileChooser = new FileChooser();
         
         //Set extension filter
@@ -193,7 +182,7 @@ public class TabInviteViewController {
         fileChooser.setTitle("Einladungen speichern");
         
         //Show save file dialog
-        File file = fileChooser.showSaveDialog(this.stage);
+        File file = fileChooser.showSaveDialog(null);
         
         if (file != null) {
             try {
