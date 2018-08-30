@@ -46,8 +46,8 @@ public class ConsistencyController {
 		List<String> warnings = new ArrayList<String>();
 		int size = walkingDinnerController.getGroupController().getAllGroups().size();
 		
-		if(size == 0) warnings.add("Keine Gruppen im Event.");
-		if(size %3 != 0)	warnings.add("Die Anzahl der Gruppen ist kein Vielfaches von 3.");
+		if(size == zero) warnings.add("Keine Gruppen im Event.");
+		if(size %3 != zero)	warnings.add("Die Anzahl der Gruppen ist kein Vielfaches von 3.");
 		
 		return warnings;
 	}
@@ -167,11 +167,9 @@ public class ConsistencyController {
 		Course courseAtTheBeginning = groupController.getCourse();
 		
 		groupController.setCourse(Course.STARTER);
-		
 		for(int i = 0; i<group.getTeams().size(); i++) {								//saves all participants in the group
 			allParticipantsInGroup.addAll(group.getTeams().get(i).getParticipants());
 		}
-		
 		for(int i = 0; i<allParticipantsInGroup.size(); i++) {							//saves all participants in the group as persons
 			allPersonsInGroup.add(allParticipantsInGroup.get(i).getPerson());
 		}
@@ -182,11 +180,11 @@ public class ConsistencyController {
 			warnings.addAll(knowingRelation(allPersonsInGroup)); 							//checks if any persons in the group know each other
 		}
 		
-		 warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Starter) already
-		 groupController.setCourse(Course.MAIN);
-		 warnings.addAll(checkGroupCourses(group));									//checks if any team in the group has another group with the same course (Main) already
-		 groupController.setCourse(Course.DESSERT);
-		 warnings.addAll(checkGroupCourses(group));	
+		warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Starter) already
+		groupController.setCourse(Course.MAIN);
+		warnings.addAll(checkGroupCourses(group));									//checks if any team in the group has another group with the same course (Main) already
+		groupController.setCourse(Course.DESSERT);
+		warnings.addAll(checkGroupCourses(group));	
 		    
 	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
 	    if(differentR != null && !differentR.isEmpty()) {										
@@ -205,11 +203,11 @@ public class ConsistencyController {
 	    List<Team> teams = group.getTeams();
 	    int anzahlDrei = 0;
 	    for(Team team: teams){
-	    	if (team.getParticipants().size() > 2)
+	    	if (team.getParticipants().size() > two)
 	    		anzahlDrei++;
 	    }
 	    
-	    if(anzahlDrei > 1)
+	    if(anzahlDrei > one)
 	    	warnings.add("In dieser Gruppe sind mehr als ein 3er Team.");
 	    
 	    groupController.setCourse(courseAtTheBeginning);
