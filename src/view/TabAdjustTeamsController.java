@@ -225,8 +225,9 @@ public class TabAdjustTeamsController {
     	ListTeams.getItems().clear();
     	ListTeams.getItems().addAll(teamList);
     	if (currentTeam != null) {
-    		ListTeams.getSelectionModel().select(currentTeam);
+    		ListTeams.getSelectionModel().select(currentTeam);	
     	}
+    	
     	
     	List<Team> warningTeams = consistencyController.getInconsistentTeams();
     	
@@ -290,10 +291,25 @@ public class TabAdjustTeamsController {
     	else {
     		ListSelectedTeams.getItems().clear();
     	}
-    	
+    	isGeneratable();
     }
 
-    
+    public void isGeneratable(){
+    	
+    	int missingParticipants = 6 - walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().size();
+    	
+    	if(missingParticipants > 0)
+    	{
+    		
+    		BtnGenerateTeams.setDisable(true);
+    		BtnGenerateTeams.setText("Generieren (+" + missingParticipants +")" );
+    	}
+    	else
+    	{
+    		BtnGenerateTeams.setDisable(false);
+    		BtnGenerateTeams.setText("Generieren");
+    	}
+    }
 
     @FXML
     void onGenerateTeams(ActionEvent event) {

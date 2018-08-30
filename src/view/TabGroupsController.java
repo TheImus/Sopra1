@@ -306,7 +306,26 @@ public class TabGroupsController implements TeamsAUI {
     	refreshSelectedGroupList();
     	refreshFreeTeams();
     	refreshWarnings();
+    	isGeneratable();
     }
+    
+    public void isGeneratable(){
+    	
+    	int missingTeams = 3 - walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams().size();
+    	
+    	if(missingTeams > 0)
+    	{
+    		
+    		btnGenerateGroups.setDisable(true);
+    		btnGenerateGroups.setText("Generieren (+" + missingTeams +")" );
+    	}
+    	else
+    	{
+    		btnGenerateGroups.setDisable(false);
+    		btnGenerateGroups.setText("Generieren");
+    	}
+    }
+
     
     /**
      * Refreshes group list
