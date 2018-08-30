@@ -158,22 +158,23 @@ public class TabParticipantsController {
     
     @FXML
     void onAdjustParticipant(ActionEvent event){
-    	 try {
+    	 try { 
   			Participant currPart = participantList.getSelectionModel().getSelectedItem();
   			if(currPart!=null){
   				walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(currPart);
+  	    		GridPane root = new GridPane();
+  	  			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdjustParticipant.fxml"));
+  	  			root = loader.load();
+  	  			
+  	  			AdjustParticipantController adjustParticipantController = (AdjustParticipantController) loader.getController();
+  	  			adjustParticipantController.setWalkingDinnerController(walkingDinnerController);
+  	  			adjustParticipantController.init();
+  	  			Scene scene = new Scene(root);
+  	  			
+  	  			((Stage)GridPaneParticipants.getScene().getWindow()).setScene(scene);
   			}
     		 
-    		GridPane root = new GridPane();
-  			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdjustParticipant.fxml"));
-  			root = loader.load();
-  			
-  			AdjustParticipantController adjustParticipantController = (AdjustParticipantController) loader.getController();
-  			adjustParticipantController.setWalkingDinnerController(walkingDinnerController);
-  			adjustParticipantController.init();
-  			Scene scene = new Scene(root);
-  			
-  			((Stage)GridPaneParticipants.getScene().getWindow()).setScene(scene);
+ 
   			
     		
   		} catch(Exception e) {

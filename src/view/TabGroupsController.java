@@ -29,41 +29,19 @@ import model.Team;
  *
  */
 public class TabGroupsController {
+    @FXML private ComboBox<Course> cbCourse;
+    @FXML private Button btnSetAsCooking;
+    @FXML private ListView<SelectedGroupTeam> listSelectedGroup;
+    @FXML private ListView<model.Group> listGroups;
+    @FXML private ListView<Team> listFreeTeams;
+    @FXML private Button btnAddTeamToGroup;
+    @FXML private Button btnRemoveTeamFromGroup;
+    @FXML private Button btnCreateNewGroup;
+    @FXML private Button btnGenerateGroups;
+    @FXML private TextArea textWarnings;
 	
 	private model.Group selectedGroup;
-	
 	private WalkingDinnerController walkingDinnerController;
-
-    @FXML
-    private ComboBox<Course> cbCourse;
-
-    @FXML
-    private Button BtnSetAsCooking;
-
-    @FXML
-    private ListView<SelectedGroupTeam> ListSelectedGroup;
-
-    @FXML
-    private ListView<model.Group> ListGroups;
-    
-    @FXML
-    private ListView<Team> ListFreeTeams;
-
-    @FXML
-    private Button BtnAddTeamToGroup;
-
-    @FXML
-    private Button BtnRemoveTeamFromGroup;
-    
-    @FXML
-    private Button BtnCreateNewGroup;
-
-    @FXML
-    private Button BtnGenerateGroups;
-
-
-    @FXML
-    private TextArea TextWarninungs;
     
     /**
      * Add the selected group of FreeTeams to the current selected Group
@@ -71,7 +49,7 @@ public class TabGroupsController {
      */
     @FXML
     void onBtnAddTeamToGroup(ActionEvent event) {
-    	Team selectedTeam = ListFreeTeams.getSelectionModel().getSelectedItem();
+    	Team selectedTeam = listFreeTeams.getSelectionModel().getSelectedItem();
     	if (selectedTeam != null && selectedGroup != null) {
     		walkingDinnerController.getGroupController().addTeamToGroup(selectedTeam, selectedGroup);
     		refreshAll();
@@ -84,7 +62,7 @@ public class TabGroupsController {
      */
     @FXML
     void onBtnRemoveTeamFromGroup(ActionEvent event) {
-    	SelectedGroupTeam selectedTeam = ListSelectedGroup.getSelectionModel().getSelectedItem();
+    	SelectedGroupTeam selectedTeam = listSelectedGroup.getSelectionModel().getSelectedItem();
     	if (selectedTeam != null && selectedGroup != null) {
     		Team team = selectedTeam.getTeam();
     		walkingDinnerController.getGroupController().removeTeamFromGroup(team, selectedGroup);
@@ -100,7 +78,7 @@ public class TabGroupsController {
      */
     @FXML
     void onBtnSetCooking(ActionEvent event) {
-    	SelectedGroupTeam selectedTeam = ListSelectedGroup.getSelectionModel().getSelectedItem();
+    	SelectedGroupTeam selectedTeam = listSelectedGroup.getSelectionModel().getSelectedItem();
     	
     	// swap the selected team with host
     	if (selectedTeam != null && selectedGroup != null && selectedTeam.getTeam() != null) {
@@ -116,7 +94,7 @@ public class TabGroupsController {
      */
     @FXML
     void onBtnCreateNewGroup(ActionEvent event) {
-    	Team selectedTeam = ListFreeTeams.getSelectionModel().getSelectedItem();
+    	Team selectedTeam = listFreeTeams.getSelectionModel().getSelectedItem();
     	if (selectedTeam != null) {
     		walkingDinnerController.getGroupController().createNewGroup(selectedTeam);
         	refreshAll();
@@ -145,8 +123,6 @@ public class TabGroupsController {
     		refreshAll();
     	}
     }
-
-
 
 	public WalkingDinnerController getWalkingDinnerController() {
 		return walkingDinnerController;
@@ -196,33 +172,22 @@ public class TabGroupsController {
     	cbCourse.setCellFactory(cellFactory);
     	
 		// Group overview
-    	ListGroups.setCellFactory(cell -> new ListCell<model.Group>() {
+    	listGroups.setCellFactory(cell -> new ListCell<model.Group>() {
     		protected void updateItem(model.Group item, boolean empty) {
 		        super.updateItem(item, empty);
 		        if (empty || item == null) {
-		            setText("");
+		            setText(""); 
 		            setStyle("");
 		        } else {
 		        	Team hostingTeam = item.getHostTeam();
 		        	if (hostingTeam != null) {
 		        		setText(hostingTeam.getHost().getPerson().getName() + "'s Gruppe");
-		        		/*String desc = "";
-		        		List<Participant> participants = hostingTeam.getParticipants();
-		        		for (int i = 0; i < participants.size(); i++) {
-		        			desc += participants.get(i).getPerson().getName();
-		        			if (i != participants.size() - 1) {
-		        				desc += " - ";
-		        			}
-		        		}
-		        		setText(desc);*/
-		        		
-		        		// check consistency
+		        		// alert inconsistent
 		        		if (walkingDinnerController.getConsistencyController().getWarnings(item).size() > 0) {
 		        			setStyle("-fx-background-color: #dede00;");
 		        		} else {
 		        			setStyle("");
 		        		}
-		        		
 		        	} else {
 		        		setText("(Kein Gastgeber)");
 		        		this.setStyle("-fx-background-color: #dede00;");
@@ -232,7 +197,7 @@ public class TabGroupsController {
     	});
 
     	// this function is called, when you click on the group in the group overview
-    	ListGroups.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<model.Group>() {
+    	listGroups.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<model.Group>() {
     	    @Override
     	    public void changed(ObservableValue<? extends model.Group> observable, model.Group oldValue, model.Group newValue) {
     	        selectedGroup = newValue;
@@ -243,7 +208,7 @@ public class TabGroupsController {
     	
     	
     	// Selected Group ... showing teams
-    	ListSelectedGroup.setCellFactory(list -> {
+    	listSelectedGroup.setCellFactory(list -> {
     		ListCell<SelectedGroupTeam> cell = new ListCell<SelectedGroupTeam>() {
     			@Override
     			protected void updateItem(SelectedGroupTeam item, boolean empty) {
@@ -259,10 +224,6 @@ public class TabGroupsController {
     							setText(team.getHost().getPerson().getName() + "'s Team (Gast)");
     						}
     					}
-    					/*if (item.isHost) {
-        					//this.setStyle("-fx-text-fill: red;");
-    						//this.setStyle("-fx-background-color: #dede00;");
-    					}*/
     				} else {
     					setText("");
     				}
@@ -273,7 +234,7 @@ public class TabGroupsController {
     	});
 
     	// Free Teams
-    	ListFreeTeams.setCellFactory(list -> new ListCell<Team>() {
+    	listFreeTeams.setCellFactory(list -> new ListCell<Team>() {
     		protected void updateItem(Team item, boolean empty) {
 		        super.updateItem(item, empty);
 		        if (empty || item == null) {
@@ -293,7 +254,6 @@ public class TabGroupsController {
 		        	for (Participant member : members) {
 		        		desc += " - " + member.getPerson().getName();
 		        	}
-		        	
 		        	setText(desc);
 		        }
 		    }
@@ -328,23 +288,11 @@ public class TabGroupsController {
 		svgGraphic.setScaleY(scale);
 
 		// assign graphic to button
-		BtnSetAsCooking.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-		BtnSetAsCooking.setGraphic(svgGraphic);
-		BtnSetAsCooking.setTooltip(new Tooltip("Als Kochendes Team setzen"));
+		btnSetAsCooking.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+		btnSetAsCooking.setGraphic(svgGraphic);
+		btnSetAsCooking.setTooltip(new Tooltip("Als Kochendes Team setzen"));
 		
 		refreshAll();
-    }
-    
-    
-    /** 
-     * Re-Initializes this tab, call to fast-reset this tab
-     */
-    public void reInit() {
-    	// Select course
-    	walkingDinnerController.getGroupController().setCourse(Course.STARTER);
-    	cbCourse.getSelectionModel().select(0);
-    	
-    	refreshAll();
     }
     
     /**
@@ -363,16 +311,15 @@ public class TabGroupsController {
     private void refreshGroupList() {
     	// Save selected group and the id
     	//int selectionIndex = ListGroups.getSelectionModel().getSelectedIndex();
-    	model.Group selectedGroup = ListGroups.getSelectionModel().getSelectedItem();
+    	model.Group selectedGroup = listGroups.getSelectionModel().getSelectedItem();
     	
     	// fill groups list
-    	System.out.println("Clear Group");
-    	ListGroups.getItems().clear();
+    	listGroups.getItems().clear();
     	List<model.Group> groups = walkingDinnerController.getGroupController().getGroups();
     	if (groups == null) {
     		System.out.println("WELCHER DULLY SCHMEISST NULL?");
     	}
-    	ListGroups.getItems().addAll(groups);
+    	listGroups.getItems().addAll(groups);
     	
     	// reset selected group, if group empty
     	if (this.selectedGroup != null && selectedGroup.getTeams() != null && selectedGroup.getTeams().size() == 0) {
@@ -380,27 +327,27 @@ public class TabGroupsController {
     		refreshSelectedGroupList();
     		refreshWarnings();
     	} else {
-    		ListGroups.getSelectionModel().select(selectedGroup);
+    		listGroups.getSelectionModel().select(selectedGroup);
     	}
     }
     
     
     private void refreshSelectedGroupList() {
-    	ListSelectedGroup.getItems().clear();
+    	listSelectedGroup.getItems().clear();
     	List<SelectedGroupTeam> teams = addFromGroup(this.selectedGroup);
-    	ListSelectedGroup.getItems().addAll(teams);
+    	listSelectedGroup.getItems().addAll(teams);
     }
     
     
     private void refreshFreeTeams() {
-    	ListFreeTeams.getItems().clear();
+    	listFreeTeams.getItems().clear();
     	List<Team> teams = walkingDinnerController.getTeamController().getFreeTeams();
-    	ListFreeTeams.getItems().addAll(teams);
+    	listFreeTeams.getItems().addAll(teams);
     }
     
     
     private void refreshWarnings() {
-    	TextWarninungs.clear();
+    	textWarnings.clear();
     	
     	if (selectedGroup != null) {
     		List<String> warnings = walkingDinnerController.getConsistencyController().getWarnings(selectedGroup);
@@ -410,7 +357,7 @@ public class TabGroupsController {
     			warningText += line + "\n";
     		}
     		
-    		TextWarninungs.setText(warningText);
+    		textWarnings.setText(warningText);
     	}
     }
     

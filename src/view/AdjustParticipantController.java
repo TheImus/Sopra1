@@ -303,6 +303,7 @@ import model.Restriction;
 	    		EdSpecialWished.setText(currentParticipant.getSpecialNeeds());
 	    		EdPlace.setText(currentParticipant.getAddress().getCity());
 	    		EdStreet.setText(currentParticipant.getAddress().getStreet());
+	    		EdEMail.setText(currentParticipant.getPerson().getMailAddress());
 	    		DateBirthday.setValue(currentParticipant.getPerson().getBirthDate());
 	    		
 	    		Course courseWish = currentParticipant.getCourseWish();
