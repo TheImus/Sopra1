@@ -385,6 +385,8 @@ import model.Restriction;
 	    	
 	    	if(!(restrName.equals("Kein Alkohol") || restrName.equals("Veganer") || restrName.equals("Vegetarier"))){
 		    	String newName = EdRestriction.getText();
+		    	Restriction editedRestriction = walkingDinnerController.getRestrictionController().getRestrictionWithName(cb.getText());
+		    	walkingDinnerController.getRestrictionController().renameRestriction(editedRestriction, newName);
 		    	cb.setText(newName);
 	    	}
 	    	
