@@ -68,8 +68,6 @@ public class TabGroupsController implements TeamsAUI {
     		Team team = selectedTeam.getTeam();
     		walkingDinnerController.getGroupController().removeTeamFromGroup(team, currentGroup);
     		
-    		// refresh
-    		System.out.println("REFRESH IN BTN REMOVE");
     		refreshAll();
     	}
     }
@@ -86,6 +84,7 @@ public class TabGroupsController implements TeamsAUI {
     	if (selectedTeam != null && currentGroup != null && selectedTeam.getTeam() != null) {
     		Team team = selectedTeam.getTeam();
     		walkingDinnerController.getGroupController().setHostingTeam(currentGroup, team);
+    		refreshGroupList();
     		refreshSelectedGroupList();
     	}
     }
@@ -123,7 +122,6 @@ public class TabGroupsController implements TeamsAUI {
     	Course course = cbCourse.getSelectionModel().getSelectedItem();
     	if (course != null) {
     		walkingDinnerController.getGroupController().setCourse(course);
-    		System.out.println("Set selectedGroup to null");
     		currentGroup = null; // no group is now selected
     		refreshAll();
     	}
