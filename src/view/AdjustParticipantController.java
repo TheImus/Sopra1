@@ -264,7 +264,6 @@ import model.Restriction;
     		});
 	    	
 	    	List<ParticipantAction> actionList = walkingDinnerController.getParticipantActionController().getPossibleActions();
-	    	System.out.println(actionList.size());
 	    	for(ParticipantAction action : actionList){
 	    		CbAction.getItems().add(action);
 	    	}
@@ -288,7 +287,6 @@ import model.Restriction;
     		LvRestrictions.getItems().add(vegan);*/
 	    	
 	    	List<Restriction> restrList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getRestriction();
-	    	System.out.print(restrList.size());
 	    	for(Restriction restr : restrList){
 
 		    		String restrName = restr.getName();
@@ -306,7 +304,6 @@ import model.Restriction;
 	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	    	List<Restriction> eventRestriction = currentEvent.getRestriction();
-	    	System.out.println("in refresh: " + eventRestriction.size());
 	    	LvRestrictions.getItems().clear();
 	    	for(Restriction restr : eventRestriction){
 	    		
@@ -334,14 +331,7 @@ import model.Restriction;
 	    		Course courseWish = currentParticipant.getCourseWish();
 	    		CbWishCourse.setValue(courseWish);  		
 	    		
-	    		if(CbAction.getSelectionModel().getSelectedItem()!=null){	    	
-	    			CbAction.setPromptText("geändert");
-	    			//CbAction.setPromptText(CbAction.getSelectionModel().getSelectedItem().toString());
-		    		System.out.println("ändere Ansicht");
-		    	}
-	    		else{
-	    			CbAction.setPromptText("weiter");
-	    		}
+	    		
 	    	}	
 	    }
 	    
@@ -486,7 +476,6 @@ import model.Restriction;
 			    	CheckBox newRestriction = new CheckBox();
 			    	newRestriction.setText(restrictionName);
 			    	LvRestrictions.getItems().add(newRestriction);
-			    	System.out.println("In Create: "+currentEvent.getRestriction().size());
 		    	}
 	    	}
 	    	EdRestriction.clear();
@@ -692,7 +681,6 @@ import model.Restriction;
 	    			}	    			
 	    		}
 	    	}
-	    	System.out.println("anzahl gefundener Restricitons: " + selectedRestrictions.size());
 	    	return selectedRestrictions;
 	    }
 
