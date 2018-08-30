@@ -48,9 +48,10 @@ public class ParticipantActionController {
 			} else if (invitedList.contains(currentParticipant)) {
 				actions.add(register);
 				actions.add(update);
-			} else {
-				actions.add(register);
 			}
+//			} else {
+//				actions.add(register);
+//			}
 			return actions;
 		} catch (NullPointerException e) {
 			throw e;

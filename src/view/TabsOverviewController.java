@@ -148,7 +148,7 @@ public class TabsOverviewController {
 
     @FXML
     void onSaveTabsOverview(ActionEvent event) {
-    	WalkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), "beispielprojekt");
+    	WalkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), walkingDinnerController.getWalkingDinner().getFileName());
     }
 
 

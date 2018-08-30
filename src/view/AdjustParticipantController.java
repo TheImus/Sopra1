@@ -525,12 +525,12 @@ import model.Restriction;
 
 	    @FXML
 	    void OnParticipantAction(MouseEvent event) {
-	    	System.out.println("clicked");
+	    	//System.out.println("clicked");
 	    }
 	    
 	    @FXML
 	    void OnParticipantActionSelected(ActionEvent event){
-	    	System.out.println("selected");
+	    	//System.out.println("selected");
 	    	//refresh();
 	    }
 
