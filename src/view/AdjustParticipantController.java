@@ -32,6 +32,7 @@ import model.Address;
 import model.Course;
 import model.Event;
 import model.Participant;
+import model.Person;
 import model.Restriction;
 
 	public class AdjustParticipantController {
@@ -507,6 +508,7 @@ import model.Restriction;
 	    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
 	    			Participant newPart = new Participant();
+	    			newPart.setPerson(currentEvent.getCurrentParticipant().getPerson());
 	    			currentEvent.setCurrentParticipant(newPart);
 	    			partCont.setName(EdName.getText());
 	    			partCont.setBirthDate(DateBirthday.getValue());
@@ -521,18 +523,45 @@ import model.Restriction;
 	    			//List<Restriction> restList = getRestrictions();
 	    			//restCont.setParticipantRestrictions(restList);
 	    			
-	    			currentEvent.getParticipants().add(newPart);
+	    			walkingDinnerController.getParticipantActionController().register(newPart);
 	    			
 	    			
 	    		}
-	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER_NEW_PERSON){
+	    			Participant newPart = new Participant();
+	    			newPart.setPerson(new Person());
+	    			currentEvent.setCurrentParticipant(newPart);
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
 	    			
+	    			walkingDinnerController.getParticipantActionController().register(newPart);
 	    		}
-	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
-	    			
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UNREGISTER){
+	    			walkingDinnerController.getParticipantActionController().unregister(currentEvent.getCurrentParticipant());
 	    		}
-	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
-	    			
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UPDATE_PARTICIPANT){
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
 	    		}
 	    	}
 	    }
