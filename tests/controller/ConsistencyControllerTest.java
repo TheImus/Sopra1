@@ -147,7 +147,7 @@ public class ConsistencyControllerTest {
 		team1.setMembers(members);
 		warnings = consistencyController.getWarnings(team1);
 		
-		assertTrue(warnings.contains("Teamgröße ist größer als 3"));
+		assertTrue(warnings.contains("Teamgroesse ist groesser als 3"));
 		assertFalse(warnings.contains("In dem Team befindet sich nur eine Person"));							//check if team warning is correct (too  big)
 		
 		participants.get(0).setCourseWish(Course.STARTER);
@@ -254,7 +254,7 @@ public class ConsistencyControllerTest {
 		groups.get(1).getGuest().add(team1);
 		
 		List<String> warnings=consistencyController.checkGroupCourses(groups.get(0));
-		assertTrue(warnings.contains(team1+"kommt in mehreren " +groupController.getCourse() +" Gruppen vor, die andere Gruppe besteht aus Gruppe mit Gastgeber: "+groups.get(1).getHostTeam().getHost()));
+		assertTrue(warnings.contains("Team mit Gastgeber " + team1.getHost() +"im Gang " +groupController.getCourse() +"kommt in mehreren Gruppen vor. \n" + "Die andere Gruppe besteht aus Gruppe mit Gastgeber: " +groups.get(1).getHostTeam().getHost()));
 		groups.get(0).getGuest().remove(team1);
 		groups.get(1).getGuest().remove(team1);
 		
@@ -264,7 +264,7 @@ public class ConsistencyControllerTest {
 		groups.get(1).getGuest().add(team1);
 		
 		warnings=consistencyController.checkGroupCourses(groups.get(0));
-		assertTrue(warnings.contains(team1+"kommt in mehreren " +groupController.getCourse() +" Gruppen vor, die andere Gruppe besteht aus Gruppe mit Gastgeber: "+groups.get(1).getHostTeam().getHost()));
+		assertTrue(warnings.contains("Team mit Gastgeber " + team1.getHost() +"im Gang " +groupController.getCourse() +"kommt in mehreren Gruppen vor. \n" + "Die andere Gruppe besteht aus Gruppe mit Gastgeber: " +groups.get(1).getHostTeam().getHost()));
 		groups.get(0).getGuest().remove(team1);
 		groups.get(1).getGuest().remove(team1);
 		
@@ -274,7 +274,7 @@ public class ConsistencyControllerTest {
 		groups.get(1).getGuest().add(team1);
 		
 		warnings=consistencyController.checkGroupCourses(groups.get(0));
-		assertTrue(warnings.contains(team1+"kommt in mehreren " +groupController.getCourse() +" Gruppen vor, die andere Gruppe besteht aus Gruppe mit Gastgeber: "+groups.get(1).getHostTeam().getHost()));
+		assertTrue(warnings.contains("Team mit Gastgeber " + team1.getHost() +"im Gang " +groupController.getCourse() +"kommt in mehreren Gruppen vor. \n" + "Die andere Gruppe besteht aus Gruppe mit Gastgeber: " +groups.get(1).getHostTeam().getHost()));
 		groups.get(0).getGuest().remove(team1);
 		groups.get(1).getGuest().remove(team1);
 
