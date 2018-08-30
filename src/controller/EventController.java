@@ -26,7 +26,7 @@ public class EventController {
 	 * @param walkingDinnerController Reference to access all other classes
 	 */
 	public EventController(WalkingDinnerController walkingDinnerController){
-		this.setWalkingDinnerController(walkingDinnerController);
+		this.walkingDinnerController = walkingDinnerController;
 	}
 
 	/**
