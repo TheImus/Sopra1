@@ -1,14 +1,14 @@
 package controller;
 
-import java.awt.datatransfer.FlavorTable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import model.WalkingDinner;
+
 import model.Event;
 import model.Participant;
 import model.Person;
 import model.Team;
+import model.WalkingDinner;
 
 public class ParticipantActionController {
 

@@ -349,7 +349,6 @@ public class TabGroupsController implements TeamsAUI {
     private void refreshSelectedGroupList() {
     	listSelectedGroup.getItems().clear();
     	if (this.selectedGroup != null) {
-    		System.out.println(this.selectedGroup);
         	List<SelectedGroupTeam> teams = addFromGroup(this.selectedGroup);
         	listSelectedGroup.getItems().addAll(teams);
     	}

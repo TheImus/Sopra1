@@ -1,7 +1,5 @@
 package controller;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
 public enum ParticipantAction {
 	REGISTER, 
 	UNREGISTER, 
