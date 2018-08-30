@@ -234,29 +234,32 @@ public class ScheduleController {
 			leftParticipants.add(leftOther);
 		}
 		//Case, that there is one team too much
-		if(teams.size()%3==1){
+		int three = 3;
+		int one = 1;
+		int two = 2;
+		if(teams.size()%three==one){
 			//Take a team from the "biggest" ordered Restriction available
 			//and add the participants to the left ones
-			if(otherTeams.size()>=1){
+			if(otherTeams.size()>=one){
 			Team toResize = otherTeams.get(0);
 			leftParticipants.addAll(toResize.getParticipants());
 			teams.remove(toResize);
-			}else if(vegetarianTeams.size()>=1){
+			}else if(vegetarianTeams.size()>=one){
 				Team toResize = vegetarianTeams.get(0);
 				leftParticipants.addAll(toResize.getParticipants());
 				teams.remove(toResize);
 			}else{
-				assert(veganTeams.size()>1);
+				assert(veganTeams.size()>one);
 				Team toResize = veganTeams.get(0);
 				leftParticipants.addAll(toResize.getParticipants());
 				teams.remove(toResize);
 			}
 		}
 		//Case, that there are two team too much
-		if(teams.size()%3==2){
+		if(teams.size()%three==two){
 			//Take a team from the "biggest" ordered Restriction available
 			//and add the participants to the left ones
-			if(otherTeams.size()>=2){
+			if(otherTeams.size()>=two){
 				Team toResize = otherTeams.get(0);
 				leftParticipants.addAll(toResize.getParticipants());
 				teams.remove(toResize);
@@ -264,7 +267,7 @@ public class ScheduleController {
 				leftParticipants.addAll(toResize.getParticipants());
 				teams.remove(toResize);
 				}
-				else if(vegetarianTeams.size()>=2){
+				else if(vegetarianTeams.size()>=two){
 					Team toResize = vegetarianTeams.get(0);
 					leftParticipants.addAll(toResize.getParticipants());
 					teams.remove(toResize);
@@ -273,7 +276,7 @@ public class ScheduleController {
 					teams.remove(toResize);
 				}
 				else{
-					assert(veganTeams.size()>2);
+					assert(veganTeams.size()>two);
 					Team toResize = veganTeams.get(0);
 					leftParticipants.addAll(toResize.getParticipants());
 					teams.remove(toResize);
@@ -386,7 +389,9 @@ public class ScheduleController {
 		for(Participant participant:leftParticipants){
 			teams = insertParticipantInFittingTeam(teams, participant);
 		}
-		assert(teams.size()%3==0);
+		int zero = 0;
+		int three = 3;
+		assert(teams.size()%three==zero);
 		return teams;
 	}	
 	/**
@@ -401,7 +406,8 @@ public class ScheduleController {
 		int minimum = Integer.MAX_VALUE;
 		//minimum search for team with least SymmetricDifference of Restrictions
 		for(Team team:teams){
-			if(team.getSize()==2){
+			int two = 2;
+			if(team.getSize()==two){
 				int amountOfSymDiff = Restriction.getSymmetricDifferenceForRestrictions(team.getRestrictions(), participant.getRestrictions()).size();
 				if(amountOfSymDiff < minimum){
 					minimum = amountOfSymDiff;

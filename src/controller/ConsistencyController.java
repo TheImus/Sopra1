@@ -70,24 +70,28 @@ public class ConsistencyController {// headerCommentRequirement Required
 		
 		for(int i = 0; i < members.size()-1; i++){
 			if(!members.get(i).getCourseWish().equals(members.get(i+1).getCourseWish())){				//check if team members have same course wish
-				warnings.add(members.get(i).getPerson().getName() + "hat anderen Wunschgang als " + members.get(i+1).getPerson().getName());
+				warnings.add(members.get(i).getPerson().getName() + "hat anderen Wunschgang als " + members.get(i+1).getPerson().getName() + ".");
 			}
 		}
-		if(team.getHost() == null) warnings.add("kein Host vorhanden/gesetzt");							//check if there is a host
+		if(team.getHost() == null) warnings.add("Es gibt keinen Host in diesem Team.");							//check if there is a host
 		List<Restriction> differentR = getDifferentRestrictionsFor(team.getParticipants());
 		if(differentR.size() >0 ) {																		// check if there are any restrictions that don't match
 			String newWarning = "";
-			newWarning+= "Folgende Restriktionen könnten für Teams Problematisch sein: " + 
-					this.getText(differentR) + 
-					"Bitte einmal Überprüfen für Team mit folgenden Mitgliedern: \n";
-			for(Participant p : team.getParticipants())
+			newWarning+= "Folgende Restriktionen können für Teams problematisch sein: " + 
+					this.getText(differentR) + "\n" + 
+					"Bitte überprüfen sie das Team: " + team.getHost().getPerson().getName() + "\n";
+			/*for(Participant p : team.getParticipants())
 			{
 				newWarning += "__";
 				newWarning += p.getPerson().getName() + "\n";
-			}
+			}*/
 			
 			warnings.add(newWarning);
 		}	
+		if(team.getHost() == null && team.getMembers().isEmpty() && team.getParticipants().isEmpty()){
+			warnings.clear();
+			warnings.add("Es gibt noch freie Teilnehmer.");
+		}
 		return warnings;
 	}
 
@@ -355,7 +359,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 		}
 		
 		if(team.getParticipants().size() > THREE) {
-			warnings.add("Die Teamgröße ist größer als 3");
+			warnings.add("Das Team ist zu groß.");
 		}
 		return warnings;
 	}
