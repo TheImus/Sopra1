@@ -107,6 +107,7 @@ public class TabGroupsController {
      * @param event
      */
     void onBtnGenerateGroups(ActionEvent event) {
+    	//List<model.Group> scheduledGroups = walkingDinnerController.getScheduleController().generateGroups();
     	walkingDinnerController.getScheduleController().generateGroups();
     	refreshAll();
     }
