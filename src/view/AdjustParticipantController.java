@@ -241,10 +241,10 @@ import model.Restriction;
 	    		new ListCell<ParticipantAction>() {
 	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
 	    				super.updateItem(item, empty);
-	    				if (item == null | empty) {
-	    					setGraphic(null);
+	    				if (item == null) {
+	    					setText("");
 	    				} else {
-	    					this.setText(item.getText());
+	    					this.setText(item.toString());
 	    				}
 	    			}
 	    	
@@ -535,7 +535,7 @@ import model.Restriction;
 	    @FXML
 	    void OnParticipantActionSelected(ActionEvent event){
 	    	System.out.println("selected");
-	    	refresh();
+	    	//refresh();
 	    }
 
 	    @FXML
@@ -596,9 +596,9 @@ import model.Restriction;
 	    		
 	    		
 	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
-	    			Participant newPart = new Participant();
-	    			if(currentEvent.getCurrentParticipant()!=null){
-	    				newPart = currentEvent.getCurrentParticipant();
+	    			Participant newPart = currentEvent.getCurrentParticipant();
+	    			if(currentEvent.getCurrentParticipant()==null){
+	    				newPart = new Participant();
 	    			}
 	    			newPart.setPerson(currentEvent.getCurrentParticipant().getPerson());
 	    			currentEvent.setCurrentParticipant(newPart);
