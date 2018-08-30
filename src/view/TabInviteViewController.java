@@ -234,7 +234,6 @@ public class TabInviteViewController {
      * Register a selected invited participant
      * @param event
      */
-    @SuppressWarnings("unchecked")
     @FXML
     void onRegister(ActionEvent event) {
     	Participant participant = ListInvited.getSelectionModel().getSelectedItem();
