@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import model.Event;
 import view.EventOverviewController;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
@@ -60,6 +61,8 @@ private WalkingDinnerController walkingDinnerController;
 			eventOverviewController.setWalkingDinnerController(walkingDinnerController);
 			eventOverviewController.init();
 			Scene scene = new Scene(root);
+			primaryStage.setTitle("WalkingDinner");
+			primaryStage.getIcons().add(new Image(MainClass.class.getResourceAsStream("chef.jpg")));
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
