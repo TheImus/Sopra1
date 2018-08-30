@@ -125,6 +125,7 @@ import model.Restriction;
     		}
     		else{
     			CbAction.setStyle("-fx-border-color: inherit;");
+    			passed=false;
 
     		}
 	    	
@@ -133,6 +134,7 @@ import model.Restriction;
     		}
     		else{
     			CbWishCourse.setStyle("-fx-border-color: inherit;");
+    			passed=false;
 
     		}
 	    	
@@ -152,8 +154,7 @@ import model.Restriction;
 	    			throw new IllegalArgumentException();
 	    	}
 	    	catch(IllegalArgumentException e){
-	    		EdEMail.setStyle("-fx-border-color: red;");
-	    		passed=false;
+	    		EdEMail.setStyle("-fx-border-color: orange;");	    		
 	    	}
 	    	
 	    	try{
