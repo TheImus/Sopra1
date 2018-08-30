@@ -2,10 +2,6 @@ package view;
 
 import java.io.File;
 import java.util.List;
-
-
-import controller.WalkingDinnerController;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,19 +9,26 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import controller.WalkingDinnerController;
 import model.Event;
-import model.Participant;
-import javafx.scene.control.MenuItem;
+
+
 public class EventOverviewController {
 
 	@FXML
     private BorderPane borderPaneOverview;
+
+    @FXML
+    private BorderPane borderPaneOutermost;
 
     @FXML
     private Button BtnNewFromTemplate;
@@ -41,6 +44,9 @@ public class EventOverviewController {
 
     @FXML
     private TextField searchEvent;
+    
+    @FXML
+    private MenuBar MainMenu;
     
     @FXML
     private MenuItem MenuNewFile;
@@ -89,12 +95,15 @@ public class EventOverviewController {
 		for(Event ev:list){
 			listEvent.getItems().add(ev);
 		}
-		BtnEdtiting.setDisable(true);
-    	BtnRemoveEvent.setDisable(true);
+		//BtnEdtiting.setDisable(true);
+    	//BtnRemoveEvent.setDisable(true);
 		
     }
     
     public void init(){
+    	// FIX java bug
+    	borderPaneOutermost.setTop(MainMenu);
+    	
     	listEvent.getItems().clear();
     	listEvent.setCellFactory(view ->
 		new ListCell<Event>() {
@@ -106,16 +115,15 @@ public class EventOverviewController {
 		            setText(item.getName() + " - " + item.getDate().toString());
 		        }
 		    }
-		}
-    			);
+		});
     	refresh();
-    	
-
-
     }
     
     @FXML
     void onNewEvent(ActionEvent event){
+    	// FIX java bug
+    	borderPaneOutermost.setTop(null);
+    	
     	try {
     		walkingDinnerController.getWalkingDinner().setCurrentEvent(null);
 
@@ -127,21 +135,7 @@ public class EventOverviewController {
 			newEventFromTemplateController.setWalkingDinnerController(walkingDinnerController);
 			
 			Scene scene = new Scene(root);
-			
-			if (StageContainer.createNewEventStage == null)
-			{
-	    		StageContainer.createNewEventStage = new Stage();
-			}
-
-    		StageContainer.createNewEventStage.setScene(scene);
-			newEventFromTemplateController.refresh();
-			
-			//((Stage)borderPaneOverview.getScene().getWindow()).setScene(scene);
-			
-			StageContainer.createNewEventStage.show();
-			
-			//((Stage)borderPaneOverview.getScene().getWindow()).hide();
-			StageContainer.primaryStage.hide();
+			((Stage)borderPaneOverview.getScene().getWindow()).setScene(scene);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -164,6 +158,9 @@ public class EventOverviewController {
     
     @FXML
     void OnEditing(ActionEvent event) {
+    	 // fixes: https://bugs.openjdk.java.net/browse/JDK-8183520
+    	 borderPaneOutermost.setTop(null);
+    	 
     	 Event currentEvent = listEvent.getSelectionModel().getSelectedItem();
     	 walkingDinnerController.getWalkingDinner().setCurrentEvent(currentEvent);
     	 try {
@@ -284,21 +281,18 @@ public class EventOverviewController {
             	walkingDinnerController.getWalkingDinner().setFileName(filename);
             	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), walkingDinnerController.getWalkingDinner().getFileName());
             	
-            	
-            	
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
 
     }
-    
 
-    
+  
+
     @FXML
     void onMouseClicked(MouseEvent event){
     	Event currentEvent = listEvent.getSelectionModel().getSelectedItem();
-    	System.out.println("hallo");
     	if(currentEvent != null){
     		BtnEdtiting.setDisable(false);
     		BtnRemoveEvent.setDisable(false);
@@ -311,8 +305,5 @@ public class EventOverviewController {
     	
     }
 
-  
-
-    
 
 }
