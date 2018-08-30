@@ -98,5 +98,15 @@ public class RestrictionController {
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
 	}
+	
+	public Restriction getRestrictionWithName(String name){
+		List<Restriction> allRest = walkingDinnerController.getWalkingDinner().getCurrentEvent().getRestriction();
+		for(Restriction r: allRest){
+			if(r.getName().equals(name)){
+				return r;
+			}
+		}
+		return null;
+	}
 
 }
