@@ -51,7 +51,7 @@ public class ScheduleController {
 		HashMap<IrvingMatchable, IrvingMatchable> groupMap = IrvingAlgorithm.irvingAlgorithmus(teams);
 		ArrayList<Group> groups = generateGroupsFromMap(groupMap, teams);
 		if(groups != null){
-			System.out.println(groups.toString());
+			//System.out.println(groups.toString());
 		}
 		currentEvent.setRestriction(restrictionsWithoutKnowing);
 		Schedule schedule = currentEvent.getSchedule();
@@ -93,7 +93,7 @@ public class ScheduleController {
 				groups.add(group);
 			}
 		}
-		System.out.println("greedy "+groups.toString());
+		//System.out.println("greedy "+groups.toString());
 		return groups;
 	}
 	/**
