@@ -59,8 +59,8 @@ public class IndexSorter<T extends Comparable<T>> implements Comparator<Integer>
 	 */
 	@Override
 	public int compare(Integer arg0, Integer arg1) {
-		T d1 = values[arg0];
-		T d2 = values[arg1];
-		return d1.compareTo(d2);
+		T firstToCompare = values[arg0];
+		T secondToCompare = values[arg1];
+		return firstToCompare.compareTo(secondToCompare);
 	}
 }
