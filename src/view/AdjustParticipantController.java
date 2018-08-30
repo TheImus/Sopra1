@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import controller.ParticipantAction;
 import controller.ParticipantController;
+import controller.RestrictionController;
 import controller.WalkingDinnerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -81,6 +82,9 @@ import model.Restriction;
 	    private Button BtnCancel;
 	    
 	    @FXML
+	    private Button BtnCallAction;
+	    
+	    @FXML
 	    private ComboBox<ParticipantAction> CbAction;
 
 	    @FXML
@@ -99,6 +103,8 @@ import model.Restriction;
 	    private GridPane GridPaneAdjustParticipant;
 	    
 	    private WalkingDinnerController walkingDinnerController;
+	    
+	    private RestrictionController restrictionController = walkingDinnerController.getRestrictionController();
 	    
 	    
 	    public WalkingDinnerController getWalkingDinnerController() {
@@ -478,11 +484,14 @@ import model.Restriction;
 	    	return validZipCode.matcher(zipCode).matches();
 	    }
 	    
-	    /*
-	    void updateRestrictions(){
-	    	List<CheckboxLvRestrictions.getItems();
+	    @FXML
+	    void onBtnCallAction(ActionEvent event){
 	    	
-	    }*/
+	    }
+	    
+	    List<Restriction> getRestrictionList(){
+	    	return null;
+	    }
 
 	}
 
