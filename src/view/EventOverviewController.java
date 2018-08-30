@@ -228,6 +228,7 @@ public class EventOverviewController {
                 System.out.println(e.getMessage());
             }
         }
+        onMenuSaveFile( event);
         init();
     }
     	
@@ -256,8 +257,10 @@ public class EventOverviewController {
 
     @FXML
     void onMenuQuit(ActionEvent event) {
-    	if(! walkingDinnerController.getWalkingDinner().getFileName().equals(""))
-    	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(),walkingDinnerController.getWalkingDinner().getFileName());
+    	if(walkingDinnerController.getWalkingDinner().getFileName().equals(""))
+    		onMenuSaveFile(event);
+    	else
+    		walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(),walkingDinnerController.getWalkingDinner().getFileName());
     	System.exit(0);
     }
 

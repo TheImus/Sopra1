@@ -74,6 +74,9 @@ public class TabParticipantsController {
     }
     
     public void refresh() {
+    	
+    	
+    	
     	participantList.getItems().clear();
     	List<Participant> list = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants();
     	participantList.getItems().addAll(list);
