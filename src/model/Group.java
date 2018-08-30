@@ -7,11 +7,18 @@ public class Group implements Serializable{
 
 	private Team hostTeam;
 
-	private List<Team> guest;
+	private List<Team> guests;
 	
 	public Group() {
 		this.hostTeam = null;
-		this.guest = new ArrayList<Team>();
+		this.guests = new ArrayList<Team>();
+	}
+	
+	public Group(Team hostTeam, Team team2, Team team3) {
+		this.hostTeam = hostTeam;
+		this.guests = new ArrayList<Team>();
+		this.guests.add(team2);
+		this.guests.add(team3);
 	}
 
 	public List<Participant> getParticipants() {
@@ -29,7 +36,7 @@ public class Group implements Serializable{
 		if(hostTeam != null)
 			allTeams.add(hostTeam);
 		
-		allTeams.addAll(guest);
+		allTeams.addAll(guests);
 
 		return allTeams;
 	}
@@ -43,11 +50,11 @@ public class Group implements Serializable{
 	}
 
 	public List<Team> getGuest() {
-		return guest;
+		return guests;
 	}
 
 	public void setGuest(List<Team> guest) {
-		this.guest = guest;
+		this.guests = guest;
 	}
 
 }

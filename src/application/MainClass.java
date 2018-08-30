@@ -20,6 +20,8 @@ private WalkingDinnerController walkingDinnerController;
 	
 	@Override
 	public void init() throws Exception { //Beispielprojekt muss später ruas
+		/*
+		
 		//walkingDinnerController = new WalkingDinnerController();
 		walkingDinnerController = TestDataFactory.createTestWalkingDinnerController();
 		//walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel("beispielprojekt"));
@@ -32,6 +34,9 @@ private WalkingDinnerController walkingDinnerController;
 		walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(),"beispielprojekt");
 		//walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel("beispielprojekt"));
 
+*/	
+		walkingDinnerController = new WalkingDinnerController();
+		walkingDinnerController.setWalkingDinner(TestDataFactory.getWalkingDinner());
 	}
 
 	@Override	

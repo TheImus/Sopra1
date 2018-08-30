@@ -21,6 +21,13 @@ public class Address implements Serializable {
 		this.addressAdditional = "";
 	}
 	
+	public Address(String City, String street, String zipCode) {
+		this.street = "";
+		this.city = "";
+		this.zipCode = "";
+		this.addressAdditional = "";
+	}
+	
 	/**
 	 * Clones the actual address object
 	 * 

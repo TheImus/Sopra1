@@ -16,6 +16,11 @@ public class Team implements Serializable, IrvingMatchable {
 		this.host = null;
 		this.members = new ArrayList<Participant>();
 	}
+	
+	public Team(Participant host, Participant member) {//'member the good times
+		this.host = null;
+		this.members = new ArrayList<Participant>();
+	}
 
 	public List<Participant> getParticipants() {
 		List<Participant> list = new ArrayList<>();
