@@ -9,43 +9,42 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="GridPaneParticipants" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TabParticipantsController">
+<GridPane fx:id="GridPaneParticipants" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.TabParticipantsController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="0.0" prefWidth="8.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="581.0" minWidth="10.0" prefWidth="570.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="103.0" minWidth="2.0" prefWidth="13.0" />
+      <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
+    <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="570.0" />
+    <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="1.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" vgrow="NEVER" />
     <RowConstraints maxHeight="298.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="325.0" minHeight="10.0" prefHeight="252.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="256.0" minHeight="0.0" prefHeight="25.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="256.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="256.0" minHeight="0.0" prefHeight="33.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="100.0" prefHeight="252.0" vgrow="ALWAYS" />
+    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="15.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="256.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label graphicTextGap="6.0" text="Teilnehmerliste" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <ListView fx:id="participantList" prefHeight="213.0" prefWidth="573.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button fx:id="BtnExportParticipantData" mnemonicParsing="false" onAction="#onExportParticipantData" text="Teilnehmerdaten exportieren" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <GridPane.margin>
-            <Insets top="5.0" />
-         </GridPane.margin></Button>
-      <Button fx:id="BtnExportChanges" mnemonicParsing="false" onAction="#onExportChangedParticipantData" text="Änderungen exportieren" GridPane.columnIndex="1" GridPane.rowIndex="5">
-         <GridPane.margin>
-            <Insets top="5.0" />
-         </GridPane.margin></Button>
-      <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <buttons>
-          <Button fx:id="BtnCreateParticipant" mnemonicParsing="false" onAction="#onCreateParticipant" text="Teilnehmer erstellen" />
             <Button fx:id="BtnAdjustParticipant" mnemonicParsing="false" onAction="#onAdjustParticipant" text="Teilnehmer bearbeiten">
                <opaqueInsets>
                   <Insets bottom="5.0" />
                </opaqueInsets>
             </Button>
+          <Button fx:id="BtnCreateParticipant" mnemonicParsing="false" onAction="#onCreateParticipant" text="Teilnehmer erstellen" />
+        </buttons>
+      </ButtonBar>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <buttons>
+            <Button fx:id="BtnExportParticipantData" mnemonicParsing="false" onAction="#onExportParticipantData" text="Teilnehmerdaten exportieren">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Button fx:id="BtnExportChanges" mnemonicParsing="false" onAction="#onExportChangedParticipantData" text="Änderungen exportieren" />
         </buttons>
       </ButtonBar>
    </children>
