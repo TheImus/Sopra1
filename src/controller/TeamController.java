@@ -216,23 +216,21 @@ public class TeamController {
 	 *         in any group at the moment
 	 */
 	public List<Team> getFreeTeams() {
-		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 		List<Team> list = new ArrayList<Team>();
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 		list.addAll(currentEvent.getAllTeams());
+		
 		Schedule currentSchedule = currentEvent.getSchedule();
-		Course[] courses = Course.values();
-		for(Course c:courses)
+		Course currentCourse = currentSchedule.getCurrentCourse();
+		List<Group> groupList = currentSchedule.getGroup(currentCourse);
+		for(Group g:groupList)
 		{
-			List<Group> groupList = currentSchedule.getGroup(c);
-			for(Group g:groupList)
+			List<Team> teamList = g.getTeams();
+			for(Team t:teamList)
 			{
-				List<Team> teamList = g.getTeams();
-				for(Team t:teamList)
-				{
-					list.remove(t);
-				}
+				list.remove(t);
 			}
-		}		
+		}	
 		
 		return list;
 	}
