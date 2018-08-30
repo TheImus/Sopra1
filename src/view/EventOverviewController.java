@@ -249,14 +249,14 @@ public class EventOverviewController {
     	
     	
     	
-    	onMenuSaveFile(event);
+    	//onMenuSaveFile(event);
     	
-    	try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//    	try {
+//			Thread.sleep(100);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
     	FileChooser fileChooser = new FileChooser();
     	
@@ -302,7 +302,7 @@ public class EventOverviewController {
     void onMenuSaveFileAs(ActionEvent event) {
     	
 
-    	FileChooser fileChooser = new FileChooser();
+	FileChooser fileChooser = new FileChooser();
     	
     	fileChooser.getExtensionFilters().addAll(
 			    new FileChooser.ExtensionFilter("WDF", "*.wdf")
