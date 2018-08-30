@@ -51,7 +51,9 @@ public class TabsOverviewController {
     @FXML
     private Label LabelEventName;
 
-   
+    public Tab getTabParticipant(){
+    	return TabParticipant;
+    }
     
     private WalkingDinnerController walkingDinnerController;
     
