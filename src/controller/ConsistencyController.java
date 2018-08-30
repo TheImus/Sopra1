@@ -296,9 +296,9 @@ public class ConsistencyController {// headerCommentRequirement Required
 			if(!groupController.getGroups().get(i).equals(group)){
 				for(int j = 0; j < group.getTeams().size();j++){
 					if(groupController.getGroups().get(i).getTeams().contains(group.getTeams().get(j))){
-						String warning = "Team mit Gastgeber " + group.getTeams().get(j).getHost() + 
+						String warning = "Team mit Gastgeber " + group.getTeams().get(j).getHost().getPerson().getName() + 
 									"im Gang " +groupController.getCourse() + "kommt in mehreren Gruppen vor. \n";
-						warning += "Die andere Gruppe besteht aus Gruppe mit Gastgeber: "+groupController.getGroups().get(i).getHostTeam().getHost();	
+						warning += "Die andere Gruppe besteht aus Gruppe mit Gastgeber: "+groupController.getGroups().get(i).getHostTeam().getHost().getPerson().getName();	
 						warnings.add(warning);	
 					} 
 				}
