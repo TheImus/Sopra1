@@ -97,6 +97,9 @@ import model.Restriction;
 	    private Button BtnNewRestriction;
 	    
 	    @FXML
+	    private Button BtnCallAction;
+	    
+	    @FXML
 	    private GridPane GridPaneAdjustParticipant;
 	    
 	    private WalkingDinnerController walkingDinnerController;
@@ -461,6 +464,11 @@ import model.Restriction;
 	    	Pattern validZipCode = Pattern.compile("\\b\\d{5}\\b");
 	    	
 	    	return validZipCode.matcher(zipCode).matches();
+	    }
+	    
+	    @FXML
+	    void onBtnCallAction(ActionEvent event){
+	    	
 	    }
 	   
 
