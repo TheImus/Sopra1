@@ -1,18 +1,25 @@
 package controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 import model.Course;
+import model.Event;
 import model.Group;
 import model.Participant;
 import model.Team;
@@ -105,13 +112,34 @@ public class ExportController {
 	
 	
 	
-	
+	/**
+	 * Exports a PDF document with all invitations 
+	 * for each invited participant there will be one page in the PDF document
+	 * 
+	 * @param fileName filename of the pdf document
+	 * @throws Exception if temporary file could not be created
+	 */
 	public void exportInvitations(Path fileName) {
 		// create a temporary directory with the latex files
 		Path tempDirectory = this.createTemporaryDirectory();
 		exportInvitationTexFile(Paths.get(tempDirectory.toString(), "invitation.tex"));
+		exportEventDataToTex(Paths.get(tempDirectory.toString(), "invitationoptions.lco"));
+		exportInvitedParticipants(Paths.get(tempDirectory.toString(), "addresses.csv"));
+		exportEventDescription(Paths.get(tempDirectory.toString(), "invitation.txt"));
 		
-		
+		// runPDFLatex
+		try {
+			runPDFLatex(tempDirectory, "invitation.tex");
+			// copy PDF to destination
+			Files.copy(
+					//new File(Paths.get(tempDirectory, "invitation.pdf")).toPath(),
+					Paths.get(tempDirectory.toString(), "invitation.pdf"),
+					fileName, 
+					StandardCopyOption.REPLACE_EXISTING
+			);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -136,6 +164,67 @@ public class ExportController {
 		}
 	}
 	
+	
+	/**
+	 * Exports the general data for the event to invitationoptions.lco
+	 */
+	private void exportEventDataToTex(Path fileName) {
+		PrintWriter writer;
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		try {
+			writer = new PrintWriter(fileName.toString(), "UTF-8");
+			writer.println("\\setkomavar{subject}{"+ currentEvent.getName() + "}");
+			writer.println("\\setkomavar{place}{" + currentEvent.getCity() + "}");
+			writer.println("\\setkomavar{date}{\\today}");
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Exports the invited persons to addresses.csv in the tmpDirectory
+	 * Format for csv:
+	 * Name;Street;
+	 * 
+	 * @param tmpDirectory
+	 */
+	private void exportInvitedParticipants(Path fileName) {
+		PrintWriter writer;
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		String csvSeparator = ";";
+		
+		try {
+			writer = new PrintWriter(fileName.toString(), "UTF-8");
+			for (Participant participant : currentEvent.getInvited()) {
+				// prepare line for csv file
+				String line = "";
+				line += participant.getPerson().getName() + csvSeparator;
+				line += participant.getAddress().getStreet() + csvSeparator;
+				line += participant.getAddress().getZipCode() + csvSeparator;
+				line += participant.getAddress().getCity();		
+				writer.println(line);
+			}
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	private void exportEventDescription(Path fileName) {
+		PrintWriter writer;
+		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+		
+		try {
+			writer = new PrintWriter(fileName.toString(), "UTF-8");
+			writer.write(currentEvent.getEventDescription());
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	/**
 	 * the method is getting the walkingDinnerController so it can access other classes
@@ -152,5 +241,42 @@ public class ExportController {
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
 	}
+	
+	
+	/**
+	 * Generate PDF document
+	 * @param tmpDirectory working directory for pdflatex
+	 * @throws IOException if file not found
+	 * @throws InterruptedException if pdflatex crashes
+	 */
+	private void runPDFLatex(Path workingDirectory, String texFileName) throws IOException, InterruptedException {
+		ProcessBuilder builder = new ProcessBuilder();
+		builder.command("pdflatex", "-interaction=nonstopmode", texFileName);
+		builder.directory(new File(workingDirectory.toString()));
+		
+		Process process = builder.start();
+		StreamWorker streamWorker = new StreamWorker(process.getInputStream(), System.out::println);
+		Executors.newSingleThreadExecutor().submit(streamWorker);
+		int exitCode = process.waitFor();
+		assert exitCode == 0;
+	}
+	
+	
+	// inner class for shell execution
+	private static class StreamWorker implements Runnable {
+		private InputStream inputStream;
+		private Consumer<String> consumer;
+		
+		public StreamWorker(InputStream inputStream, Consumer<String> consumer) {
+			this.inputStream = inputStream;
+			this.consumer = consumer;
+		}
+		
+		@Override
+		public void run() {
+			new BufferedReader (new InputStreamReader(inputStream)).lines().forEach(consumer);
+		}
+	}
+	
 
 }

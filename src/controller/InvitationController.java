@@ -1,18 +1,6 @@
 package controller;
 
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -220,53 +208,6 @@ public class InvitationController {
 		return result;
 	}
 
-	/**
-	 * Exports a PDF document with all invitations 
-	 * for each invited participant there will be one page in the PDF document
-	 * 
-	 * @param fileName filename of the pdf document
-	 * @throws Exception if temporary file could not be created
-	 */
-	public void exportPDF(String fileName) {
-		String tmpDirectory = System.getProperty("user.home") + "/tmp/walkingdinner/";
-
-		createTemporaryDirectory(tmpDirectory);
-		exportTexFile(tmpDirectory);
-		exportEventDataToTex(tmpDirectory);
-		exportInvitedParticipants(tmpDirectory);
-		exportEventDescription(tmpDirectory);
-		
-		try {
-			runPDFLatex(tmpDirectory);
-			// copy PDF to destination
-			Files.copy(
-					new File(tmpDirectory + "invitation.pdf").toPath(), 
-					new File(fileName).toPath(), 
-					StandardCopyOption.REPLACE_EXISTING
-			);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Helper method, creates the temporary dir structure
-	 */
-	private void createTemporaryDirectory(String tmpDirectory) {
-		File tmpFile = new File(tmpDirectory);
-		if (!tmpFile.exists() && !tmpFile.isDirectory()) {
-			boolean success = false;
-			try {
-				success = new File(tmpDirectory).mkdirs();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			if (!success) {
-				System.out.println("Could not create temporary dir for export in InvitationController.exportPDF");
-			}
-		}
-	}
 	
 	/**
 	 * Helper method, generate a list of invited persons from current event
@@ -285,120 +226,5 @@ public class InvitationController {
 		
 		return invitedPersons;
 	}
-	
-	/**
-	 * Exports the main tex file for invitations
-	 */
-	private void exportTexFile(String tmpDirectory) {
-		// generate a latex document
-		PrintWriter writer;
-		try {
-			writer = new PrintWriter(tmpDirectory + "invitation.tex", "UTF-8");
-			writer.println("\\documentclass[fontsize=12pt,version=last,parskip=full]{scrlttr2}");
-			writer.println("\\usepackage[utf8]{inputenc}\\usepackage[ngerman]{babel}\\usepackage{datatool}");
-			writer.println("\\LoadLetterOption{DIN}\\LoadLetterOption{invitationoptions}");
-			writer.println("\\DTLsetseparator{;}\\DTLloaddb[noheader,keys={name,street,zip,place}]{adressen}{addresses.csv}");
-			writer.println("\\begin{document}\\DTLforeach{adressen}{\\Name=name,\\Str=street,\\ZIP=zip,\\Place=place}%");
-			writer.println("{\\begin{letter}{\\Name \\\\ \\Str \\\\ \\ZIP~\\Place}");
-			writer.println("\\opening{Sehr geehrte Damen und Herren,}\\input{invitation.txt}\\end{letter}}\\end{document}");
-			writer.close();
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
-	/**
-	 * Exports the general data for the event to invitationoptions.lco
-	 */
-	private void exportEventDataToTex(String tmpDirectory) {
-		PrintWriter writer;
-		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
-		try {
-			writer = new PrintWriter(tmpDirectory + "invitationoptions.lco", "UTF-8");
-			writer.println("\\setkomavar{subject}{"+ currentEvent.getName() + "}");
-			writer.println("\\setkomavar{place}{" + currentEvent.getCity() + "Stadt}");
-			writer.println("\\setkomavar{date}{\\today}");
-			writer.close();
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Exports the invited persons to addresses.csv in the tmpDirectory
-	 * Format for csv:
-	 * Name;Street;
-	 * 
-	 * @param tmpDirectory
-	 */
-	private void exportInvitedParticipants(String tmpDirectory) {
-		PrintWriter writer;
-		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
-		String csvSeparator = ";";
-		
-		try {
-			writer = new PrintWriter(tmpDirectory + "addresses.csv", "UTF-8");
-			for (Participant participant : currentEvent.getInvited()) {
-				// prepare line for csv file
-				String line = "";
-				line += participant.getPerson().getName() + csvSeparator;
-				line += participant.getAddress().getStreet() + csvSeparator;
-				line += participant.getAddress().getZipCode() + csvSeparator;
-				line += participant.getAddress().getCity();		
-				writer.println(line);
-			}
-			writer.close();
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void exportEventDescription(String tmpDirectory) {
-		PrintWriter writer;
-		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
-		
-		try {
-			writer = new PrintWriter(tmpDirectory + "invitation.txt", "UTF-8");
-			writer.write(currentEvent.getEventDescription());
-			writer.close();
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Generate PDF document
-	 * @param tmpDirectory working directory for pdflatex
-	 * @throws IOException if file not found
-	 * @throws InterruptedException if pdflatex crashes
-	 */
-	private void runPDFLatex(String tmpDirectory) throws IOException, InterruptedException {
-		ProcessBuilder builder = new ProcessBuilder();
-		builder.command("pdflatex", "-interaction=nonstopmode", "invitation.tex");
-		builder.directory(new File(tmpDirectory));
-		
-		Process process = builder.start();
-		StreamWorker streamWorker = new StreamWorker(process.getInputStream(), System.out::println);
-		Executors.newSingleThreadExecutor().submit(streamWorker);
-		int exitCode = process.waitFor();
-		assert exitCode == 0;
-	}
-	
-	// inner class for shell execution
-	private static class StreamWorker implements Runnable {
-		private InputStream inputStream;
-		private Consumer<String> consumer;
-		
-		public StreamWorker(InputStream inputStream, Consumer<String> consumer) {
-			this.inputStream = inputStream;
-			this.consumer = consumer;
-		}
-		
-		@Override
-		public void run() {
-			new BufferedReader (new InputStreamReader(inputStream)).lines().forEach(consumer);
-		}
-	}
 }
