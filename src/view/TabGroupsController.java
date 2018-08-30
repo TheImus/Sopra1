@@ -175,12 +175,9 @@ public class TabGroupsController {
     	                    setGraphic(null);
     	                } else {
     	                    switch (item) {
-	    	                    case STARTER: 
-	    	                    	setText("Vorspeise"); break;
-	    	                    case MAIN:
-	    	                    	setText("Hauptspeise"); break;
-	    	                    case DESSERT:
-	    	                    	setText("Nachtisch"); break;
+	    	                    case STARTER: setText("Vorspeise"); break;
+	    	                    case MAIN:    setText("Hauptspeise"); break;
+	    	                    case DESSERT: setText("Nachtisch"); break;
     	                    }
     	                }
     	            }
@@ -204,6 +201,7 @@ public class TabGroupsController {
 		        super.updateItem(item, empty);
 		        if (empty || item == null) {
 		            setText("");
+		            setStyle("");
 		        } else {
 		        	Team hostingTeam = item.getHostTeam();
 		        	if (hostingTeam != null) {
@@ -221,6 +219,8 @@ public class TabGroupsController {
 		        		// check consistency
 		        		if (walkingDinnerController.getConsistencyController().getWarnings(item).size() > 0) {
 		        			setStyle("-fx-background-color: #dede00;");
+		        		} else {
+		        			setStyle("");
 		        		}
 		        		
 		        	} else {
@@ -259,7 +259,6 @@ public class TabGroupsController {
     							setText(team.getHost().getPerson().getName() + "'s Team (Gast)");
     						}
     					}
-    					
     					/*if (item.isHost) {
         					//this.setStyle("-fx-text-fill: red;");
     						//this.setStyle("-fx-background-color: #dede00;");

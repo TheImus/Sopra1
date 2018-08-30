@@ -136,6 +136,38 @@ import model.Restriction;
 	    	}
 	    	
 	    	try{
+	    		EdPlace.setStyle("-fx-border-color: grey;");
+	    		if(EdPlace.getText().equals(""))
+	    			throw new IllegalArgumentException();
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		EdPlace.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	try{
+	    		CbWishCourse.setStyle("-fx-border-color: grey;");
+	    		if(CbWishCourse.getSelectionModel().getSelectedItem() == null)
+	    			throw new IllegalArgumentException();
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		CbWishCourse.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	try{
+	    		CbAction.setStyle("-fx-border-color: grey;");
+	    		if(CbAction.getSelectionModel().getSelectedItem() == null)
+	    			throw new IllegalArgumentException();
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		CbAction.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	
+	    	
+	    	try{
 	    		EdStreet.setStyle("-fx-border-color: grey;");
 	    		if(EdStreet.getText().equals(""))
 	    			throw new IllegalArgumentException();
@@ -486,7 +518,7 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onBtnCallAction(ActionEvent event){
-	    	
+	    	validate();
 	    }
 	    
 	    List<Restriction> getRestrictionList(){
