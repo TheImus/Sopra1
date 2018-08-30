@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -224,17 +225,32 @@ public class NewEventFromTemplateController {
     @FXML
     void onDispose(ActionEvent event) {
     	try {
-			BorderPane root = new BorderPane();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EventOverview.fxml"));
-			root = loader.load();
 			
-			EventOverviewController eventOverviewController = (EventOverviewController) loader.getController();
-			eventOverviewController.setWalkingDinnerController(walkingDinnerController);
-			eventOverviewController.refresh();
-			Scene scene = new Scene(root);
+    		if(walkingDinnerController.getWalkingDinner().getCurrentEvent()==null){
+    			BorderPane root = new BorderPane();
+    			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EventOverview.fxml"));
+    			root = loader.load();
+			
+    			EventOverviewController eventOverviewController = (EventOverviewController) loader.getController();
+    			eventOverviewController.setWalkingDinnerController(walkingDinnerController);
+    			eventOverviewController.refresh();
+    			Scene scene = new Scene(root);
 			
 			
 			((Stage)gridPaneNewEvent.getScene().getWindow()).setScene(scene);
+    		}
+    		else{
+    			GridPane root = new GridPane();
+	   			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
+	   			root = loader.load();
+	   			
+	   			TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
+	   			tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
+	   			tabsOverviewController.init();
+	   			Scene scene = new Scene(root);
+	   			
+	   			((Stage)gridPaneNewEvent.getScene().getWindow()).setScene(scene);
+    		}
 			
 		} catch(Exception e) {
 			e.printStackTrace();

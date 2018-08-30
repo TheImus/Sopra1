@@ -22,6 +22,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 	import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -247,7 +248,12 @@ import model.Restriction;
 
 	    @FXML
 	    void OnCancel(ActionEvent event) {
-	    	 try {
+	    	 returnToTabOverview();
+	    }
+
+
+		private void returnToTabOverview() {
+			try {
 	   			GridPane root = new GridPane();
 	   			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
 	   			root = loader.load();
@@ -257,12 +263,14 @@ import model.Restriction;
 	   			tabsOverviewController.init();
 	   			Scene scene = new Scene(root);
 	   			
+	   			Tab TabParticipant = tabsOverviewController.getTabParticipant();
+	   			TabParticipant.getTabPane().getSelectionModel().select(TabParticipant);
 	   			((Stage)GridPaneAdjustParticipant.getScene().getWindow()).setScene(scene);
 	   			
 	   		} catch(Exception e) {
 	   			e.printStackTrace();
 	   		}
-	    }
+		}
 	    
 	    @FXML
 	    void onEditRestriction(ActionEvent event) {

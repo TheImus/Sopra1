@@ -8,7 +8,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Event;
 import view.EventOverviewController;
-import view.StageContainer;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +19,7 @@ private WalkingDinnerController walkingDinnerController;
 
 	
 	@Override
-	public void init() throws Exception { //Beispielprojekt muss sp�ter ruas
+	public void init() throws Exception { //Beispielprojekt muss später ruas
 		//walkingDinnerController = new WalkingDinnerController();
 		walkingDinnerController = TestDataFactory.createTestWalkingDinnerController();
 		//walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel("beispielprojekt"));
@@ -50,7 +49,6 @@ private WalkingDinnerController walkingDinnerController;
 			eventOverviewController.init();
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			StageContainer.primaryStage = primaryStage;
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
