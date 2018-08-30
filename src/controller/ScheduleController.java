@@ -45,6 +45,9 @@ public class ScheduleController {
 		System.out.println("There are "+teams.size()+" teams.");
 		System.out.println("There are "+groups.size()+" groups.");
 		currentEvent.setRestriction(restrictionsWithoutKnowing);
+		Schedule schedule = currentEvent.getSchedule();
+		Course currentCourse = schedule.getCurrentCourse();
+		schedule.setGroup(currentCourse, groups);
 		return groups;
 	}
 	/**
