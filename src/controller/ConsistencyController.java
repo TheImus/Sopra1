@@ -15,12 +15,15 @@ import model.Team;
 import model.WalkingDinner;
 
 
-public class ConsistencyController {
+/**
+ * 
+ */
+public class ConsistencyController {// headerCommentRequirement Required
 	
-	private final int zero = 0;
-	private final int one = 1;
-	private final int two = 2;
-	private final int three = 3;
+	private static final int zero = 0;
+	private static final int one = 1;
+	private static final int two = 2;
+	private static final int three = 3;
 
 	private WalkingDinnerController walkingDinnerController;
 	
@@ -207,9 +210,9 @@ public class ConsistencyController {
 	    		anzahlDrei++;
 	    }
 	    
-	    if(anzahlDrei > one)
+	    if(anzahlDrei > one){
 	    	warnings.add("In dieser Gruppe sind mehr als ein 3er Team.");
-	    
+	    }
 	    groupController.setCourse(courseAtTheBeginning);
 		return warnings;//"Folgende Restriktionen könnten für Gruppen Problematisch sein:" + "Gemüse" + 
 	}

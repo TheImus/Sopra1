@@ -13,7 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
 
-public class Main extends Application {
+public class MainClass extends Application {
 	
 private WalkingDinnerController walkingDinnerController;
 
