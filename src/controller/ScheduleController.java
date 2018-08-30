@@ -42,12 +42,13 @@ public class ScheduleController {
 		List<Restriction> restrictions = generateRestrictionsFromMap(knowingMap);
 		restrictions.addAll(restrictionsWithoutKnowing);
 		currentEvent.setRestriction(restrictions);
-		/**
+		
 		HashMap<IrvingMatchable, IrvingMatchable> groupMap = irvingAlgorithmus(teams);
 		ArrayList<Group> groups = generateGroupsFromMap(groupMap, teams);
-		*/
+		/**
 		ArrayList<Group> groups = greedyGroups(teams);
 		currentEvent.setRestriction(restrictionsWithoutKnowing);
+		*/
 		//System.out.println("There are "+teams.size()+" teams.");
 		//System.out.println("There are "+groups.size()+" groups.");
 		return groups;
@@ -97,11 +98,15 @@ public class ScheduleController {
 			}
 			Restriction restriction = new Restriction();
 			restriction.setName("knowingRestriction"+restrictionCounter);
+			restriction.addParticipant(participant);
+			for(Participant notKnownParticipant:participants){
+				if(!knownParticipants.contains(notKnownParticipant)){
+					restriction.addParticipant(notKnownParticipant);
+				}
+				
+			}
 			restrictions.add(restriction);
 			restrictionCounter++;
-			for(Participant knownParticipant:knownParticipants){
-				restriction.addParticipant(knownParticipant);
-			}
 		}
 		return restrictions;
 	}
