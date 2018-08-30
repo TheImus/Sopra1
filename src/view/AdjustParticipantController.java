@@ -122,19 +122,21 @@ import model.Restriction;
 	    	
 	    	if(CbAction.getSelectionModel().getSelectedItem() == null){
     			CbAction.setStyle("-fx-border-color: red;");
+    			passed=false;
     		}
     		else{
     			CbAction.setStyle("-fx-border-color: inherit;");
-    			passed=false;
+    			
 
     		}
 	    	
 	    	if(CbWishCourse.getSelectionModel().getSelectedItem() == null){
 	    		CbWishCourse.setStyle("-fx-border-color: red;");
+	    		passed=false;
     		}
     		else{
     			CbWishCourse.setStyle("-fx-border-color: inherit;");
-    			passed=false;
+    			
 
     		}
 	    	
@@ -230,19 +232,19 @@ import model.Restriction;
 
 	    
 	    public void init(){
-	    	//Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
-//	    	CbAction.setCellFactory(actions ->
-//	    		new ListCell<ParticipantAction>() {
-//	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
-//	    				super.updateItem(item, empty);
-//	    				if (item == null | empty) {
-//	    					setGraphic(null);
-//	    				} else {
-//	    					this.setText(item.getText());
-//	    				}
-//	    			}
-//	    	
-//	    		});
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	CbAction.setCellFactory(actions ->
+	    		new ListCell<ParticipantAction>() {
+	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
+	    				super.updateItem(item, empty);
+	    				if (item == null | empty) {
+	    					setGraphic(null);
+	    				} else {
+	    					this.setText(item.getText());
+	    				}
+	    			}
+	    	
+	    		});
 	    	
 	    	
 	    	
