@@ -122,17 +122,21 @@ import model.Restriction;
 	    	
 	    	if(CbAction.getSelectionModel().getSelectedItem() == null){
     			CbAction.setStyle("-fx-border-color: red;");
+    			passed=false;
     		}
     		else{
     			CbAction.setStyle("-fx-border-color: inherit;");
+    			
 
     		}
 	    	
 	    	if(CbWishCourse.getSelectionModel().getSelectedItem() == null){
 	    		CbWishCourse.setStyle("-fx-border-color: red;");
+	    		passed=false;
     		}
     		else{
     			CbWishCourse.setStyle("-fx-border-color: inherit;");
+    			
 
     		}
 	    	
@@ -152,8 +156,7 @@ import model.Restriction;
 	    			throw new IllegalArgumentException();
 	    	}
 	    	catch(IllegalArgumentException e){
-	    		EdEMail.setStyle("-fx-border-color: red;");
-	    		passed=false;
+	    		EdEMail.setStyle("-fx-border-color: orange;");	    		
 	    	}
 	    	
 	    	try{
@@ -226,22 +229,26 @@ import model.Restriction;
 		public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 			this.walkingDinnerController = walkingDinnerController;
 		}
+		
+		public ComboBox getCbAction(){
+			return CbAction;
+		}
 
 	    
 	    public void init(){
-	    	//Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
-//	    	CbAction.setCellFactory(actions ->
-//	    		new ListCell<ParticipantAction>() {
-//	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
-//	    				super.updateItem(item, empty);
-//	    				if (item == null | empty) {
-//	    					setGraphic(null);
-//	    				} else {
-//	    					this.setText(item.getText());
-//	    				}
-//	    			}
-//	    	
-//	    		});
+	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	CbAction.setCellFactory(actions ->
+	    		new ListCell<ParticipantAction>() {
+	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
+	    				super.updateItem(item, empty);
+	    				if (item == null | empty) {
+	    					setGraphic(null);
+	    				} else {
+	    					this.setText(item.getText());
+	    				}
+	    			}
+	    	
+	    		});
 	    	
 	    	
 	    	
@@ -310,6 +317,9 @@ import model.Restriction;
 	    		CheckBox restriction = new CheckBox();
 	    		restriction.setText(restrName);
 	    		LvRestrictions.getItems().add(restriction);
+	    		if(currentParticipant!=null && currentParticipant.getRestrictions().contains(restr)){
+	    			restriction.setSelected(true);
+	    		}
 	    	}
 	    	
 	    	if(currentParticipant!=null){
@@ -328,7 +338,8 @@ import model.Restriction;
 	    		CbWishCourse.setValue(courseWish);  		
 	    		
 	    		if(CbAction.getSelectionModel().getSelectedItem()!=null){	    	
-		    		CbAction.setPromptText(CbAction.getSelectionModel().getSelectedItem().toString());
+	    			CbAction.setPromptText("geändert");
+	    			//CbAction.setPromptText(CbAction.getSelectionModel().getSelectedItem().toString());
 		    		System.out.println("ändere Ansicht");
 		    	}
 	    		else{
@@ -364,16 +375,23 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onEditRestriction(ActionEvent event) {
+	    	
+	    	if(LvRestrictions.getSelectionModel().getSelectedItem() == null ||EdRestriction.getText().equals(""))
+	    		return;
 	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	    	List<Restriction> restrList = currentEvent.getRestriction();
 	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 	    	List<Restriction> participantRestrictions = currentParticipant.getRestrictions();
+	    	
+	    	
 	    	
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
 	    	String restrName = cb.getText();
 	    	
 	    	if(!(restrName.equals("Kein Alkohol") || restrName.equals("Veganer") || restrName.equals("Vegetarier"))){
 		    	String newName = EdRestriction.getText();
+		    	Restriction editedRestriction = walkingDinnerController.getRestrictionController().getRestrictionWithName(cb.getText());
+		    	walkingDinnerController.getRestrictionController().renameRestriction(editedRestriction, newName);
 		    	cb.setText(newName);
 	    	}
 	    	
@@ -511,11 +529,13 @@ import model.Restriction;
 
 	    @FXML
 	    void OnParticipantAction(MouseEvent event) {
-	    	
+	    	System.out.println("clicked");
 	    }
 	    
 	    @FXML
 	    void OnParticipantActionSelected(ActionEvent event){
+	    	System.out.println("selected");
+	    	refresh();
 	    }
 
 	    @FXML
@@ -659,16 +679,21 @@ import model.Restriction;
 	    	}
 	    }
 	    
-	    public List<Restriction> getRestrictions(){
+	    public List<Restriction> getRestrictions(){ //hier liegt der fehler
 	    	
 	    	ArrayList<Restriction> selectedRestrictions = new ArrayList<>();
+	    	RestrictionController restCont = walkingDinnerController.getRestrictionController();
+	    	
 	    	for(CheckBox restr : LvRestrictions.getItems()){
 	    		if(restr.isSelected()){
-	    			Restriction newRestriction = new Restriction();
-	    			newRestriction.setName(restr.getText());
-	    			selectedRestrictions.add(newRestriction);
+	    			Restriction newRestriction = restCont.getRestrictionWithName(restr.getText());
+	    			if(newRestriction!=null){
+	    				selectedRestrictions.add(newRestriction);
+	    				
+	    			}	    			
 	    		}
 	    	}
+	    	System.out.println("anzahl gefundener Restricitons: " + selectedRestrictions.size());
 	    	return selectedRestrictions;
 	    }
 

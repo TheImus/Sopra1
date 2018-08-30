@@ -4,6 +4,8 @@ package view;
  */
 
 import java.io.File;
+import java.io.IOError;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,10 +15,13 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import controller.ParticipantAction;
 import controller.WalkingDinnerController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -27,6 +32,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.Event;
 import model.Participant;
 
@@ -229,13 +235,29 @@ public class TabInviteViewController {
      * Register a selected invited participant
      * @param event
      */
+    @SuppressWarnings("unchecked")
     @FXML
     void onRegister(ActionEvent event) {
-    	List<Participant> selectedParticipants = ListInvited.getSelectionModel().getSelectedItems();
-    	for (Participant participant : selectedParticipants) {
-    		getWalkingDinnerController().getParticipantController().newParticipantForEvent(participant);
+    	Participant participant = ListInvited.getSelectionModel().getSelectedItem();
+    	
+    	if (participant != null) {
+    		try {
+	    		walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(participant);
+	    		GridPane root = new GridPane();
+	  			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdjustParticipant.fxml"));
+	  			root = loader.load();
+	  			
+	  			AdjustParticipantController adjustParticipantController = (AdjustParticipantController) loader.getController();
+	  			adjustParticipantController.setWalkingDinnerController(walkingDinnerController);
+	  			adjustParticipantController.init();
+	  			adjustParticipantController.getCbAction().getSelectionModel().select(ParticipantAction.REGISTER);
+	  			Scene scene = new Scene(root);
+	  			
+	  			((Stage)BaseGrid.getScene().getWindow()).setScene(scene);
+	    	} catch (IOException e) {
+	    		e.printStackTrace();
+	    	}
     	}
-    	refresh();
     }
     
 
