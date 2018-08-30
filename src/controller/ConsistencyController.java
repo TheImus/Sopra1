@@ -82,7 +82,6 @@ public class ConsistencyController {
 				newWarning += "__";
 				newWarning += p.getPerson().getName() + "\n";
 			}
-			
 			warnings.add(newWarning);
 		}	
 		return warnings;
@@ -189,20 +188,22 @@ public class ConsistencyController {
 		 warnings.addAll(checkGroupCourses(group));	
 		    
 	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
-	    if(differentR != null && !differentR.isEmpty()) {														// check if there are any restrictions that don't match
+	    if(differentR != null) {														// check if there are any restrictions that don't match
 			String warning = "Folgende Restriktionen könnten für Gruppen Problematisch sein:" + 
-					getText(differentR)+ 
+					getText(differentR) + 
 					".\nBitte überprüfen sie diese für folgende Teams: ";
 	    	for(Team team : group.getTeams()){
 	    		warning += team.getHost().getPerson().getName() + "'s Team, ";
 	    	}
 	    	warning = warning.substring(0, warning.length() - 2);
 	    	warning += ".";
-	    	
+			/*for(Participant p : allParticipantsInGroup){
+				s += p.getPerson().getName() + "; ";
+			}*/
 			warnings.add(warning);
 		}	
 	    groupController.setCourse(courseAtTheBeginning);
-		return warnings;//"Folgende Restriktionen könnten für Gruppen Problematisch sein:" + "Gemüse" + 
+		return warnings;
 	}
 
 	/**
@@ -324,12 +325,12 @@ public class ConsistencyController {
 		}
 			
 		if(group.getGuest().isEmpty()) {												//checks if there are any guest teams in group
-			//warnings.add("Es sind keine Gastteams vorhanden.");
+			warnings.add("Es sind keine Gastteams vorhanden.");
 		}
 		
-		if(group.getGuest().size() > two)												//checks if there are the correct amount of guest teams
+		if(group.getGuest().size() != two)												//checks if there are the correct amount of guest teams
 		{
-			//warnings.add("Es sind zu viele Gastteams vorhanden.");
+			warnings.add("Die Anzahl der Gastteams stimmt nicht.");
 		}
 		return warnings;
 	}
