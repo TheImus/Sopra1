@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.*;
@@ -47,17 +48,20 @@ public class RestrictionController {
 		Event currentEvent = getCurrentEvent();
 		Participant currentParticipant = currentEvent.getCurrentParticipant();
 		List<Restriction> restrictions = currentEvent.getRestriction();
+		ArrayList<Restriction> toRemove = new ArrayList<Restriction>();
 		for(Restriction restriction : restrictions){
 			if(participantRestrictions.contains(restriction)){
 				restriction.addParticipant(currentParticipant);
 			}
 			else{
 				restriction.removeParticipant(currentParticipant);
-				if(restriction.getParticipant().isEmpty()){
-					restrictions.remove(restriction);
+				if(restriction.getParticipant().isEmpty() && !restriction.isPermanent()){
+					toRemove.add(restriction);
+					//restrictions.remove(restriction);
 				}
 			}
 		}
+		restrictions.removeAll(toRemove);
 		currentEvent.setRestriction(restrictions);	
 	}
 

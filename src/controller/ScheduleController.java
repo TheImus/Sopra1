@@ -457,19 +457,19 @@ public class ScheduleController {
 	private Integer[][] generateIrvingArray(List<IrvingMatchable> entities){
 		//Generates an Array for Irving-Algorithm
 		if(!entities.isEmpty()){
-			int n = entities.size();
+			int numberOfEntities = entities.size();
 			//The Irving-Algorithm needs an even amount of participants
-			if(n%2 == 1){
-				n++;
+			if(numberOfEntities % 2 == 1){
+				numberOfEntities++;
 			}
-			Integer[][] dynArray = new Integer[n][n];
+			Integer[][] dynArray = new Integer[numberOfEntities][numberOfEntities];
 			//Rows and Columns are indexed over participants and the entries are the SymmetricDifferences of Restrictions 
 			//for these participants
 			for(IrvingMatchable entity1:entities){
 				for(IrvingMatchable entity2:entities){
 					int i = entities.indexOf(entity1);
 					int j = entities.indexOf(entity2);
-					if(i < n && j < n && i>=0 && j >= 0){
+					if(i < numberOfEntities && j < numberOfEntities && i>=0 && j >= 0){
 						if(i != j){
 							dynArray[i][j] = new Integer(IrvingMatchable.getRestrictionSymmetricDifference(entity1, entity2).size());
 						}
@@ -480,17 +480,17 @@ public class ScheduleController {
 				}
 			}
 			//If we have an odd amount of participants, we have to add one with worst values, just for the algorithm
-			if(n > entities.size()){
-				for(int i = 0; i < n; i++){
-					assert(dynArray[i][n-1] == null);
-					assert(dynArray[n-1][i] == null);
-					dynArray[i][n-1] = Integer.MAX_VALUE;
-					dynArray[n-1][i] = Integer.MAX_VALUE;				
+			if(numberOfEntities > entities.size()){
+				for(int i = 0; i < numberOfEntities; i++){
+					assert(dynArray[i][numberOfEntities-1] == null);
+					assert(dynArray[numberOfEntities-1][i] == null);
+					dynArray[i][numberOfEntities-1] = Integer.MAX_VALUE;
+					dynArray[numberOfEntities-1][i] = Integer.MAX_VALUE;				
 				}
 			}
-			Integer[][] irvingArray = new Integer[n][n];
+			Integer[][] irvingArray = new Integer[numberOfEntities][numberOfEntities];
 			//The IrvingArray is the array above, but each row contains the indexes of participants sorted by their value
-			for(int i = 0; i < n; i++){
+			for(int i = 0; i < numberOfEntities; i++){
 				IndexSorter<Integer> indexSorter = new IndexSorter<Integer>(dynArray[i]);
 				indexSorter.sort();
 				irvingArray[i] = indexSorter.getIndexes();
