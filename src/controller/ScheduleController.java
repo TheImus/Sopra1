@@ -50,9 +50,6 @@ public class ScheduleController {
 		currentEvent.setRestriction(restrictions);		
 		HashMap<IrvingMatchable, IrvingMatchable> groupMap = IrvingAlgorithm.irvingAlgorithmus(teams);
 		ArrayList<Group> groups = generateGroupsFromMap(groupMap, teams);
-		if(groups != null){
-			System.out.println(groups.toString());
-		}
 		currentEvent.setRestriction(restrictionsWithoutKnowing);
 		Schedule schedule = currentEvent.getSchedule();
 		Course currentCourse = schedule.getCurrentCourse();
@@ -72,8 +69,7 @@ public class ScheduleController {
 		toSchedule.addAll(teams);
 		ArrayList<IrvingMatchable> shuffledTeams = new ArrayList<IrvingMatchable>();
 		shuffledTeams.addAll(teams);
-		Random random = new Random();
-		Collections.rotate(shuffledTeams, random.nextInt(shuffledTeams.size()));
+		Collections.shuffle(shuffledTeams);
 		for(IrvingMatchable team:shuffledTeams){
 			if(!alreadyScheduled.contains(team)){
 				toSchedule.remove(team);
@@ -93,7 +89,6 @@ public class ScheduleController {
 				groups.add(group);
 			}
 		}
-		System.out.println("greedy "+groups.toString());
 		return groups;
 	}
 	/**
