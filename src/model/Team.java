@@ -3,8 +3,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Team implements Serializable, IrvingMatchable{
+public class Team implements Serializable, IrvingMatchable {
 
+	public final int TEAM_MAX_SIZE = 2;
+	
 	private Participant host;
 
 	private List<Participant> members;
@@ -58,7 +60,7 @@ public class Team implements Serializable, IrvingMatchable{
 		if(!members.isEmpty()){
 			restrictions.addAll(Participant.getRestrictionUnionForParticipants(host, members.get(0)));
 		}
-		else if(members.size()==2){
+		else if(members.size() == TEAM_MAX_SIZE){
 			ArrayList<Restriction> subSet = Participant.getRestrictionUnionForParticipants(members.get(0), members.get(1));
 			restrictions.addAll(Restriction.getUnionForRestrictions(subSet, host.getRestrictions()));
 		}
