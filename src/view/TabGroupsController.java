@@ -113,6 +113,7 @@ public class TabGroupsController implements TeamsAUI {
      */
     void onBtnGenerateGroups(ActionEvent event) {
     	//List<model.Group> scheduledGroups = walkingDinnerController.getScheduleController().generateGroups();
+    	currentGroup = null;
     	walkingDinnerController.getScheduleController().generateGroups();
     	refreshAll();
     }
