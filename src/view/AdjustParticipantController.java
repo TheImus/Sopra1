@@ -230,19 +230,20 @@ import model.Restriction;
 	    
 	    public void init(){
 	    	//Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
-	    	CbAction.setCellFactory(actions ->
-	    		new ListCell<ParticipantAction>() {
-	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
-	    				super.updateItem(item, empty);
-	    				if (item != null) { 
-	    					setText(item.getText()); 
-	    				} else {
-	    					setText("");
-	    				}
-	    				
-	    			}
+//	    	CbAction.setCellFactory(actions ->
+//	    		new ListCell<ParticipantAction>() {
+//	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
+//	    				super.updateItem(item, empty);
+//	    				if (item == null | empty) {
+//	    					setGraphic(null);
+//	    				} else {
+//	    					this.setText(item.getText());
+//	    				}
+//	    			}
+//	    	
+//	    		});
 	    	
-	    		});
+	    	
 	    	
 	    	CbWishCourse.setCellFactory(actions ->
     		new ListCell<Course>() {
@@ -283,11 +284,14 @@ import model.Restriction;
     		LvRestrictions.getItems().add(vegan);*/
 	    	
 	    	List<Restriction> restrList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getRestriction();
+	    	System.out.print(restrList.size());
 	    	for(Restriction restr : restrList){
-	    		String restrName = restr.getName();
-	    		CheckBox restriction = new CheckBox();
-	    		restriction.setText(restrName);
-	    		LvRestrictions.getItems().add(restriction);
+
+		    		String restrName = restr.getName();
+		    		CheckBox restriction = new CheckBox();
+		    		restriction.setText(restrName);
+		    		LvRestrictions.getItems().add(restriction);
+	    		
 	    	}
 	    	
 	    	refresh();
@@ -296,6 +300,18 @@ import model.Restriction;
 	    
 	    public void refresh(){
 	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    	List<Restriction> eventRestriction = currentEvent.getRestriction();
+	    	System.out.println("in refresh: " + eventRestriction.size());
+	    	LvRestrictions.getItems().clear();
+	    	for(Restriction restr : eventRestriction){
+	    		
+	    		String restrName = restr.getName();
+	    		CheckBox restriction = new CheckBox();
+	    		restriction.setText(restrName);
+	    		LvRestrictions.getItems().add(restriction);
+	    	}
+	    	
 	    	if(currentParticipant!=null){
 	    		EdName.setText(currentParticipant.getPerson().getName());
 	    		EdZipCode.setText(currentParticipant.getAddress().getZipCode());
@@ -305,6 +321,8 @@ import model.Restriction;
 	    		EdStreet.setText(currentParticipant.getAddress().getStreet());
 	    		EdEMail.setText(currentParticipant.getPerson().getMailAddress());
 	    		DateBirthday.setValue(currentParticipant.getPerson().getBirthDate());
+	    		
+	    		
 	    		
 	    		Course courseWish = currentParticipant.getCourseWish();
 	    		CbWishCourse.setValue(courseWish);  		
@@ -437,21 +455,24 @@ import model.Restriction;
 	    	if(!restrictionName.isEmpty()) {
 	    		
 	    		if(!checkIfRestrictionAlreadyExists(restrictionName)) {
-			    	Restriction restriction = new Restriction();
-			    	restriction.setName(restrictionName);
-			    	
-			    	/*Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
-			    	currentParticipant.addRestriction(restriction);
-			    	restriction.addParticipant(currentParticipant);*/
-			    
-			    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
-			    	List<Restriction> eventRestrictionList = currentEvent.getRestriction();
-			    	eventRestrictionList.add(restriction);
-			    	currentEvent.setRestriction(eventRestrictionList);
+	    			RestrictionController restCont = walkingDinnerController.getRestrictionController();
+	    			restCont.addNewRestriction(restrictionName);
+//			    	Restriction restriction = new Restriction();
+//			    	restriction.setName(restrictionName);
+//			    	
+//			    	/*Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+//			    	currentParticipant.addRestriction(restriction);
+//			    	restriction.addParticipant(currentParticipant);*/
+//			    
+		    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+//			    	List<Restriction> eventRestrictionList = currentEvent.getRestriction();
+//			    	eventRestrictionList.add(restriction);
+//			    	currentEvent.setRestriction(eventRestrictionList);
 			    	
 			    	CheckBox newRestriction = new CheckBox();
 			    	newRestriction.setText(restrictionName);
 			    	LvRestrictions.getItems().add(newRestriction);
+			    	System.out.println("In Create: "+currentEvent.getRestriction().size());
 		    	}
 	    	}
 	    	EdRestriction.clear();
