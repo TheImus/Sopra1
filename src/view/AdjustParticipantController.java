@@ -97,6 +97,7 @@ import model.Restriction;
 	    
 	    private WalkingDinnerController walkingDinnerController;
 	    
+	    
 	    public WalkingDinnerController getWalkingDinnerController() {
 			return walkingDinnerController;
 		}
@@ -120,10 +121,18 @@ import model.Restriction;
 	    				}
 	    				
 	    			}
+	    	
 	    		});
+	    	List<ParticipantAction> actionList = walkingDinnerController.getParticipantActionController().getPossibleActions();
+	    	System.out.println(actionList.size());
+	    	for(ParticipantAction action : actionList){
+	    		CbAction.getItems().add(action);
+	    	}
+	    		 
 	    	
 	    	LvRestrictions.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 	    	
+	    	/*
     		CheckBox alcohol = new CheckBox();
     		alcohol.setText("Kein Alkohol");
     		
@@ -136,7 +145,15 @@ import model.Restriction;
     		
     		LvRestrictions.getItems().add(alcohol);
     		LvRestrictions.getItems().add(vegetarian);
-    		LvRestrictions.getItems().add(vegan);
+    		LvRestrictions.getItems().add(vegan);*/
+	    	
+	    	List<Restriction> restrList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getRestriction();
+	    	for(Restriction restr : restrList){
+	    		String restrName = restr.getName();
+	    		CheckBox restriction = new CheckBox();
+	    		restriction.setText(restrName);
+	    		LvRestrictions.getItems().add(restriction);
+	    	}
 	    	
 	    	refresh();
 	    	
@@ -171,9 +188,11 @@ import model.Restriction;
 	   			TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
 	   			tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
 	   			tabsOverviewController.init();
+	   			
 	   			Scene scene = new Scene(root);
 	   			
 	   			((Stage)GridPaneAdjustParticipant.getScene().getWindow()).setScene(scene);
+	   			walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(null);
 	   			
 	   		} catch(Exception e) {
 	   			e.printStackTrace();
@@ -188,12 +207,16 @@ import model.Restriction;
 	    	List<Restriction> participantRestrictions = currentParticipant.getRestrictions();
 	    	
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
+	    	String restrName = cb.getText();
 	    	
-	    	String newName = EdRestriction.getText();
-	    	cb.setText(newName);
+	    	if(!(restrName.equals("Kein Alkohol") || restrName.equals("Veganer") || restrName.equals("Vegetarier"))){
+		    	String newName = EdRestriction.getText();
+		    	cb.setText(newName);
+	    	}
 	    	
 	    	EdRestriction.clear();
 	    	
+	    	/*
 	    	for(Restriction restr : restrList) {
 	    		if(restr.getName().equals(cb.getText())) {
 	    			restr.setName(newName);
@@ -204,7 +227,7 @@ import model.Restriction;
 	    		if(restr.getName().equals(cb.getText())) {
 	    			restr.setName(newName);
 	    		}
-	    	}
+	    	}*/
 	    	
 	    }
 	    
@@ -216,8 +239,12 @@ import model.Restriction;
 	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
 	    	String restrName = cb.getText();
+	    	
+	    	if(!(restrName.equals("Kein Alkohol") || restrName.equals("Veganer") || restrName.equals("Vegetarier"))){
+	    		LvRestrictions.getItems().remove(cb);
+	    	}
 
-    		
+    		/*
     		for(Restriction restr : restrList) {
     			if (restr.getName().equals(restrName)) {
     				
@@ -229,7 +256,7 @@ import model.Restriction;
     	    		
     	    		restrList.remove(restr);
     			}
-    		}
+    		}*/
     		
     		/*
     		if(!restr.isPermanent()) {
