@@ -1,9 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import model.Course;
 import model.Event;
@@ -48,6 +50,9 @@ public class ScheduleController {
 		currentEvent.setRestriction(restrictions);		
 		HashMap<IrvingMatchable, IrvingMatchable> groupMap = IrvingAlgorithm.irvingAlgorithmus(teams);
 		ArrayList<Group> groups = generateGroupsFromMap(groupMap, teams);
+		if(groups != null){
+			System.out.println(groups.toString());
+		}
 		currentEvent.setRestriction(restrictionsWithoutKnowing);
 		Schedule schedule = currentEvent.getSchedule();
 		Course currentCourse = schedule.getCurrentCourse();
@@ -65,7 +70,11 @@ public class ScheduleController {
 		ArrayList<IrvingMatchable> alreadyScheduled = new ArrayList<IrvingMatchable>();
 		ArrayList<IrvingMatchable> toSchedule = new ArrayList<IrvingMatchable>();
 		toSchedule.addAll(teams);
-		for(IrvingMatchable team:teams){
+		ArrayList<IrvingMatchable> shuffledTeams = new ArrayList<IrvingMatchable>();
+		shuffledTeams.addAll(teams);
+		Random random = new Random();
+		Collections.rotate(shuffledTeams, random.nextInt(shuffledTeams.size()));
+		for(IrvingMatchable team:shuffledTeams){
 			if(!alreadyScheduled.contains(team)){
 				toSchedule.remove(team);
 				alreadyScheduled.add(team);
@@ -84,6 +93,7 @@ public class ScheduleController {
 				groups.add(group);
 			}
 		}
+		System.out.println("greedy "+groups.toString());
 		return groups;
 	}
 	/**
@@ -127,10 +137,11 @@ public class ScheduleController {
 	 */
 	private ArrayList<Group> generateGroupsFromMap(HashMap<IrvingMatchable, IrvingMatchable> groupMap,
 			ArrayList<IrvingMatchable> teams) {
-		ArrayList<Group> groups = new ArrayList<Group>();
-		if(groupMap.isEmpty()){
+		//ArrayList<Group> groups = new ArrayList<Group>();
+		//if(groupMap.isEmpty()){
 			return greedyGroups(teams);
-		}
+		/*}
+		System.out.println("nicht greedy");
 		ArrayList<IrvingMatchable> alreadyScheduled = new ArrayList<IrvingMatchable>();
 		IrvingMatchable toSchedule = null;
 		for(IrvingMatchable team:teams){
@@ -153,9 +164,11 @@ public class ScheduleController {
 				alreadyScheduled.add(guest);
 				alreadyScheduled.add(team);
 				group.setGuest(guests);
+				groups.add(group);
 			}
 		}
-		return groups;
+		return groups;*/
+
 	}
 	/**
 	 * returns best-matching team
