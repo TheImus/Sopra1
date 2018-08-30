@@ -27,13 +27,14 @@ public class Participant implements Serializable, IrvingMatchable{
 		this.courseWish = null;
 	}
 	
-	public Participant(Person person, Address address, Course courseWish, List<Restriction> restrictions, String specialNeeds){
+	public Participant(Person person, Address address, Course courseWish, List<Restriction> restrictions, String specialNeeds, String eMail){
 		this.changedSinceExport = true;
 		this.person = person;
 		this.address = address;
 		this.courseWish = courseWish;
 		this.restriction = restrictions;
 		this.specialNeeds = specialNeeds;
+		person.setMailAddress(eMail);
 	}
 
 	/* 
