@@ -96,6 +96,73 @@ public class ConsistencyController {// headerCommentRequirement Required
 	}
 
 	/**
+	 * The method creates warning messages for each group
+	 * @param group name of a group object
+	 * @return Returns a list with all warnings for the group
+	 */
+	public List<String> getWarnings(Group group) {
+		List<String> warnings = new ArrayList<String>();								//return List with all warnings
+		List<Participant> allParticipantsInGroup = new ArrayList<Participant>();		//List with all participants in the group
+		List<Person> allPersonsInGroup = new ArrayList<Person>();						//List with all Persons in the group
+		GroupController groupController = walkingDinnerController.getGroupController();
+		Course courseAtTheBeginning = groupController.getCourse();
+		groupController.setCourse(Course.STARTER);
+		for(int i = 0; i<group.getTeams().size(); i++) {								//saves all participants in the group
+			allParticipantsInGroup.addAll(group.getTeams().get(i).getParticipants());
+		}
+		for(int i = 0; i<allParticipantsInGroup.size(); i++) {							//saves all participants in the group as persons
+			allPersonsInGroup.add(allParticipantsInGroup.get(i).getPerson());
+		}
+		warnings.addAll(groupSizeWarnings(group));
+		if(knowingRelation(allPersonsInGroup) != null && !knowingRelation(allPersonsInGroup).isEmpty()){
+			warnings.addAll(knowingRelation(allPersonsInGroup)); 							//checks if any persons in the group know each other
+		}
+		warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Starter) already
+		groupController.setCourse(Course.MAIN);
+		warnings.addAll(checkGroupCourses(group));									//checks if any team in the group has another group with the same course (Main) already
+		groupController.setCourse(Course.DESSERT);
+		warnings.addAll(checkGroupCourses(group));
+	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
+	    if(differentR != null && !differentR.isEmpty()) {										
+			String warning = "Verschiedene Einschränkungen: " + 
+					getText(differentR); // + 
+					//".\nBitte überprüfen sie diese für folgende Teams: ";
+	    	//for(Team team : group.getTeams()){
+	    	//	warning += team.getHost().getPerson().getName() + "'s Team, ";
+	    	//}
+	    	//warning = warning.substring(0, warning.length() - 2);
+	    	warning += ".";
+			warnings.add(warning);
+		}	
+	    List<Team> teams = group.getTeams();
+	    int anzahlDrei = 0;
+	    for(Team team: teams){
+	    	if (team.getParticipants().size() > TWO)
+	    		anzahlDrei++;
+	    }
+	    if(anzahlDrei > ONE){
+	    	warnings.add("In dieser Gruppe sind große Teams.");
+	    }
+	    groupController.setCourse(courseAtTheBeginning);
+	    warnings.addAll(doubleCooker(group));
+		return warnings;//"Folgende Restriktionen könnten für Gruppen Problematisch sein:" + "Gemüse" + 
+	}
+
+	public List<String> doubleCooker(Group group){
+		List<String> warnings = new ArrayList<String>();
+		GroupController grController = walkingDinnerController.getGroupController();
+		for(Group testGroup : grController.getAllGroups()){
+			if(!group.equals(testGroup)){
+				if(testGroup.getHostTeam().equals(group.getHostTeam())){
+					warnings.add("Team mit Gastgeber " + group.getHostTeam().getHost().getPerson().getName() + " kocht mehrmals.");
+				}
+			}
+		}
+		
+		return warnings;
+	}
+
+	/**
 	 * the method creates 2 warnings: if there are any members in a team that know each other or if
 	 * the same member is multiple times in one team
 	 * @param team for which the warnings are created
@@ -158,58 +225,6 @@ public class ConsistencyController {// headerCommentRequirement Required
 			}
 		}
 		return allTeamsWithWarnings;
-	}
-
-	/**
-	 * The method creates warning messages for each group
-	 * @param group name of a group object
-	 * @return Returns a list with all warnings for the group
-	 */
-	public List<String> getWarnings(Group group) {
-		List<String> warnings = new ArrayList<String>();								//return List with all warnings
-		List<Participant> allParticipantsInGroup = new ArrayList<Participant>();		//List with all participants in the group
-		List<Person> allPersonsInGroup = new ArrayList<Person>();						//List with all Persons in the group
-		GroupController groupController = walkingDinnerController.getGroupController();
-		Course courseAtTheBeginning = groupController.getCourse();
-		groupController.setCourse(Course.STARTER);
-		for(int i = 0; i<group.getTeams().size(); i++) {								//saves all participants in the group
-			allParticipantsInGroup.addAll(group.getTeams().get(i).getParticipants());
-		}
-		for(int i = 0; i<allParticipantsInGroup.size(); i++) {							//saves all participants in the group as persons
-			allPersonsInGroup.add(allParticipantsInGroup.get(i).getPerson());
-		}
-		warnings.addAll(groupSizeWarnings(group));
-		if(knowingRelation(allPersonsInGroup) != null && !knowingRelation(allPersonsInGroup).isEmpty()){
-			warnings.addAll(knowingRelation(allPersonsInGroup)); 							//checks if any persons in the group know each other
-		}
-		warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Starter) already
-		groupController.setCourse(Course.MAIN);
-		warnings.addAll(checkGroupCourses(group));									//checks if any team in the group has another group with the same course (Main) already
-		groupController.setCourse(Course.DESSERT);
-		warnings.addAll(checkGroupCourses(group));
-	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
-	    if(differentR != null && !differentR.isEmpty()) {										
-			String warning = "Verschiedene Einschränkungen: " + 
-					getText(differentR); // + 
-					//".\nBitte überprüfen sie diese für folgende Teams: ";
-	    	//for(Team team : group.getTeams()){
-	    	//	warning += team.getHost().getPerson().getName() + "'s Team, ";
-	    	//}
-	    	//warning = warning.substring(0, warning.length() - 2);
-	    	warning += ".";
-			warnings.add(warning);
-		}	
-	    List<Team> teams = group.getTeams();
-	    int anzahlDrei = 0;
-	    for(Team team: teams){
-	    	if (team.getParticipants().size() > TWO)
-	    		anzahlDrei++;
-	    }
-	    if(anzahlDrei > ONE){
-	    	warnings.add("In dieser Gruppe sind große Teams.");
-	    }
-	    groupController.setCourse(courseAtTheBeginning);
-		return warnings;//"Folgende Restriktionen könnten für Gruppen Problematisch sein:" + "Gemüse" + 
 	}
 
 	/**
