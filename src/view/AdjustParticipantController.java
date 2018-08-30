@@ -119,19 +119,25 @@ import model.Restriction;
 	    
 	    public boolean validate(){
 	    	boolean passed = true;
-	    	/*Participant current;
 	    	
-	    	ParticipantController participantController = walkingDinnerController.getParticipantController();
-	    	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant() == null)
-	    	{
-	    		current = new Participant();
-	    	}
-	    	else{
-		    	current = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
-	    	}*/
+	    	if(CbAction.getSelectionModel().getSelectedItem() == null){
+    			CbAction.setStyle("-fx-border-color: red;");
+    		}
+    		else{
+    			CbAction.setStyle("-fx-border-color: inherit;");
+
+    		}
+	    	
+	    	if(CbWishCourse.getSelectionModel().getSelectedItem() == null){
+	    		CbWishCourse.setStyle("-fx-border-color: red;");
+    		}
+    		else{
+    			CbWishCourse.setStyle("-fx-border-color: inherit;");
+
+    		}
 	    	
 	    	try{
-	    		EdName.setStyle("-fx-border-color: default;");
+	    		EdName.setStyle("-fx-border-color: inherit;");
 	    		if(EdName.getText().equals(""))
 	    			throw new IllegalArgumentException();
 	    	}
@@ -141,7 +147,27 @@ import model.Restriction;
 	    	}
 	    	
 	    	try{
-	    		EdStreet.setStyle("-fx-border-color: default;");
+	    		EdEMail.setStyle("-fx-border-color: inherit;");
+	    		if(EdEMail.getText().equals(""))
+	    			throw new IllegalArgumentException();
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		EdEMail.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	try{
+	    		EdPlace.setStyle("-fx-border-color: inherit;");
+	    		if(EdPlace.getText().equals(""))
+	    			throw new IllegalArgumentException();
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		EdPlace.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	try{
+	    		EdStreet.setStyle("-fx-border-color: inherit;");
 	    		if(EdStreet.getText().equals(""))
 	    			throw new IllegalArgumentException();
 	    		Address address = new Address();
@@ -156,7 +182,7 @@ import model.Restriction;
 	    	}
 	    	
 	    	try{
-	    		EdZipCode.setStyle("-fx-border-color: default;");
+	    		EdZipCode.setStyle("-fx-border-color: inherit;");
 	    		if(!isValidZipCode())
 	    			throw new IllegalArgumentException();
 	    		Address address = new Address();
@@ -170,7 +196,7 @@ import model.Restriction;
 	    	
 	    	
 	    	try{
-	    		DateBirthday.setStyle("-fx-border-color: default;");
+	    		DateBirthday.setStyle("-fx-border-color: inherit;");
 	    		if(DateBirthday.getValue() == null)
 	    			throw new IllegalArgumentException("kein Value");
 	    		if(DateBirthday.getValue().isAfter(LocalDate.now()))
@@ -511,10 +537,15 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onBtnCallAction(ActionEvent event){
+	    	
+	    	
 	    	if(validate()){
 	    		ParticipantController partCont = walkingDinnerController.getParticipantController();
 	    		RestrictionController restCont = walkingDinnerController.getRestrictionController();
 	    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    		
+	    		
+	    		
 	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
 	    			Participant newPart = new Participant();
 	    			newPart.setPerson(currentEvent.getCurrentParticipant().getPerson());
@@ -529,8 +560,8 @@ import model.Restriction;
 	    			partCont.setAddress(address);
 	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
 	    			partCont.setWishes(EdSpecialWished.getText());
-	    			//List<Restriction> restList = getRestrictions();
-	    			//restCont.setParticipantRestrictions(restList);
+	    			List<Restriction> restList = getRestrictions();
+	    			restCont.setParticipantRestrictions(restList);
 	    			
 	    			walkingDinnerController.getParticipantActionController().register(newPart);
 	    			
@@ -550,8 +581,8 @@ import model.Restriction;
 	    			partCont.setAddress(address);
 	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
 	    			partCont.setWishes(EdSpecialWished.getText());
-	    			//List<Restriction> restList = getRestrictions();
-	    			//restCont.setParticipantRestrictions(restList);
+	    			List<Restriction> restList = getRestrictions();
+	    			restCont.setParticipantRestrictions(restList);
 	    			
 	    			walkingDinnerController.getParticipantActionController().register(newPart);
 	    		}
@@ -569,8 +600,8 @@ import model.Restriction;
 	    			partCont.setAddress(address);
 	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
 	    			partCont.setWishes(EdSpecialWished.getText());
-	    			//List<Restriction> restList = getRestrictions();
-	    			//restCont.setParticipantRestrictions(restList);
+	    			List<Restriction> restList = getRestrictions();
+	    			restCont.setParticipantRestrictions(restList);
 	    		}
 	    		
 	    		try {
@@ -594,6 +625,19 @@ import model.Restriction;
 		   			e.printStackTrace();
 		   		}
 	    	}
+	    }
+	    
+	    public List<Restriction> getRestrictions(){
+	    	
+	    	ArrayList<Restriction> selectedRestrictions = new ArrayList<>();
+	    	for(CheckBox restr : LvRestrictions.getItems()){
+	    		if(restr.isSelected()){
+	    			Restriction newRestriction = new Restriction();
+	    			newRestriction.setName(restr.getText());
+	    			selectedRestrictions.add(newRestriction);
+	    		}
+	    	}
+	    	return selectedRestrictions;
 	    }
 
 	}
