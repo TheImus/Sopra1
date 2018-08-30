@@ -47,6 +47,7 @@ public class ExportController {
 			
 			for(Participant participant : participants){
 				out.println("" + participant.getPerson().getName());
+				out.println("" + participant.getPerson().getMailAddress());
 				out.println("Die Vorspeise fängt um " + courseTimes.get(Course.STARTER) + " an.");
 				out.println("Der Hauptgang fängt um " + courseTimes.get(Course.MAIN) + " an.");
 				out.println("Die Nachspeise fängt um " + courseTimes.get(Course.DESSERT) + " an.");
