@@ -17,8 +17,8 @@ public class IndexSorter<T extends Comparable<T>> implements Comparator<Integer>
 	 * Constructs a new IndexSorter based upon the parameter array.
 	 * @param d
 	 */
-	public IndexSorter(T[] d){
-		this.values = d;
+	public IndexSorter(T[] array){
+		this.values = array;
 		indexes = new Integer[this.values.length];
 		for ( int i = 0; i < indexes.length; i++ ){
 			indexes[i] = i;
@@ -28,10 +28,10 @@ public class IndexSorter<T extends Comparable<T>> implements Comparator<Integer>
 	 * Constructs a new IndexSorter based upon the parameter List.
 	 * @param d
 	 */
-	public IndexSorter(List<T> d){
-		this.values = (T[])d.toArray();
+	public IndexSorter(List<T> currentList){
+		this.values = (T[])currentList.toArray();
 		for ( int i = 0; i < values.length; i++ ){
-			values[i] = d.get(i);
+			values[i] = currentList.get(i);
 		}
 		indexes = new Integer[this.values.length];
 		for ( int i = 0; i < indexes.length; i++ ){
