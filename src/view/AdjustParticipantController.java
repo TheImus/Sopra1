@@ -340,8 +340,12 @@ import model.Restriction;
 	    void onDeleteRestriction(ActionEvent event) {
 	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	    	List<Restriction> restrList = currentEvent.getRestriction();
-
-	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	
+	    	if(LvRestrictions.getSelectionModel().getSelectedItem() == null){
+	    		return;
+	    	}
+	    	
+	    	//Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
 	    	String restrName = cb.getText();
 	    	
@@ -396,9 +400,9 @@ import model.Restriction;
 			    	Restriction restriction = new Restriction();
 			    	restriction.setName(restrictionName);
 			    	
-			    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+			    	/*Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 			    	currentParticipant.addRestriction(restriction);
-			    	restriction.addParticipant(currentParticipant);
+			    	restriction.addParticipant(currentParticipant);*/
 			    
 			    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 			    	List<Restriction> eventRestrictionList = currentEvent.getRestriction();
