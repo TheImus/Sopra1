@@ -58,8 +58,8 @@ public class InvitationController {
 	public Map<Event, List<Participant>> getUninvitedParticipants() {
 		Map<Event, List<Participant>> result = new HashMap<Event, List<Participant>>();
 		
-		WalkingDinner wd = walkingDinnerController.getWalkingDinner();
-		Event currentEvent = wd.getCurrentEvent();
+		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
+		Event currentEvent = walkingDinner.getCurrentEvent();
 		
 		if (currentEvent == null) {
 			throw new NullPointerException();
@@ -67,7 +67,7 @@ public class InvitationController {
 		
 		List<Person> invitedPersons = getInvitedPersons();
 		
-		for ( Event event : wd.getEvents() ) {
+		for ( Event event : walkingDinner.getEvents() ) {
 			// skip current event to save a little time
 			if (!event.equals(currentEvent)) {
 				List<Participant> eventParticipants = new ArrayList<Participant>();  
@@ -146,9 +146,8 @@ public class InvitationController {
 				participantController.newParticipantForEvent(participant);
 				currentEvent.getInvited().add(participant); // new participant
 				
-				// TODO: Test, THIS SHOULD NEVER HAPPEN
 				if (currentEvent.getParticipants().contains(participant)) {
-					System.out.println("Invite a participant, who is already participating");
+					System.out.println("Error in data model: Inviting a participant, who is already participating ...");
 				}
 			}
 		}
@@ -208,6 +207,7 @@ public class InvitationController {
 			Participant participant = participantList.get(i);
 			Address address = participant.getAddress();
 			
+			// Address block
 			result += participant.getPerson().getName() + System.lineSeparator();
 			result += address.getStreet() + System.lineSeparator();
 			result += address.getZipCode()  + " " + address.getCity();

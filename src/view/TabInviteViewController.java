@@ -5,6 +5,8 @@ package view;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -183,14 +185,16 @@ public class TabInviteViewController {
         
         //Show save file dialog
         File file = fileChooser.showSaveDialog(null);
+        Path path = file.toPath();
+        
         
         if (file != null) {
             try {
-            	String filename = file.getAbsolutePath();
-            	if (!file.getName().endsWith("pdf")) {
-            		filename += ".pdf";
+            	if (!path.toString().toLowerCase().endsWith(".pdf")) {
+            		path = Paths.get(path.toString() + ".pdf");
             	}
-            	getWalkingDinnerController().getInvitationController().exportPDF(filename);
+            	
+            	//getWalkingDinnerController().getInvitationController().exportPDF(filename);
             	
             } catch (Exception e) {
                 System.out.println(e.getMessage());

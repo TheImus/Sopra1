@@ -64,6 +64,9 @@ import model.Restriction;
 	    
 	    @FXML
 	    private TextField EdRestriction;
+	    
+	    @FXML
+	    private TextField EdEMail;
 
 	    @FXML
 	    private ComboBox<String> CbWishCourse;
