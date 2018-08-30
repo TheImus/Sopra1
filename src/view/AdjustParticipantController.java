@@ -23,6 +23,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 	import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +33,7 @@ import model.Address;
 import model.Course;
 import model.Event;
 import model.Participant;
+import model.Person;
 import model.Restriction;
 
 	public class AdjustParticipantController {
@@ -107,7 +109,7 @@ import model.Restriction;
 	    
 	    private WalkingDinnerController walkingDinnerController;
 	    
-	    private RestrictionController restrictionController = walkingDinnerController.getRestrictionController();
+	    private RestrictionController restrictionController;
 	    
 	    
 	    public WalkingDinnerController getWalkingDinnerController() {
@@ -129,7 +131,7 @@ import model.Restriction;
 	    	}*/
 	    	
 	    	try{
-	    		EdName.setStyle("-fx-border-color: grey;");
+	    		EdName.setStyle("-fx-border-color: default;");
 	    		if(EdName.getText().equals(""))
 	    			throw new IllegalArgumentException();
 	    	}
@@ -139,7 +141,7 @@ import model.Restriction;
 	    	}
 	    	
 	    	try{
-	    		EdStreet.setStyle("-fx-border-color: grey;");
+	    		EdStreet.setStyle("-fx-border-color: default;");
 	    		if(EdStreet.getText().equals(""))
 	    			throw new IllegalArgumentException();
 	    		Address address = new Address();
@@ -154,7 +156,7 @@ import model.Restriction;
 	    	}
 	    	
 	    	try{
-	    		EdZipCode.setStyle("-fx-border-color: grey;");
+	    		EdZipCode.setStyle("-fx-border-color: default;");
 	    		if(!isValidZipCode())
 	    			throw new IllegalArgumentException();
 	    		Address address = new Address();
@@ -168,7 +170,7 @@ import model.Restriction;
 	    	
 	    	
 	    	try{
-	    		DateBirthday.setStyle("-fx-border-color: grey;");
+	    		DateBirthday.setStyle("-fx-border-color: default;");
 	    		if(DateBirthday.getValue() == null)
 	    			throw new IllegalArgumentException("kein Value");
 	    		if(DateBirthday.getValue().isAfter(LocalDate.now()))
@@ -298,6 +300,8 @@ import model.Restriction;
 	   			
 	   			Scene scene = new Scene(root);
 	   			
+	   			Tab tabOverview = tabsOverviewController.getTabParticipant();
+	   			tabOverview.getTabPane().getSelectionModel().select(tabOverview);
 	   			((Stage)GridPaneAdjustParticipant.getScene().getWindow()).setScene(scene);
 	   			walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(null);
 	   			
@@ -457,7 +461,6 @@ import model.Restriction;
 	    
 	    @FXML
 	    void OnParticipantActionSelected(ActionEvent event){
-	    	EdPlace.setText("hal");
 	    }
 
 	    @FXML
@@ -508,20 +511,89 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onBtnCallAction(ActionEvent event){
-
-	    	validate();
-	    }
-	    
-	    List<Restriction> getRestrictionList(){
-	    	ArrayList<Restriction> selectedRestrictions = new ArrayList<>();
-	    	for(CheckBox cb : LvRestrictions.getItems()){
-	    		String restrictionName = cb.getText();
-	    		Restriction selectedRestriction = new Restriction();
-	    		selectedRestriction.setName(restrictionName);
-	    		selectedRestrictions.add(selectedRestriction);
+	    	if(validate()){
+	    		ParticipantController partCont = walkingDinnerController.getParticipantController();
+	    		RestrictionController restCont = walkingDinnerController.getRestrictionController();
+	    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
+	    			Participant newPart = new Participant();
+	    			newPart.setPerson(currentEvent.getCurrentParticipant().getPerson());
+	    			currentEvent.setCurrentParticipant(newPart);
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
+	    			
+	    			walkingDinnerController.getParticipantActionController().register(newPart);
+	    			
+	    			
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER_NEW_PERSON){
+	    			Participant newPart = new Participant();
+	    			newPart.setPerson(new Person());
+	    			currentEvent.setCurrentParticipant(newPart);
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
+	    			
+	    			walkingDinnerController.getParticipantActionController().register(newPart);
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UNREGISTER){
+	    			walkingDinnerController.getParticipantActionController().unregister(currentEvent.getCurrentParticipant());
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UPDATE_PARTICIPANT){
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
+	    		}
+	    		
+	    		try {
+		   			GridPane root = new GridPane();
+		   			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
+		   			root = loader.load();
+		   			
+		   			TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
+		   			tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
+		   			tabsOverviewController.init();
+		   			
+		   			Scene scene = new Scene(root);
+		   			
+		   			Tab tabOverview = tabsOverviewController.getTabParticipant();
+		   			tabOverview.getTabPane().getSelectionModel().select(tabOverview);
+		   			
+		   			((Stage)GridPaneAdjustParticipant.getScene().getWindow()).setScene(scene);
+		   			walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(null);
+		   			
+		   		} catch(Exception e) {
+		   			e.printStackTrace();
+		   		}
 	    	}
-	    	return selectedRestrictions;
-
 	    }
 
 	}
