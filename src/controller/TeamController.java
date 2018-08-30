@@ -248,6 +248,7 @@ public class TeamController {
 			team.getMembers().remove(participant);
 		}
 		setChanged(team, true);
+		teamsAUI.refreshTeams();
 	}
 
 	public TeamsAUI getTeamsAUI() {

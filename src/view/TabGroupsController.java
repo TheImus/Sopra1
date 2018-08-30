@@ -101,7 +101,7 @@ public class TabGroupsController implements TeamsAUI {
     void onBtnCreateNewGroup(ActionEvent event) {
     	Team selectedTeam = listFreeTeams.getSelectionModel().getSelectedItem();
     	if (selectedTeam != null) {
-    		walkingDinnerController.getGroupController().createNewGroup(selectedTeam);
+    		currentGroup = walkingDinnerController.getGroupController().createNewGroup(selectedTeam);
         	refreshAll();
     	}
     }
@@ -377,7 +377,11 @@ public class TabGroupsController implements TeamsAUI {
     	}
     }
     
+    /**
+     * called if another team changed ... so reset currentGroup
+     */
     public void refreshTeams() {
+    	currentGroup = null;
     	refreshAll();
     }
     
