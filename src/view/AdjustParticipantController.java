@@ -522,7 +522,14 @@ import model.Restriction;
 	    }
 	    
 	    List<Restriction> getRestrictionList(){
-	    	return null;
+	    	ArrayList<Restriction> selectedRestrictions = new ArrayList<>();
+	    	for(CheckBox cb : LvRestrictions.getItems()){
+	    		String restrictionName = cb.getText();
+	    		Restriction selectedRestriction = new Restriction();
+	    		selectedRestriction.setName(restrictionName);
+	    		selectedRestrictions.add(selectedRestriction);
+	    	}
+	    	return selectedRestrictions;
 	    }
 
 	}
