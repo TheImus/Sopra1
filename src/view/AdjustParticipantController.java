@@ -569,14 +569,15 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onBtnCallAction(ActionEvent event){
+	    	ParticipantController partCont = walkingDinnerController.getParticipantController();
+    		RestrictionController restCont = walkingDinnerController.getRestrictionController();
+    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	    	
+	    	if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UNREGISTER){
+    			walkingDinnerController.getParticipantActionController().unregister(currentEvent.getCurrentParticipant());
+    		}
 	    	
 	    	if(validate()){
-	    		ParticipantController partCont = walkingDinnerController.getParticipantController();
-	    		RestrictionController restCont = walkingDinnerController.getRestrictionController();
-	    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
-	    		
-	    		
 	    		
 	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
 	    			Participant newPart = currentEvent.getCurrentParticipant();
@@ -622,9 +623,6 @@ import model.Restriction;
 	    			restCont.setParticipantRestrictions(restList);
 	    			
 	    			walkingDinnerController.getParticipantActionController().register(newPart);
-	    		}
-	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UNREGISTER){
-	    			walkingDinnerController.getParticipantActionController().unregister(currentEvent.getCurrentParticipant());
 	    		}
 	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UPDATE_PARTICIPANT){
 	    			partCont.setName(EdName.getText());
