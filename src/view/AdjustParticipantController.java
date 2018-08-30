@@ -126,7 +126,7 @@ import model.Restriction;
 	    	}*/
 	    	
 	    	try{
-	    		EdName.setStyle("-fx-border-color: grey;");
+	    		EdName.setStyle("-fx-border-color: default;");
 	    		if(EdName.getText().equals(""))
 	    			throw new IllegalArgumentException();
 	    	}
@@ -136,7 +136,7 @@ import model.Restriction;
 	    	}
 	    	
 	    	try{
-	    		EdStreet.setStyle("-fx-border-color: grey;");
+	    		EdStreet.setStyle("-fx-border-color: default;");
 	    		if(EdStreet.getText().equals(""))
 	    			throw new IllegalArgumentException();
 	    		Address address = new Address();
@@ -151,7 +151,7 @@ import model.Restriction;
 	    	}
 	    	
 	    	try{
-	    		EdZipCode.setStyle("-fx-border-color: grey;");
+	    		EdZipCode.setStyle("-fx-border-color: default;");
 	    		if(!isValidZipCode())
 	    			throw new IllegalArgumentException();
 	    		Address address = new Address();
@@ -165,7 +165,7 @@ import model.Restriction;
 	    	
 	    	
 	    	try{
-	    		DateBirthday.setStyle("-fx-border-color: grey;");
+	    		DateBirthday.setStyle("-fx-border-color: default;");
 	    		if(DateBirthday.getValue() == null)
 	    			throw new IllegalArgumentException("kein Value");
 	    		if(DateBirthday.getValue().isAfter(LocalDate.now()))
