@@ -95,8 +95,8 @@ public class EventOverviewController {
 		for(Event ev:list){
 			listEvent.getItems().add(ev);
 		}
-		//BtnEdtiting.setDisable(true);
-    	//BtnRemoveEvent.setDisable(true);
+		BtnEdtiting.setDisable(true);
+    	BtnRemoveEvent.setDisable(true);
 		
     }
     

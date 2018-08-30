@@ -38,13 +38,13 @@ public class ScheduleController {
 		List<Restriction> restrictionsWithoutKnowing = currentEvent.getRestriction();
 		List<Restriction> restrictions = generateRestrictionsFromMap(knowingMap);
 		restrictions.addAll(restrictionsWithoutKnowing);
-		currentEvent.setRestriction(restrictions);
-		
+		currentEvent.setRestriction(restrictions);		
 		HashMap<IrvingMatchable, IrvingMatchable> groupMap = IrvingAlgorithm.irvingAlgorithmus(teams);
 		ArrayList<Group> groups = generateGroupsFromMap(groupMap, teams);
-		System.out.println("There are "+teams.size()+" teams.");
-		System.out.println("There are "+groups.size()+" groups.");
 		currentEvent.setRestriction(restrictionsWithoutKnowing);
+		Schedule schedule = currentEvent.getSchedule();
+		Course currentCourse = schedule.getCurrentCourse();
+		schedule.setGroup(currentCourse, groups);
 		return groups;
 	}
 	/**
