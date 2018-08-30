@@ -70,13 +70,13 @@ public class TeamController {
 		else {
 
 			if (team.getParticipants().size() == 1 || team.getParticipants().size() == 0) {
-				boolean find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
+				//boolean find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
 				
 				team.setHost(null);
 				team.setMembers(new ArrayList<Participant>());
 				removeTeam(team);
 				deleteTeamFromEvent(team);
-				find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
+				//find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
 				
 				
 			} 
