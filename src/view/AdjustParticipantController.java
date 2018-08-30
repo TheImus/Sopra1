@@ -310,6 +310,9 @@ import model.Restriction;
 	    		CheckBox restriction = new CheckBox();
 	    		restriction.setText(restrName);
 	    		LvRestrictions.getItems().add(restriction);
+	    		if(currentParticipant!=null && currentParticipant.getRestrictions().contains(restr)){
+	    			restriction.setSelected(true);
+	    		}
 	    	}
 	    	
 	    	if(currentParticipant!=null){
@@ -364,10 +367,15 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onEditRestriction(ActionEvent event) {
+	    	
+	    	if(LvRestrictions.getSelectionModel().getSelectedItem() == null ||EdRestriction.getText().equals(""))
+	    		return;
 	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	    	List<Restriction> restrList = currentEvent.getRestriction();
 	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 	    	List<Restriction> participantRestrictions = currentParticipant.getRestrictions();
+	    	
+	    	
 	    	
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
 	    	String restrName = cb.getText();
@@ -659,16 +667,21 @@ import model.Restriction;
 	    	}
 	    }
 	    
-	    public List<Restriction> getRestrictions(){
+	    public List<Restriction> getRestrictions(){ //hier liegt der fehler
 	    	
 	    	ArrayList<Restriction> selectedRestrictions = new ArrayList<>();
+	    	RestrictionController restCont = walkingDinnerController.getRestrictionController();
+	    	
 	    	for(CheckBox restr : LvRestrictions.getItems()){
 	    		if(restr.isSelected()){
-	    			Restriction newRestriction = new Restriction();
-	    			newRestriction.setName(restr.getText());
-	    			selectedRestrictions.add(newRestriction);
+	    			Restriction newRestriction = restCont.getRestrictionWithName(restr.getText());
+	    			if(newRestriction!=null){
+	    				selectedRestrictions.add(newRestriction);
+	    				
+	    			}	    			
 	    		}
 	    	}
+	    	System.out.println("anzahl gefundener Restricitons: " + selectedRestrictions.size());
 	    	return selectedRestrictions;
 	    }
 

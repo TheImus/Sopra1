@@ -241,13 +241,11 @@ public class ScheduleController {
 			Team toResize = otherTeams.get(0);
 			leftParticipants.addAll(toResize.getParticipants());
 			teams.remove(toResize);
-			}
-			else if(vegetarianTeams.size()>=1){
+			}else if(vegetarianTeams.size()>=1){
 				Team toResize = vegetarianTeams.get(0);
 				leftParticipants.addAll(toResize.getParticipants());
 				teams.remove(toResize);
-			}
-			else{
+			}else{
 				assert(veganTeams.size()>1);
 				Team toResize = veganTeams.get(0);
 				leftParticipants.addAll(toResize.getParticipants());
@@ -309,8 +307,7 @@ public class ScheduleController {
 				IrvingMatchable member;
 				if(toSchedule.isEmpty()){
 					member= participant;
-				}
-				else{
+				}else{
 					member = findMatchingParticipantIn(toSchedule,participant);
 					toSchedule.remove(member);
 				}
@@ -326,8 +323,7 @@ public class ScheduleController {
 	 * @param participant
 	 * @return best-matching-participant for participant-parameter
 	 */
-	private IrvingMatchable findMatchingParticipantIn(ArrayList<IrvingMatchable> participants,
-			IrvingMatchable participant) {
+	private IrvingMatchable findMatchingParticipantIn(ArrayList<IrvingMatchable> participants, IrvingMatchable participant) {
 		int indexOfFittingParticipant = 0;
 		int minimum = Integer.MAX_VALUE;
 		//minimum search for team with least SymmetricDifference of Restrictions
@@ -337,8 +333,7 @@ public class ScheduleController {
 				minimum = amountOfSymDiff;
 				indexOfFittingParticipant = participants.indexOf(testParticipant);
 			}
-		}
-		//get the fitting team
+		}//get the fitting team
 		IrvingMatchable fittingParticipant = participants.get(indexOfFittingParticipant);
 		return fittingParticipant;
 	}
