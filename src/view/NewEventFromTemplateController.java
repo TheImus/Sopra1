@@ -82,7 +82,7 @@ public class NewEventFromTemplateController {
     	
     	// check of free text
     	try{
-    		TextEventName.setStyle("-fx-border-color: default;");
+    		TextEventName.setStyle("-fx-border-color: inherit;");
     		eventController.setEventName(TextEventName.getText());
     		if(TextEventName.getText().equals(""))
     			throw new Exception();
@@ -97,7 +97,7 @@ public class NewEventFromTemplateController {
     	}
     	
     	try{
-    		TextPlace.setStyle("-fx-border-color: default;");
+    		TextPlace.setStyle("-fx-border-color: inherit;");
     		eventController.setEventPlace(TextPlace.getText());
     		if(TextPlace.getText().equals(""))
     			throw new Exception();
@@ -108,7 +108,7 @@ public class NewEventFromTemplateController {
     	}
     	
     	try{
-    		TextEventDetails.setStyle("-fx-border-color: default;");
+    		TextEventDetails.setStyle("-fx-border-color: inherit;");
     		if(TextEventDetails.getText().equals(""))
     			throw new Exception();
     		eventController.setEventDescription(TextEventDetails.getText());
@@ -124,7 +124,7 @@ public class NewEventFromTemplateController {
     	//date things
     	
     	try{
-    		PickerDate.setStyle("-fx-border-color: default;");
+    		PickerDate.setStyle("-fx-border-color: inherit;");
     		if(PickerDate.getValue() == null)
     			throw new Exception();
 
@@ -137,7 +137,7 @@ public class NewEventFromTemplateController {
     	}
     	
     	try{
-    		PickerDeadline.setStyle("-fx-border-color: default;");
+    		PickerDeadline.setStyle("-fx-border-color: inherit;");
     		if(PickerDeadline.getValue() == null)
     			throw new IllegalArgumentException("kein Value");
     		if(PickerDeadline.getValue().isAfter(PickerDate.getValue()))
@@ -158,7 +158,7 @@ public class NewEventFromTemplateController {
     	
     	//time things
     	try{
-    		TextStarter.setStyle("-fx-border-color: default;");
+    		TextStarter.setStyle("-fx-border-color: inherit;");
     		eventController.setCourseTime(Course.STARTER, LocalTime.parse(TextStarter.getText()));
     	}
     	catch(Exception e){
@@ -167,7 +167,7 @@ public class NewEventFromTemplateController {
     	}
     	
     	try{
-    		TextMain.setStyle("-fx-border-color: default;");
+    		TextMain.setStyle("-fx-border-color: inherit;");
     		if(LocalTime.parse(TextStarter.getText()).isAfter(LocalTime.parse(TextMain.getText()))) 
     			throw new Exception("Zeit");
     		eventController.setCourseTime(Course.MAIN, LocalTime.parse(TextMain.getText()));
@@ -180,7 +180,7 @@ public class NewEventFromTemplateController {
     	}
     	
     	try{
-    		TextDessert.setStyle("-fx-border-color: default;");
+    		TextDessert.setStyle("-fx-border-color: inherit;");
     		if(LocalTime.parse(TextMain.getText()).isAfter(LocalTime.parse(TextDessert.getText()))&& 
     				LocalTime.parse(TextStarter.getText()).isAfter(LocalTime.parse(TextDessert.getText()))) 
     			throw new Exception("Zeit");
