@@ -162,12 +162,21 @@ public class GroupController {
 	 * delete Group from current event {@see WalkingDinnerController} if this Group was not found nothing happens
 	 * @param group Group to remove
 	 */
-	public void removeGroup(Group group){
-		List<Group> allGroups = new ArrayList<Group>();
-		allGroups = getAllGroups();
-		if(allGroups.contains(group))
-			allGroups.remove(group);
-		
+	public void removeGroup(Group specifiedGroup){
+		//boolean found = false;
+		for(Course course : Course.values()){
+			List<Group> currentGroups = walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getGroup(course);
+			/*for(Group group : currentGroups){
+				if(group.equals(specifiedGroup)){
+					found = true;
+					break;
+				}
+			}*/
+			if(currentGroups.contains(specifiedGroup)){//found
+				currentGroups.remove(specifiedGroup);
+				walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().setGroup(course, currentGroups);
+			}
+		}
 	}
 	
 	

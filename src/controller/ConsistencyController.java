@@ -188,10 +188,10 @@ public class ConsistencyController {
 		 warnings.addAll(checkGroupCourses(group));	
 		    
 	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
-	    if(differentR != null) {														// check if there are any restrictions that don't match
+	    if(differentR != null && differentR.size() > 0) {														// check if there are any restrictions that don't match
 			String warning = "Folgende Restriktionen könnten für Gruppen Problematisch sein:" + 
 					getText(differentR) + 
-					".\nBitte überprüfen sie diese für folgende Teams: ";
+					".\n  Bitte überprüfen sie diese für folgende Teams: ";
 	    	for(Team team : group.getTeams()){
 	    		warning += team.getHost().getPerson().getName() + "'s Team, ";
 	    	}
@@ -202,6 +202,17 @@ public class ConsistencyController {
 			}*/
 			warnings.add(warning);
 		}	
+	    
+	    List<Team> teams = group.getTeams();
+	    int anzahlDrei = 0;
+	    for(Team team: teams){
+	    	if (team.getParticipants().size() > 2)
+	    		anzahlDrei++;
+	    }
+	    
+	    if(anzahlDrei > 1)
+	    	warnings.add("In dieser Gruppe sind mehr als ein 3er Team.");
+	    
 	    groupController.setCourse(courseAtTheBeginning);
 		return warnings;
 	}

@@ -175,6 +175,7 @@ public class GroupControllerTest {
 
 	
 		testGroupController.removeGroup(group);
+		
 		assertFalse("gruppe ist im Event",testGroupController.getAllGroups().contains(group));
 		assertTrue("gruppe 2 ist nicht im Event",testGroupController.getAllGroups().contains(group2));
 		
