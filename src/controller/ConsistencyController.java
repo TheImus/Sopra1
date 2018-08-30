@@ -75,7 +75,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 		}
 		if(team.getHost() == null) warnings.add("Es gibt keinen Host in diesem Team.");							//check if there is a host
 		List<Restriction> differentR = getDifferentRestrictionsFor(team.getParticipants());
-		if(differentR.size() >0 ) {																		// check if there are any restrictions that don't match
+		if(getText(differentR).length() >2 ) {																		// check if there are any restrictions that don't match
 			String newWarning = "";
 			newWarning+= "Folgende Restriktionen können für Teams problematisch sein: " + 
 					this.getText(differentR) + "\n" + 
