@@ -317,13 +317,10 @@ public class TabGroupsController {
     	// fill groups list
     	listGroups.getItems().clear();
     	List<model.Group> groups = walkingDinnerController.getGroupController().getGroups();
-    	if (groups == null) {
-    		System.out.println("WELCHER DULLY SCHMEISST NULL?");
-    	}
     	listGroups.getItems().addAll(groups);
     	
     	// reset selected group, if group empty
-    	if (this.selectedGroup != null && selectedGroup.getTeams() != null && selectedGroup.getTeams().size() == 0) {
+    	if (selectedGroup != null && selectedGroup.getParticipants().size() == 0) {
     		this.selectedGroup = null;
     		refreshSelectedGroupList();
     		refreshWarnings();
@@ -335,8 +332,11 @@ public class TabGroupsController {
     
     private void refreshSelectedGroupList() {
     	listSelectedGroup.getItems().clear();
-    	List<SelectedGroupTeam> teams = addFromGroup(this.selectedGroup);
-    	listSelectedGroup.getItems().addAll(teams);
+    	if (this.selectedGroup != null) {
+    		System.out.println(this.selectedGroup);
+        	List<SelectedGroupTeam> teams = addFromGroup(this.selectedGroup);
+        	listSelectedGroup.getItems().addAll(teams);
+    	}
     }
     
     
