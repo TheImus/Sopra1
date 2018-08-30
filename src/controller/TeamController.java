@@ -251,5 +251,16 @@ public class TeamController {
 	public void setTeamsAUI(TeamsAUI teamsAUI) {
 		this.teamsAUI = teamsAUI;
 	}
-
+	
+	/**
+	 * Set the changed value for every participant in the teams list
+	 * @param teams
+	 * @param value
+	 */
+	public static void setChanged(List<Team> teams, boolean value) {
+		for (Team team : teams) {
+			List<Participant> participants = team.getParticipants();
+			ParticipantController.setChanged(participants, value);
+		}
+	}
 }
