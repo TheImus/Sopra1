@@ -73,12 +73,14 @@ public class NewEventFromTemplateController {
     void onCreateEvent(ActionEvent event) {		//Fehlerbehandlung fuer falsche Eingabe fehlt noch
     	
     	boolean passed =true;
+    	boolean newEvent = false;
     	
     	EventController eventController = walkingDinnerController.getEventController();
     	WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
     	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
     	if(currentEvent == null){
     		currentEvent = new Event();
+    		newEvent=true;
     	}
     	walkingDinner.setCurrentEvent(currentEvent);
     	 
@@ -202,7 +204,8 @@ public class NewEventFromTemplateController {
     	
     	if(passed){
 	    	try {
-	    		walkingDinner.getEvents().add(currentEvent);
+	    		if(newEvent)
+	    			walkingDinner.getEvents().add(currentEvent);
 	    		GridPane root = new GridPane();
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
 				root = loader.load();

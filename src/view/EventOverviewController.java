@@ -256,6 +256,7 @@ public class EventOverviewController {
 
     @FXML
     void onMenuQuit(ActionEvent event) {
+    	if(! walkingDinnerController.getWalkingDinner().getFileName().equals(""))
     	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(),walkingDinnerController.getWalkingDinner().getFileName());
     	System.exit(0);
     }

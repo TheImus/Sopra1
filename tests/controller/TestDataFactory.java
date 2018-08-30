@@ -240,6 +240,8 @@ public class TestDataFactory {
 		return address;
 	}
 	
+	//public static List<Participants>
+	
 	/*
 	 * *Implementation and Set up of TestDataFactory
 	 * */
@@ -248,7 +250,9 @@ public class TestDataFactory {
 		WalkingDinnerController wdc = walkingDinnerController;
 		
 		WalkingDinner walkingDinner = new WalkingDinner();
+		walkingDinner.setFileName("FactoryTestDinner.wdf");
 		wdc.setWalkingDinner(walkingDinner);
+		
 		//testEvent added
 		Event event = createTestEvent();
 		walkingDinner.setCurrentEvent(event);
