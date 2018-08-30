@@ -64,6 +64,10 @@ public class TabInviteViewController {
 
     @FXML // fx:id="BtnSavePDF"
     private Button BtnSavePDF; // Value injected by FXMLLoader
+
+    @FXML
+    private Button BtnRegister;
+
     
     private WalkingDinnerController walkingDinnerController;
     
@@ -215,6 +219,20 @@ public class TabInviteViewController {
     	getWalkingDinnerController().getInvitationController().uninvite(uninviteParticipants);
     	refresh();
     }
+    
+    /**
+     * Register a selected invited participant
+     * @param event
+     */
+    @FXML
+    void onRegister(ActionEvent event) {
+    	List<Participant> selectedParticipants = ListInvited.getSelectionModel().getSelectedItems();
+    	for (Participant participant : selectedParticipants) {
+    		getWalkingDinnerController().getParticipantController().newParticipantForEvent(participant);
+    	}
+    	refresh();
+    }
+    
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {

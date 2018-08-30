@@ -116,7 +116,7 @@ public class ParticipantController {
 	}
 	
 	/**
-	 * takes a participant and searches in current Event for this participant
+	 * takes a participant and searches in invited participants of the current Event for this participant
 	 * if the given participant exists in current Event, return the existing one
 	 * else return a copy of the given participant
 	 * @param participant the participant that is supposed to be searched
