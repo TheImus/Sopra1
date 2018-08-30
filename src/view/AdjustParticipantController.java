@@ -80,8 +80,8 @@ import model.Restriction;
 	    @FXML
 	    private Button BtnEdit;
 	    
-	    @FXML
-	    private Button BtnDelete;
+	    /*@FXML
+	    private Button BtnDelete;*/
 	    
 	    @FXML
 	    private Button BtnCancel;
@@ -108,9 +108,6 @@ import model.Restriction;
 	    private GridPane GridPaneAdjustParticipant;
 	    
 	    private WalkingDinnerController walkingDinnerController;
-	    
-	    private RestrictionController restrictionController;
-	    
 	    
 	    public WalkingDinnerController getWalkingDinnerController() {
 			return walkingDinnerController;
@@ -230,7 +227,7 @@ import model.Restriction;
 			this.walkingDinnerController = walkingDinnerController;
 		}
 		
-		public ComboBox getCbAction(){
+		public ComboBox<ParticipantAction> getCbAction(){
 			return CbAction;
 		}
 
@@ -411,7 +408,8 @@ import model.Restriction;
 	    	}*/
 	    	
 	    }
-	    
+
+	    /*
 	    @FXML
 	    void onDeleteRestriction(ActionEvent event) {
 	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
@@ -452,9 +450,7 @@ import model.Restriction;
 	    		
 				deleteRestrictionFromEvent(restr);
     		}*/
-
-	 
-	    }
+	    //}*/
 	    
 	    /*
 	    void deleteRestrictionFromEvent(Restriction restriction) {
