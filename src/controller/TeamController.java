@@ -77,7 +77,8 @@ public class TeamController {
 				removeTeam(team);
 				deleteTeamFromEvent(team);
 				//find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
-				
+				// tell the GUI that the team is now deleted
+				teamsAUI.refreshTeams();
 				
 			} 
 			else if (team.getHost().equals(participant)) {

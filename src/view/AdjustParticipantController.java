@@ -80,8 +80,8 @@ import model.Restriction;
 	    @FXML
 	    private Button BtnEdit;
 	    
-	    @FXML
-	    private Button BtnDelete;
+	    /*@FXML
+	    private Button BtnDelete;*/
 	    
 	    @FXML
 	    private Button BtnCancel;
@@ -108,9 +108,6 @@ import model.Restriction;
 	    private GridPane GridPaneAdjustParticipant;
 	    
 	    private WalkingDinnerController walkingDinnerController;
-	    
-	    private RestrictionController restrictionController;
-	    
 	    
 	    public WalkingDinnerController getWalkingDinnerController() {
 			return walkingDinnerController;
@@ -230,7 +227,7 @@ import model.Restriction;
 			this.walkingDinnerController = walkingDinnerController;
 		}
 		
-		public ComboBox getCbAction(){
+		public ComboBox<ParticipantAction> getCbAction(){
 			return CbAction;
 		}
 
@@ -241,10 +238,10 @@ import model.Restriction;
 	    		new ListCell<ParticipantAction>() {
 	    			@Override protected void updateItem(ParticipantAction item, boolean empty) {
 	    				super.updateItem(item, empty);
-	    				if (item == null | empty) {
-	    					setGraphic(null);
+	    				if (item == null) {
+	    					setText("");
 	    				} else {
-	    					this.setText(item.getText());
+	    					this.setText(item.toString());
 	    				}
 	    			}
 	    	
@@ -411,7 +408,8 @@ import model.Restriction;
 	    	}*/
 	    	
 	    }
-	    
+
+	    /*
 	    @FXML
 	    void onDeleteRestriction(ActionEvent event) {
 	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
@@ -452,9 +450,7 @@ import model.Restriction;
 	    		
 				deleteRestrictionFromEvent(restr);
     		}*/
-
-	 
-	    }
+	    //}*/
 	    
 	    /*
 	    void deleteRestrictionFromEvent(Restriction restriction) {
@@ -535,7 +531,7 @@ import model.Restriction;
 	    @FXML
 	    void OnParticipantActionSelected(ActionEvent event){
 	    	System.out.println("selected");
-	    	refresh();
+	    	//refresh();
 	    }
 
 	    @FXML
@@ -596,9 +592,9 @@ import model.Restriction;
 	    		
 	    		
 	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
-	    			Participant newPart = new Participant();
-	    			if(currentEvent.getCurrentParticipant()!=null){
-	    				newPart = currentEvent.getCurrentParticipant();
+	    			Participant newPart = currentEvent.getCurrentParticipant();
+	    			if(currentEvent.getCurrentParticipant()==null){
+	    				newPart = new Participant();
 	    			}
 	    			newPart.setPerson(currentEvent.getCurrentParticipant().getPerson());
 	    			currentEvent.setCurrentParticipant(newPart);

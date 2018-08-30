@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -15,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="GridPaneAdjustParticipant" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdjustParticipantController">
+<GridPane fx:id="GridPaneAdjustParticipant" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdjustParticipantController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="15.0" minWidth="15.0" prefWidth="15.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -80,13 +79,29 @@
             </Label>
          </children>
       </GridPane>
-      <ButtonBar maxHeight="55.0" minHeight="55.0" prefHeight="55.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-        <buttons>
-          <Button fx:id="BtnCancel" cancelButton="true" mnemonicParsing="false" onAction="#OnCancel" text="Abbrechen" translateX="-15.0" />
-            <ComboBox fx:id="CbAction" onAction="#OnParticipantActionSelected" onMouseClicked="#OnParticipantAction" prefWidth="120.0" promptText="Weiter" />
-            <Button fx:id="BtnCallAction" defaultButton="true" mnemonicParsing="false" onAction="#onBtnCallAction" text="Ausführen" />
-        </buttons>
-      </ButtonBar>
+      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <columnConstraints>
+            <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+            <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="BtnCallAction" defaultButton="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnCallAction" prefWidth="100.0" text="Ausführen" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets left="15.0" />
+               </GridPane.margin>
+            </Button>
+            <ComboBox fx:id="CbAction" maxWidth="300.0" minWidth="-Infinity" onAction="#OnParticipantActionSelected" onMouseClicked="#OnParticipantAction" prefWidth="200.0" promptText="Aktion wählen" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.vgrow="ALWAYS" />
+          <Button fx:id="BtnCancel" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnCancel" prefWidth="100.0" text="Abbrechen" GridPane.halignment="LEFT">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
       <Label text="Einschränkungen" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets bottom="5.0" top="10.0" />
@@ -103,14 +118,29 @@
             <Insets bottom="10.0" top="15.0" />
          </GridPane.margin>
       </Label>
-      <ButtonBar maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4">
-        <buttons>
-            <TextField fx:id="EdRestriction" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" />
-          <Button fx:id="BtnNewRestriction" maxWidth="200.0" mnemonicParsing="false" onAction="#OnCreateNewRestriction" text="Neue Einschränkung" />
-            <Button fx:id="BtnEdit" maxWidth="200.0" mnemonicParsing="false" onAction="#onEditRestriction" text="Bearbeiten" />
-            <Button fx:id="BtnDelete" maxWidth="200.0" mnemonicParsing="false" onAction="#onDeleteRestriction" text="Löschen" />
-        </buttons>
-      </ButtonBar>
+      <GridPane GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="175.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="110.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="BtnEdit" maxWidth="200.0" mnemonicParsing="false" onAction="#onEditRestriction" text="Bearbeiten" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets left="15.0" />
+               </GridPane.margin>
+            </Button>
+          <Button fx:id="BtnNewRestriction" maxWidth="200.0" mnemonicParsing="false" onAction="#OnCreateNewRestriction" text="Neue Einschränkung" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="15.0" />
+               </GridPane.margin>
+            </Button>
+            <TextField fx:id="EdRestriction" maxWidth="300.0" minWidth="-Infinity" prefWidth="150.0" GridPane.halignment="RIGHT" />
+         </children>
+      </GridPane>
       <ListView fx:id="LvRestrictions" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
 </GridPane>
