@@ -70,16 +70,16 @@ public class ConsistencyController {// headerCommentRequirement Required
 		
 		for(int i = 0; i < members.size()-1; i++){
 			if(!members.get(i).getCourseWish().equals(members.get(i+1).getCourseWish())){				//check if team members have same course wish
-				warnings.add(members.get(i).getPerson().getName() + " hat anderen Wunschgang als " + members.get(i+1).getPerson().getName() + ".");
+				warnings.add(members.get(i).getPerson().getName() + " hat einen anderen Wunschgang als " + members.get(i+1).getPerson().getName() + ".");
 			}
 		}
-		if(team.getHost() == null) warnings.add("Es gibt keinen Host in diesem Team.");							//check if there is a host
+		if(team.getHost() == null) warnings.add("Dieses Team hat keinen Host.");							//check if there is a host
 		List<Restriction> differentR = getDifferentRestrictionsFor(team.getParticipants());
-		if(differentR.size() >0 ) {																		// check if there are any restrictions that don't match
+		if(getText(differentR).length() >2 ) {																		// check if there are any restrictions that don't match
 			String newWarning = "";
-			newWarning+= "Folgende Restriktionen können für Teams problematisch sein: " + 
-					this.getText(differentR) + "\n" + 
-					"Bitte überprüfen sie das Team mit Gastgeber: " + team.getHost().getPerson().getName() + "\n";
+			newWarning+= "Verschiedene Einschränkungen: " + 
+					this.getText(differentR);// + 
+					//"Bitte überprüfen sie das Team mit Gastgeber: " + team.getHost().getPerson().getName() + "\n";
 			/*for(Participant p : team.getParticipants())
 			{
 				newWarning += "__";
@@ -189,13 +189,13 @@ public class ConsistencyController {// headerCommentRequirement Required
 		warnings.addAll(checkGroupCourses(group));
 	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
 	    if(differentR != null && !differentR.isEmpty()) {										
-			String warning = "Folgende Restriktionen könnten für Gruppen problematisch sein: " + 
-					getText(differentR) + 
-					".\nBitte überprüfen sie diese für folgende Teams: ";
-	    	for(Team team : group.getTeams()){
-	    		warning += team.getHost().getPerson().getName() + "'s Team, ";
-	    	}
-	    	warning = warning.substring(0, warning.length() - 2);
+			String warning = "Verschiedene Einschränkungen: " + 
+					getText(differentR); // + 
+					//".\nBitte überprüfen sie diese für folgende Teams: ";
+	    	//for(Team team : group.getTeams()){
+	    	//	warning += team.getHost().getPerson().getName() + "'s Team, ";
+	    	//}
+	    	//warning = warning.substring(0, warning.length() - 2);
 	    	warning += ".";
 			warnings.add(warning);
 		}	
@@ -206,7 +206,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 	    		anzahlDrei++;
 	    }
 	    if(anzahlDrei > ONE){
-	    	warnings.add("In dieser Gruppe sind mehr als ein 3er Team.");
+	    	warnings.add("In dieser Gruppe sind große Teams.");
 	    }
 	    groupController.setCourse(courseAtTheBeginning);
 		return warnings;//"Folgende Restriktionen könnten für Gruppen Problematisch sein:" + "Gemüse" + 
@@ -275,7 +275,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 			knowingList = knownPersons.get(person.get(i));							//get the knowing relations for a person
 			for(int j = i+1; j<person.size();j++) {														
 				if(knowingList!=null && knowingList.contains(person.get(j))){										//check if another person is in the knowing relations list
-					warnings.add(person.get(i).getName() + " und " + person.get(j).getName() + " kennen sich");	    //save warning if so
+					warnings.add(person.get(i).getName() + " und " + person.get(j).getName() + " kennen sich.");	    //save warning if so
 				}
 			}		
 		}
@@ -319,7 +319,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 				
 				if(curGroup.getTeams().contains(team) && !groupController.getCourse().equals( currentCourse)){
 					String warning = "Team mit Gastgeber " + team.getHost().getPerson().getName() + 
-							" im Gang " +groupController.getCourse() + " kommt in mehreren Gruppen vor. \n";
+							" im Gang " +groupController.getCourse() + " kommt in mehreren Gruppen vor.";
 				//warning += "Die andere Gruppe besteht aus Gruppe mit Gastgeber: "+groupController.getGroups().get(i).getHostTeam().getHost().getPerson().getName();	
 				warnings.add(warning);	
 				}

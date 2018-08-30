@@ -76,6 +76,8 @@ public class InvitationController {
 	/**
 	 * Generate a comma separated List of the E-Mail Addresses of the 
 	 * participants in the mailList
+	 * 
+	 * if the participant has no email address, he will not be added
 	 * For example:
 	 * 		"Hans Müller"<hans.mueller@gmx.de>;"Jochen Schweitzer"<info@jochenschweitzer.com>" ...
 	 * 
@@ -92,8 +94,10 @@ public class InvitationController {
 		final String separator = ";";
 		
 		for (Participant participant : participantList) {
-			result += "\"" + participant.getPerson().getName() + "\"";
-			result += "<" + participant.getPerson().getMailAddress() + ">" + separator;
+			if (!participant.getPerson().getMailAddress().isEmpty()) {
+				result += "\"" + participant.getPerson().getName() + "\"";
+				result += "<" + participant.getPerson().getMailAddress() + ">" + separator;
+			}
 		}
 		
 		// remove last separator from the list
