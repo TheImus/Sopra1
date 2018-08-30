@@ -66,7 +66,7 @@ import model.Restriction;
 	    private TextField EdRestriction;
 
 	    @FXML
-	    private ComboBox<String> CbWishCourse;
+	    private ComboBox<Course> CbWishCourse;
 
 	    @FXML
 	    private ComboBox<String> CbSearchBox;
@@ -209,6 +209,21 @@ import model.Restriction;
 	    			}
 	    	
 	    		});
+	    	
+	    	CbWishCourse.setCellFactory(actions ->
+    		new ListCell<Course>() {
+    			@Override protected void updateItem(Course item, boolean empty) {
+    				super.updateItem(item, empty);
+    				if (item != null) { 
+    					setText(item.toString()); 
+    				} else {
+    					setText("");
+    				}
+    				
+    			}
+    	
+    		});
+	    	
 	    	List<ParticipantAction> actionList = walkingDinnerController.getParticipantActionController().getPossibleActions();
 	    	System.out.println(actionList.size());
 	    	for(ParticipantAction action : actionList){
@@ -257,7 +272,7 @@ import model.Restriction;
 	    		DateBirthday.setValue(currentParticipant.getPerson().getBirthDate());
 	    		
 	    		Course courseWish = currentParticipant.getCourseWish();
-	    		CbWishCourse.setValue(courseWish.toString());  		
+	    		CbWishCourse.setValue(courseWish);  		
 	    		
 	    	}	
 	    }
@@ -471,7 +486,7 @@ import model.Restriction;
 	    
 	    @FXML
 	    void OnWishCourseClicked(MouseEvent event) {
-	    	CbWishCourse.getItems().addAll("Vorspeise","Hauptspeise","Nachspeise");
+	    	CbWishCourse.getItems().addAll(Course.STARTER,Course.MAIN,Course.DESSERT);
 	    }
 	    	    
 	    boolean isValidZipCode(){
@@ -483,7 +498,37 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onBtnCallAction(ActionEvent event){
-	    	
+	    	if(validate()){
+	    		ParticipantController partCont = walkingDinnerController.getParticipantController();
+	    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
+	    			Participant newPart = new Participant();
+	    			currentEvent.setCurrentParticipant(newPart);
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			
+	    			currentEvent.getParticipants().add(newPart);
+	    			
+	    			
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
+	    			
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
+	    			
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
+	    			
+	    		}
+	    	}
 	    }
 
 	}
