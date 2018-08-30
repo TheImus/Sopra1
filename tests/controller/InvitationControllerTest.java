@@ -5,9 +5,6 @@ package controller;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -278,29 +275,6 @@ public class InvitationControllerTest {
 			// ok
 		}
 
-	}
-
-	/**
-	 * Test method for {@link controller.InvitationController#exportPDF(java.lang.String)}.
-	 * 
-	 * Test for an empty invited list
-	 * Test for currentEvent is null
-	 */
-	@Test
-	public void testExportPDF() {
-		String fileDestination = System.getProperty("user.home") + "/tmp/walkingdinner/testinvitations.pdf";
-		
-		// remove old files
-		try {
-			Files.delete(new File(fileDestination).toPath());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		invitationCtrl.exportPDF(fileDestination);
-		
-		assertTrue(new File(fileDestination).exists());
-		
 	}
 
 }

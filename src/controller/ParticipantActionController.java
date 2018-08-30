@@ -33,6 +33,10 @@ public class ParticipantActionController {
 		ParticipantAction register = ParticipantAction.REGISTER;
 		ParticipantAction unregtister = ParticipantAction.UNREGISTER;
 		ParticipantAction update = ParticipantAction.UPDATE_PARTICIPANT;
+		ParticipantAction registerNewPerson = ParticipantAction.REGISTER_NEW_PERSON;
+		
+		actions.add(registerNewPerson);
+		
 		try {
 			Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 			List<Participant> participantList = currentEvent.getParticipants();

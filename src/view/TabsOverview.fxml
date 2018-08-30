@@ -31,7 +31,7 @@
       <GridPane>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="NEVER" prefWidth="220.0" />
+            <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" prefWidth="220.0" />
             <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
          </columnConstraints>
          <rowConstraints>
@@ -45,8 +45,8 @@
             </Label>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1">
               <buttons>
-                <Button fx:id="CloseTabsOverview" mnemonicParsing="false" onAction="#onCloseTabsOverview" text="Hauptmenü" />
-                  <Button fx:id="BtnSaveTabsOverview" defaultButton="true" mnemonicParsing="false" onAction="#onSaveTabsOverview" text="Speichern" />
+                <Button fx:id="CloseTabsOverview" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onCloseTabsOverview" prefWidth="100.0" text="Hauptmenü" />
+                  <Button fx:id="BtnSaveTabsOverview" defaultButton="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSaveTabsOverview" prefWidth="100.0" text="Speichern" />
               </buttons>
             </ButtonBar>
          </children>

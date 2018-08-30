@@ -1,10 +1,13 @@
 package view;
 
-	import java.util.ArrayList;
+	import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import controller.ParticipantAction;
+import controller.ParticipantController;
+import controller.RestrictionController;
 import controller.WalkingDinnerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,9 +28,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Address;
 import model.Course;
 import model.Event;
 import model.Participant;
+import model.Person;
 import model.Restriction;
 
 	public class AdjustParticipantController {
@@ -61,9 +66,12 @@ import model.Restriction;
 	    
 	    @FXML
 	    private TextField EdRestriction;
+	    
+	    @FXML
+	    private TextField EdEMail;
 
 	    @FXML
-	    private ComboBox<String> CbWishCourse;
+	    private ComboBox<Course> CbWishCourse;
 
 	    @FXML
 	    private ComboBox<String> CbSearchBox;
@@ -76,6 +84,9 @@ import model.Restriction;
 	    
 	    @FXML
 	    private Button BtnCancel;
+	    
+	    @FXML
+	    private Button BtnCallAction;
 	    
 	    @FXML
 	    private ComboBox<ParticipantAction> CbAction;
@@ -97,9 +108,92 @@ import model.Restriction;
 	    
 	    private WalkingDinnerController walkingDinnerController;
 	    
+	    private RestrictionController restrictionController = walkingDinnerController.getRestrictionController();
+	    
+	    
 	    public WalkingDinnerController getWalkingDinnerController() {
 			return walkingDinnerController;
 		}
+	    
+	    
+	    public boolean validate(){
+	    	boolean passed = true;
+	    	/*Participant current;
+	    	
+	    	ParticipantController participantController = walkingDinnerController.getParticipantController();
+	    	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant() == null)
+	    	{
+	    		current = new Participant();
+	    	}
+	    	else{
+		    	current = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	}*/
+	    	
+	    	try{
+	    		EdName.setStyle("-fx-border-color: default;");
+	    		if(EdName.getText().equals(""))
+	    			throw new IllegalArgumentException();
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		EdName.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	try{
+	    		EdStreet.setStyle("-fx-border-color: default;");
+	    		if(EdStreet.getText().equals(""))
+	    			throw new IllegalArgumentException();
+	    		Address address = new Address();
+	    		address.setAddressAdditional(EdStreet.getText());
+	    		
+	    		
+	    		//participantController.setAddress(address);
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		EdStreet.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	try{
+	    		EdZipCode.setStyle("-fx-border-color: default;");
+	    		if(!isValidZipCode())
+	    			throw new IllegalArgumentException();
+	    		Address address = new Address();
+	    		address.setAddressAdditional(EdZipCode.getText());		
+	    		//participantController.setAddress(address);
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		EdZipCode.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	
+	    	try{
+	    		DateBirthday.setStyle("-fx-border-color: default;");
+	    		if(DateBirthday.getValue() == null)
+	    			throw new IllegalArgumentException("kein Value");
+	    		if(DateBirthday.getValue().isAfter(LocalDate.now()))
+	    			throw new Exception("Zeit");
+	    		//participantController.setBirthDate(DateBirthday.getValue());
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		DateBirthday.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	catch(Exception e){
+	    		
+	    		DateBirthday.setStyle("-fx-border-color: orange;");	
+	    		passed=false;
+	    	}
+	    	
+	    	
+	    	
+	    	//if(passed)
+	    		//walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(current);
+	    	
+	    	return passed;
+	    }
+	    
 
 
 		public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
@@ -120,10 +214,33 @@ import model.Restriction;
 	    				}
 	    				
 	    			}
+	    	
 	    		});
+	    	
+	    	CbWishCourse.setCellFactory(actions ->
+    		new ListCell<Course>() {
+    			@Override protected void updateItem(Course item, boolean empty) {
+    				super.updateItem(item, empty);
+    				if (item != null) { 
+    					setText(item.toString()); 
+    				} else {
+    					setText("");
+    				}
+    				
+    			}
+    	
+    		});
+	    	
+	    	List<ParticipantAction> actionList = walkingDinnerController.getParticipantActionController().getPossibleActions();
+	    	System.out.println(actionList.size());
+	    	for(ParticipantAction action : actionList){
+	    		CbAction.getItems().add(action);
+	    	}
+	    		 
 	    	
 	    	LvRestrictions.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 	    	
+	    	/*
     		CheckBox alcohol = new CheckBox();
     		alcohol.setText("Kein Alkohol");
     		
@@ -136,7 +253,15 @@ import model.Restriction;
     		
     		LvRestrictions.getItems().add(alcohol);
     		LvRestrictions.getItems().add(vegetarian);
-    		LvRestrictions.getItems().add(vegan);
+    		LvRestrictions.getItems().add(vegan);*/
+	    	
+	    	List<Restriction> restrList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getRestriction();
+	    	for(Restriction restr : restrList){
+	    		String restrName = restr.getName();
+	    		CheckBox restriction = new CheckBox();
+	    		restriction.setText(restrName);
+	    		LvRestrictions.getItems().add(restriction);
+	    	}
 	    	
 	    	refresh();
 	    	
@@ -154,7 +279,7 @@ import model.Restriction;
 	    		DateBirthday.setValue(currentParticipant.getPerson().getBirthDate());
 	    		
 	    		Course courseWish = currentParticipant.getCourseWish();
-	    		CbWishCourse.setValue(courseWish.toString());  		
+	    		CbWishCourse.setValue(courseWish);  		
 	    		
 	    	}	
 	    }
@@ -171,9 +296,11 @@ import model.Restriction;
 	   			TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
 	   			tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
 	   			tabsOverviewController.init();
+	   			
 	   			Scene scene = new Scene(root);
 	   			
 	   			((Stage)GridPaneAdjustParticipant.getScene().getWindow()).setScene(scene);
+	   			walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(null);
 	   			
 	   		} catch(Exception e) {
 	   			e.printStackTrace();
@@ -188,12 +315,16 @@ import model.Restriction;
 	    	List<Restriction> participantRestrictions = currentParticipant.getRestrictions();
 	    	
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
+	    	String restrName = cb.getText();
 	    	
-	    	String newName = EdRestriction.getText();
-	    	cb.setText(newName);
+	    	if(!(restrName.equals("Kein Alkohol") || restrName.equals("Veganer") || restrName.equals("Vegetarier"))){
+		    	String newName = EdRestriction.getText();
+		    	cb.setText(newName);
+	    	}
 	    	
 	    	EdRestriction.clear();
 	    	
+	    	/*
 	    	for(Restriction restr : restrList) {
 	    		if(restr.getName().equals(cb.getText())) {
 	    			restr.setName(newName);
@@ -204,7 +335,7 @@ import model.Restriction;
 	    		if(restr.getName().equals(cb.getText())) {
 	    			restr.setName(newName);
 	    		}
-	    	}
+	    	}*/
 	    	
 	    }
 	    
@@ -212,12 +343,20 @@ import model.Restriction;
 	    void onDeleteRestriction(ActionEvent event) {
 	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	    	List<Restriction> restrList = currentEvent.getRestriction();
-
-	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	
+	    	if(LvRestrictions.getSelectionModel().getSelectedItem() == null){
+	    		return;
+	    	}
+	    	
+	    	//Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
 	    	String restrName = cb.getText();
+	    	
+	    	if(!(restrName.equals("Kein Alkohol") || restrName.equals("Veganer") || restrName.equals("Vegetarier"))){
+	    		LvRestrictions.getItems().remove(cb);
+	    	}
 
-    		
+    		/*
     		for(Restriction restr : restrList) {
     			if (restr.getName().equals(restrName)) {
     				
@@ -229,7 +368,7 @@ import model.Restriction;
     	    		
     	    		restrList.remove(restr);
     			}
-    		}
+    		}*/
     		
     		/*
     		if(!restr.isPermanent()) {
@@ -264,9 +403,9 @@ import model.Restriction;
 			    	Restriction restriction = new Restriction();
 			    	restriction.setName(restrictionName);
 			    	
-			    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+			    	/*Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 			    	currentParticipant.addRestriction(restriction);
-			    	restriction.addParticipant(currentParticipant);
+			    	restriction.addParticipant(currentParticipant);*/
 			    
 			    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 			    	List<Restriction> eventRestrictionList = currentEvent.getRestriction();
@@ -358,7 +497,7 @@ import model.Restriction;
 	    
 	    @FXML
 	    void OnWishCourseClicked(MouseEvent event) {
-	    	CbWishCourse.getItems().addAll("Vorspeise","Hauptspeise","Nachspeise");
+	    	CbWishCourse.getItems().addAll(Course.STARTER,Course.MAIN,Course.DESSERT);
 	    }
 	    	    
 	    boolean isValidZipCode(){
@@ -366,6 +505,72 @@ import model.Restriction;
 	    	Pattern validZipCode = Pattern.compile("\\b\\d{5}\\b");
 	    	
 	    	return validZipCode.matcher(zipCode).matches();
+	    }
+	    
+	    @FXML
+	    void onBtnCallAction(ActionEvent event){
+	    	if(validate()){
+	    		ParticipantController partCont = walkingDinnerController.getParticipantController();
+	    		RestrictionController restCont = walkingDinnerController.getRestrictionController();
+	    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
+	    			Participant newPart = new Participant();
+	    			newPart.setPerson(currentEvent.getCurrentParticipant().getPerson());
+	    			currentEvent.setCurrentParticipant(newPart);
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
+	    			
+	    			walkingDinnerController.getParticipantActionController().register(newPart);
+	    			
+	    			
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER_NEW_PERSON){
+	    			Participant newPart = new Participant();
+	    			newPart.setPerson(new Person());
+	    			currentEvent.setCurrentParticipant(newPart);
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
+	    			
+	    			walkingDinnerController.getParticipantActionController().register(newPart);
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UNREGISTER){
+	    			walkingDinnerController.getParticipantActionController().unregister(currentEvent.getCurrentParticipant());
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UPDATE_PARTICIPANT){
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
+	    		}
+	    	}
 	    }
 
 	}

@@ -5,6 +5,8 @@ package view;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +66,10 @@ public class TabInviteViewController {
 
     @FXML // fx:id="BtnSavePDF"
     private Button BtnSavePDF; // Value injected by FXMLLoader
+
+    @FXML
+    private Button BtnRegister;
+
     
     private WalkingDinnerController walkingDinnerController;
     
@@ -179,14 +185,16 @@ public class TabInviteViewController {
         
         //Show save file dialog
         File file = fileChooser.showSaveDialog(null);
+        Path path = file.toPath();
+        
         
         if (file != null) {
             try {
-            	String filename = file.getAbsolutePath();
-            	if (!file.getName().endsWith("pdf")) {
-            		filename += ".pdf";
+            	if (!path.toString().toLowerCase().endsWith(".pdf")) {
+            		path = Paths.get(path.toString() + ".pdf");
             	}
-            	getWalkingDinnerController().getInvitationController().exportPDF(filename);
+            	
+            	//getWalkingDinnerController().getInvitationController().exportPDF(filename);
             	
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -215,6 +223,20 @@ public class TabInviteViewController {
     	getWalkingDinnerController().getInvitationController().uninvite(uninviteParticipants);
     	refresh();
     }
+    
+    /**
+     * Register a selected invited participant
+     * @param event
+     */
+    @FXML
+    void onRegister(ActionEvent event) {
+    	List<Participant> selectedParticipants = ListInvited.getSelectionModel().getSelectedItems();
+    	for (Participant participant : selectedParticipants) {
+    		getWalkingDinnerController().getParticipantController().newParticipantForEvent(participant);
+    	}
+    	refresh();
+    }
+    
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {

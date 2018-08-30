@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EventOverviewController">
+<BorderPane fx:id="borderPaneOutermost" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EventOverviewController">
    <center>
       <BorderPane fx:id="borderPaneOverview" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <bottom>
@@ -43,7 +43,7 @@
       </BorderPane>
    </center>
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar fx:id="MainMenu" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Datei">
             <items>

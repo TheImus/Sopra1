@@ -147,7 +147,7 @@ public class TabAdjustTeamsController {
 		        	String res = item.getPerson().getName();
 		        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item)!=null){
 		        		if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item).getHost().equals(item)){
-		        			res += " (host) ";
+		        			res += " (Gastgeber) ";
 		        		}
 		        	}
 		            setText(res);
@@ -230,6 +230,7 @@ public class TabAdjustTeamsController {
     	
     	ListTeams.setCellFactory(view ->
 		new ListCell<Team>() {
+			private String defaultStyle = this.getStyle();
 			protected void updateItem(Team item, boolean empty) {
 			        super.updateItem(item, empty);
 			        if (empty || item == null) {
@@ -247,6 +248,10 @@ public class TabAdjustTeamsController {
 			        if(warningTeams.contains(item)){
 			        	this.setStyle("-fx-background-color: #dede00;");
 			        }
+			        else{
+			        	this.setStyle(defaultStyle);
+			        }
+			        	
 			    }
 			}
 		);  
@@ -261,7 +266,7 @@ public class TabAdjustTeamsController {
 		        	String res = item.getPerson().getName();
 		        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item)!=null){
 		        		if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item).getHost().equals(item)){
-		        			res += " (host) ";
+		        			res += " (Gastgeber) ";
 		        		}
 		        	}
 		            setText(res);

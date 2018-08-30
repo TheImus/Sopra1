@@ -46,8 +46,8 @@ public class ConsistencyController {
 		List<String> warnings = new ArrayList<String>();
 		int size = walkingDinnerController.getGroupController().getAllGroups().size();
 		
-		if(size == 0) warnings.add("Keine Gruppen im Event");
-		if(size %3 != 0)	warnings.add("Die Anzahl der Gruppen ist kein Vielfaches von 3");
+		if(size == 0) warnings.add("Keine Gruppen im Event.");
+		if(size %3 != 0)	warnings.add("Die Anzahl der Gruppen ist kein Vielfaches von 3.");
 		
 		return warnings;
 	}
@@ -74,11 +74,12 @@ public class ConsistencyController {
 		List<Restriction> differentR = getDifferentRestrictionsFor(team.getParticipants());
 		if(differentR.size() >0 ) {																		// check if there are any restrictions that don't match
 			String newWarning = "";
-			newWarning+= "folgende Restriktionen koennten Problematisch sein:" + 
+			newWarning+= "Folgende Restriktionen könnten für Teams Problematisch sein: " + 
 					this.getText(differentR) + 
-					"bitte einmal �berpruefen fuer Team mit folgenden Mitgliedern: \n" ;
+					"Bitte einmal Überprüfen für Team mit folgenden Mitgliedern: \n";
 			for(Participant p : team.getParticipants())
 			{
+				newWarning += "__";
 				newWarning += p.getPerson().getName() + "\n";
 			}
 			warnings.add(newWarning);
@@ -107,7 +108,7 @@ public class ConsistencyController {
 		for(int i = 0; i<membersAsPerson.size()-1;i++) {																				
 			for(int j = i+1; j<membersAsPerson.size();j++) {														
 				if(membersAsPerson.get(i).equals(membersAsPerson.get(j))){								//check if a person is multiple times in the same team
-					warnings.add(membersAsPerson.get(i).getName() + "kommt mehrmals im Team vor");	
+					warnings.add(membersAsPerson.get(i).getName() + "kommt mehrmals in diesem Team vor.");	
 				}
 			}		
 		}
@@ -156,12 +157,14 @@ public class ConsistencyController {
 	 * @param group name of a group object
 	 * @return Returns a list with all warnings for the group
 	 */
-	public List<String> getWarnings(Group group) { //Fragen fuer morgen: wieso nur starter? wieso sachen im catch block??
+	public List<String> getWarnings(Group group) {
 		
 		List<String> warnings = new ArrayList<String>();								//return List with all warnings
 		List<Participant> allParticipantsInGroup = new ArrayList<Participant>();		//List with all participants in the group
 		List<Person> allPersonsInGroup = new ArrayList<Person>();						//List with all Persons in the group
 		GroupController groupController = walkingDinnerController.getGroupController();
+		Course courseAtTheBeginning = groupController.getCourse();
+		
 		groupController.setCourse(Course.STARTER);
 		
 		for(int i = 0; i<group.getTeams().size(); i++) {								//saves all participants in the group
@@ -174,11 +177,9 @@ public class ConsistencyController {
 		
 		warnings.addAll(groupSizeWarnings(group));
 		
-		try{
-		if(!knowingRelation(allPersonsInGroup).isEmpty()){
+		if(knowingRelation(allPersonsInGroup) != null && !knowingRelation(allPersonsInGroup).isEmpty()){
 			warnings.addAll(knowingRelation(allPersonsInGroup)); 							//checks if any persons in the group know each other
 		}
-		}catch(NullPointerException nullPointer){}
 		
 		 warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Starter) already
 		 groupController.setCourse(Course.MAIN);
@@ -188,11 +189,20 @@ public class ConsistencyController {
 		    
 	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
 	    if(differentR != null) {														// check if there are any restrictions that don't match
-			warnings.add("folgende Restriktionen koennten Problematisch sein:" + 
+			String warning = "Folgende Restriktionen könnten für Gruppen Problematisch sein:" + 
 					getText(differentR) + 
-					"bitte einmal Ueberpruefen fuer folgende Gruppe:" + allParticipantsInGroup.toString());
+					".\nBitte überprüfen sie diese für folgende Teams: ";
+	    	for(Team team : group.getTeams()){
+	    		warning += team.getHost().getPerson().getName() + "'s Team, ";
+	    	}
+	    	warning = warning.substring(0, warning.length() - 2);
+	    	warning += ".";
+			/*for(Participant p : allParticipantsInGroup){
+				s += p.getPerson().getName() + "; ";
+			}*/
+			warnings.add(warning);
 		}	
-		
+	    groupController.setCourse(courseAtTheBeginning);
 		return warnings;
 	}
 
@@ -303,24 +313,24 @@ public class ConsistencyController {
 		List<String> warnings = new ArrayList<String>();
 		
 		if(groupSize < three){												//checks if group size is below 3
-			warnings.add("Gruppe zu klein");
+			warnings.add("Die Gruppe ist zu klein.");
 		}
 		
 		if(groupSize > three){												//checks if group size is more than 3
-			warnings.add("Gruppe zu gross");
+			warnings.add("Die Gruppe ist zu groß.");
 		}
 		
 		if(group.getHostTeam() == null) {											//checks if there is a host team
-			warnings.add("kein Hostteam festgelegt");
+			warnings.add("Es wurde kein Hostteam festgelegt.");
 		}
 			
 		if(group.getGuest().isEmpty()) {												//checks if there are any guest teams in group
-			warnings.add("keine Gastteams vorhanden");
+			warnings.add("Es sind keine Gastteams vorhanden.");
 		}
 		
 		if(group.getGuest().size() != two)												//checks if there are the correct amount of guest teams
 		{
-			warnings.add("Die Anzahl der Gastteams stimmt nicht");
+			warnings.add("Die Anzahl der Gastteams stimmt nicht.");
 		}
 		return warnings;
 	}
@@ -335,15 +345,15 @@ public class ConsistencyController {
 		List<String> warnings = new ArrayList<String>();
 		
 		if(team.getParticipants().size() == zero) {												// check teamsize and save warning in list if the size is not correct
-			warnings.add("Das Team ist leer und kann geloescht werden");
+			warnings.add("Das Team ist leer und kann gelöscht werden.");
 		}
 		
 		if(team.getParticipants().size() == one) {												
-			warnings.add("In dem Team befindet sich nur eine Person");
+			warnings.add("In dem Team befindet sich nur eine Person.");
 		}
 		
 		if(team.getParticipants().size() > three) {
-			warnings.add("Teamgroesse ist groesser als 3");
+			warnings.add("Die Teamgröße ist größer als 3");
 		}
 		return warnings;
 	}
