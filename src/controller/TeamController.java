@@ -37,6 +37,7 @@ public class TeamController {
 		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
 		Event currentEvent = walkingDinner.getCurrentEvent();
 		currentEvent.addNewTeam(newTeam);
+		setChanged(newTeam, true);
 		teamsAUI.refreshTeams();
 		return newTeam;
 	}
@@ -51,11 +52,13 @@ public class TeamController {
 		} 
 		else if (team.getParticipants().isEmpty()) {
 			team.setHost(participant);
+			setChanged(team, true);
 		} 
 		else {
 			List<Participant> list = team.getMembers();
 			list.add(participant);
 			team.setMembers(list);
+			setChanged(team, true);
 		}
 		teamsAUI.refreshTeams();
 	}
@@ -69,7 +72,7 @@ public class TeamController {
 			
 		} 
 		else {
-
+			setChanged(team, true);
 			if (team.getParticipants().size() == 1 || team.getParticipants().size() == 0) {
 				//boolean find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
 				
@@ -112,6 +115,7 @@ public class TeamController {
 //		list.remove(team);
 		Schedule currentSchedule = currentEvent.getSchedule();
 		Course[] courses = Course.values();
+		setChanged(team, true);
 		for(Course c:courses)
 		{
 			List<Group> groupList = currentSchedule.getGroup(c);
@@ -145,6 +149,7 @@ public class TeamController {
 	}
 	
 	public void deleteTeamFromEvent(Team team){
+		setChanged(team, true);
 		walkingDinnerController.getWalkingDinner().getCurrentEvent().getAllTeams().remove(team);
 	}
 
@@ -242,6 +247,7 @@ public class TeamController {
 			team.setHost(participant);
 			team.getMembers().remove(participant);
 		}
+		setChanged(team, true);
 	}
 
 	public TeamsAUI getTeamsAUI() {
@@ -259,8 +265,17 @@ public class TeamController {
 	 */
 	public static void setChanged(List<Team> teams, boolean value) {
 		for (Team team : teams) {
-			List<Participant> participants = team.getParticipants();
-			ParticipantController.setChanged(participants, value);
+			setChanged(team, value);
 		}
+	}
+	
+	/**
+	 * Set changed for all participants of team
+	 * @param team
+	 * @param value
+	 */
+	public static void setChanged(Team team, boolean value) {
+		List<Participant> participants = team.getParticipants();
+		ParticipantController.setChanged(participants, value);
 	}
 }
