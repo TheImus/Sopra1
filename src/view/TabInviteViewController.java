@@ -4,7 +4,6 @@ package view;
  */
 
 import java.io.File;
-import java.io.IOError;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;

@@ -14,10 +14,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.SVGPath;
@@ -84,7 +81,7 @@ public class TabAdjustTeamsController {
     	//Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
     	if(selected!=null){
     		teamController.removeParticipantFromTeam(selectedTeam, selected);
-    	}	
+    	}
     	refresh();
     }	
     
