@@ -173,6 +173,7 @@ public class TabParticipantsController {
   	  			
   	  			AdjustParticipantController adjustParticipantController = (AdjustParticipantController) loader.getController();
   	  			adjustParticipantController.setWalkingDinnerController(walkingDinnerController);
+  	  			adjustParticipantController.getCbAction().getSelectionModel().select(ParticipantAction.UPDATE_PARTICIPANT);
   	  			adjustParticipantController.init();
   	  			Scene scene = new Scene(root);
   	  			
