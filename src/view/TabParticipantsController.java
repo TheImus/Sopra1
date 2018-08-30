@@ -74,6 +74,9 @@ public class TabParticipantsController {
     }
     
     public void refresh() {
+    	
+    	
+    	
     	participantList.getItems().clear();
     	List<Participant> list = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants();
     	participantList.getItems().addAll(list);
@@ -117,6 +120,7 @@ public class TabParticipantsController {
     		System.out.println(e.toString());
     	}
     	//exportController.exportParticipantData(participants, fileName);
+    	
     }
     
 

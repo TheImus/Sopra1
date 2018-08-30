@@ -4,7 +4,6 @@ package view;
  */
 
 import java.io.File;
-import java.io.IOError;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -235,7 +234,6 @@ public class TabInviteViewController {
      * Register a selected invited participant
      * @param event
      */
-    @SuppressWarnings("unchecked")
     @FXML
     void onRegister(ActionEvent event) {
     	Participant participant = ListInvited.getSelectionModel().getSelectedItem();

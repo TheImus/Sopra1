@@ -70,7 +70,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 		
 		for(int i = 0; i < members.size()-1; i++){
 			if(!members.get(i).getCourseWish().equals(members.get(i+1).getCourseWish())){				//check if team members have same course wish
-				warnings.add(members.get(i).getPerson().getName() + "hat anderen Wunschgang als " + members.get(i+1).getPerson().getName() + ".");
+				warnings.add(members.get(i).getPerson().getName() + " hat anderen Wunschgang als " + members.get(i+1).getPerson().getName() + ".");
 			}
 		}
 		if(team.getHost() == null) warnings.add("Es gibt keinen Host in diesem Team.");							//check if there is a host
@@ -116,7 +116,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 		for(int i = 0; i<membersAsPerson.size()-1;i++) {																				
 			for(int j = i+1; j<membersAsPerson.size();j++) {														
 				if(membersAsPerson.get(i).equals(membersAsPerson.get(j))){								//check if a person is multiple times in the same team
-					warnings.add(membersAsPerson.get(i).getName() + "kommt mehrmals in diesem Team vor.");	
+					warnings.add(membersAsPerson.get(i).getName() + " kommt mehrmals in diesem Team vor.");	
 				}
 			}		
 		}
@@ -125,7 +125,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 				for(int j = 0; j < members.size(); j++){
 					if(allTeams.get(i).getParticipants().contains(members.get(j))){
 						String newWarning = "";
-						newWarning+= members.get(j).getPerson().getName() + "kommt in mehreren Teams vor, das andere Team besteht aus: \n" ;
+						newWarning+= members.get(j).getPerson().getName() + " kommt in mehreren Teams vor, das andere Team besteht aus: \n" ;
 						for(Participant p : allTeams.get(i).getParticipants()){
 							newWarning += p.getPerson().getName() + "\n";
 						}
@@ -189,7 +189,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 		warnings.addAll(checkGroupCourses(group));
 	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
 	    if(differentR != null && !differentR.isEmpty()) {										
-			String warning = "Folgende Restriktionen könnten für Gruppen Problematisch sein:" + 
+			String warning = "Folgende Restriktionen könnten für Gruppen Problematisch sein: " + 
 					getText(differentR) + 
 					".\n  Bitte überprüfen sie diese für folgende Teams: ";
 	    	for(Team team : group.getTeams()){
@@ -296,9 +296,9 @@ public class ConsistencyController {// headerCommentRequirement Required
 			if(!groupController.getGroups().get(i).equals(group)){
 				for(int j = 0; j < group.getTeams().size();j++){
 					if(groupController.getGroups().get(i).getTeams().contains(group.getTeams().get(j))){
-						String warning = "Team mit Gastgeber " + group.getTeams().get(j).getHost() + 
-									"im Gang " +groupController.getCourse() + "kommt in mehreren Gruppen vor. \n";
-						warning += "Die andere Gruppe besteht aus Gruppe mit Gastgeber: "+groupController.getGroups().get(i).getHostTeam().getHost();	
+						String warning = "Team mit Gastgeber " + group.getTeams().get(j).getHost().getPerson().getName() + 
+									" im Gang " +groupController.getCourse() + " kommt in mehreren Gruppen vor. \n";
+						warning += "Die andere Gruppe besteht aus Gruppe mit Gastgeber: "+groupController.getGroups().get(i).getHostTeam().getHost().getPerson().getName();	
 						warnings.add(warning);	
 					} 
 				}

@@ -250,7 +250,7 @@ public class TestDataFactory {
 		WalkingDinnerController wdc = walkingDinnerController;
 		
 		WalkingDinner walkingDinner = new WalkingDinner();
-		walkingDinner.setFileName("FactoryTestDinner.wdf");
+		//walkingDinner.setFileName("FactoryTestDinner.wdf");
 		wdc.setWalkingDinner(walkingDinner);
 		
 		//testEvent added

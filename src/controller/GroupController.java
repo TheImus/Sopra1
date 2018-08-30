@@ -48,7 +48,7 @@ public class GroupController {
 		List<Group> groupListToAdd = currentEvent.getSchedule().getGroup(getCourse());
 		groupListToAdd.add(group);
 		currentEvent.getSchedule().setGroup(getCourse(), groupListToAdd);
-		
+		setChangedGroup(group,true);
 		return group;
 	}
 
@@ -68,6 +68,7 @@ public class GroupController {
 			group.setGuest(newTeamList);
 			}
 		}
+		setChangedGroup(group,true);
 	}
 
 	/**
@@ -78,6 +79,7 @@ public class GroupController {
 	public void removeTeamFromGroup(Team team, Group group) {
 		List<Team> workingList = group.getTeams();
 		if(workingList.contains(team)){
+			setChangedGroup(group,true);
 			if(group.getHostTeam().equals(team)){
 				if(group.getGuest().size()>0){
 					group.setHostTeam(group.getGuest().get(0));
@@ -128,6 +130,7 @@ public class GroupController {
 			group.getGuest().add(group.getHostTeam());
 			group.setHostTeam(team);
 		}
+		setChangedGroup(group,true);
 	}
 
 	/**
@@ -173,6 +176,7 @@ public class GroupController {
 				}
 			}*/
 			if(currentGroups.contains(specifiedGroup)){//found
+				setChangedGroup(specifiedGroup,true);
 				currentGroups.remove(specifiedGroup);
 				walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().setGroup(course, currentGroups);
 			}
@@ -195,6 +199,15 @@ public class GroupController {
 		allGroups.addAll(schedule.getGroup(Course.DESSERT));
 		
 		return allGroups;
+	}
+	
+	public static void setChangedGroups(List<Group> groups, boolean value){
+		for(Group group:groups)
+		TeamController.setChanged(group.getTeams(), value);
+	}
+	
+	public static void setChangedGroup(Group group, boolean value){
+		TeamController.setChanged(group.getTeams(), value);
 	}
 	
 

@@ -14,10 +14,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.SVGPath;
@@ -84,7 +81,7 @@ public class TabAdjustTeamsController {
     	//Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
     	if(selected!=null){
     		teamController.removeParticipantFromTeam(selectedTeam, selected);
-    	}	
+    	}
     	refresh();
     }	
     
@@ -119,7 +116,6 @@ public class TabAdjustTeamsController {
 	}
     
     public void init() {
-    	System.out.println("Init Groups before");
     	if (walkingDinnerController == null) {
     		throw new NullPointerException();
     	}
@@ -211,7 +207,6 @@ public class TabAdjustTeamsController {
 		BtnSetHosting.setTooltip(new Tooltip("Als Gastgeber setzen"));
 		
     	refresh();
-    	System.out.println("finish init groups");
     }
     
     public void refresh() {
@@ -225,8 +220,9 @@ public class TabAdjustTeamsController {
     	ListTeams.getItems().clear();
     	ListTeams.getItems().addAll(teamList);
     	if (currentTeam != null) {
-    		ListTeams.getSelectionModel().select(currentTeam);
+    		ListTeams.getSelectionModel().select(currentTeam);	
     	}
+    	
     	
     	List<Team> warningTeams = consistencyController.getInconsistentTeams();
     	
@@ -290,10 +286,25 @@ public class TabAdjustTeamsController {
     	else {
     		ListSelectedTeams.getItems().clear();
     	}
-    	
+    	isGeneratable();
     }
 
-    
+    public void isGeneratable(){
+    	
+    	int missingParticipants = 6 - walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().size();
+    	
+    	if(missingParticipants > 0)
+    	{
+    		
+    		BtnGenerateTeams.setDisable(true);
+    		BtnGenerateTeams.setText("Generieren (+" + missingParticipants +")" );
+    	}
+    	else
+    	{
+    		BtnGenerateTeams.setDisable(false);
+    		BtnGenerateTeams.setText("Generieren");
+    	}
+    }
 
     @FXML
     void onGenerateTeams(ActionEvent event) {
