@@ -32,6 +32,7 @@ import model.Address;
 import model.Course;
 import model.Event;
 import model.Participant;
+import model.Person;
 import model.Restriction;
 
 	public class AdjustParticipantController {
@@ -65,6 +66,9 @@ import model.Restriction;
 	    
 	    @FXML
 	    private TextField EdRestriction;
+	    
+	    @FXML
+	    private TextField EdEMail;
 
 	    @FXML
 	    private ComboBox<Course> CbWishCourse;
@@ -505,20 +509,68 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onBtnCallAction(ActionEvent event){
-
-	    	validate();
-	    }
-	    
-	    List<Restriction> getRestrictionList(){
-	    	ArrayList<Restriction> selectedRestrictions = new ArrayList<>();
-	    	for(CheckBox cb : LvRestrictions.getItems()){
-	    		String restrictionName = cb.getText();
-	    		Restriction selectedRestriction = new Restriction();
-	    		selectedRestriction.setName(restrictionName);
-	    		selectedRestrictions.add(selectedRestriction);
+	    	if(validate()){
+	    		ParticipantController partCont = walkingDinnerController.getParticipantController();
+	    		RestrictionController restCont = walkingDinnerController.getRestrictionController();
+	    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
+	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
+	    			Participant newPart = new Participant();
+	    			newPart.setPerson(currentEvent.getCurrentParticipant().getPerson());
+	    			currentEvent.setCurrentParticipant(newPart);
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
+	    			
+	    			walkingDinnerController.getParticipantActionController().register(newPart);
+	    			
+	    			
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER_NEW_PERSON){
+	    			Participant newPart = new Participant();
+	    			newPart.setPerson(new Person());
+	    			currentEvent.setCurrentParticipant(newPart);
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
+	    			
+	    			walkingDinnerController.getParticipantActionController().register(newPart);
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UNREGISTER){
+	    			walkingDinnerController.getParticipantActionController().unregister(currentEvent.getCurrentParticipant());
+	    		}
+	    		else if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.UPDATE_PARTICIPANT){
+	    			partCont.setName(EdName.getText());
+	    			partCont.setBirthDate(DateBirthday.getValue());
+	    			Address address = new Address();
+	    			address.setAddressAdditional(EdAddressExtra.getText());
+	    			address.setCity(EdPlace.getText());
+	    			address.setStreet(EdStreet.getText());
+	    			address.setZipCode(EdZipCode.getText());
+	    			partCont.setAddress(address);
+	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
+	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
+	    		}
 	    	}
-	    	return selectedRestrictions;
-
 	    }
 
 	}
