@@ -78,7 +78,6 @@ public class NewEventFromTemplateController {
     	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
     	if(currentEvent == null){
     		currentEvent = new Event();
-    		walkingDinner.getEvents().add(currentEvent);
     	}
     	walkingDinner.setCurrentEvent(currentEvent);
     	 
@@ -202,7 +201,7 @@ public class NewEventFromTemplateController {
     	
     	if(passed){
 	    	try {
-	    		
+	    		walkingDinner.getEvents().add(currentEvent);
 	    		GridPane root = new GridPane();
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
 				root = loader.load();

@@ -298,7 +298,6 @@ public class EventOverviewController {
     @FXML
     void onMouseClicked(MouseEvent event){
     	Event currentEvent = listEvent.getSelectionModel().getSelectedItem();
-    	System.out.println("hallo");
     	if(currentEvent != null){
     		BtnEdtiting.setDisable(false);
     		BtnRemoveEvent.setDisable(false);
