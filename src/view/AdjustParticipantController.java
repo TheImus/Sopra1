@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import controller.ParticipantAction;
 import controller.ParticipantController;
+import controller.RestrictionController;
 import controller.WalkingDinnerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,7 +70,7 @@ import model.Restriction;
 	    private TextField EdEMail;
 
 	    @FXML
-	    private ComboBox<String> CbWishCourse;
+	    private ComboBox<Course> CbWishCourse;
 
 	    @FXML
 	    private ComboBox<String> CbSearchBox;
@@ -105,6 +106,8 @@ import model.Restriction;
 	    private GridPane GridPaneAdjustParticipant;
 	    
 	    private WalkingDinnerController walkingDinnerController;
+	    
+	    private RestrictionController restrictionController = walkingDinnerController.getRestrictionController();
 	    
 	    
 	    public WalkingDinnerController getWalkingDinnerController() {
@@ -212,6 +215,21 @@ import model.Restriction;
 	    			}
 	    	
 	    		});
+	    	
+	    	CbWishCourse.setCellFactory(actions ->
+    		new ListCell<Course>() {
+    			@Override protected void updateItem(Course item, boolean empty) {
+    				super.updateItem(item, empty);
+    				if (item != null) { 
+    					setText(item.toString()); 
+    				} else {
+    					setText("");
+    				}
+    				
+    			}
+    	
+    		});
+	    	
 	    	List<ParticipantAction> actionList = walkingDinnerController.getParticipantActionController().getPossibleActions();
 	    	System.out.println(actionList.size());
 	    	for(ParticipantAction action : actionList){
@@ -260,7 +278,7 @@ import model.Restriction;
 	    		DateBirthday.setValue(currentParticipant.getPerson().getBirthDate());
 	    		
 	    		Course courseWish = currentParticipant.getCourseWish();
-	    		CbWishCourse.setValue(courseWish.toString());  		
+	    		CbWishCourse.setValue(courseWish);  		
 	    		
 	    	}	
 	    }
@@ -324,8 +342,12 @@ import model.Restriction;
 	    void onDeleteRestriction(ActionEvent event) {
 	    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	    	List<Restriction> restrList = currentEvent.getRestriction();
-
-	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	
+	    	if(LvRestrictions.getSelectionModel().getSelectedItem() == null){
+	    		return;
+	    	}
+	    	
+	    	//Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
 	    	String restrName = cb.getText();
 	    	
@@ -380,9 +402,9 @@ import model.Restriction;
 			    	Restriction restriction = new Restriction();
 			    	restriction.setName(restrictionName);
 			    	
-			    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+			    	/*Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 			    	currentParticipant.addRestriction(restriction);
-			    	restriction.addParticipant(currentParticipant);
+			    	restriction.addParticipant(currentParticipant);*/
 			    
 			    	Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 			    	List<Restriction> eventRestrictionList = currentEvent.getRestriction();
@@ -474,7 +496,7 @@ import model.Restriction;
 	    
 	    @FXML
 	    void OnWishCourseClicked(MouseEvent event) {
-	    	CbWishCourse.getItems().addAll("Vorspeise","Hauptspeise","Nachspeise");
+	    	CbWishCourse.getItems().addAll(Course.STARTER,Course.MAIN,Course.DESSERT);
 	    }
 	    	    
 	    boolean isValidZipCode(){
@@ -486,7 +508,20 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onBtnCallAction(ActionEvent event){
-	    	
+
+	    	validate();
+	    }
+	    
+	    List<Restriction> getRestrictionList(){
+	    	ArrayList<Restriction> selectedRestrictions = new ArrayList<>();
+	    	for(CheckBox cb : LvRestrictions.getItems()){
+	    		String restrictionName = cb.getText();
+	    		Restriction selectedRestriction = new Restriction();
+	    		selectedRestriction.setName(restrictionName);
+	    		selectedRestrictions.add(selectedRestriction);
+	    	}
+	    	return selectedRestrictions;
+
 	    }
 
 	}

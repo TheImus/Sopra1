@@ -147,7 +147,7 @@ public class TabAdjustTeamsController {
 		        	String res = item.getPerson().getName();
 		        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item)!=null){
 		        		if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item).getHost().equals(item)){
-		        			res += " (host) ";
+		        			res += " (Gastgeber) ";
 		        		}
 		        	}
 		            setText(res);
@@ -266,7 +266,7 @@ public class TabAdjustTeamsController {
 		        	String res = item.getPerson().getName();
 		        	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item)!=null){
 		        		if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getTeam(item).getHost().equals(item)){
-		        			res += " (host) ";
+		        			res += " (Gastgeber) ";
 		        		}
 		        	}
 		            setText(res);
