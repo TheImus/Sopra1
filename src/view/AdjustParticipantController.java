@@ -109,9 +109,9 @@ import model.Restriction;
 		}
 	    
 	    
-	    public boolean validate(ActionEvent event){
+	    public boolean validate(){
 	    	boolean passed = true;
-	    	Participant current;
+	    	/*Participant current;
 	    	
 	    	ParticipantController participantController = walkingDinnerController.getParticipantController();
 	    	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant() == null)
@@ -120,13 +120,12 @@ import model.Restriction;
 	    	}
 	    	else{
 		    	current = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
-	    	}
+	    	}*/
 	    	
 	    	try{
 	    		EdName.setStyle("-fx-border-color: grey;");
 	    		if(EdName.getText().equals(""))
 	    			throw new IllegalArgumentException();
-	    		participantController.setName(EdName.getText());
 	    	}
 	    	catch(IllegalArgumentException e){
 	    		EdName.setStyle("-fx-border-color: red;");
@@ -141,7 +140,7 @@ import model.Restriction;
 	    		address.setAddressAdditional(EdStreet.getText());
 	    		
 	    		
-	    		participantController.setAddress(address);
+	    		//participantController.setAddress(address);
 	    	}
 	    	catch(IllegalArgumentException e){
 	    		EdStreet.setStyle("-fx-border-color: red;");
@@ -154,7 +153,7 @@ import model.Restriction;
 	    			throw new IllegalArgumentException();
 	    		Address address = new Address();
 	    		address.setAddressAdditional(EdZipCode.getText());		
-	    		participantController.setAddress(address);
+	    		//participantController.setAddress(address);
 	    	}
 	    	catch(IllegalArgumentException e){
 	    		EdZipCode.setStyle("-fx-border-color: red;");
@@ -168,7 +167,7 @@ import model.Restriction;
 	    			throw new IllegalArgumentException("kein Value");
 	    		if(DateBirthday.getValue().isAfter(LocalDate.now()))
 	    			throw new Exception("Zeit");
-	    		participantController.setBirthDate(DateBirthday.getValue());
+	    		//participantController.setBirthDate(DateBirthday.getValue());
 	    	}
 	    	catch(IllegalArgumentException e){
 	    		DateBirthday.setStyle("-fx-border-color: red;");
@@ -182,8 +181,8 @@ import model.Restriction;
 	    	
 	    	
 	    	
-	    	if(passed)
-	    		walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(current);
+	    	//if(passed)
+	    		//walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(current);
 	    	
 	    	return passed;
 	    }
