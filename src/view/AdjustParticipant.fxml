@@ -94,7 +94,7 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </Button>
-            <ComboBox fx:id="CbAction" maxWidth="300.0" minWidth="-Infinity" onAction="#OnParticipantActionSelected" onMouseClicked="#OnParticipantAction" prefWidth="200.0" promptText="Weiter" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.vgrow="ALWAYS" />
+            <ComboBox fx:id="CbAction" maxWidth="300.0" minWidth="-Infinity" onAction="#OnParticipantActionSelected" onMouseClicked="#OnParticipantAction" prefWidth="200.0" promptText="Aktion wählen" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.vgrow="ALWAYS" />
           <Button fx:id="BtnCancel" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnCancel" prefWidth="100.0" text="Abbrechen" GridPane.halignment="LEFT">
                <GridPane.margin>
                   <Insets right="30.0" />
