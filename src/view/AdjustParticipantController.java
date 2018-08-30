@@ -229,6 +229,10 @@ import model.Restriction;
 		public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 			this.walkingDinnerController = walkingDinnerController;
 		}
+		
+		public ComboBox getCbAction(){
+			return CbAction;
+		}
 
 	    
 	    public void init(){
@@ -334,7 +338,8 @@ import model.Restriction;
 	    		CbWishCourse.setValue(courseWish);  		
 	    		
 	    		if(CbAction.getSelectionModel().getSelectedItem()!=null){	    	
-		    		CbAction.setPromptText(CbAction.getSelectionModel().getSelectedItem().toString());
+	    			CbAction.setPromptText("geändert");
+	    			//CbAction.setPromptText(CbAction.getSelectionModel().getSelectedItem().toString());
 		    		System.out.println("ändere Ansicht");
 		    	}
 	    		else{
@@ -524,11 +529,13 @@ import model.Restriction;
 
 	    @FXML
 	    void OnParticipantAction(MouseEvent event) {
-	    	
+	    	System.out.println("clicked");
 	    }
 	    
 	    @FXML
 	    void OnParticipantActionSelected(ActionEvent event){
+	    	System.out.println("selected");
+	    	refresh();
 	    }
 
 	    @FXML
