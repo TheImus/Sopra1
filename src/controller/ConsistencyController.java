@@ -76,7 +76,7 @@ public class ConsistencyController {
 			String newWarning = "";
 			newWarning+= "folgende Restriktionen koennten Problematisch sein:" + 
 					this.getText(differentR) + 
-					"bitte einmal Überpruefen fuer Team mit folgenden Mitgliedern: \n" ;
+					"bitte einmal ï¿½berpruefen fuer Team mit folgenden Mitgliedern: \n" ;
 			for(Participant p : team.getParticipants())
 			{
 				newWarning += p.getPerson().getName() + "\n";
@@ -373,7 +373,7 @@ public class ConsistencyController {
 		for(Restriction r:list) {
 			restrictions += r.getName() + ", ";
 		}
-		if(restrictions.length()>2) {
+		if(restrictions.length()>two) {
 			restrictions = restrictions.substring(0, restrictions.length()-2);	
 		}		
 		restrictions += "]";
