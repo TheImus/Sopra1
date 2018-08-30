@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -22,6 +23,7 @@ import model.Course;
 import model.Event;
 import model.Group;
 import model.Participant;
+import model.Restriction;
 import model.Team;
 
 public class ExportController {
@@ -60,14 +62,47 @@ public class ExportController {
 				for(Course course : Course.values()){
 					List<Group> groups = walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getCourses().get(course);
 					for(Group group : groups){
-						for(Team team : group.getGuest()){
+						//for(Team team : group.getGuest()){
+							Team team = group.getHostTeam();
 							for(Participant part : team.getMembers()){
 								if(part == participant){
 									//result.add(group.getHostTeam().getHost().getAddress().toString() + " f√ºr " + course.toString());
-									out.println("Du kochst " + course.toString() + " bei " + team.getHost().getPerson().getName() + " in der " + team.getHost().getAddress().toString() + ".");
+									out.println("Du kochst diesen Gang bei " + team.getHost().getPerson().getName() + " in der " + team.getHost().getAddress().toString() + ":" + course.toString());
 									for(String address : walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getAddresses(participant)){
 										out.println("Du bist ein Gast bei " + address + ".");
 									}
+								}
+							}
+							if(team.getHost().equals(participant)){
+								out.println("Bei dir wird dieser Gang gekocht: " + course.toString());
+								List<Restriction> beachte = new ArrayList<Restriction>();
+								for(Participant parti : group.getParticipants()){
+									for(Restriction rest :parti.getRestrictions()){
+										if(!beachte.contains(rest))
+											beachte.add(rest);
+									}
+								}
+								out.print("Diese Essenseinschr‰nkungen haben deine G‰ste: ");
+								for(Restriction r: beachte){
+									out.print(r.getName() +" ");
+								}
+								out.println("");
+							}
+						//}
+					}
+				}
+				
+				for(Course course : Course.values()){
+					List<Group> groups = walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getCourses().get(course);
+					for(Group group : groups){
+						for(Team team : group.getGuest()){
+							for(Participant part : team.getParticipants()){
+								if(part == participant){
+									//result.add(group.getHostTeam().getHost().getAddress().toString() + " f√ºr " + course.toString());
+									out.println( "Die " + course.toString() + " isst du bei " + group.getHostTeam().getHost().getPerson().getName() + " in der " + group.getHostTeam().getHost().getAddress().toString() + ".");
+//									for(String address : walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getAddresses(participant)){
+//										out.println("Du bist ein Gast bei " + address + ".");
+//									}
 								}
 							}
 						}

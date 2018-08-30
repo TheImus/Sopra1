@@ -10,7 +10,7 @@ public enum Course implements Serializable {
 		if 		(this.equals(STARTER)){
 			return "Vorspeise";
 		}else if(this.equals(MAIN)){
-			return "Hauptgang";
+			return "Haupspeise";
 		}else if(this.equals(DESSERT)){
 			return "Nachspeise";
 		}
