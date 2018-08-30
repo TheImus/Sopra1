@@ -79,7 +79,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 			String newWarning = "";
 			newWarning+= "Folgende Restriktionen können für Teams problematisch sein: " + 
 					this.getText(differentR) + "\n" + 
-					"Bitte überprüfen sie das Team: " + team.getHost().getPerson().getName() + "\n";
+					"Bitte überprüfen sie das Team mit Gastgeber: " + team.getHost().getPerson().getName() + "\n";
 			/*for(Participant p : team.getParticipants())
 			{
 				newWarning += "__";
@@ -387,7 +387,9 @@ public class ConsistencyController {// headerCommentRequirement Required
 	public String getText(List<Restriction> list){
 		String restrictions = "[";
 		for(Restriction r:list) {
-			restrictions += r.getName() + ", ";
+			if(!r.getName().contains("knowingRestriction")){
+					restrictions += r.getName() + ", ";
+		}
 		}
 		if(restrictions.length()>TWO) {
 			restrictions = restrictions.substring(0, restrictions.length()-2);	

@@ -125,6 +125,7 @@ import model.Restriction;
 
     		}
 	    	
+	    	
 	    	if(CbWishCourse.getSelectionModel().getSelectedItem() == null){
 	    		CbWishCourse.setStyle("-fx-border-color: red;");
 	    		passed=false;
@@ -194,12 +195,25 @@ import model.Restriction;
 	    	
 	    	
 	    	try{
+	    		boolean kAlk = false;
 	    		DateBirthday.setStyle("-fx-border-color: inherit;");
 	    		if(DateBirthday.getValue() == null)
 	    			throw new IllegalArgumentException("kein Value");
 	    		if(DateBirthday.getValue().isAfter(LocalDate.now()))
 	    			throw new Exception("Zeit");
 	    		//participantController.setBirthDate(DateBirthday.getValue());
+	    		if(LocalDate.now().minusYears(18).isBefore(DateBirthday.getValue())){
+	    			kAlk = true;
+		    		List<Restriction> rest =getRestrictions();
+		    		for(Restriction restriction: rest){
+		    			if(restriction.getName().equals("Kein Alkohol")){
+		    				kAlk = false;
+		    			}
+		    		}
+		    		
+		    	}
+	    		if(kAlk)
+	    			throw new IllegalArgumentException("");
 	    	}
 	    	catch(IllegalArgumentException e){
 	    		DateBirthday.setStyle("-fx-border-color: red;");
@@ -674,7 +688,7 @@ import model.Restriction;
 	    			if(newRestriction!=null){
 	    				selectedRestrictions.add(newRestriction);
 	    				
-	    			}	    			
+	    			}
 	    		}
 	    	}
 	    	return selectedRestrictions;
