@@ -49,8 +49,8 @@ public class ScheduleController {
 		ArrayList<Group> groups = greedyGroups(teams);
 		currentEvent.setRestriction(restrictionsWithoutKnowing);
 		*/
-		//System.out.println("There are "+teams.size()+" teams.");
-		//System.out.println("There are "+groups.size()+" groups.");
+		System.out.println("There are "+teams.size()+" teams.");
+		System.out.println("There are "+groups.size()+" groups.");
 		return groups;
 	}
 	
@@ -114,6 +114,9 @@ public class ScheduleController {
 	private ArrayList<Group> generateGroupsFromMap(HashMap<IrvingMatchable, IrvingMatchable> groupMap,
 			ArrayList<IrvingMatchable> teams) {
 		ArrayList<Group> groups = new ArrayList<Group>();
+		if(groupMap.isEmpty()){
+			return greedyGroups(teams);
+		}
 		ArrayList<IrvingMatchable> alreadyScheduled = new ArrayList<IrvingMatchable>();
 		IrvingMatchable toSchedule = null;
 		for(IrvingMatchable team:teams){
@@ -198,7 +201,7 @@ public class ScheduleController {
 		if(leftVegan != null){
 			vegetarians.add(leftVegan);
 		}		
-		//The same as above with vegetarians
+		//The same as above with vegetariansgreedyTeams(entities);
 		HashMap<IrvingMatchable, IrvingMatchable> vegetarianMap = irvingAlgorithmus(vegetarians);
 		ArrayList<Team> vegetarianTeams = generateTeamsFromMap(vegetarianMap, vegetarians);
 		Participant leftVegetarian = getLeftParticipantFromTeams(vegetarianTeams);
@@ -274,6 +277,50 @@ public class ScheduleController {
 		teams = resizeTeams(teams, leftParticipants);
 		currentEvent.setAllTeams(teams);		
 		return teams;
+	}
+	
+	private HashMap<IrvingMatchable, IrvingMatchable> greedyTeams(List<IrvingMatchable> participants){
+		HashMap<IrvingMatchable, IrvingMatchable> teams = new HashMap<IrvingMatchable, IrvingMatchable>();
+		if(participants.isEmpty()){
+			return teams;
+		}
+		ArrayList<IrvingMatchable> alreadyScheduled = new ArrayList<IrvingMatchable>();
+		ArrayList<IrvingMatchable> toSchedule = new ArrayList<IrvingMatchable>();
+		toSchedule.addAll(participants);
+		for(IrvingMatchable participant:participants){
+			if(!alreadyScheduled.contains(participant)){
+				toSchedule.remove(participant);
+				alreadyScheduled.add(participant);
+				IrvingMatchable member;
+				if(toSchedule.isEmpty()){
+					member= participant;
+				}
+				else{
+					member = findMatchingParticipantIn(toSchedule,participant);
+					toSchedule.remove(member);
+				}
+				alreadyScheduled.add(member);
+				teams.put(participant, member);
+			}
+		}
+		return teams;
+	}
+
+	private IrvingMatchable findMatchingParticipantIn(ArrayList<IrvingMatchable> participants,
+			IrvingMatchable participant) {
+		int indexOfFittingParticipant = 0;
+		int minimum = Integer.MAX_VALUE;
+		//minimum search for team with least SymmetricDifference of Restrictions
+		for(IrvingMatchable testParticipant:participants){
+			int amountOfSymDiff = Restriction.getSymmetricDifferenceForRestrictions(testParticipant.getRestrictions(), participant.getRestrictions()).size();
+			if(amountOfSymDiff < minimum){
+				minimum = amountOfSymDiff;
+				indexOfFittingParticipant = participants.indexOf(testParticipant);
+			}
+		}
+		//get the fitting team
+		IrvingMatchable fittingParticipant = participants.get(indexOfFittingParticipant);
+		return fittingParticipant;
 	}
 
 	/**
@@ -385,6 +432,9 @@ public class ScheduleController {
 	 * @return teams of participants computed from the map
 	 */
 	private ArrayList<Team> generateTeamsFromMap(HashMap<IrvingMatchable, IrvingMatchable> participantMap, ArrayList<IrvingMatchable> participants){
+		if(participantMap.isEmpty()){
+			participantMap = greedyTeams(participants);
+		}
 		ArrayList<Team> teams = new ArrayList<Team>();
 		ArrayList<Participant> alreadyScheduled = new ArrayList<Participant>();
 		for(IrvingMatchable participant:participants){
@@ -499,14 +549,16 @@ public class ScheduleController {
 		//The Phase1-Lists are a stable matching, if all list have size 1
 		for(ArrayList<Integer> entityList:entityLists){
 			assert(!entityList.isEmpty());
-			stable = entityList.size() == 1;
+			stable = stable && entityList.size() == 1;
 		}
 		//Otherwise go on with Phase2 of Irving-Algorithm
 		while(!stable){
-			entityLists = irvingPhase2(entityLists);
+			if(!irvingPhase2(entityLists)){
+				return new HashMap<IrvingMatchable, IrvingMatchable>();
+			}
 			for(ArrayList<Integer> entityList:entityLists){
 				assert(!entityList.isEmpty());
-				stable = entityList.size() == 1;
+				stable = stable && entityList.size() == 1;	
 			}
 		}	
 		//create a Map from participantLists
@@ -533,11 +585,64 @@ public class ScheduleController {
 	 * @param irvingLists
 	 * @return
 	 */
-	private ArrayList<ArrayList<Integer>> irvingPhase2(ArrayList<ArrayList<Integer>> irvingLists){
-		//TODO
-		return null;
+	private boolean irvingPhase2(ArrayList<ArrayList<Integer>> irvingLists){
+		/**
+		ArrayList<ArrayList<Integer>> phase2Lists = new ArrayList<ArrayList<Integer>>();
+		for(ArrayList<Integer> irvingList:irvingLists){
+			if(irvingList.size()>1){
+				phase2Lists.add(irvingList);
+			}
+		}
+		assert(!phase2Lists.isEmpty());
+		*/
+		HashMap<Integer, Integer> rotationPairs = new HashMap<Integer, Integer>();
+		Integer startKey = null;
+		ArrayList<Integer> list = irvingLists.get(0);
+		startKey = irvingLists.indexOf(list); //phase2Lists.indexOf(list);
+		Integer key = null;
+		int listCounter = 0;
+		while(key != startKey && listCounter < irvingLists.size()){
+			if(list.size()>1){
+				Integer value = list.get(1);
+				ArrayList<Integer> valueList = irvingLists.get((int)value);
+				assert(valueList.size()>1);
+				key = valueList.get(valueList.size()-1);
+				list = irvingLists.get(key);
+				rotationPairs.put(key, value);
+			}
+			listCounter++;
+			/**
+			Integer value = list.get(1);
+			ArrayList<Integer> valueList = phase2Lists.get((int)value);
+			assert(valueList.size()>1);
+			key = valueList.get(valueList.size()-1);
+			list = phase2Lists.get(key);
+			rotationPairs.put(key, value);
+			*/
+		}
+		return removeRotationsFromLists(irvingLists, rotationPairs);
 	}
 	
+	private boolean removeRotationsFromLists(ArrayList<ArrayList<Integer>> irvingLists,
+			HashMap<Integer, Integer> rotationPairs) {
+		boolean returnValue = false;
+		if(rotationPairs.isEmpty()){
+			return returnValue;
+		}
+		for(ArrayList<Integer> list:irvingLists){
+			Integer key = irvingLists.indexOf(list);
+			if(rotationPairs.containsKey(key)){
+				assert(list.size()>1);
+				Integer value = rotationPairs.get(key);
+				list.remove(value);
+				ArrayList<Integer> valueList = irvingLists.get(value);
+				valueList.remove(key);
+				returnValue = true;
+			}
+		}
+		return returnValue;
+	}
+
 	/**
 	 * Sort indexes of an array by their value
 	 * @author sopr026
