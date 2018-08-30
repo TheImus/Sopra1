@@ -1,5 +1,7 @@
 package view;
 
+import java.io.File;
+
 import controller.WalkingDinnerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Event;
 
@@ -147,8 +150,47 @@ public class TabsOverviewController {
 
     @FXML
     void onSaveTabsOverview(ActionEvent event) {
+    	
+    	if(walkingDinnerController.getWalkingDinner().getFileName().equals(""))
+    		onMenuSaveFileAs(event);
+    	else
     	WalkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), walkingDinnerController.getWalkingDinner().getFileName());
     }
+    
+    void onMenuSaveFileAs(ActionEvent event) {
+    	
+
+    	FileChooser fileChooser = new FileChooser();
+        	
+        	fileChooser.getExtensionFilters().addAll(
+    			    new FileChooser.ExtensionFilter("WDF", "*.wdf")
+    		);
+            
+            //Set extension filter
+            //FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF-Dateien (*.pdf)", "*.pdf");
+            //fileChooser.getExtensionFilters().add(extFilter);
+            fileChooser.setInitialFileName("walkingDinner.wdf");
+            fileChooser.setTitle("Walking Dinner speichern");
+            
+            //Show save file dialog
+            File file = fileChooser.showSaveDialog(null);
+            
+            if (file != null) {
+                try {
+                	String filename = file.getAbsolutePath();
+                	if (!file.getName().endsWith("wdf")) {
+                		filename += ".wdf";
+                	}
+                	
+                	walkingDinnerController.getWalkingDinner().setFileName(filename);
+                	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(), walkingDinnerController.getWalkingDinner().getFileName());
+                	
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+        }
 
 
 }
