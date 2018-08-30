@@ -303,11 +303,19 @@ import model.Restriction;
 	    		EdSpecialWished.setText(currentParticipant.getSpecialNeeds());
 	    		EdPlace.setText(currentParticipant.getAddress().getCity());
 	    		EdStreet.setText(currentParticipant.getAddress().getStreet());
+	    		EdEMail.setText(currentParticipant.getPerson().getMailAddress());
 	    		DateBirthday.setValue(currentParticipant.getPerson().getBirthDate());
 	    		
 	    		Course courseWish = currentParticipant.getCourseWish();
 	    		CbWishCourse.setValue(courseWish);  		
 	    		
+	    		if(CbAction.getSelectionModel().getSelectedItem()!=null){	    	
+		    		CbAction.setPromptText(CbAction.getSelectionModel().getSelectedItem().toString());
+		    		System.out.println("ändere Ansicht");
+		    	}
+	    		else{
+	    			CbAction.setPromptText("weiter");
+	    		}
 	    	}	
 	    }
 	    
@@ -482,7 +490,7 @@ import model.Restriction;
 
 	    @FXML
 	    void OnParticipantAction(MouseEvent event) {
-	    	//CbAction.getItems().add("hi");
+	    	
 	    }
 	    
 	    @FXML
@@ -558,6 +566,7 @@ import model.Restriction;
 	    			address.setStreet(EdStreet.getText());
 	    			address.setZipCode(EdZipCode.getText());
 	    			partCont.setAddress(address);
+	    			partCont.setMail(EdEMail.getText());
 	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
 	    			partCont.setWishes(EdSpecialWished.getText());
 	    			List<Restriction> restList = getRestrictions();
@@ -579,6 +588,7 @@ import model.Restriction;
 	    			address.setStreet(EdStreet.getText());
 	    			address.setZipCode(EdZipCode.getText());
 	    			partCont.setAddress(address);
+	    			partCont.setMail(EdEMail.getText());
 	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
 	    			partCont.setWishes(EdSpecialWished.getText());
 	    			List<Restriction> restList = getRestrictions();
@@ -598,6 +608,7 @@ import model.Restriction;
 	    			address.setStreet(EdStreet.getText());
 	    			address.setZipCode(EdZipCode.getText());
 	    			partCont.setAddress(address);
+	    			partCont.setMail(EdEMail.getText());
 	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
 	    			partCont.setWishes(EdSpecialWished.getText());
 	    			List<Restriction> restList = getRestrictions();
