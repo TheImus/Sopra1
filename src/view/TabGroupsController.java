@@ -122,6 +122,7 @@ public class TabGroupsController implements TeamsAUI {
     	Course course = cbCourse.getSelectionModel().getSelectedItem();
     	if (course != null) {
     		walkingDinnerController.getGroupController().setCourse(course);
+    		selectedGroup = null; // no group is now selected
     		refreshAll();
     	}
     }
