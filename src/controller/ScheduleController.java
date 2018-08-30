@@ -1,13 +1,20 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
-import model.*;
+
+import model.Course;
+import model.Event;
+import model.Group;
+import model.IrvingMatchable;
+import model.Participant;
+import model.Person;
+import model.Restriction;
+import model.Schedule;
+import model.Team;
+import model.WalkingDinner;
 
 /**
  * @author sopr026
