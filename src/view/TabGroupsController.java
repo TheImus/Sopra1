@@ -330,7 +330,7 @@ public class TabGroupsController implements TeamsAUI {
     private void refreshGroupList() {
     	// fill groups list
     	listGroups.getItems().clear();
-    	List<model.Group> groups = walkingDinnerController.getGroupController().getGroups();
+        List<model.Group> groups = walkingDinnerController.getGroupController().getGroups();	
     	listGroups.getItems().addAll(groups);
     	
     	if (currentGroup != null && groups.contains(currentGroup)) {

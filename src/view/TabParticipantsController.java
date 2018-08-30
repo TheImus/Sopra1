@@ -3,6 +3,7 @@ import java.io.File;
 import java.util.List;
 
 import controller.ExportController;
+import controller.ParticipantAction;
 import controller.WalkingDinnerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -197,6 +198,7 @@ public class TabParticipantsController {
    			AdjustParticipantController adjustParticipantController = (AdjustParticipantController) loader.getController();
    			adjustParticipantController.setWalkingDinnerController(walkingDinnerController);
    			adjustParticipantController.init();
+   			adjustParticipantController.getCbAction().getSelectionModel().select(ParticipantAction.REGISTER_NEW_PERSON);
    			Scene scene = new Scene(root);
    			
    			((Stage)GridPaneParticipants.getScene().getWindow()).setScene(scene);
