@@ -57,6 +57,7 @@ public class TeamController {
 			list.add(participant);
 			team.setMembers(list);
 		}
+		teamsAUI.refreshTeams();
 	}
 
 	/** removes the given participant from the given team.  
@@ -78,8 +79,6 @@ public class TeamController {
 				deleteTeamFromEvent(team);
 				//find = walkingDinnerController.getWalkingDinner().getCurrentEvent().getParticipants().contains(participant);
 				// tell the GUI that the team is now deleted
-				teamsAUI.refreshTeams();
-				
 			} 
 			else if (team.getHost().equals(participant)) {
 				List<Participant> list = team.getMembers();
@@ -94,6 +93,7 @@ public class TeamController {
 				team.setMembers(list);
 			}
 		}
+		teamsAUI.refreshTeams();
 	}
 
 	/**
