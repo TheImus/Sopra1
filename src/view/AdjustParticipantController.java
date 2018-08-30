@@ -597,6 +597,9 @@ import model.Restriction;
 	    		
 	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
 	    			Participant newPart = new Participant();
+	    			if(currentEvent.getCurrentParticipant()!=null){
+	    				newPart = currentEvent.getCurrentParticipant();
+	    			}
 	    			newPart.setPerson(currentEvent.getCurrentParticipant().getPerson());
 	    			currentEvent.setCurrentParticipant(newPart);
 	    			partCont.setName(EdName.getText());

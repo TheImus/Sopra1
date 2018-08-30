@@ -14,7 +14,7 @@ public enum ParticipantAction {
 		
 		//return result;
 		switch(this){
-		case REGISTER: result = "Registrieren"; break;
+		case REGISTER: result = "Anmelden"; break;
 		case UNREGISTER: result = "Abmelden"; break;
 		case REGISTER_NEW_PERSON: result = "Neue Person registrieren"; break;
 		case UPDATE_PARTICIPANT: result = "Teilnehmer aktualisieren"; break;
