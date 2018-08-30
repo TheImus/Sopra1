@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import controller.ParticipantAction;
 import controller.ParticipantController;
+import controller.RestrictionController;
 import controller.WalkingDinnerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -500,6 +501,7 @@ import model.Restriction;
 	    void onBtnCallAction(ActionEvent event){
 	    	if(validate()){
 	    		ParticipantController partCont = walkingDinnerController.getParticipantController();
+	    		RestrictionController restCont = walkingDinnerController.getRestrictionController();
 	    		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 	    		if(CbAction.getSelectionModel().getSelectedItem()==ParticipantAction.REGISTER){
 	    			Participant newPart = new Participant();
@@ -514,6 +516,8 @@ import model.Restriction;
 	    			partCont.setAddress(address);
 	    			partCont.setCoursePreference(CbWishCourse.getSelectionModel().getSelectedItem());
 	    			partCont.setWishes(EdSpecialWished.getText());
+	    			//List<Restriction> restList = getRestrictions();
+	    			//restCont.setParticipantRestrictions(restList);
 	    			
 	    			currentEvent.getParticipants().add(newPart);
 	    			
