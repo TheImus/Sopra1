@@ -104,6 +104,8 @@ import model.Restriction;
 	    
 	    private WalkingDinnerController walkingDinnerController;
 	    
+	    private RestrictionController restrictionController = walkingDinnerController.getRestrictionController();
+	    
 	    
 	    public WalkingDinnerController getWalkingDinnerController() {
 			return walkingDinnerController;
