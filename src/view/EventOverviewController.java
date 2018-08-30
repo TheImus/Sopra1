@@ -196,7 +196,16 @@ public class EventOverviewController {
     @FXML
     void onMenuNewFile(ActionEvent event) {
     	
-
+    	
+    	onMenuSaveFile(event);
+    	
+    	try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     	
     	FileChooser fileChooser = new FileChooser();
 
@@ -210,6 +219,7 @@ public class EventOverviewController {
         fileChooser.setTitle("Walking Dinner speichern");
         
         //Show save file dialog
+        fileChooser.setTitle("Neue Datei");
         File file = fileChooser.showSaveDialog(null);
         
         if (file != null) {
@@ -237,13 +247,27 @@ public class EventOverviewController {
     @FXML
     void onMenuOpenFile(ActionEvent event) {
     	
+    	
+    	
+    	onMenuSaveFile(event);
+    	
+    	try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
     	FileChooser fileChooser = new FileChooser();
     	
     	fileChooser.getExtensionFilters().addAll(
 			    new FileChooser.ExtensionFilter("WDF", "*.wdf")
 		);
-    	walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(),walkingDinnerController.getWalkingDinner().getFileName());
+    	
+    	fileChooser.setTitle("Datei Öffnen");
     	File file = fileChooser.showOpenDialog(null);
+    	
+    	
 
     	walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel(file.getPath()));
     	walkingDinnerController.getWalkingDinner().setFileName(file.getPath());
