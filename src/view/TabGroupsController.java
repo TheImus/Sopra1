@@ -68,6 +68,10 @@ public class TabGroupsController implements TeamsAUI {
     		Team team = selectedTeam.getTeam();
     		walkingDinnerController.getGroupController().removeTeamFromGroup(team, currentGroup);
     		
+    		if (currentGroup.getParticipants().size() == 0) {
+    			currentGroup = null;
+    		}
+    		
     		refreshAll();
     	}
     }
