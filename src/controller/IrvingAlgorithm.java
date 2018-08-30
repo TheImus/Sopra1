@@ -179,7 +179,12 @@ public class IrvingAlgorithm {
 		}
 		return removeRotationsFromLists(irvingLists, rotationPairs);
 	}
-	
+	/**
+	 * Removes the value from the key-indexed list and key from value-indexed list
+	 * @param irvingLists
+	 * @param rotationPairs
+	 * @return true, if a rotation has been removed
+	 */
 	private static boolean removeRotationsFromLists(ArrayList<ArrayList<Integer>> irvingLists,
 			HashMap<Integer, Integer> rotationPairs) {
 		boolean returnValue = false;
