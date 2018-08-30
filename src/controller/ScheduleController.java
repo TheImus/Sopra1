@@ -13,9 +13,7 @@ import model.*;
  * @author sopr026
  */
 public class ScheduleController {
-
-	private WalkingDinnerController walkingDinnerController;
-	
+	private WalkingDinnerController walkingDinnerController;	
 	/**
 	 * Create a new ScheduleController with a reference to
 	 * the central WalkingDinnerController.
@@ -25,7 +23,6 @@ public class ScheduleController {
 	public ScheduleController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
 	}
-
 	/**
 	 * This method implements the scheduling for teams into valid groups for one course and is
 	 * referring to the knowing-Relation and therefore other already scheduled courses.
@@ -50,7 +47,11 @@ public class ScheduleController {
 		currentEvent.setRestriction(restrictionsWithoutKnowing);
 		return groups;
 	}
-	
+	/**
+	 * Returns a GroupScheduling with a greedy algorithm
+	 * @param teams
+	 * @return groupSchedule
+	 */
 	private ArrayList<Group> greedyGroups(ArrayList<IrvingMatchable> teams){
 		ArrayList<Group> groups = new ArrayList<Group>();
 		assert(teams.size()%3==0);
@@ -78,7 +79,11 @@ public class ScheduleController {
 		}
 		return groups;
 	}
-
+	/**
+	 * Generates KnowingRelations from the knowingMap
+	 * @param knowingMap
+	 * @return A list of knowingRestrictions generated from the knowingMap
+	 */
 	private ArrayList<Restriction> generateRestrictionsFromMap(Map<Person, List<Person>> knowingMap) {
 		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
 		List<Participant> participants = currentEvent.getParticipants();
@@ -107,7 +112,12 @@ public class ScheduleController {
 		}
 		return restrictions;
 	}
-
+	/**
+	 * Schedules the teams into groups referring to groupMap
+	 * @param groupMap
+	 * @param teams
+	 * @return Schedule of Groups
+	 */
 	private ArrayList<Group> generateGroupsFromMap(HashMap<IrvingMatchable, IrvingMatchable> groupMap,
 			ArrayList<IrvingMatchable> teams) {
 		ArrayList<Group> groups = new ArrayList<Group>();
@@ -140,7 +150,12 @@ public class ScheduleController {
 		}
 		return groups;
 	}
-
+	/**
+	 * returns best-matching team
+	 * @param teams
+	 * @param team
+	 * @return best-matching-team for team-parameter
+	 */
 	private IrvingMatchable findMatchingTeamIn(ArrayList<IrvingMatchable> teams, IrvingMatchable team) {
 		int indexOfFittingTeam = 0;
 		int minimum = Integer.MAX_VALUE;
@@ -156,7 +171,6 @@ public class ScheduleController {
 		IrvingMatchable fittingTeam = teams.get(indexOfFittingTeam);
 		return fittingTeam;
 	}
-
 	/**
 	 * This method implements the first step of the scheduling-algorithm and
 	 * generates a List of valid Teams of 2-3 members from all participants
@@ -274,8 +288,12 @@ public class ScheduleController {
 		teams = resizeTeams(teams, leftParticipants);
 		currentEvent.setAllTeams(teams);		
 		return teams;
-	}
-	
+	}	
+	/**
+	 * Alternative greedy-algorithm for Team-Scheduling
+	 * @param participants
+	 * @return ParticipantMap of Teams
+	 */
 	private HashMap<IrvingMatchable, IrvingMatchable> greedyTeams(List<IrvingMatchable> participants){
 		HashMap<IrvingMatchable, IrvingMatchable> teams = new HashMap<IrvingMatchable, IrvingMatchable>();
 		if(participants.isEmpty()){
@@ -302,7 +320,12 @@ public class ScheduleController {
 		}
 		return teams;
 	}
-
+	/**
+	 * Returns best-matching participant
+	 * @param participants
+	 * @param participant
+	 * @return best-matching-participant for participant-parameter
+	 */
 	private IrvingMatchable findMatchingParticipantIn(ArrayList<IrvingMatchable> participants,
 			IrvingMatchable participant) {
 		int indexOfFittingParticipant = 0;
@@ -319,7 +342,6 @@ public class ScheduleController {
 		IrvingMatchable fittingParticipant = participants.get(indexOfFittingParticipant);
 		return fittingParticipant;
 	}
-
 	/**
 	 * Creates a Map for each Participant and the Persons
 	 * he has met in WalkingDinners.
@@ -340,17 +362,14 @@ public class ScheduleController {
 			}
 			knowingMap.put(person, knowingList);
 		}
-		return knowingMap;
-		
+		return knowingMap;		
 	}
-
 	/**
 	 * @return Returns the actually set WalkingDinnerController
 	 */
 	public WalkingDinnerController getWalkingDinnerController() {
 		return walkingDinnerController;
 	}
-
 	/**
 	 * Set the walkingDinnerController-attribute to the given WalkingDinnerController-Entity.
 	 * You should use the parametered constructor to set this attribute when constructing the object.
@@ -358,8 +377,7 @@ public class ScheduleController {
 	 */
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
-	}
-	
+	}	
 	/**
 	 * Resizes the teams of 2 into teams of 3 with the left participants
 	 * @param teams - all teams that have to be resized
@@ -375,8 +393,7 @@ public class ScheduleController {
 		}
 		assert(teams.size()%3==0);
 		return teams;
-	}
-	
+	}	
 	/**
 	 * Searching through all teams of two and adding the participant
 	 * to the one, were the Restrictions fits best
@@ -404,8 +421,7 @@ public class ScheduleController {
 		fittingTeam.setMembers(members);
 		teams.set(indexOfFittingTeam, fittingTeam);
 		return teams;
-	}
-	
+	}	
 	/**
 	 * The algorithm returns left participants (there are left ones, if |participants| is odd)
 	 * as a team, where the participant is the host and the member
@@ -421,7 +437,6 @@ public class ScheduleController {
 		}
 		return null;
 	}
-	
 	/**
 	 * Takes a Map of Participants and computes the teams from it.
 	 * @param participantMap - relation of team-members
