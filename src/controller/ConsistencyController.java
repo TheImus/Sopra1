@@ -189,7 +189,7 @@ public class ConsistencyController {
 		 warnings.addAll(checkGroupCourses(group));	
 		    
 	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
-	    if(differentR != null && differentR.size() > 0) {														// check if there are any restrictions that don't match
+	    if(differentR != null && !differentR.isEmpty()) {										
 			String warning = "Folgende Restriktionen könnten für Gruppen Problematisch sein:" + 
 					getText(differentR) + 
 					".\n  Bitte überprüfen sie diese für folgende Teams: ";
@@ -386,7 +386,7 @@ public class ConsistencyController {
 			knowingMap.put(person, knowingList);
 		}
 		return knowingMap;		
-	}
+	}//help
 	
 	public String getText(List<Restriction> list){
 		String restrictions = "[";
