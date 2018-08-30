@@ -130,6 +130,18 @@ import model.Restriction;
 	    	}
 	    	
 	    	try{
+	    		CbWishCourse.setStyle("-fx-border-color: grey;");
+	    		if(CbWishCourse.getSelectionModel().getSelectedItem() == null)
+	    			throw new IllegalArgumentException();
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		CbWishCourse.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	
+	    	
+	    	try{
 	    		EdStreet.setStyle("-fx-border-color: grey;");
 	    		if(EdStreet.getText().equals(""))
 	    			throw new IllegalArgumentException();
