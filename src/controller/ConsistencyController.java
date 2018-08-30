@@ -155,6 +155,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 			if(!group.equals(testGroup)){
 				if(testGroup.getHostTeam().equals(group.getHostTeam())){
 					warnings.add("Team mit Gastgeber " + group.getHostTeam().getHost().getPerson().getName() + " kocht mehrmals.");
+					return warnings;
 				}
 			}
 		}
