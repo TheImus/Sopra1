@@ -312,6 +312,7 @@ public class TabAdjustTeamsController {
     	ListTeams.getSelectionModel().select(null);
     	selectedTeam = null;
     	refresh();
+    	getWalkingDinnerController().getTeamController().getTeamsAUI().refreshTeams();
     }
 
     
