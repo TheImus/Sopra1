@@ -1,17 +1,17 @@
 package controller;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import model.Address;
 import model.Course;
 import model.Group;
 import model.Participant;
@@ -33,8 +33,6 @@ public class ExportController {
 		}*/
 	}
 	
-	//public void export()
-
 	/**
 	 * the method exports all individual data from all participants given by a List of participants into the file path
 	 * @param participant name of a list of all participants you want to export
@@ -88,6 +86,56 @@ public class ExportController {
 			participant.setChangedSinceExport(false);
 		}
 	}
+	
+	
+	
+	/**
+	 * Create a temporary directory
+	 */
+	public Path createTemporaryDirectory() {
+		try {
+			Path tempDirectory = Files.createTempDirectory("walkingDinner");
+			return tempDirectory;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	
+	
+	public void exportInvitations(Path fileName) {
+		// create a temporary directory with the latex files
+		Path tempDirectory = this.createTemporaryDirectory();
+		exportInvitationTexFile(Paths.get(tempDirectory.toString(), "invitation.tex"));
+		
+		
+	}
+	
+	
+	/**
+	 * Exports the main tex file for invitations
+	 */
+	private void exportInvitationTexFile(Path latexFile) {
+		// generate a latex document
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(latexFile.toString(), "UTF-8");
+			writer.println("\\documentclass[fontsize=12pt,version=last,parskip=full]{scrlttr2}");
+			writer.println("\\usepackage[utf8]{inputenc}\\usepackage[ngerman]{babel}\\usepackage{datatool}");
+			writer.println("\\LoadLetterOption{DIN}\\LoadLetterOption{invitationoptions}");
+			writer.println("\\DTLsetseparator{;}\\DTLloaddb[noheader,keys={name,street,zip,place}]{adressen}{addresses.csv}");
+			writer.println("\\begin{document}\\DTLforeach{adressen}{\\Name=name,\\Str=street,\\ZIP=zip,\\Place=place}%");
+			writer.println("{\\begin{letter}{\\Name \\\\ \\Str \\\\ \\ZIP~\\Place}");
+			writer.println("\\opening{Sehr geehrte Damen und Herren,}\\input{invitation.txt}\\end{letter}}\\end{document}");
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	/**
 	 * the method is getting the walkingDinnerController so it can access other classes
