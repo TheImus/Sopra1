@@ -20,10 +20,10 @@ import model.WalkingDinner;
  */
 public class ConsistencyController {// headerCommentRequirement Required
 	
-	private static final int zero = 0;
-	private static final int one = 1;
-	private static final int two = 2;
-	private static final int three = 3;
+	private static final int ZERO = 0;
+	private static final int ONE = 1;
+	private static final int TWO = 2;
+	private static final int THREE = 3;
 
 	private WalkingDinnerController walkingDinnerController;
 	
@@ -49,8 +49,8 @@ public class ConsistencyController {// headerCommentRequirement Required
 		List<String> warnings = new ArrayList<String>();
 		int size = walkingDinnerController.getGroupController().getAllGroups().size();
 		
-		if(size == zero) warnings.add("Keine Gruppen im Event.");
-		if(size %3 != zero)	warnings.add("Die Anzahl der Gruppen ist kein Vielfaches von 3.");
+		if(size == ZERO) warnings.add("Keine Gruppen im Event.");
+		if(size %3 != ZERO)	warnings.add("Die Anzahl der Gruppen ist kein Vielfaches von 3.");
 		
 		return warnings;
 	}
@@ -162,13 +162,11 @@ public class ConsistencyController {// headerCommentRequirement Required
 	 * @return Returns a list with all warnings for the group
 	 */
 	public List<String> getWarnings(Group group) {
-		
 		List<String> warnings = new ArrayList<String>();								//return List with all warnings
 		List<Participant> allParticipantsInGroup = new ArrayList<Participant>();		//List with all participants in the group
 		List<Person> allPersonsInGroup = new ArrayList<Person>();						//List with all Persons in the group
 		GroupController groupController = walkingDinnerController.getGroupController();
 		Course courseAtTheBeginning = groupController.getCourse();
-		
 		groupController.setCourse(Course.STARTER);
 		for(int i = 0; i<group.getTeams().size(); i++) {								//saves all participants in the group
 			allParticipantsInGroup.addAll(group.getTeams().get(i).getParticipants());
@@ -176,19 +174,15 @@ public class ConsistencyController {// headerCommentRequirement Required
 		for(int i = 0; i<allParticipantsInGroup.size(); i++) {							//saves all participants in the group as persons
 			allPersonsInGroup.add(allParticipantsInGroup.get(i).getPerson());
 		}
-		
 		warnings.addAll(groupSizeWarnings(group));
-		
 		if(knowingRelation(allPersonsInGroup) != null && !knowingRelation(allPersonsInGroup).isEmpty()){
 			warnings.addAll(knowingRelation(allPersonsInGroup)); 							//checks if any persons in the group know each other
 		}
-		
 		warnings.addAll(checkGroupCourses(group));								//checks if any team in the group has another group with the same course (Starter) already
 		groupController.setCourse(Course.MAIN);
 		warnings.addAll(checkGroupCourses(group));									//checks if any team in the group has another group with the same course (Main) already
 		groupController.setCourse(Course.DESSERT);
-		warnings.addAll(checkGroupCourses(group));	
-		    
+		warnings.addAll(checkGroupCourses(group));
 	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
 	    if(differentR != null && !differentR.isEmpty()) {										
 			String warning = "Folgende Restriktionen könnten für Gruppen Problematisch sein:" + 
@@ -199,18 +193,15 @@ public class ConsistencyController {// headerCommentRequirement Required
 	    	}
 	    	warning = warning.substring(0, warning.length() - 2);
 	    	warning += ".";
-	    	
 			warnings.add(warning);
 		}	
-	    
 	    List<Team> teams = group.getTeams();
 	    int anzahlDrei = 0;
 	    for(Team team: teams){
-	    	if (team.getParticipants().size() > two)
+	    	if (team.getParticipants().size() > TWO)
 	    		anzahlDrei++;
 	    }
-	    
-	    if(anzahlDrei > one){
+	    if(anzahlDrei > ONE){
 	    	warnings.add("In dieser Gruppe sind mehr als ein 3er Team.");
 	    }
 	    groupController.setCourse(courseAtTheBeginning);
@@ -323,11 +314,11 @@ public class ConsistencyController {// headerCommentRequirement Required
 		int groupSize = group.getTeams().size();
 		List<String> warnings = new ArrayList<String>();
 		
-		if(groupSize < three){												//checks if group size is below 3
+		if(groupSize < THREE){												//checks if group size is below 3
 			warnings.add("Die Gruppe ist zu klein.");
 		}
 		
-		if(groupSize > three){												//checks if group size is more than 3
+		if(groupSize > THREE){												//checks if group size is more than 3
 			warnings.add("Die Gruppe ist zu groß.");
 		}
 		
@@ -339,7 +330,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 			//warnings.add("Es sind keine Gastteams vorhanden.");
 		}
 		
-		if(group.getGuest().size() > two)												//checks if there are the correct amount of guest teams
+		if(group.getGuest().size() > TWO)												//checks if there are the correct amount of guest teams
 		{
 			//warnings.add("Es sind zu viele Gastteams vorhanden.");
 		}
@@ -355,15 +346,15 @@ public class ConsistencyController {// headerCommentRequirement Required
 	{
 		List<String> warnings = new ArrayList<String>();
 		
-		if(team.getParticipants().size() == zero) {												// check teamsize and save warning in list if the size is not correct
+		if(team.getParticipants().size() == ZERO) {												// check teamsize and save warning in list if the size is not correct
 			warnings.add("Das Team ist leer und kann gelöscht werden.");
 		}
 		
-		if(team.getParticipants().size() == one) {												
+		if(team.getParticipants().size() == ONE) {												
 			warnings.add("In dem Team befindet sich nur eine Person.");
 		}
 		
-		if(team.getParticipants().size() > three) {
+		if(team.getParticipants().size() > THREE) {
 			warnings.add("Die Teamgröße ist größer als 3");
 		}
 		return warnings;
@@ -394,7 +385,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 		for(Restriction r:list) {
 			restrictions += r.getName() + ", ";
 		}
-		if(restrictions.length()>two) {
+		if(restrictions.length()>TWO) {
 			restrictions = restrictions.substring(0, restrictions.length()-2);	
 		}		
 		restrictions += "]";
