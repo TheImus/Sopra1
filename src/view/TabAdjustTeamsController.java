@@ -66,12 +66,14 @@ public class TabAdjustTeamsController {
 
     @FXML
     void OnBtnAddToTeam(ActionEvent event) {
-    	if(selectedTeam.getParticipants().size()>0){
-    		Participant selected = ListFreeParticipants.getSelectionModel().getSelectedItem();
-    		if(selected!=null){
-    			Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
-    			teamController.addParticipantToTeam(selectedTeam, selected);
-    			refresh();
+    	if(selectedTeam!=null){    	
+	    	if(selectedTeam.getParticipants().size()>0){
+	    		Participant selected = ListFreeParticipants.getSelectionModel().getSelectedItem();
+	    		if(selected!=null){
+	    			Team selectedTeam = ListTeams.getSelectionModel().getSelectedItem();
+	    			teamController.addParticipantToTeam(selectedTeam, selected);
+    				refresh();
+    			}
     		}
     	}
     }

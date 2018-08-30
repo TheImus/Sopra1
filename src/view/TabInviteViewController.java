@@ -195,6 +195,7 @@ public class TabInviteViewController {
             	}
             	
             	//getWalkingDinnerController().getInvitationController().exportPDF(filename);
+            	getWalkingDinnerController().getExportController().exportInvitations(path);
             	
             } catch (Exception e) {
                 System.out.println(e.getMessage());
