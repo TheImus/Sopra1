@@ -29,6 +29,17 @@
     <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
+      <Label text="Teilnehmer bearbeiten" GridPane.columnIndex="1">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets bottom="10.0" top="15.0" />
+         </GridPane.margin>
+      </Label>
       <GridPane prefHeight="94.0" prefWidth="570.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
@@ -50,17 +61,17 @@
             <Label text="Name" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <Label text="Geburtstag" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <Label text="Straße" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <Label text="Adresszusatz" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
             <Label text="PLZ/Ort" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <Label text="Adresszusatz" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+            <Label text="E-Mail" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
             <Label text="Wunschgang" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
             <Label text="Sonderwünsche" translateX="-8.0" translateY="7.0" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="TOP" />
-            <DatePicker fx:id="DateBirthday" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextArea fx:id="EdSpecialWished" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
-               <GridPane.margin>
-                  <Insets top="2.0" />
-               </GridPane.margin>
-            </TextArea>
             <TextField fx:id="EdName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="DateBirthday" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="EdStreet" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
@@ -72,11 +83,11 @@
             <TextField fx:id="EdAddressExtra" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="EdEMail" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <ComboBox fx:id="CbWishCourse" onMouseClicked="#OnWishCourseClicked" prefWidth="200.0" promptText="Gang" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label text="E-Mail" translateX="-8.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+            <TextArea fx:id="EdSpecialWished" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <GridPane.margin>
-                  <Insets />
+                  <Insets top="2.0" />
                </GridPane.margin>
-            </Label>
+            </TextArea>
          </children>
       </GridPane>
       <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -89,15 +100,15 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="BtnCallAction" defaultButton="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnCallAction" prefWidth="100.0" text="Ausführen" GridPane.columnIndex="2">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
-            </Button>
-            <ComboBox fx:id="CbAction" maxWidth="300.0" minWidth="-Infinity" onAction="#OnParticipantActionSelected" onMouseClicked="#OnParticipantAction" prefWidth="200.0" promptText="Aktion wählen" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.vgrow="ALWAYS" />
           <Button fx:id="BtnCancel" cancelButton="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnCancel" prefWidth="100.0" text="Abbrechen" GridPane.halignment="LEFT">
                <GridPane.margin>
                   <Insets right="30.0" />
+               </GridPane.margin>
+            </Button>
+            <ComboBox fx:id="CbAction" maxWidth="300.0" minWidth="-Infinity" onAction="#OnParticipantActionSelected" onMouseClicked="#OnParticipantAction" prefWidth="200.0" promptText="Aktion wählen" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.vgrow="ALWAYS" />
+            <Button fx:id="BtnCallAction" defaultButton="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBtnCallAction" prefWidth="100.0" text="Ausführen" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets left="15.0" />
                </GridPane.margin>
             </Button>
          </children>
@@ -107,17 +118,7 @@
             <Insets bottom="5.0" top="10.0" />
          </GridPane.margin>
       </Label>
-      <Label text="Teilnehmer bearbeiten" GridPane.columnIndex="1">
-         <font>
-            <Font size="18.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <GridPane.margin>
-            <Insets bottom="10.0" top="15.0" />
-         </GridPane.margin>
-      </Label>
+      <ListView fx:id="LvRestrictions" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <GridPane GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" />
@@ -128,19 +129,18 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="BtnEdit" maxWidth="200.0" mnemonicParsing="false" onAction="#onEditRestriction" text="Bearbeiten" GridPane.columnIndex="2">
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
-            </Button>
+            <TextField fx:id="EdRestriction" maxWidth="300.0" minWidth="-Infinity" prefWidth="150.0" GridPane.halignment="RIGHT" />
           <Button fx:id="BtnNewRestriction" maxWidth="200.0" mnemonicParsing="false" onAction="#OnCreateNewRestriction" text="Neue Einschränkung" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="15.0" />
                </GridPane.margin>
             </Button>
-            <TextField fx:id="EdRestriction" maxWidth="300.0" minWidth="-Infinity" prefWidth="150.0" GridPane.halignment="RIGHT" />
+            <Button fx:id="BtnEdit" maxWidth="200.0" mnemonicParsing="false" onAction="#onEditRestriction" text="Bearbeiten" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets left="15.0" />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
-      <ListView fx:id="LvRestrictions" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
 </GridPane>

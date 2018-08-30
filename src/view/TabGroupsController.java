@@ -41,7 +41,7 @@ public class TabGroupsController implements TeamsAUI {
     @FXML private Button btnGenerateGroups;
     @FXML private TextArea textWarnings;
 	
-	private model.Group selectedGroup;
+	private model.Group currentGroup;
 	private WalkingDinnerController walkingDinnerController;
     
     /**
@@ -51,8 +51,8 @@ public class TabGroupsController implements TeamsAUI {
     @FXML
     void onBtnAddTeamToGroup(ActionEvent event) {
     	Team selectedTeam = listFreeTeams.getSelectionModel().getSelectedItem();
-    	if (selectedTeam != null && selectedGroup != null) {
-    		walkingDinnerController.getGroupController().addTeamToGroup(selectedTeam, selectedGroup);
+    	if (selectedTeam != null && currentGroup != null) {
+    		walkingDinnerController.getGroupController().addTeamToGroup(selectedTeam, currentGroup);
     		refreshAll();
     	}
     }
@@ -64,11 +64,12 @@ public class TabGroupsController implements TeamsAUI {
     @FXML
     void onBtnRemoveTeamFromGroup(ActionEvent event) {
     	SelectedGroupTeam selectedTeam = listSelectedGroup.getSelectionModel().getSelectedItem();
-    	if (selectedTeam != null && selectedGroup != null) {
+    	if (selectedTeam != null && currentGroup != null) {
     		Team team = selectedTeam.getTeam();
-    		walkingDinnerController.getGroupController().removeTeamFromGroup(team, selectedGroup);
+    		walkingDinnerController.getGroupController().removeTeamFromGroup(team, currentGroup);
     		
     		// refresh
+    		System.out.println("REFRESH IN BTN REMOVE");
     		refreshAll();
     	}
     }
@@ -82,9 +83,9 @@ public class TabGroupsController implements TeamsAUI {
     	SelectedGroupTeam selectedTeam = listSelectedGroup.getSelectionModel().getSelectedItem();
     	
     	// swap the selected team with host
-    	if (selectedTeam != null && selectedGroup != null && selectedTeam.getTeam() != null) {
+    	if (selectedTeam != null && currentGroup != null && selectedTeam.getTeam() != null) {
     		Team team = selectedTeam.getTeam();
-    		walkingDinnerController.getGroupController().setHostingTeam(selectedGroup, team);
+    		walkingDinnerController.getGroupController().setHostingTeam(currentGroup, team);
     		refreshSelectedGroupList();
     	}
     }
@@ -122,7 +123,8 @@ public class TabGroupsController implements TeamsAUI {
     	Course course = cbCourse.getSelectionModel().getSelectedItem();
     	if (course != null) {
     		walkingDinnerController.getGroupController().setCourse(course);
-    		selectedGroup = null; // no group is now selected
+    		System.out.println("Set selectedGroup to null");
+    		currentGroup = null; // no group is now selected
     		refreshAll();
     	}
     }
@@ -204,7 +206,9 @@ public class TabGroupsController implements TeamsAUI {
     	listGroups.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<model.Group>() {
     	    @Override
     	    public void changed(ObservableValue<? extends model.Group> observable, model.Group oldValue, model.Group newValue) {
-    	        selectedGroup = newValue;
+    	    	if (newValue != null) {
+    	    		currentGroup = newValue;
+    	    	}
     	        refreshSelectedGroupList();
     	        refreshWarnings();
     	    }
@@ -326,30 +330,21 @@ public class TabGroupsController implements TeamsAUI {
      * Refreshes group list
      */
     private void refreshGroupList() {
-    	// Save selected group and the id
-    	//int selectionIndex = ListGroups.getSelectionModel().getSelectedIndex();
-    	model.Group selectedGroup = listGroups.getSelectionModel().getSelectedItem();
-    	
     	// fill groups list
     	listGroups.getItems().clear();
     	List<model.Group> groups = walkingDinnerController.getGroupController().getGroups();
     	listGroups.getItems().addAll(groups);
     	
-    	// reset selected group, if group empty
-    	if (selectedGroup != null && selectedGroup.getParticipants().size() == 0) {
-    		this.selectedGroup = null;
-    		refreshSelectedGroupList();
-    		refreshWarnings();
-    	} else {
-    		listGroups.getSelectionModel().select(selectedGroup);
+    	if (currentGroup != null && groups.contains(currentGroup)) {
+    		listGroups.getSelectionModel().select(currentGroup);
     	}
     }
     
     
     private void refreshSelectedGroupList() {
     	listSelectedGroup.getItems().clear();
-    	if (this.selectedGroup != null) {
-        	List<SelectedGroupTeam> teams = addFromGroup(this.selectedGroup);
+    	if (currentGroup != null) {
+        	List<SelectedGroupTeam> teams = addFromGroup(currentGroup);
         	listSelectedGroup.getItems().addAll(teams);
     	}
     }
@@ -365,8 +360,8 @@ public class TabGroupsController implements TeamsAUI {
     private void refreshWarnings() {
     	textWarnings.clear();
     	
-    	if (selectedGroup != null) {
-    		List<String> warnings = walkingDinnerController.getConsistencyController().getWarnings(selectedGroup);
+    	if (currentGroup != null) {
+    		List<String> warnings = walkingDinnerController.getConsistencyController().getWarnings(currentGroup);
     		
     		String warningText = "";
     		for (String line : warnings) {
