@@ -1,5 +1,6 @@
 package application;
 	
+import java.util.ArrayList;
 import java.util.List;
 
 import controller.TestDataFactory;
@@ -20,18 +21,29 @@ private WalkingDinnerController walkingDinnerController;
 	
 	@Override
 	public void init() throws Exception { //Beispielprojekt muss später ruas
+		
+		
 		//walkingDinnerController = new WalkingDinnerController();
 		walkingDinnerController = TestDataFactory.createTestWalkingDinnerController();
 		//walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel("beispielprojekt"));
 		Event newEvent = TestDataFactory.createTestEvent();
+		walkingDinnerController.getWalkingDinner().setCurrentEvent(null);
+		walkingDinnerController.getWalkingDinner().setEvents(new ArrayList<Event>());;
 		newEvent.setName("TestEvent mit Schedule von Factory");
 		List<Event> evList = walkingDinnerController.getWalkingDinner().getEvents();
 		if(!evList.contains(newEvent)) {
-			evList.add(newEvent);
+		//	evList.add(newEvent);
+			evList.add(TestDataFactory.createConsistentEvent());
 		}
 		walkingDinnerController.saveModel(walkingDinnerController.getWalkingDinner(),"beispielprojekt");
 		//walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel("beispielprojekt"));
 
+
+//		walkingDinnerController = new WalkingDinnerController();
+//		walkingDinnerController.setWalkingDinner(TestDataFactory.getWalkingDinner());
+//		List<Event> allEvents = walkingDinnerController.getWalkingDinner().getEvents();
+//		allEvents.add(TestDataFactory.createConsistentEvent());
+//		walkingDinnerController.getWalkingDinner().setEvents(allEvents);
 	}
 
 	@Override	

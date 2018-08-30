@@ -290,6 +290,8 @@ public class ConsistencyController {// headerCommentRequirement Required
 	public List<String> checkGroupCourses(Group group)
 	{
 		List<String> warnings = new ArrayList<String>();
+		
+		/*
 		GroupController groupController = walkingDinnerController.getGroupController();
 		
 		for(int i = 0; i< groupController.getGroups().size(); i++){
@@ -304,7 +306,28 @@ public class ConsistencyController {// headerCommentRequirement Required
 				}
 			}
 			
-		}			
+		}		*/
+		GroupController groupController = walkingDinnerController.getGroupController();
+		Course currentCourse = walkingDinnerController.getWalkingDinner().getCurrentEvent().getSchedule().getCurrentCourse();
+		
+		for(Team team: group.getTeams()){
+			List<Group> restGroups = new ArrayList<Group>();
+			restGroups.addAll(groupController.getGroups());
+			restGroups.remove(group);
+			
+			for(Group curGroup: restGroups){
+				
+				if(curGroup.getTeams().contains(team) && !groupController.getCourse().equals( currentCourse)){
+					String warning = "Team mit Gastgeber " + team.getHost().getPerson().getName() + 
+							" im Gang " +groupController.getCourse() + " kommt in mehreren Gruppen vor. \n";
+				//warning += "Die andere Gruppe besteht aus Gruppe mit Gastgeber: "+groupController.getGroups().get(i).getHostTeam().getHost().getPerson().getName();	
+				warnings.add(warning);	
+				}
+			}
+			
+		}
+		
+		
 		return warnings;
 	}
 	

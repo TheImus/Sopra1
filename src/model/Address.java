@@ -21,10 +21,10 @@ public class Address implements Serializable {
 		this.addressAdditional = "";
 	}
 	
-	public Address(String City, String street, String zipCode) {
-		this.street = "";
-		this.city = "";
-		this.zipCode = "";
+	public Address(String city, String street, String zipCode) {
+		this.street = street;
+		this.city = city;
+		this.zipCode = zipCode;
 		this.addressAdditional = "";
 	}
 	

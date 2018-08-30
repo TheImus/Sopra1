@@ -185,6 +185,14 @@ public class TabGroupsController implements TeamsAUI {
 		        } else {
 		        	Team hostingTeam = item.getHostTeam();
 		        	if (hostingTeam != null) {
+
+		        		System.out.println("next");
+		        		System.out.println(hostingTeam);
+		        		System.out.println("next");
+		        		System.out.println(hostingTeam.getHost());
+		        		System.out.println("next");
+		        		System.out.println(hostingTeam.getHost().getPerson());
+		        		System.out.println("next");
 		        		setText(hostingTeam.getHost().getPerson().getName() + "'s Gruppe");
 		        		// alert inconsistent
 		        		if (walkingDinnerController.getConsistencyController().getWarnings(item).size() > 0) {
