@@ -274,7 +274,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 			
 			knowingList = knownPersons.get(person.get(i));							//get the knowing relations for a person
 			for(int j = i+1; j<person.size();j++) {														
-				if(knowingList.contains(person.get(j))){										//check if another person is in the knowing relations list
+				if(knowingList!=null && knowingList.contains(person.get(j))){										//check if another person is in the knowing relations list
 					warnings.add(person.get(i).getName() + " und" + person.get(j).getName() + " kennen sich");	    //save warning if so
 				}
 			}		

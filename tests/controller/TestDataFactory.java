@@ -377,11 +377,32 @@ public class TestDataFactory {
 		Team team13 = new Team(participant13, participant14);
 		Team team15 = new Team(participant15, participant16);
 		Team team17 = new Team(participant17, participant18);
-		//Group group1 = new Group(, , );
-		//Group group2 = new Group(, , );
-		//Group group3 = new Group(, , );
+		Group group1 = new Group(team1, team9, team17);
+		Group group2 = new Group(team5, team7, team15);
+		Group group3 = new Group(team3, team11, team13);
+		Group group4 = new Group(team1, team3, team5);
+		Group group5 = new Group(team7, team9, team11);
+		Group group6 = new Group(team13, team15, team17);
+		Group group7 = new Group(team5, team9, team13);
+		Group group8 = new Group(team1, team11, team15);
+		Group group9 = new Group(team3, team7, team17);
 		Schedule schedule = new Schedule();
-		List<Participant> partTimers = new ArrayList<Participant>();
+		ArrayList<Group> listStarter = new ArrayList<Group>();
+		ArrayList<Group> listMain = new ArrayList<Group>();
+		ArrayList<Group> listDessert = new ArrayList<Group>();
+		listStarter.add(group1);
+		listStarter.add(group2);
+		listStarter.add(group3);
+		listMain.add(group4);
+		listMain.add(group5);
+		listMain.add(group6);
+		listDessert.add(group7);
+		listDessert.add(group8);
+		listDessert.add(group9);
+		schedule.setGroup(Course.STARTER, listStarter);
+		schedule.setGroup(Course.MAIN, listMain);
+		schedule.setGroup(Course.DESSERT, listDessert);
+		/*List<Participant> partTimers = new ArrayList<Participant>();
 		partTimers.add(participant1);
 		partTimers.add(participant2);
 		partTimers.add(participant3);
@@ -400,8 +421,9 @@ public class TestDataFactory {
 		partTimers.add(participant16);
 		partTimers.add(participant17);
 		partTimers.add(participant18);	
-		event.setParticipants(partTimers);
+		event.setParticipants(partTimers);*/
 		//getWalkingDinner().gewalkingDinnerController
+		event.setSchedule(schedule);
 		return event;
 	}
 	
