@@ -189,9 +189,9 @@ public class ConsistencyController {// headerCommentRequirement Required
 		warnings.addAll(checkGroupCourses(group));
 	    List<Restriction> differentR = getDifferentRestrictionsFor(allParticipantsInGroup);
 	    if(differentR != null && !differentR.isEmpty()) {										
-			String warning = "Folgende Restriktionen könnten für Gruppen Problematisch sein: " + 
+			String warning = "Folgende Restriktionen könnten für Gruppen problematisch sein: " + 
 					getText(differentR) + 
-					".\n  Bitte überprüfen sie diese für folgende Teams: ";
+					".\nBitte überprüfen sie diese für folgende Teams: ";
 	    	for(Team team : group.getTeams()){
 	    		warning += team.getHost().getPerson().getName() + "'s Team, ";
 	    	}
@@ -275,7 +275,7 @@ public class ConsistencyController {// headerCommentRequirement Required
 			knowingList = knownPersons.get(person.get(i));							//get the knowing relations for a person
 			for(int j = i+1; j<person.size();j++) {														
 				if(knowingList!=null && knowingList.contains(person.get(j))){										//check if another person is in the knowing relations list
-					warnings.add(person.get(i).getName() + " und" + person.get(j).getName() + " kennen sich");	    //save warning if so
+					warnings.add(person.get(i).getName() + " und " + person.get(j).getName() + " kennen sich");	    //save warning if so
 				}
 			}		
 		}
