@@ -268,10 +268,10 @@ public class EventOverviewController {
     	File file = fileChooser.showOpenDialog(null);
     	
     	
-
-    	walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel(file.getPath()));
-    	walkingDinnerController.getWalkingDinner().setFileName(file.getPath());
-    	
+    	if(file != null){
+	    	walkingDinnerController.setWalkingDinner(walkingDinnerController.loadModel(file.getPath()));
+	    	walkingDinnerController.getWalkingDinner().setFileName(file.getPath());
+    	}
     	init();
             	
     
