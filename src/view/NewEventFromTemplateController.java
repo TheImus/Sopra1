@@ -1,10 +1,6 @@
 package view;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-
-import com.sun.prism.paint.Color;
-
 import controller.EventController;
 import controller.WalkingDinnerController;
 import javafx.event.ActionEvent;
@@ -13,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -263,7 +258,7 @@ public class NewEventFromTemplateController {
     
     public void refresh(){
     	if(walkingDinnerController.getWalkingDinner().getCurrentEvent() != null){
-    		BtnCreateEvent.setText("Änderungen Speichern");
+    		BtnCreateEvent.setText("Änderungen speichern");
     		Event currentEvent = walkingDinnerController.getWalkingDinner().getCurrentEvent();
     		TextEventName.setText(currentEvent.getName());
     		PickerDate.setValue(currentEvent.getDate());

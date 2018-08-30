@@ -15,19 +15,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.sun.corba.se.spi.ior.MakeImmutable;
-import com.sun.webkit.ThemeClient;
-import com.sun.xml.internal.ws.db.glassfish.BridgeWrapper;
 
-import jdk.internal.cmm.SystemResourcePressureImpl;
-import jdk.nashorn.internal.ir.WithNode;
-import model.WalkingDinner;
 import model.Course;
 import model.Event;
 import model.Participant;
 import model.Person;
 import model.Schedule;
-import model.Team;
 import model.Group;
 
 
