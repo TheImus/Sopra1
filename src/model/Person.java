@@ -19,6 +19,13 @@ public class Person implements Serializable{
 		this.birthDate = LocalDate.now();
 		this.phoneNumber = "";
 	}
+	
+	public Person(String name, LocalDate birthDate, String phoneNumber) {
+		this.name = name;
+		this.mailAddress = "";
+		this.birthDate = birthDate;
+		this.phoneNumber = phoneNumber;
+	}
 
 	public String getName() {
 		return name;

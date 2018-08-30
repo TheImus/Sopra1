@@ -17,6 +17,12 @@ public class Restriction implements Serializable{
 		this.permanent = false;
 		this.participant = new ArrayList<Participant>();
 	}
+	
+	public Restriction(String name) {
+		this.name = name;
+		this.permanent = false;
+		this.participant = new ArrayList<Participant>();
+	}
 
 	public void removeParticipant(Participant oldParticipant) {
 		oldParticipant.removeRestriction(this);
