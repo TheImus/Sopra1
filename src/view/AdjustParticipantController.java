@@ -23,6 +23,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 	import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -108,7 +109,7 @@ import model.Restriction;
 	    
 	    private WalkingDinnerController walkingDinnerController;
 	    
-	    private RestrictionController restrictionController = walkingDinnerController.getRestrictionController();
+	    private RestrictionController restrictionController;
 	    
 	    
 	    public WalkingDinnerController getWalkingDinnerController() {
@@ -299,6 +300,8 @@ import model.Restriction;
 	   			
 	   			Scene scene = new Scene(root);
 	   			
+	   			Tab tabOverview = tabsOverviewController.getTabParticipant();
+	   			tabOverview.getTabPane().getSelectionModel().select(tabOverview);
 	   			((Stage)GridPaneAdjustParticipant.getScene().getWindow()).setScene(scene);
 	   			walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(null);
 	   			
@@ -458,7 +461,6 @@ import model.Restriction;
 	    
 	    @FXML
 	    void OnParticipantActionSelected(ActionEvent event){
-	    	EdPlace.setText("hal");
 	    }
 
 	    @FXML
@@ -570,6 +572,27 @@ import model.Restriction;
 	    			//List<Restriction> restList = getRestrictions();
 	    			//restCont.setParticipantRestrictions(restList);
 	    		}
+	    		
+	    		try {
+		   			GridPane root = new GridPane();
+		   			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
+		   			root = loader.load();
+		   			
+		   			TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
+		   			tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
+		   			tabsOverviewController.init();
+		   			
+		   			Scene scene = new Scene(root);
+		   			
+		   			Tab tabOverview = tabsOverviewController.getTabParticipant();
+		   			tabOverview.getTabPane().getSelectionModel().select(tabOverview);
+		   			
+		   			((Stage)GridPaneAdjustParticipant.getScene().getWindow()).setScene(scene);
+		   			walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(null);
+		   			
+		   		} catch(Exception e) {
+		   			e.printStackTrace();
+		   		}
 	    	}
 	    }
 
