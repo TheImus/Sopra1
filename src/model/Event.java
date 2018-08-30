@@ -50,15 +50,15 @@ public class Event implements Serializable{
 		this.participants = new ArrayList<Participant>();
 		this.restriction = new ArrayList<Restriction>();
 		Restriction vegan = new Restriction();
-		vegan.setName("Vegan");
+		vegan.setName("Veganer");
 		vegan.setPermanent(true);
 		this.restriction.add(vegan);
 		Restriction vegetarian = new Restriction();
-		vegetarian.setName("Vegetarian");
+		vegetarian.setName("Vegetarier");
 		vegetarian.setPermanent(true);
 		this.restriction.add(vegetarian);
 		Restriction noAlcohol = new Restriction();
-		noAlcohol.setName("noAlcohol");
+		noAlcohol.setName("Kein Alkohol");
 		noAlcohol.setPermanent(true);
 		this.restriction.add(noAlcohol);
 		this.schedule = new Schedule();

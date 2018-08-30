@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -84,7 +85,7 @@ public class NewEventFromTemplateController {
     	
     	// check of free text
     	try{
-    		TextEventName.setStyle("-fx-background-color: white;");
+    		TextEventName.setStyle("-fx-border-color: grey;");
     		eventController.setEventName(TextEventName.getText());
     		if(TextEventName.getText().equals(""))
     			throw new Exception();
@@ -99,7 +100,7 @@ public class NewEventFromTemplateController {
     	}
     	
     	try{
-    		TextPlace.setStyle("-fx-background-color: white;");
+    		TextPlace.setStyle("-fx-border-color: grey;");
     		eventController.setEventPlace(TextPlace.getText());
     		if(TextPlace.getText().equals(""))
     			throw new Exception();
@@ -110,7 +111,7 @@ public class NewEventFromTemplateController {
     	}
     	
     	try{
-    		TextEventDetails.setStyle("-fx-background-color: white;");
+    		TextEventDetails.setStyle("-fx-border-color: grey;");
     		if(TextEventDetails.getText().equals(""))
     			throw new Exception();
     		eventController.setEventDescription(TextEventDetails.getText());
@@ -126,20 +127,20 @@ public class NewEventFromTemplateController {
     	//date things
     	
     	try{
-    		PickerDate.setStyle("-fx-background-color: white;");
+    		PickerDate.setStyle("-fx-border-color: grey;");
     		if(PickerDate.getValue() == null)
     			throw new Exception();
 
     		eventController.setEventDate(PickerDate.getValue());
     	}
     	catch(Exception e){
-    		PickerDate.setStyle("-fx-background-color: red;");
+    		PickerDate.setStyle("-fx-border-color: red;");
 
     		passed=false;
     	}
     	
     	try{
-    		PickerDeadline.setStyle("-fx-background-color: white;");
+    		PickerDeadline.setStyle("-fx-border-color: grey;");
     		if(PickerDeadline.getValue() == null)
     			throw new IllegalArgumentException("kein Value");
     		if(PickerDeadline.getValue().isAfter(PickerDate.getValue()))
@@ -147,12 +148,12 @@ public class NewEventFromTemplateController {
     		eventController.setDeadline(PickerDeadline.getValue());
     	}
     	catch(IllegalArgumentException e){
-    		PickerDeadline.setStyle("-fx-background-color: red;");
+    		PickerDeadline.setStyle("-fx-border-color: red;");
     		passed=false;
     	}
     	catch(Exception e){
     		
-    		PickerDeadline.setStyle("-fx-background-color: orange;");	
+    		PickerDeadline.setStyle("-fx-border-color: orange;");	
     		passed=false;
     	}
     	
@@ -160,7 +161,7 @@ public class NewEventFromTemplateController {
     	
     	//time things
     	try{
-    		TextStarter.setStyle("-fx-background-color: white;");
+    		TextStarter.setStyle("-fx-border-color: grey;");
     		eventController.setCourseTime(Course.STARTER, LocalTime.parse(TextStarter.getText()));
     	}
     	catch(Exception e){
@@ -169,7 +170,7 @@ public class NewEventFromTemplateController {
     	}
     	
     	try{
-    		TextMain.setStyle("-fx-background-color: white;");
+    		TextMain.setStyle("-fx-border-color: grey;");
     		if(LocalTime.parse(TextStarter.getText()).isAfter(LocalTime.parse(TextMain.getText()))) 
     			throw new Exception("Zeit");
     		eventController.setCourseTime(Course.MAIN, LocalTime.parse(TextMain.getText()));
@@ -182,7 +183,7 @@ public class NewEventFromTemplateController {
     	}
     	
     	try{
-    		TextDessert.setStyle("-fx-background-color: white;");
+    		TextDessert.setStyle("-fx-border-color: grey;");
     		if(LocalTime.parse(TextMain.getText()).isAfter(LocalTime.parse(TextDessert.getText()))&& 
     				LocalTime.parse(TextStarter.getText()).isAfter(LocalTime.parse(TextDessert.getText()))) 
     			throw new Exception("Zeit");
@@ -224,17 +225,32 @@ public class NewEventFromTemplateController {
     @FXML
     void onDispose(ActionEvent event) {
     	try {
-			BorderPane root = new BorderPane();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EventOverview.fxml"));
-			root = loader.load();
 			
-			EventOverviewController eventOverviewController = (EventOverviewController) loader.getController();
-			eventOverviewController.setWalkingDinnerController(walkingDinnerController);
-			eventOverviewController.refresh();
-			Scene scene = new Scene(root);
+    		if(walkingDinnerController.getWalkingDinner().getCurrentEvent()==null){
+    			BorderPane root = new BorderPane();
+    			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EventOverview.fxml"));
+    			root = loader.load();
+			
+    			EventOverviewController eventOverviewController = (EventOverviewController) loader.getController();
+    			eventOverviewController.setWalkingDinnerController(walkingDinnerController);
+    			eventOverviewController.refresh();
+    			Scene scene = new Scene(root);
 			
 			
 			((Stage)gridPaneNewEvent.getScene().getWindow()).setScene(scene);
+    		}
+    		else{
+    			GridPane root = new GridPane();
+	   			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
+	   			root = loader.load();
+	   			
+	   			TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
+	   			tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
+	   			tabsOverviewController.init();
+	   			Scene scene = new Scene(root);
+	   			
+	   			((Stage)gridPaneNewEvent.getScene().getWindow()).setScene(scene);
+    		}
 			
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -1,10 +1,12 @@
 package view;
 
-	import java.util.ArrayList;
+	import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import controller.ParticipantAction;
+import controller.ParticipantController;
 import controller.WalkingDinnerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,12 +22,12 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 	import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Address;
 import model.Course;
 import model.Event;
 import model.Participant;
@@ -98,9 +100,91 @@ import model.Restriction;
 	    
 	    private WalkingDinnerController walkingDinnerController;
 	    
+	    
 	    public WalkingDinnerController getWalkingDinnerController() {
 			return walkingDinnerController;
 		}
+	    
+	    
+	    public boolean validate(ActionEvent event){
+	    	boolean passed = true;
+	    	Participant current;
+	    	
+	    	ParticipantController participantController = walkingDinnerController.getParticipantController();
+	    	if(walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant() == null)
+	    	{
+	    		current = new Participant();
+	    	}
+	    	else{
+		    	current = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
+	    	}
+	    	
+	    	try{
+	    		EdName.setStyle("-fx-border-color: grey;");
+	    		if(EdName.getText().equals(""))
+	    			throw new IllegalArgumentException();
+	    		participantController.setName(EdName.getText());
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		EdName.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	try{
+	    		EdStreet.setStyle("-fx-border-color: grey;");
+	    		if(EdStreet.getText().equals(""))
+	    			throw new IllegalArgumentException();
+	    		Address address = new Address();
+	    		address.setAddressAdditional(EdStreet.getText());
+	    		
+	    		
+	    		participantController.setAddress(address);
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		EdStreet.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	try{
+	    		EdZipCode.setStyle("-fx-border-color: grey;");
+	    		if(!isValidZipCode())
+	    			throw new IllegalArgumentException();
+	    		Address address = new Address();
+	    		address.setAddressAdditional(EdZipCode.getText());		
+	    		participantController.setAddress(address);
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		EdZipCode.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	
+	    	
+	    	try{
+	    		DateBirthday.setStyle("-fx-border-color: grey;");
+	    		if(DateBirthday.getValue() == null)
+	    			throw new IllegalArgumentException("kein Value");
+	    		if(DateBirthday.getValue().isAfter(LocalDate.now()))
+	    			throw new Exception("Zeit");
+	    		participantController.setBirthDate(DateBirthday.getValue());
+	    	}
+	    	catch(IllegalArgumentException e){
+	    		DateBirthday.setStyle("-fx-border-color: red;");
+	    		passed=false;
+	    	}
+	    	catch(Exception e){
+	    		
+	    		DateBirthday.setStyle("-fx-border-color: orange;");	
+	    		passed=false;
+	    	}
+	    	
+	    	
+	    	
+	    	if(passed)
+	    		walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(current);
+	    	
+	    	return passed;
+	    }
+	    
 
 
 		public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
@@ -121,10 +205,18 @@ import model.Restriction;
 	    				}
 	    				
 	    			}
+	    	
 	    		});
+	    	List<ParticipantAction> actionList = walkingDinnerController.getParticipantActionController().getPossibleActions();
+	    	System.out.println(actionList.size());
+	    	for(ParticipantAction action : actionList){
+	    		CbAction.getItems().add(action);
+	    	}
+	    		 
 	    	
 	    	LvRestrictions.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 	    	
+	    	/*
     		CheckBox alcohol = new CheckBox();
     		alcohol.setText("Kein Alkohol");
     		
@@ -137,7 +229,15 @@ import model.Restriction;
     		
     		LvRestrictions.getItems().add(alcohol);
     		LvRestrictions.getItems().add(vegetarian);
-    		LvRestrictions.getItems().add(vegan);
+    		LvRestrictions.getItems().add(vegan);*/
+	    	
+	    	List<Restriction> restrList = walkingDinnerController.getWalkingDinner().getCurrentEvent().getRestriction();
+	    	for(Restriction restr : restrList){
+	    		String restrName = restr.getName();
+	    		CheckBox restriction = new CheckBox();
+	    		restriction.setText(restrName);
+	    		LvRestrictions.getItems().add(restriction);
+	    	}
 	    	
 	    	refresh();
 	    	
@@ -164,12 +264,7 @@ import model.Restriction;
 
 	    @FXML
 	    void OnCancel(ActionEvent event) {
-	    	 returnToTabOverview();
-	    }
-
-
-		private void returnToTabOverview() {
-			try {
+	    	 try {
 	   			GridPane root = new GridPane();
 	   			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TabsOverview.fxml"));
 	   			root = loader.load();
@@ -177,16 +272,16 @@ import model.Restriction;
 	   			TabsOverviewController tabsOverviewController = (TabsOverviewController) loader.getController();
 	   			tabsOverviewController.setWalkingDinnerController(walkingDinnerController);
 	   			tabsOverviewController.init();
+	   			
 	   			Scene scene = new Scene(root);
 	   			
-	   			Tab TabParticipant = tabsOverviewController.getTabParticipant();
-	   			TabParticipant.getTabPane().getSelectionModel().select(TabParticipant);
 	   			((Stage)GridPaneAdjustParticipant.getScene().getWindow()).setScene(scene);
+	   			walkingDinnerController.getWalkingDinner().getCurrentEvent().setCurrentParticipant(null);
 	   			
 	   		} catch(Exception e) {
 	   			e.printStackTrace();
 	   		}
-		}
+	    }
 	    
 	    @FXML
 	    void onEditRestriction(ActionEvent event) {
@@ -196,12 +291,16 @@ import model.Restriction;
 	    	List<Restriction> participantRestrictions = currentParticipant.getRestrictions();
 	    	
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
+	    	String restrName = cb.getText();
 	    	
-	    	String newName = EdRestriction.getText();
-	    	cb.setText(newName);
+	    	if(!(restrName.equals("Kein Alkohol") || restrName.equals("Veganer") || restrName.equals("Vegetarier"))){
+		    	String newName = EdRestriction.getText();
+		    	cb.setText(newName);
+	    	}
 	    	
 	    	EdRestriction.clear();
 	    	
+	    	/*
 	    	for(Restriction restr : restrList) {
 	    		if(restr.getName().equals(cb.getText())) {
 	    			restr.setName(newName);
@@ -212,7 +311,7 @@ import model.Restriction;
 	    		if(restr.getName().equals(cb.getText())) {
 	    			restr.setName(newName);
 	    		}
-	    	}
+	    	}*/
 	    	
 	    }
 	    
@@ -224,8 +323,12 @@ import model.Restriction;
 	    	Participant currentParticipant = walkingDinnerController.getWalkingDinner().getCurrentEvent().getCurrentParticipant();
 	    	CheckBox cb = LvRestrictions.getSelectionModel().getSelectedItem();
 	    	String restrName = cb.getText();
+	    	
+	    	if(!(restrName.equals("Kein Alkohol") || restrName.equals("Veganer") || restrName.equals("Vegetarier"))){
+	    		LvRestrictions.getItems().remove(cb);
+	    	}
 
-    		
+    		/*
     		for(Restriction restr : restrList) {
     			if (restr.getName().equals(restrName)) {
     				
@@ -237,7 +340,7 @@ import model.Restriction;
     	    		
     	    		restrList.remove(restr);
     			}
-    		}
+    		}*/
     		
     		/*
     		if(!restr.isPermanent()) {
