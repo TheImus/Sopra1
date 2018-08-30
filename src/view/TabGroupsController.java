@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.TeamsAUI;
 import controller.WalkingDinnerController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -28,7 +29,7 @@ import model.Team;
  * @author Fabian Kemper
  *
  */
-public class TabGroupsController {
+public class TabGroupsController implements TeamsAUI {
     @FXML private ComboBox<Course> cbCourse;
     @FXML private Button btnSetAsCooking;
     @FXML private ListView<SelectedGroupTeam> listSelectedGroup;
@@ -131,6 +132,7 @@ public class TabGroupsController {
 
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
+		this.walkingDinnerController.getTeamController().setTeamsAUI(this);
 	}
 	
     /**
@@ -362,6 +364,9 @@ public class TabGroupsController {
     	}
     }
     
+    public void refreshTeams() {
+    	refreshAll();
+    }
     
     /** 
      * Helper class to distinguish between 

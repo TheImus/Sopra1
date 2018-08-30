@@ -8,8 +8,6 @@ import model.Group;
 import model.Participant;
 import model.Schedule;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +19,7 @@ import java.util.List;
 public class TeamController {
 
 	private WalkingDinnerController walkingDinnerController;
+	private TeamsAUI teamsAUI;
 
 	
 	public TeamController(WalkingDinnerController walkingDinnerController) {
@@ -38,6 +37,7 @@ public class TeamController {
 		WalkingDinner walkingDinner = walkingDinnerController.getWalkingDinner();
 		Event currentEvent = walkingDinner.getCurrentEvent();
 		currentEvent.addNewTeam(newTeam);
+		teamsAUI.refreshTeams();
 		return newTeam;
 	}
 
@@ -140,7 +140,7 @@ public class TeamController {
 				}
 			}
 		}
-
+		teamsAUI.refreshTeams();
 	}
 	
 	public void deleteTeamFromEvent(Team team){
@@ -243,6 +243,14 @@ public class TeamController {
 			team.setHost(participant);
 			team.getMembers().remove(participant);
 		}
+	}
+
+	public TeamsAUI getTeamsAUI() {
+		return teamsAUI;
+	}
+
+	public void setTeamsAUI(TeamsAUI teamsAUI) {
+		this.teamsAUI = teamsAUI;
 	}
 
 }
