@@ -120,9 +120,9 @@ public class WalkingDinnerController implements Serializable {
 	public static WalkingDinner loadModel(String fileName) {
 		try{
 			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(fileName));
-			WalkingDinner wd = (WalkingDinner) stream.readObject();
+			WalkingDinner walkingDinner = (WalkingDinner) stream.readObject();
 			stream.close();
-			return wd;
+			return walkingDinner;
 		}catch(ClassNotFoundException cnfex){
 			 System.err.println("Class of given Event couldn't be found");
 		}catch(IOException ioex){
