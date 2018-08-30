@@ -477,6 +477,12 @@ import model.Restriction;
 	    	
 	    	return validZipCode.matcher(zipCode).matches();
 	    }
+	    
+	    /*
+	    void updateRestrictions(){
+	    	List<CheckboxLvRestrictions.getItems();
+	    	
+	    }*/
 
 	}
 
