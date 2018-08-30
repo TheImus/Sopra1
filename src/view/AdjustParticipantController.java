@@ -67,7 +67,7 @@ import model.Restriction;
 	    private TextField EdRestriction;
 
 	    @FXML
-	    private ComboBox<String> CbWishCourse;
+	    private ComboBox<Course> CbWishCourse;
 
 	    @FXML
 	    private ComboBox<String> CbSearchBox;
@@ -134,38 +134,6 @@ import model.Restriction;
 	    		EdName.setStyle("-fx-border-color: red;");
 	    		passed=false;
 	    	}
-	    	
-	    	try{
-	    		EdPlace.setStyle("-fx-border-color: grey;");
-	    		if(EdPlace.getText().equals(""))
-	    			throw new IllegalArgumentException();
-	    	}
-	    	catch(IllegalArgumentException e){
-	    		EdPlace.setStyle("-fx-border-color: red;");
-	    		passed=false;
-	    	}
-	    	
-	    	try{
-	    		CbWishCourse.setStyle("-fx-border-color: grey;");
-	    		if(CbWishCourse.getSelectionModel().getSelectedItem() == null)
-	    			throw new IllegalArgumentException();
-	    	}
-	    	catch(IllegalArgumentException e){
-	    		CbWishCourse.setStyle("-fx-border-color: red;");
-	    		passed=false;
-	    	}
-	    	
-	    	try{
-	    		CbAction.setStyle("-fx-border-color: grey;");
-	    		if(CbAction.getSelectionModel().getSelectedItem() == null)
-	    			throw new IllegalArgumentException();
-	    	}
-	    	catch(IllegalArgumentException e){
-	    		CbAction.setStyle("-fx-border-color: red;");
-	    		passed=false;
-	    	}
-	    	
-	    	
 	    	
 	    	try{
 	    		EdStreet.setStyle("-fx-border-color: grey;");
@@ -244,6 +212,21 @@ import model.Restriction;
 	    			}
 	    	
 	    		});
+	    	
+	    	CbWishCourse.setCellFactory(actions ->
+    		new ListCell<Course>() {
+    			@Override protected void updateItem(Course item, boolean empty) {
+    				super.updateItem(item, empty);
+    				if (item != null) { 
+    					setText(item.toString()); 
+    				} else {
+    					setText("");
+    				}
+    				
+    			}
+    	
+    		});
+	    	
 	    	List<ParticipantAction> actionList = walkingDinnerController.getParticipantActionController().getPossibleActions();
 	    	System.out.println(actionList.size());
 	    	for(ParticipantAction action : actionList){
@@ -292,7 +275,7 @@ import model.Restriction;
 	    		DateBirthday.setValue(currentParticipant.getPerson().getBirthDate());
 	    		
 	    		Course courseWish = currentParticipant.getCourseWish();
-	    		CbWishCourse.setValue(courseWish.toString());  		
+	    		CbWishCourse.setValue(courseWish);  		
 	    		
 	    	}	
 	    }
@@ -506,7 +489,7 @@ import model.Restriction;
 	    
 	    @FXML
 	    void OnWishCourseClicked(MouseEvent event) {
-	    	CbWishCourse.getItems().addAll("Vorspeise","Hauptspeise","Nachspeise");
+	    	CbWishCourse.getItems().addAll(Course.STARTER,Course.MAIN,Course.DESSERT);
 	    }
 	    	    
 	    boolean isValidZipCode(){
@@ -518,6 +501,7 @@ import model.Restriction;
 	    
 	    @FXML
 	    void onBtnCallAction(ActionEvent event){
+
 	    	validate();
 	    }
 	    
@@ -530,6 +514,7 @@ import model.Restriction;
 	    		selectedRestrictions.add(selectedRestriction);
 	    	}
 	    	return selectedRestrictions;
+
 	    }
 
 	}
