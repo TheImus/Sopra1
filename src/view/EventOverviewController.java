@@ -1,6 +1,7 @@
 package view;
 
 import java.io.File;
+import java.net.URL;
 import java.util.List;
 
 import javax.swing.filechooser.FileFilter;
@@ -19,8 +20,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import junit.framework.Test;
 import javafx.stage.Stage;
 
 import controller.WalkingDinnerController;
@@ -80,6 +84,8 @@ public class EventOverviewController {
 	public void setWalkingDinnerController(WalkingDinnerController walkingDinnerController) {
 		this.walkingDinnerController = walkingDinnerController;
 	}    
+	
+
     
     public void refresh(){
     	
@@ -128,7 +134,6 @@ public class EventOverviewController {
     void onNewEvent(ActionEvent event){
     	// FIX java bug
     	borderPaneOutermost.setTop(null);
-    	
     	try {
     		walkingDinnerController.getWalkingDinner().setCurrentEvent(null);
 
